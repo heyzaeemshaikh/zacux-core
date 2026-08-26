@@ -2,7 +2,6 @@ import os
 import json
 from groq import Groq
 
-# Secret key automatic connect hoga
 api_key = os.environ.get("GROQ_API_KEY")
 
 if not api_key:
@@ -29,16 +28,32 @@ def run_zacux_brain():
     }
     """
     
-    # Active standard model
-    response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
-        messages=[{"role": "user", "content": prompt}],
-        response_format={"type": "json_object"}
-    )
+    candidate_models = [
+        "llama-3.3-70b-versatile",
+        "llama3-70b-8192",
+        "llama3-8b-8192",
+        "gemma2-9b-it"
+    ]
     
-    decision = response.choices[0].message.content
-    print("[ZACUX BRAIN DECISION]")
-    print(decision)
+    last_error = None
+    for model_name in candidate_models:
+        try:
+            print(f"[ATTEMPT] Trying model: {model_name}...")
+            response = client.chat.completions.create(
+                model=model_name,
+                messages=[{"role": "user", "content": prompt}],
+                response_format={"type": "json_object"}
+            )
+            print(f"[SUCCESS] Connected with model: {model_name}\n")
+            print("[ZACUX BRAIN DECISION]")
+            print(response.choices[0].message.content)
+            return
+        except Exception as e:
+            print(f"[WARN] {model_name} failed: {e}")
+            last_error = e
+
+    print(f"[FATAL] All candidate models failed: {last_error}")
+    exit(1)
 
 if __name__ == "__main__":
     run_zacux_brain()
