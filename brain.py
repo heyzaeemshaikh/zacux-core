@@ -2,7 +2,7 @@ import os
 import json
 from groq import Groq
 
-# Secret key se automatic connect hoga
+# Secret key automatic connect hoga
 api_key = os.environ.get("GROQ_API_KEY")
 
 if not api_key:
@@ -29,8 +29,9 @@ def run_zacux_brain():
     }
     """
     
+    # Active standard model
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="llama-3.1-8b-instant",
         messages=[{"role": "user", "content": prompt}],
         response_format={"type": "json_object"}
     )
