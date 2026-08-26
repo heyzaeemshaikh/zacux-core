@@ -2,8 +2,8 @@ name: ZACUX 24x7 Autopilot
 
 on:
   schedule:
-    - cron: '0 * * * *' # Har 1 ghante mein khud chalega
-  workflow_dispatch:      # Instant test ke liye manual button
+    - cron: '0 * * * *' # Har 1 ghante mein auto-run
+  workflow_dispatch:      # Manual trigger button
 
 jobs:
   execute-brain:
@@ -18,9 +18,10 @@ jobs:
           python-version: '3.11'
 
       - name: Install Libraries
-        run: pip install groq
+        run: pip install groq requests
 
       - name: Run ZACUX Autonomous Engine
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: python brain.py
