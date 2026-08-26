@@ -3,7 +3,7 @@ import json
 from groq import Groq
 
 # Secret key se automatic connect hoga
-api_key = os.environ.get("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")
+api_key = os.environ.get("GROQ_API_KEY")
 
 if not api_key:
     print("[ERROR] GROQ_API_KEY missing!")
