@@ -2,12 +2,14 @@ name: ZACUX 24x7 Autopilot
 
 on:
   schedule:
-    - cron: '0 * * * *' # Har 1 ghante mein auto-run
-  workflow_dispatch:      # Manual trigger button
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
 jobs:
   execute-brain:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -18,10 +20,17 @@ jobs:
           python-version: '3.11'
 
       - name: Install Libraries
-        run: pip install groq requests
+        run: pip install requests
 
       - name: Run ZACUX Autonomous Engine
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: python brain.py
+
+      - name: Auto-Commit Generated Asset
+        run: |
+          git config --global user.name "ZACUX Bot"
+          git config --global user.email "bot@zacux.internal"
+          git add index.html
+          git commit -m "Auto-generated digital product [ZACUX Engine]" || exit 0
+          git push
