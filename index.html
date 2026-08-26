@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en" class="dark" style="color-scheme: dark;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Product Profit Calculator</title>
+    <meta name="description" content="Discover your real profit potential and optimize pricing in 30 seconds. Free calculator for creators.">
+    <meta property="og:title" content="Digital Product Profit Calculator">
+    <meta property="og:description" content="Discover your real profit potential and optimize pricing in 30 seconds.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zacuxlabs.com/tools/digital-product-profit-calculator">
+    <meta name="twitter:card" content="summary_large_image">
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#6c63ff', hover: '#7b73ff', dark: '#5a52d5' },
+                        'accent-red': '#ff6b6b',
+                        'accent-green': '#48bb78',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #0b0e14;
+            color: #e2e8f0;
+        }
+
+        /* Slide-down animation */
+        .slide-down {
+            animation: slideDown .55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Gauge pop */
+        .gauge-pop {
+            animation: gaugePop .8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes gaugePop {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1a2030;
+            border: 1px solid #2a3142;
+            padding: 12px 24px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1), opacity .35s ease;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Input focus */
+        .input-field {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #2a3142;
+            background: #1a2030;
+            color: #e2e8f0;
+            padding: 12px 16px;
+            font-size: 15px;
+            transition: border-color .2s, box-shadow .2s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        .input-field::placeholder {
+            color: #64748b;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #6c63ff;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.25);
+        }
+        .input-field:hover:not(:focus) {
+            border-color: #3a4152;
+        }
+        select.input-field {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%2394a3b8' viewBox='0 0 12 8'%3E%3Cpath d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+        select.input-field option {
+            background: #1a2030;
+            color: #e2e8f0;
+        }
+
+        /* Label */
+        .field-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-bottom: 6px;
+        }
+
+        /* Range hint */
+        .range-hint {
+            font-size: 11px;
+            color: #475569;
+            margin-top: 4px;
+        }
+
+        /* Button primary */
+        .btn-primary {
+            background: #6c63ff;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 12px;
+            padding: 14px 32px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: all .25s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary:hover {
+            background: #7b73ff;
+            box-shadow: 0 8px 30px rgba(108, 99, 255, 0.35);
+            transform: translateY(-2px);
+        }
+        .btn-primary:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.25);
+        }
+        .btn-primary:focus-visible {
+            outline: 3px solid rgba(108, 99, 255, 0.5);
+            outline-offset: 2px;
+        }
+
+        /* Share buttons */
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid #2a3142;
+            background: #1a2030;
+            color: #cbd5e1;
+            transition: all .2s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .share-btn:hover {
+            border-color: #6c63ff;
+            color: #fff;
+            background: #222a3d;
+            transform: translateY(-1px);
+        }
+        .share-btn:focus-visible {
+            outline: 3px solid rgba(108, 99, 255, 0.5);
+            outline-offset: 2px;
+        }
+
+        /* Stat card */
+        .stat-card {
+            background: #141925;
+            border: 1px solid #23293a;
+            border-radius: 16px;
+            padding: 24px;
+            transition: border-color .2s, transform .2s;
+        }
+        .stat-card:hover {
+            border-color: #323b52;
+        }
+
+        /* Focus visible for links */
+        a:focus-visible {
+            outline: 3px solid rgba(108, 99, 255, 0.5);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0e14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a3142;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3a4152;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[#0b0e14] text-gray-200 antialiased font-sans">
+
+    <!-- Toast -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="pt-16 pb-10 text-center px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-flex items-center gap-2 bg-[#141925] rounded-full px-5 py-2 border border-[#23293a] shadow-sm">
+                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+                <span class="text-sm font-semibold text-gray-200">Digital Product Profit Calculator</span>
+            </div>
+
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mt-8 leading-tight tracking-tight">
+                Discover your real<br class="hidden md:block"> profit potential
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 mt-4 max-w-xl mx-auto">Optimize pricing and know exactly what you earn in 30 seconds.</p>
+
+            <!-- Social proof -->
+            <div class="flex items-center justify-center gap-3 mt-8">
+                <div class="flex -space-x-2.5">
+                    <div class="w-9 h-9 rounded-full bg-purple-500 border-2 border-[#0b0e14] flex items-center justify-center text-[10px] font-bold text-white">JD</div>
+                    <div class="w-9 h-9 rounded-full bg-blue-500 border-2 border-[#0b0e14] flex items-center justify-center text-[10px] font-bold text-white">SK</div>
+                    <div class="w-9 h-9 rounded-full bg-emerald-500 border-2 border-[#0b0e14] flex items-center justify-center text-[10px] font-bold text-white">AM</div>
+                    <div class="w-9 h-9 rounded-full bg-pink-500 border-2 border-[#0b0e14] flex items-center justify-center text-[10px] font-bold text-white">+12k</div>
+                </div>
+                <span class="text-sm text-gray-400 font-medium">Trusted by 12,000+ creators</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main>
+
+        <!-- Calculator Form -->
+        <section class="px-4 pb-10">
+            <div class="max-w-2xl mx-auto bg-[#141925] rounded-2xl border border-[#23293a] shadow-xl p-6 md:p-10">
+                <form id="calculatorForm" novalidate>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                        <div>
+                            <label for="productType" class="field-label">Product Type</label>
+                            <select id="productType" class="input-field" required>
+                                <option value="Ebook">Ebook</option>
+                                <option value="Online Course">Online Course</option>
+                                <option value="Template">Template</option>
+                                <option value="Software">Software</option>
+                                <option value="Membership">Membership</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="price" class="field-label">One-time Price ($)</label>
+                            <input type="number" id="price" min="5" max="5000" step="0.01" value="49" placeholder="49" class="input-field" required>
+                            <p class="range-hint">$5 – $5,000</p>
+                        </div>
+
+                        <div>
+                            <label for="sales" class="field-label">Monthly Sales</label>
+                            <input type="number" id="sales" min="1" max="1000" step="1" value="30" placeholder="30" class="input-field" required>
+                            <p class="range-hint">1 – 1,000</p>
+                        </div>
+
+                        <div>
+                            <label for="cost" class="field-label">Cost per Sale ($)</label>
+                            <input type="number" id="cost" min="0" max="100" step="0.01" value="2" placeholder="2" class="input-field" required>
+                            <p class="range-hint">0 – 100 (fees, ads, hosting)</p>
+                        </div>
+
+                        <div>
+                            <label for="hours" class="field-label">Monthly Time Spent (hours)</label>
+                            <input type="number" id="hours" min="1" max="200" step="0.5" value="20" placeholder="20" class="input-field" required>
+                            <p class="range-hint">1 – 200 hours</p>
+                        </div>
+
+                        <div>
+                            <label for="worth" class="field-label">Your Hourly Worth ($)</label>
+                            <input type="number" id="worth" min="5" max="200" step="1" value="50" placeholder="50" class="input-field" required>
+                            <p class="range-hint">$5 – $200 / hour</p>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-8 text-center">
+                        <button type="submit" class="btn-primary w-full md:w-auto md:min-w-[280px] text-lg py-4">
+                            Calculate Profit
+                        </button>
+                        <p class="text-sm text-gray-500 mt-4">No email required. Instant results.</p>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="px-4 pb-10 hidden" aria-live="polite">
+            <div class="max-w-4xl mx-auto">
+
+                <!-- Stat Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="stat-card">
+                        <p class="text-sm text-gray-400 font-medium">Gross Monthly Revenue</p>
+                        <p id="grossRevenue" class="text-3xl font-bold text-white mt-2 tabular-nums">$0</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="text-sm text-gray-400 font-medium">Net Profit</p>
+                        <p id="netProfit" class="text-3xl font-bold text-accent-green mt-2 tabular-nums">$0</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="text-sm text-gray-400 font-medium">Profit Margin</p>
+                        <p id="profitMargin" class="text-3xl font-bold text-primary mt-2 tabular-nums">0%</p>
+                    </div>
+                </div>
+
+                <!-- Chart + Gauge -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="bg-[#141925] rounded-2xl border border-[#23293a] p-6">
+                        <h3 class="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Revenue vs Costs</h3>
+                        <svg id="barChart" class="w-full" role="img" aria-label="Bar chart comparing revenue, costs, and net profit"></svg>
+                    </div>
+                    <div class="bg-[#141925] rounded-2xl border border-[#23293a] p-6 flex flex-col items-center justify-center">
+                        <h3 class="font-semibold text-white mb-2 text-sm uppercase tracking-wide self-start">Profit Score</h3>
+                        <div class="gauge-pop" id="gaugeContainer">
+                            <svg id="gauge" viewBox="0 0 200 125" class="w-56 md:w-64" role="img" aria-label="Profit score gauge"></svg>
+                        </div>
+                        <p class="text-sm text-gray-400 mt-2"><span id="scoreLabel" class="font-semibold">—</span> out of 100</p>
+                    </div>
+                </div>
+
+                <!-- Recommendation -->
+                <div class="bg-[#141925] rounded-2xl border border-[#23293a] p-6 mt-4">
+                    <h3 class="font-semibold text-white mb-2 text-sm uppercase tracking-wide">💡 Recommendation</h3>
+                    <p id="recommendation" class="text-gray-300 text-md leading-relaxed"></p>
+                </div>
+
+                <!-- Share -->
+                <div class="bg-[#141925] rounded-2xl border border-[#23293a] p-6 mt-4">
+                    <h3 class="font-semibold text-white mb-4 text-sm uppercase tracking-wide">Share your result</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <a id="shareTwitter" href="#" target="_blank" rel="noopener" class="share-btn">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            Twitter
+                        </a>
+                        <a id="shareLinkedIn" href="#" target="_blank" rel="noopener" class="share-btn">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            LinkedIn
+                        </a>
+                        <button id="copyLink" class="share-btn">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                            Copy Link
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4">
+                        Not ready?
+                        <button id="saveResultLink" class="text-primary hover:text-primary-hover underline font-medium">Save your result link</button>
+                    </p>
+                </div>
+
+                <!-- Email Capture (inline) -->
+                <div id="emailCapture" class="mt-6">
+                    <div class="bg-gradient-to-br from-[#1a2030] via-[#1a1f33] to-[#141925] rounded-2xl border border-[#2a3142] p-8 md:p-10 text-center shadow-2xl">
+                        <h2 class="text-2xl md:text-3xl font-bold text-white">Get Your Full Profit Optimization Report</h2>
+                        <p class="text-gray-400 mt-3 text-md">Pricing benchmarks, bundle ideas, and a 5-step scaling plan — in one free report.</p>
+                        <p class="text-sm text-amber-400/90 mt-2 font-medium">The full report includes benchmarks used by top 1% creators.</p>
+
+                        <ul class="text-left mt-6 space-y-3 max-w-sm mx-auto">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-accent-green shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-gray-300 text-sm">Pricing benchmarks for your product type</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-accent-green shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-gray-300 text-sm">3 product bundles to increase average order value</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-accent-green shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                <span class="text-gray-300 text-sm">A 5-step scaling plan</span>
+                            </li>
+                        </ul>
+
+                        <!-- Email form -->
+                        <div id="emailFormWrap" class="mt-7">
+                            <form id="emailForm" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" novalidate>
+                                <label for="emailInput" class="sr-only">Email address</label>
+                                <input type="email" id="emailInput" name="email" placeholder="your@email.com" class="input-field flex-1" required>
+                                <button type="submit" class="btn-primary whitespace-nowrap">Send My Free Report</button>
+                            </form>
+                            <p id="emailError" class="text-accent-red text-sm mt-2 hidden" role="alert">Please enter a valid email address.</p>
+                            <p class="text-sm text-gray-500 mt-4">
+                                Not ready?
+                                <button id="saveResultLink2" class="text-primary hover:text-primary-hover underline font-medium">Save your result link</button>
+                            </p>
+                        </div>
+
+                        <!-- Success state -->
+                        <div id="emailSuccess" class="hidden mt-4">
+                            <div class="w-16 h-16 rounded-full bg-accent-green/20 flex items-center justify-center mx-auto">
+                                <svg class="w-8 h-8 text-accent-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <p class="text-2xl font-bold text-white mt-4">Check your inbox!</p>
+                            <p class="text-gray-400 mt-2 text-sm">Your report is on the way.</p>
+                            <a href="#" id="backToCalculator" class="text-primary hover:text-primary-hover underline font-medium inline-block mt-4">Back to calculator</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="px-4 py-10 border-t border-[#1a2030]">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-gray-500">We respect your inbox. No spam.</p>
+            <nav class="flex gap-6" aria-label="Footer">
+                <a href="#" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">Terms</a>
+                <a href="#" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">Privacy</a>
+                <a href="#" class="text-sm text-gray-500 hover:text-gray-300 transition-colors">Contact</a>
+            </nav>
+        </div>
+        <p class="text-center text-xs text-gray-600 mt-6">© 2024 ZACUX Labs. All rights reserved.</p>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ---- Utilities ----
+            const usdFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+            const usdFormatterCents = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0,
+                maximumFractionDigits: 2 });
+
+            function formatCurrency(v) {
+                return usdFormatter.format(Math.round(v));
+            }
+
+            function formatCurrencyCents(v) {
+                return usdFormatterCents.format(v);
+            }
+
+            function clamp(val, min, max) {
+                return Math.min(max, Math.max(min, val));
+            }
+
+            // ---- Toast ----
+            const toastEl = document.getElementById('toast');
+            let toastTimeout;
+
+            function showToast(msg) {
+                toastEl.textContent = msg;
+                toastEl.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(function() {
+                    toastEl.classList.remove('show');
+                }, 3000);
+            }
+
+            // ---- Calculate ----
+            function getFormValues() {
+                const price = parseFloat(document.getElementById('price').value) || 0;
+                const sales = parseInt(document.getElementById('sales').value, 10) || 0;
+                const costPerSale = parseFloat(document.getElementById('cost').value) || 0;
+                const hours = parseFloat(document.getElementById('hours').value) || 0;
+                const hourlyWorth = parseFloat(document.getElementById('worth').value) || 0;
+                const productType = document.getElementById('productType').value || 'product';
+
+                // Clamp values
+                const priceC = clamp(price, 5, 5000);
+                const salesC = clamp(sales, 1, 1000);
+                const costC = clamp(costPerSale, 0, 100);
+                const hoursC = clamp(hours, 1, 200);
+                const worthC = clamp(hourlyWorth, 5, 200);
+
+                return { price: priceC, sales: salesC, cost: costC, hours: hoursC, worth: worthC, productType: productType };
+            }
+
+            function compute(data) {
+                const grossRevenue = data.price * data.sales;
+                const totalCosts = data.cost * data.sales + data.hours * data.worth;
+                const netProfit = (data.price - data.cost) * data.sales - (data.hours * data.worth);
+                const margin = grossRevenue > 0 ? (netProfit / grossRevenue * 100) : 0;
+                const score = margin < 0 ? 0 : Math.min(100, Math.max(0, margin + grossRevenue / 50));
+                return { grossRevenue: grossRevenue, totalCosts: totalCosts, netProfit: netProfit, margin: margin, score: score };
+            }
+
+            function getRecommendation(data) {
+                const pt = data.productType.toLowerCase();
+                if (data.margin < 20) {
+                    return 'Your ' + pt + ' margin is thin. Consider raising your price or reducing production time to protect your bottom line.';
+                } else if (data.margin >= 20 && data.margin <= 50) {
+                    return 'Healthy margin on your ' + pt +
+                        '! To scale, focus on increasing monthly sales via our recommended strategies below.';
+                } else {
+                    return 'Excellent margin on your ' + pt +
+                        '! You can afford to invest in paid traffic to boost sales further.';
+                }
+            }
+
+            function getScoreLabel(score) {
+                if (score < 40) return 'Needs Work';
+                if (score < 70) return 'Solid';
+                return 'Excellent';
+            }
+
+            // ---- Animated counters ----
+            function animateValue(el, target, duration, formatFn) {
+                const startTime = performance.now();
+                const startVal = 0;
+
+                function update(now) {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = startVal + (target - startVal) * eased;
+                    el.textContent = formatFn(current);
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    }
+                }
+                requestAnimationFrame(update);
+            }
+
+            // ---- SVG Bar Chart ----
+            function drawBarChart(data) {
+                const svg = document.getElementById('barChart');
+                const maxAbs = Math.max(Math.abs(data.grossRevenue), Math.abs(data.totalCosts), Math.abs(data.netProfit), 1);
+                const labelWidth = 90;
+                const maxBarWidth = 220;
+                const barHeight = 20;
+                const rowHeight = 38;
+                const chartHeight = rowHeight * 3 + 20;
+                const totalWidth = labelWidth + maxBarWidth + 130;
+
+                const bars = [
+                    { label: 'Revenue', value: data.grossRevenue, color: '#6c63ff' },
+                    { label: 'Costs', value: data.totalCosts, color: '#f59e0b' },
+                    { label: 'Net Profit', value: data.netProfit, color: data.netProfit >= 0 ? '#48bb78' : '#ff6b6b' },
+                ];
+
+                let svgContent = '';
+                bars.forEach(function(bar, i) {
+                    const y = 10 + i * rowHeight;
+                    const ratio = Math.abs(bar.value) / maxAbs;
+                    const barWidth = Math.max(ratio * maxBarWidth, bar.value !== 0 ? 2 : 0);
+                    const valueText = (bar.label === 'Net Profit' && data.netProfit < 0) ?
+                        '-' + formatCurrency(Math.abs(bar.value)) : formatCurrency(bar.value);
+
+                    svgContent += '<text x="0" y="' + (y + barHeight / 2 + 4) + '" fill="#94a3b8" font-size="11" font-weight="500">' +
+                        bar.label + '</text>';
+                    svgContent += '<rect x="' + labelWidth + '" y="' + y + '" width="' + barWidth + '" height="' +
+                        barHeight + '" fill="' + bar.color + '" rx="4" opacity="0.85"/>';
+                    svgContent += '<text x="' + (labelWidth + barWidth + 8) + '" y="' + (y + barHeight / 2 + 4) +
+                        '" fill="#e2e8f0" font-size="11" font-weight="600">' + valueText + '</text>';
+                });
+
+                svg.setAttribute('viewBox', '0 0 ' + totalWidth + ' ' + chartHeight);
+                svg.setAttribute('width', '100%');
+                svg.innerHTML = svgContent;
+            }
+
+            // ---- SVG Gauge ----
+            function drawGauge(score) {
+                const gauge = document.getElementById('gauge');
+                const radius = 80;
+                const cx = 100;
+                const cy = 100;
+                const circumference = Math.PI * radius;
+                const filled = (score / 100) * circumference;
+                const color = score < 40 ? '#ff6b6b' : (score < 70 ? '#fbbf24' : '#48bb78');
+
+                const rounded = Math.round(score);
+
+                const svgContent =
+                    '<path d="M ' + (cx - radius) + ' ' + cy + ' A ' + radius + ' ' + radius +
+                    ' 0 0 1 ' + (cx + radius) + ' ' + cy + '" stroke="#23293a" stroke-width="14" fill="none" stroke-linecap="round"/>' +
+                    '<path d="M ' + (cx - radius) + ' ' + cy + ' A ' + radius + ' ' + radius +
+                    ' 0 0 1 ' + (cx + radius) + ' ' + cy + '" stroke="' + color +
+                    '" stroke-width="14" fill="none" stroke-linecap="round" stroke-dasharray="' + filled + ' ' +
+                    circumference + '"/>' +
+                    '<text x="' + cx + '" y="' + (cy + 8) + '" text-anchor="middle" fill="' + color +
+                    '" font-size="32" font-weight="800" font-family="Inter, sans-serif">' + rounded + '</text>';
+
+                gauge.innerHTML = svgContent;
+                gauge.setAttribute('viewBox', '0 0 200 120');
+
+                const label = document.getElementById('scoreLabel');
+                label.textContent = getScoreLabel(score);
+                label.style.color = color;
+
+                // Re-trigger pop animation
+                const container = document.getElementById('gaugeContainer');
+                container.classList.remove('gauge-pop');
+                void container.offsetWidth;
+                container.classList.add('gauge-pop');
+            }
+
+            // ---- Generate result link ----
+            function generateResultLink() {
+                const data = getFormValues();
+                const params = new URLSearchParams({
+                    price: data.price.toFixed(2),
+                    sales: data.sales,
+                    cost: data.cost.toFixed(2),
+                    hours: data.hours,
+                    worth: data.worth,
+                    type: data.productType,
+                });
+                return window.location.origin + window.location.pathname + '?' + params.toString();
+            }
+
+            function copyResultLink() {
+                const url = generateResultLink();
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(url).then(function() {
+                        showToast('Result link copied to clipboard!');
+                    }).catch(function() {
+                        fallbackCopy(url);
+                    });
+                } else {
+                    fallbackCopy(url);
+                }
+            }
+
+            function fallbackCopy(text) {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Result link copied to clipboard!');
+                } catch (e) {
+                    showToast('Failed to copy. Please copy manually: ' + text);
+                }
+                document.body.removeChild(ta);
+            }
+
+            // ---- Share links ----
+            function updateShareLinks() {
+                const data = getFormValues();
+                const comp = compute(data);
+                const text = encodeURIComponent('I calculated my digital product profit: $' + Math.round(comp.netProfit) +
+                    ' net profit/month using this free calculator!');
+                const url = encodeURIComponent(generateResultLink());
+
+                document.getElementById('shareTwitter').href = 'https://twitter.com/intent/tweet?text=' + text + '&url=' + url;
+                document.getElementById('shareLinkedIn').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
+                document.getElementById('copyLink').onclick = function(e) {
+                    e.preventDefault();
+                    copyResultLink();
+                };
+                document.getElementById('saveResultLink').onclick = function(e) {
+                    e.preventDefault();
+                    copyResultLink();
+                };
+                document.getElementById('saveResultLink2').onclick = function(e) {
+                    e.preventDefault();
+                    copyResultLink();
+                };
+            }
+
+            // ---- Show results ----
+            function showResults() {
+                const resultsSection = document.getElementById('results');
+                const emailSection = document.getElementById('emailCapture');
+
+                // Re-trigger slide-down animation
+                if (resultsSection.classList.contains('hidden')) {
+                    resultsSection.classList.remove('hidden');
+                    resultsSection.classList.add('slide-down');
+                } else {
+                    resultsSection.classList.remove('slide-down');
+                    void resultsSection.offsetWidth;
+                    resultsSection.classList.add('slide-down');
+                }
+
+                if (emailSection.classList.contains('hidden')) {
+                    emailSection.classList.remove('hidden');
+                }
+            }
+
+            // ---- Calculate and display ----
+            function calculateAndDisplay() {
+                const data = getFormValues();
+                const comp = compute(data);
+
+                // Animate stat numbers
+                const grossEl = document.getElementById('grossRevenue');
+                const netEl = document.getElementById('netProfit');
+                const marginEl = document.getElementById('profitMargin');
+
+                // Set color for net profit
+                if (comp.netProfit < 0) {
+                    netEl.classList.remove('text-accent-green');
+                    netEl.classList.add('text-accent-red');
+                } else {
+                    netEl.classList.remove('text-accent-red');
+                    netEl.classList.add('text-accent-green');
+                }
+
+                animateValue(grossEl, comp.grossRevenue, 800, formatCurrency);
+                animateValue(netEl, comp.netProfit, 1000, function(v) {
+                    return (v < 0 ? '-' : '') + formatCurrency(Math.abs(v));
+                });
+                animateValue(marginEl, comp.margin, 600, function(v) {
+                    return v.toFixed(1) + '%';
+                });
+
+                // Draw chart
+                drawBarChart(comp);
+
+                // Draw gauge
+                drawGauge(comp.score);
+
+                // Recommendation
+                document.getElementById('recommendation').textContent = getRecommendation(data);
+
+                // Share links
+                updateShareLinks();
+
+                // Show results section
+                showResults();
+
+                // Save to localStorage
+                try {
+                    localStorage.setItem('dppc_last_result', JSON.stringify(data));
+                } catch (e) {}
+
+                // Scroll to results
+                setTimeout(function() {
+                    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+
+            // ---- Form submit handler ----
+            document.getElementById('calculatorForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Native validation
+                const form = this;
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                calculateAndDisplay();
+            });
+
+            // ---- Email form handler ----
+            document.getElementById('emailForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const emailInput = document.getElementById('emailInput');
+                const email = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const errorEl = document.getElementById('emailError');
+
+                if (!emailRegex.test(email)) {
+                    errorEl.classList.remove('hidden');
+                    emailInput.classList.add('border-accent-red');
+                    return;
+                }
+
+                errorEl.classList.add('hidden');
+                emailInput.classList.remove('border-accent-red');
+
+                // Hide form, show success
+                document.getElementById('emailFormWrap').classList.add('hidden');
+                document.getElementById('emailSuccess').classList.remove('hidden');
+
+                // Save email to localStorage (in real implementation, send to server)
+                try {
+                    localStorage.setItem('dppc_email', email);
+                } catch (e) {}
+
+                showToast('Report sent! Check your inbox.');
+            });
+
+            // Clear email error on input
+            document.getElementById('emailInput').addEventListener('input', function() {
+                const errorEl = document.getElementById('emailError');
+                errorEl.classList.add('hidden');
+                this.classList.remove('border-accent-red');
+            });
+
+            // Back to calculator link
+            document.getElementById('backToCalculator').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('calculatorForm').scrollIntoView({ behavior: 'smooth' });
+
+                // Reset email form
+                document.getElementById('emailFormWrap').classList.remove('hidden');
+                document.getElementById('emailSuccess').classList.add('hidden');
+                document.getElementById('emailInput').value = '';
+                document.getElementById('emailError').classList.add('hidden');
+                document.getElementById('emailInput').classList.remove('border-accent-red');
+            });
+
+            // ---- On page load ----
+            document.addEventListener('DOMContentLoaded', function() {
+                // Check for query params
+                const params = new URLSearchParams(window.location.search);
+                if (params.has('price') && params.has('sales')) {
+                    document.getElementById('price').value = params.get('price') || '49';
+                    document.getElementById('sales').value = params.get('sales') || '30';
+                    document.getElementById('cost').value = params.get('cost') || '2';
+                    document.getElementById('hours').value = params.get('hours') || '20';
+                    document.getElementById('worth').value = params.get('worth') || '50';
+                    if (params.get('type')) {
+                        document.getElementById('productType').value = params.get('type');
+                    }
+                    calculateAndDisplay();
+                } else {
+                    // Restore last result from localStorage
+                    try {
+                        const last = localStorage.getItem('dppc_last_result');
+                        if (last) {
+                            const data = JSON.parse(last);
+                            document.getElementById('price').value = data.price;
+                            document.getElementById('sales').value = data.sales;
+                            document.getElementById('cost').value = data.cost;
+                            document.getElementById('hours').value = data.hours;
+                            document.getElementById('worth').value = data.worth;
+                            if (data.productType) {
+                                document.getElementById('productType').value = data.productType;
+                            }
+                        }
+                    } catch (e) {}
+                }
+
+                // Set up share buttons
+                updateShareLinks();
+            });
+
+        })();
+    </script>
+
+</body>
+</html>
