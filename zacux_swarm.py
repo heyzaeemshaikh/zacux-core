@@ -1,6 +1,7 @@
 import os
 import json
 import requests
+import re
 from datetime import datetime
 
 OPENROUTER_KEY = os.environ.get("OPENROUTER_API_KEY")
@@ -21,10 +22,7 @@ def call_llm(role: str, task: str, json_mode: bool = True) -> str:
         "response_format": {"type": "json_object"} if json_mode else None
     }
     res = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload, timeout=90)
-    data = res.json()
-    if "choices" in data and len(data["choices"]) > 0:
-        return data["choices"][0]["message"]["content"]
-    raise RuntimeError(f"Swarm Agent Error: {data}")
+    return res.json()["choices"][0]["message"]["content"]
 
 def load_state():
     if os.path.exists("zacux_state.json"):
@@ -69,14 +67,12 @@ def log_event(state, message):
     if len(state["live_logs"]) > 20:
         state["live_logs"] = state["live_logs"][-20:]
 
-# ==================== [SWARM AGENTS HIERARCHY] ====================
-
 def run_research_division(state):
-    log_event(state, "🛡️ [RESEARCH DIVISION] Scanning profitable micro-tool niches...")
+    log_event(state, "🛡️ [RESEARCH DIVISION] Scanning profitable utility niches...")
     state["agents"]["research_guardian"]["status"] = "Active"
     state["agents"]["market_specialist"]["status"] = "Analyzing Trends"
     
-    market_prompt = """Identify 1 high-converting web utility tool niche. 
+    market_prompt = """Identify 1 high-demand browser-based web utility tool niche. 
     Return valid JSON:
     {
       "niche": "Tool Niche Name",
@@ -99,6 +95,7 @@ def run_product_division(state, research_data):
     Return valid JSON:
     {{
       "title": "Clean Product Title",
+      "slug": "clean-url-slug",
       "features": ["Feature 1", "Feature 2", "Feature 3"],
       "tech_stack": "Tailwind+JS"
     }}"""
@@ -110,13 +107,20 @@ def run_product_division(state, research_data):
     code_prompt = f"""Write complete, production-ready, interactive single-file HTML/CSS/JS for:
     {json.dumps(product_spec)}
     Requirements:
-    - Pure HTML/CSS/JS only.
-    - Beautiful modern UI."""
+    - Pure HTML/CSS/JS only using Tailwind CSS via CDN.
+    - Beautiful UI and working buttons/calculators.
+    - Output ONLY raw HTML."""
     raw_code = call_llm("Lead Production Worker", code_prompt, json_mode=False)
+    
+    # Strip backticks
+    cleaned = raw_code.strip()
+    if cleaned.startswith("```html"): cleaned = cleaned[7:]
+    if cleaned.startswith("```"): cleaned = cleaned[3:]
+    if cleaned.endswith("```"): cleaned = cleaned[:-3]
     
     state["agents"]["product_guardian"]["status"] = "Standby"
     state["agents"]["fullstack_worker"]["status"] = "Idle"
-    return product_spec, raw_code
+    return product_spec, cleaned.strip()
 
 def run_qa_and_tester(state, code):
     log_event(state, "🧪 [QA & TESTING DIVISION] Inspecting build integrity...")
@@ -132,24 +136,17 @@ def run_qa_and_tester(state, code):
         state["agents"]["qa_tester"]["status"] = "Failed"
         return False
 
-def run_growth_and_treasury(state, product_spec):
-    log_event(state, "🛡️ [GROWTH DIVISION] Generating distribution engine...")
+def run_growth_and_treasury(state, product_spec, code):
+    log_event(state, "🛡️ [GROWTH DIVISION] Deploying asset and updating treasury...")
     state["agents"]["growth_guardian"]["status"] = "Active"
-    state["agents"]["seo_specialist"]["status"] = "Generating Hooks"
     
-    seo_prompt = f"""Generate SEO hooks and monetization strategy for: {json.dumps(product_spec)}.
-    Return valid JSON:
-    {{
-      "meta_title": "SEO Title",
-      "keywords": ["tag1", "tag2"],
-      "monetization": "AdSense + Affiliate"
-    }}"""
-    try:
-        growth_data = json.loads(call_llm("SEO Growth Specialist", seo_prompt))
-    except Exception:
-        growth_data = {}
-        
-    log_event(state, "💰 [TREASURY AGENT] Allocating revenue streams...")
+    # Save asset file
+    slug = re.sub(r'[^a-zA-Z0-9_-]', '', product_spec.get("slug", "tool").lower())
+    filename = f"{slug}.html"
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(code)
+    
+    # Ledger Allocation
     state["treasury"]["total_assets_built"] = state["treasury"].get("total_assets_built", 0) + 1
     state["treasury"]["reserve_fund"] = state["treasury"].get("reserve_fund", 0) + 40
     state["treasury"]["growth_reinvestment"] = state["treasury"].get("growth_reinvestment", 0) + 30
@@ -157,16 +154,14 @@ def run_growth_and_treasury(state, product_spec):
     
     state.setdefault("recent_assets", []).insert(0, {
         "title": product_spec.get("title", "Utility Tool"),
+        "file": filename,
         "timestamp": datetime.utcnow().strftime("%Y-%m-%d %H:%M"),
         "status": "LIVE"
     })
     state["recent_assets"] = state["recent_assets"][:5]
     
     state["agents"]["growth_guardian"]["status"] = "Standby"
-    state["agents"]["seo_specialist"]["status"] = "Idle"
     state["agents"]["treasury_agent"]["status"] = "Synced"
-
-# ==================== [EXECUTIVE ROOT CONTROLLER] ====================
 
 def main():
     state = load_state()
@@ -179,8 +174,8 @@ def main():
     spec, code = run_product_division(state, research)
     
     if run_qa_and_tester(state, code):
-        run_growth_and_treasury(state, spec)
-        log_event(state, f"🌟 [ROOT GUARDIAN] Asset '{spec.get('title')}' Synchronized to Network.")
+        run_growth_and_treasury(state, spec, code)
+        log_event(state, f"🌟 [ROOT GUARDIAN] Asset '{spec.get('title')}' Live at /{spec.get('slug')}.html")
     else:
         log_event(state, "⚠️ [PIPELINE ABORTED] Quality gate rejected asset.")
         
