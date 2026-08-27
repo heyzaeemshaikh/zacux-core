@@ -7,86 +7,186 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    @keyframes pulse-slow { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-    .pulse-glow { animation: pulse-slow 3s infinite ease-in-out; }
-    .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    @keyframes pulse-slow { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+    .pulse-glow { animation: pulse-slow 2.5s infinite ease-in-out; }
+    .glass { background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.08); }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen pb-12">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen pb-16 antialiased selection:bg-indigo-500 selection:text-white">
 
-  <header class="border-b border-slate-800 bg-slate-900/60 sticky top-0 z-50 backdrop-blur-md px-6 py-4 flex flex-wrap justify-between items-center gap-4">
+  <!-- TOP APP BAR -->
+  <header class="border-b border-slate-800 bg-slate-900/80 sticky top-0 z-50 backdrop-blur-md px-4 sm:px-8 py-4 flex flex-wrap justify-between items-center gap-4">
     <div class="flex items-center gap-3">
-      <div class="h-9 w-9 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/30">
+      <div class="h-10 w-10 bg-gradient-to-tr from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30">
         <i class="fa-solid fa-shield-halved text-white text-lg"></i>
       </div>
       <div>
         <h1 class="font-black tracking-wider text-xl bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">ZACUX CORE</h1>
-        <p class="text-xs text-slate-400 font-mono">AUTONOMOUS MULTI-AGENT SWARM OS</p>
+        <p class="text-[11px] text-slate-400 font-mono tracking-wider">AUTONOMOUS MULTI-AGENT SWARM OS</p>
       </div>
     </div>
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-3">
       <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
         <span class="h-2 w-2 rounded-full bg-emerald-400 pulse-glow"></span>
-        <span id="sys-status">IDLE_MONITORING</span>
+        <span id="sys-status">INITIALIZING...</span>
       </div>
-      <div class="text-xs font-mono text-slate-400">Cycles: <span id="total-cycles" class="text-white font-bold">2</span></div>
+      <div class="text-xs font-mono text-slate-400 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+        Cycles: <span id="total-cycles" class="text-white font-bold">0</span>
+      </div>
     </div>
   </header>
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-8 space-y-8">
 
+    <!-- TREASURY & METRICS OVERVIEW -->
     <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="glass p-5 rounded-2xl border-l-4 border-l-indigo-500">
-        <p class="text-xs font-mono text-slate-400 uppercase">Total Autonomous Assets</p>
-        <h2 id="total-assets" class="text-3xl font-black text-white mt-1">2</h2>
-        <p class="text-[11px] text-emerald-400 mt-2"><i class="fa-solid fa-bolt mr-1"></i> Auto-deployed & Live</p>
+      <div class="glass p-5 rounded-2xl border-l-4 border-l-indigo-500 shadow-xl">
+        <p class="text-xs font-mono text-slate-400 uppercase tracking-wide">Total Autonomous Assets</p>
+        <h2 id="total-assets" class="text-3xl font-black text-white mt-1.5">0</h2>
+        <p class="text-[11px] text-emerald-400 mt-2 font-mono flex items-center gap-1">
+          <i class="fa-solid fa-bolt"></i> Auto-deployed & Live
+        </p>
       </div>
-      <div class="glass p-5 rounded-2xl border-l-4 border-l-emerald-500">
-        <p class="text-xs font-mono text-slate-400 uppercase">Owner Vault (30%)</p>
-        <h2 id="owner-vault" class="text-3xl font-black text-emerald-400 mt-1">$60.00</h2>
+
+      <div class="glass p-5 rounded-2xl border-l-4 border-l-emerald-500 shadow-xl">
+        <p class="text-xs font-mono text-slate-400 uppercase tracking-wide">Owner Vault (30%)</p>
+        <h2 id="owner-vault" class="text-3xl font-black text-emerald-400 mt-1.5">$0.00</h2>
         <p class="text-[11px] text-slate-400 mt-2 font-mono">Direct Yield Allocation</p>
       </div>
-      <div class="glass p-5 rounded-2xl border-l-4 border-l-purple-500">
-        <p class="text-xs font-mono text-slate-400 uppercase">Growth Reinvestment (30%)</p>
-        <h2 id="growth-fund" class="text-3xl font-black text-purple-400 mt-1">$60.00</h2>
+
+      <div class="glass p-5 rounded-2xl border-l-4 border-l-purple-500 shadow-xl">
+        <p class="text-xs font-mono text-slate-400 uppercase tracking-wide">Growth Reinvest (30%)</p>
+        <h2 id="growth-fund" class="text-3xl font-black text-purple-400 mt-1.5">$0.00</h2>
         <p class="text-[11px] text-slate-400 mt-2 font-mono">Scaling & Compute Engine</p>
       </div>
-      <div class="glass p-5 rounded-2xl border-l-4 border-l-blue-500">
-        <p class="text-xs font-mono text-slate-400 uppercase">Reserve Treasury (40%)</p>
-        <h2 id="reserve-fund" class="text-3xl font-black text-blue-400 mt-1">$80.00</h2>
+
+      <div class="glass p-5 rounded-2xl border-l-4 border-l-blue-500 shadow-xl">
+        <p class="text-xs font-mono text-slate-400 uppercase tracking-wide">Reserve Treasury (40%)</p>
+        <h2 id="reserve-fund" class="text-3xl font-black text-blue-400 mt-1.5">$0.00</h2>
         <p class="text-[11px] text-slate-400 mt-2 font-mono">System Liquidity Backing</p>
       </div>
     </section>
 
+    <!-- AGENT ARMY HIERARCHY TREE -->
+    <section class="glass p-6 rounded-3xl space-y-6 shadow-xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <h2 class="text-base font-bold flex items-center gap-2">
+          <i class="fa-solid fa-sitemap text-indigo-400"></i> Swarm Hierarchy & Agent States
+        </h2>
+        <span class="text-xs font-mono text-slate-400">9 Active Units Synchronized</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- 1. RESEARCH DIVISION -->
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+          <div class="flex justify-between items-center text-xs font-mono text-cyan-400 uppercase tracking-wide">
+            <span>🛡️ Research Guardian</span>
+            <span id="agent-rg" class="px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-800 text-[10px]">Ready</span>
+          </div>
+          <p class="text-xs text-slate-400">Continuous reconnaissance for high-demand digital utility niches.</p>
+          <div class="space-y-2 pt-2 border-t border-slate-800/80 text-xs font-mono">
+            <div class="flex justify-between text-slate-300">
+              <span>• Market Specialist:</span>
+              <span id="agent-ms" class="text-slate-400 text-[11px]">Idle</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. PRODUCT & ENGINEERING DIVISION -->
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+          <div class="flex justify-between items-center text-xs font-mono text-purple-400 uppercase tracking-wide">
+            <span>🛡️ Product Guardian</span>
+            <span id="agent-pg" class="px-2 py-0.5 rounded bg-purple-950/80 border border-purple-800 text-[10px]">Ready</span>
+          </div>
+          <p class="text-xs text-slate-400">Autonomous architecture, UI/UX, and code compilation.</p>
+          <div class="space-y-2 pt-2 border-t border-slate-800/80 text-xs font-mono">
+            <div class="flex justify-between text-slate-300">
+              <span>• UI/UX Specialist:</span>
+              <span id="agent-ux" class="text-slate-400 text-[11px]">Idle</span>
+            </div>
+            <div class="flex justify-between text-slate-300">
+              <span>• Lead Worker (Dev):</span>
+              <span id="agent-dev" class="text-slate-400 text-[11px]">Idle</span>
+            </div>
+            <div class="flex justify-between text-slate-300">
+              <span>• QA Tester (Gate):</span>
+              <span id="agent-qa" class="text-emerald-400 text-[11px]">Passed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. GROWTH & TREASURY DIVISION -->
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+          <div class="flex justify-between items-center text-xs font-mono text-pink-400 uppercase tracking-wide">
+            <span>🛡️ Growth Guardian</span>
+            <span id="agent-gg" class="px-2 py-0.5 rounded bg-pink-950/80 border border-pink-800 text-[10px]">Ready</span>
+          </div>
+          <p class="text-xs text-slate-400">SEO distribution, viral hooks, and revenue allocation.</p>
+          <div class="space-y-2 pt-2 border-t border-slate-800/80 text-xs font-mono">
+            <div class="flex justify-between text-slate-300">
+              <span>• SEO Strategist:</span>
+              <span id="agent-seo" class="text-slate-400 text-[11px]">Idle</span>
+            </div>
+            <div class="flex justify-between text-slate-300">
+              <span>• Treasury Agent:</span>
+              <span id="agent-tr" class="text-emerald-400 text-[11px]">Synced</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LIVE TERMINAL LOGS & DEPLOYED ASSETS -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <section class="lg:col-span-2 glass p-6 rounded-3xl space-y-4">
+      
+      <!-- TERMINAL LOGS -->
+      <section class="lg:col-span-2 glass p-6 rounded-3xl space-y-4 shadow-xl">
         <h2 class="text-sm font-bold font-mono text-slate-300 flex items-center gap-2">
           <i class="fa-solid fa-terminal text-emerald-400"></i> LIVE AGENT EXECUTION LOGS
         </h2>
-        <div id="logs-container" class="bg-black/80 rounded-2xl p-4 font-mono text-xs text-emerald-400 h-72 overflow-y-auto space-y-1.5 border border-slate-800">
-          <p>[SYNCING] Connecting to Swarm...</p>
+        <div id="logs-container" class="bg-black/85 rounded-2xl p-4 font-mono text-xs text-emerald-400 h-80 overflow-y-auto space-y-1.5 border border-slate-800">
+          <p class="text-slate-500">[CONNECTING] Polling ZACUX Swarm telemetry...</p>
         </div>
       </section>
 
-      <section class="glass p-6 rounded-3xl space-y-4">
-        <h2 class="text-sm font-bold font-mono text-slate-300 flex items-center gap-2">
-          <i class="fa-solid fa-cube text-purple-400"></i> DEPLOYED ASSETS (LIVE TOOLS)
-        </h2>
+      <!-- RECENT BUILT ASSETS (CLICKABLE LIST) -->
+      <section class="glass p-6 rounded-3xl space-y-4 shadow-xl">
+        <div class="flex justify-between items-center">
+          <h2 class="text-sm font-bold font-mono text-slate-300 flex items-center gap-2">
+            <i class="fa-solid fa-cube text-purple-400"></i> DEPLOYED ASSETS
+          </h2>
+          <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/80">INTERACTIVE</span>
+        </div>
         <div id="assets-container" class="space-y-3 text-xs">
-          <!-- Assets will populate with direct links -->
+          <p class="text-slate-500 font-mono text-center py-8">Loading deployed assets...</p>
         </div>
       </section>
+
     </div>
 
   </main>
 
   <script>
+    function resolveAssetUrl(asset) {
+      if (asset.file && asset.file.trim().length > 0) {
+        return asset.file.replace(/^\//, '');
+      }
+      const title = (asset.title || '').toLowerCase();
+      if (title.includes('summaria')) return 'summaria.html';
+      if (title.includes('pixreduce')) return 'pixreduce.html';
+      if (title.includes('invoice')) return 'invoicepilot.html';
+      return '#';
+    }
+
     async function refreshDashboard() {
       try {
         const res = await fetch('zacux_state.json?t=' + new Date().getTime());
         if (!res.ok) return;
         const data = await res.json();
 
+        // System Core Status
         document.getElementById('sys-status').innerText = data.system_status || 'IDLE_MONITORING';
         document.getElementById('total-cycles').innerText = data.total_cycles || 0;
         document.getElementById('total-assets').innerText = data.treasury?.total_assets_built || 0;
@@ -94,31 +194,49 @@
         document.getElementById('growth-fund').innerText = '$' + (data.treasury?.growth_reinvestment || 0).toFixed(2);
         document.getElementById('reserve-fund').innerText = '$' + (data.treasury?.reserve_fund || 0).toFixed(2);
 
+        // Agent Army Hierarchy State
+        if (data.agents) {
+          document.getElementById('agent-rg').innerText = data.agents.research_guardian?.status || 'Ready';
+          document.getElementById('agent-ms').innerText = data.agents.market_specialist?.status || 'Idle';
+          document.getElementById('agent-pg').innerText = data.agents.product_guardian?.status || 'Ready';
+          document.getElementById('agent-ux').innerText = data.agents.ui_ux_specialist?.status || 'Idle';
+          document.getElementById('agent-dev').innerText = data.agents.fullstack_worker?.status || 'Idle';
+          document.getElementById('agent-qa').innerText = data.agents.qa_tester?.status || 'Passed';
+          document.getElementById('agent-gg').innerText = data.agents.growth_guardian?.status || 'Ready';
+          document.getElementById('agent-seo').innerText = data.agents.seo_specialist?.status || 'Idle';
+          document.getElementById('agent-tr').innerText = data.agents.treasury_agent?.status || 'Synced';
+        }
+
+        // Live Execution Logs Terminal
         if (data.live_logs && data.live_logs.length > 0) {
           const logBox = document.getElementById('logs-container');
           logBox.innerHTML = data.live_logs.map(l => `<div>${l}</div>`).join('');
           logBox.scrollTop = logBox.scrollHeight;
         }
 
+        // Render Clickable Deployed Assets Cards
         if (data.recent_assets && data.recent_assets.length > 0) {
           const assetBox = document.getElementById('assets-container');
           assetBox.innerHTML = data.recent_assets.map(a => {
-            const url = a.file ? a.file : 'pixreduce.html';
+            const targetUrl = resolveAssetUrl(a);
+            const isClickable = targetUrl !== '#';
             return `
-              <a href="${url}" target="_blank" class="p-3 bg-slate-900/90 hover:bg-slate-800 transition rounded-xl border border-slate-800 flex justify-between items-center block group">
-                <div>
-                  <p class="font-bold text-slate-200 group-hover:text-indigo-400 transition">${a.title}</p>
-                  <p class="text-[10px] text-slate-500 font-mono">${a.timestamp}</p>
+              <a href="${targetUrl}" ${isClickable ? 'target="_blank"' : ''} 
+                 class="p-3.5 bg-slate-900/90 hover:bg-slate-800 transition-all duration-200 rounded-xl border border-slate-800 flex justify-between items-center block group shadow-md ${!isClickable ? 'opacity-70 cursor-not-allowed' : ''}">
+                <div class="pr-2">
+                  <p class="font-bold text-slate-100 group-hover:text-indigo-400 transition leading-snug">${a.title}</p>
+                  <p class="text-[10px] text-slate-500 font-mono mt-0.5">${a.timestamp || 'Auto-generated'}</p>
                 </div>
-                <span class="px-2.5 py-1 rounded bg-emerald-950 text-emerald-400 font-mono text-[11px] border border-emerald-800 flex items-center gap-1 group-hover:bg-emerald-900 transition">
-                  OPEN <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                <span class="shrink-0 px-3 py-1.5 rounded-lg bg-emerald-950 text-emerald-400 font-mono text-xs border border-emerald-800 flex items-center gap-1.5 group-hover:bg-emerald-900 group-hover:scale-105 transition-all">
+                  OPEN <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                 </span>
               </a>
             `;
           }).join('');
         }
+
       } catch (err) {
-        console.error("Dashboard error:", err);
+        console.error("ZACUX Dashboard polling error:", err);
       }
     }
 
