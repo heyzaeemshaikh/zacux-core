@@ -1,7 +1,20 @@
 def assemble_production_application(arch: dict, ui_html: str, js_engine: str) -> str:
-    # Clean possible markdown artifacts
-    clean_ui = ui_html.replace("```html", "").replace("```", "").strip()
-    clean_js = js_engine.replace("```javascript", "").replace("```js", "").replace("```", "").strip()
+    # Ensure safe strings (prevent NoneType crash)
+    safe_ui = str(ui_html or "").strip()
+    safe_js = str(js_engine or "").strip()
+
+    clean_ui = safe_ui.replace("```html", "").replace("```", "").strip()
+    clean_js = safe_js.replace("```javascript", "").replace("```js", "").replace("```", "").strip()
+
+    # Fallback UI if agent returned empty
+    if not clean_ui:
+        clean_ui = f"""
+        <div class="p-8 max-w-5xl mx-auto">
+            <h1 class="text-2xl font-bold text-indigo-400">{arch.get('app_name', 'Enterprise Workspace')}</h1>
+            <p class="text-slate-400 text-sm mt-1">{arch.get('architecture_summary', '')}</p>
+            <div id="workspace-container" class="mt-6 panel-glass p-6 rounded-2xl min-h-[400px]"></div>
+        </div>
+        """
 
     full_page = f"""<!DOCTYPE html>
 <html lang="en">
@@ -31,4 +44,3 @@ def assemble_production_application(arch: dict, ui_html: str, js_engine: str) ->
 </html>
 """
     return full_page
-
