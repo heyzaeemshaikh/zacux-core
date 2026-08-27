@@ -1,17 +1,17 @@
-name: ZACUX Swarm 24x7 Autonomous Engine
+name: ZACUX Heavy Swarm Engine
 
 on:
   schedule:
-    - cron: '0 */4 * * *' # Executes every 4 hours automatically
-  workflow_dispatch:      # Instant manual execution
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
 
 jobs:
-  run-swarm:
+  run-heavy-swarm:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Checkout Swarm Core
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -19,18 +19,18 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Network Engine
+      - name: Install Dependencies
         run: pip install requests
 
-      - name: Execute Autonomous Agent Swarm
+      - name: Execute Heavy Synthesis Engine
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        run: python zacux_swarm.py
+        run: python zacux_heavy_os.py
 
-      - name: Synchronize Swarm State & Command Center
+      - name: Commit Production Applications
         run: |
           git config --global user.name "ZACUX-Root-Guardian"
           git config --global user.email "guardian@zacux.internal"
           git add -A
-          git commit -m "ZACUX Swarm: Autonomous Cycle Synchronized" || exit 0
+          git commit -m "ZACUX Deep Engine: Heavy SaaS Asset Deployed [Auto]" || exit 0
           git push
