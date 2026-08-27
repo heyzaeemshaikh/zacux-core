@@ -1,17 +1,17 @@
-name: ZACUX 24x7 Autopilot
+name: ZACUX Swarm 24x7 Autonomous Engine
 
 on:
   schedule:
-    - cron: '0 * * * *'
-  workflow_dispatch:
+    - cron: '0 */4 * * *' # Executes every 4 hours automatically
+  workflow_dispatch:      # Instant manual execution
 
 jobs:
-  execute-brain:
+  run-swarm:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Checkout Code
+      - name: Checkout Swarm Core
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -19,18 +19,18 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Libraries
+      - name: Install Network Engine
         run: pip install requests
 
-      - name: Run ZACUX Autonomous Engine
+      - name: Execute Autonomous Agent Swarm
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-        run: python brain.py
+        run: python zacux_swarm.py
 
-      - name: Auto-Commit Generated Asset
+      - name: Synchronize Swarm State & Command Center
         run: |
-          git config --global user.name "ZACUX Bot"
-          git config --global user.email "bot@zacux.internal"
-          git add index.html
-          git commit -m "Auto-generated digital product [ZACUX Engine]" || exit 0
+          git config --global user.name "ZACUX-Root-Guardian"
+          git config --global user.email "guardian@zacux.internal"
+          git add -A
+          git commit -m "ZACUX Swarm: Autonomous Cycle Synchronized" || exit 0
           git push
