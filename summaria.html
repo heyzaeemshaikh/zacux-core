@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summaria</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-in {
+            animation: slideIn 0.4s ease-out;
+        }
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .rec-dot {
+            animation: pulseDot 1s ease-in-out infinite;
+        }
+        .transcript-text {
+            word-break: break-word;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-slate-50 to-indigo-50/40 min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200/70 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-9 h-9 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-lg flex items-center justify-center shadow-md shadow-indigo-200">
+                        <i class="fas fa-wand-magic-sparkles text-white text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold text-slate-900">Summaria</span>
+                    <span class="ml-1 text-xs text-slate-400 font-medium hidden sm:inline">AI Meeting Intelligence</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <a href="#" class="text-slate-400 hover:text-indigo-600 transition-colors" title="Notifications">
+                        <div class="relative">
+                            <i class="fas fa-bell text-lg"></i>
+                            <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+                        </div>
+                    </a>
+                    <a href="#" class="text-slate-400 hover:text-indigo-600 transition-colors" title="Settings">
+                        <i class="fas fa-gear text-lg"></i>
+                    </a>
+                    <div class="h-8 w-px bg-slate-200"></div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center text-white text-xs font-bold shadow-sm">JD</div>
+                        <div class="hidden md:block">
+                            <p class="text-xs font-semibold text-slate-800 leading-tight">Jane Doe</p>
+                            <p class="text-[10px] text-slate-400 leading-tight">Workspace Admin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Dashboard Header -->
+        <div class="mb-8 flex flex-col sm:flex-row sm:items-start justify-between">
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Meeting Overview</h1>
+                <p class="text-slate-500 mt-1 text-sm sm:text-base">Real-time transcription, action items, and intelligent insights</p>
+            </div>
+            <div class="mt-3 sm:mt-0 flex items-center space-x-2">
+                <div class="flex items-center space-x-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 shadow-sm">
+                    <i class="fas fa-calendar-day text-slate-400 text-xs"></i>
+                    <span class="text-xs text-slate-600 font-medium">Today</span>
+                </div>
+                <div class="flex items-center space-x-1 bg-white border border-slate-200 rounded-lg px-3 py-1.5 shadow-sm">
+                    <i class="fas fa-users text-slate-400 text-xs"></i>
+                    <span class="text-xs text-slate-600 font-medium">3 participants</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Grid: Live Transcription + Action Items -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+
+            <!-- Live Transcription -->
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden">
+                <div class="px-6 py-4 border-b border-slate-100 flex flex-wrap justify-between items-center gap-3">
+                    <div>
+                        <div class="flex items-center space-x-3">
+                            <h2 class="text-lg font-semibold text-slate-900">Live Meeting</h2>
+                            <span class="flex items-center px-2.5 py-0.5 bg-red-50 text-red-500 rounded-full text-[10px] font-bold tracking-wide">
+                                <span class="w-1.5 h-1.5 bg-red-500 rounded-full rec-dot mr-1"></span>
+                                REC
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-0.5">Q3 Launch Planning • Today 10:00 AM</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button id="startBtn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 active:scale-95 transition-all text-white rounded-lg text-sm font-medium shadow-sm shadow-indigo-200">
+                            <i class="fas fa-play mr-1 text-xs"></i> Start
+                        </button>
+                        <button id="stopBtn" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 active:scale-95 transition-all text-slate-600 rounded-lg text-sm font-medium">
+                            <i class="fas fa-stop mr-1 text-xs"></i> Stop
+                        </button>
+                        <button id="resetBtn" class="px-3 py-2 text-slate-400 hover:text-slate-600 transition-colors" title="Reset">
+                            <i class="fas fa-rotate-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-5">
+                    <div id="transcriptionBox" class="h-80 overflow-y-auto bg-slate-50/50 rounded-xl p-4 space-y-1.5 border border-slate-100">
+                        <div class="text-center text-slate-400 text-sm py-20">
+                            <div class="mb-3"><i class="fas fa-microphone text-4xl opacity-40"></i></div>
+                            <p>Click <span class="font-semibold text-indigo-400">Start</span> to begin live transcription</p>
+                        </div>
+                    </div>
+                    <div id="meetingSummaryBanner" class="mt-3 px-4 py-3 bg-gradient-to-r from-indigo-50 to-violet-50 rounded-lg border border-indigo-100 hidden">
+                        <div class="flex items-start space-x-2">
+                            <i class="fas fa-wand-magic-sparkles text-indigo-400 mt-0.5"></i>
+                            <div>
+                                <p class="text-xs font-semibold text-indigo-700">AI Live Summary</p>
+                                <p id="liveSummaryText" class="text-xs text-slate-600 mt-0.5 leading-relaxed">The meeting is starting...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Items -->
+            <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden flex flex-col">
+                <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                    <div class="flex items-center space-x-2">
+                        <h2 class="text-lg font-semibold text-slate-900">Action Items</h2>
+                        <span class="px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-bold" id="actionCount">0</span>
+                    </div>
+                    <button class="text-slate-400 hover:text-indigo-600 transition-colors text-sm" title="Export">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+                <div class="p-5 flex-1 overflow-y-auto" style="max-height: 480px;">
+                    <div id="actionItemsList" class="space-y-3">
+                        <div class="text-center text-slate-400 text-sm py-20">
+                            <div class="mb-3"><i class="fas fa-list-check text-4xl opacity-40"></i></div>
+                            <p>Action items will appear here<br>as they're detected</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Grid: Document Summarizer + Cross-Meeting Insights -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- Document Summarizer -->
+            <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden">
+                <div class="px-6 py-4 border-b border-slate-100">
+                    <h2 class="text-lg font-semibold text-slate-900">Document Summarizer</h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Paste any document for instant AI extraction</p>
+                </div>
+                <div class="p-6">
+                    <div class="relative">
+                        <textarea id="docInput" class="w-full h-40 p-4 border border-slate-200 rounded-xl text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400 transition-all placeholder-slate-300 bg-slate-50/50 resize-none" placeholder="Paste your document text here..."></textarea>
+                        <div class="absolute bottom-3 right-3 text-[10px] text-slate-400 bg-white px-2 py-0.5 rounded-full border border-slate-200" id="wordCount">0 words</div>
+                    </div>
+                    <div class="mt-4 flex items-center space-x-3">
+                        <button id="summarizeBtn" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 active:scale-95 transition-all text-white rounded-lg text-sm font-medium shadow-md shadow-indigo-200">
+                            <i class="fas fa-magic mr-1 text-xs"></i> Summarize
+                        </button>
+                        <button id="clearBtn" class="px-4 py-2.5 text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-colors rounded-lg text-sm font-medium">
+                            <i class="fas fa-eraser mr-1 text-xs"></i> Clear
+                        </button>
+                    </div>
+                    <div id="summaryOutput" class="mt-4 p-4 bg-gradient-to-br from-indigo-50/80 to-violet-50/80 rounded-xl border border-indigo-100 text-sm text-slate-700 hidden">
+                        <!-- Summary appears here -->
+                    </div>
+                    <div id="summaryLoading" class="mt-4 p-4 bg-slate-50 rounded-xl border border-slate-100 text-sm text-slate-500 hidden">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-4 h-4 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+                            <span>Generating summary...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cross-Meeting Insights -->
+            <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-200/60 overflow-hidden">
+                <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-semibold text-slate-900">Cross-Meeting Insights</h2>
+                        <p class="text-xs text-slate-400 mt-0.5">Analytics across all meetings</p>
+                    </div>
+                    <button class="text-slate-400 hover:text-indigo-600 transition-colors text-sm" title="View all">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="p-4 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl border border-indigo-100/50">
+                            <div class="flex items-center justify-between">
+                                <div class="text-3xl font-bold text-indigo-600">24</div>
+                                <div class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center"><i class="fas fa-video text-indigo-500 text-xs"></i></div>
+                            </div>
+                            <div class="text-xs text-slate-500 mt-1 font-medium">Meetings Analyzed</div>
+                        </div>
+                        <div class="p-4 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl border border-emerald-100/50">
+                            <div class="flex items-center justify-between">
+                                <div class="text-3xl font-bold text-emerald-600">82%</div>
+                                <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center"><i class="fas fa-check-circle text-emerald-500 text-xs"></i></div>
+                            </div>
+                            <div class="text-xs text-slate-500 mt-1 font-medium">Action Items Completed</div>
+                        </div>
+                        <div class="p-4 bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl border border-amber-100/50">
+                            <div class="flex items-center justify-between">
+                                <div class="text-3xl font-bold text-amber-600">32m</div>
+                                <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center"><i class="fas fa-clock text-amber-500 text-xs"></i></div>
+                            </div>
+                            <div class="text-xs text-slate-500 mt-1 font-medium">Avg Meeting Duration</div>
+                        </div>
+                        <div class="p-4 bg-gradient-to-br from-purple-50 to-fuchsia-50 rounded-xl border border-purple-100/50">
+                            <div class="flex items-center justify-between">
+                                <div class="text-3xl font-bold text-purple-600">5</div>
+                                <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center"><i class="fas fa-briefcase text-purple-500 text-xs"></i></div>
+                            </div>
+                            <div class="text-xs text-slate-500 mt-1 font-medium">Active Projects</div>
+                        </div>
+                    </div>
+
+                    <!-- Trending Topics -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-slate-800 mb-3"><i class="fas fa-chart-simple text-indigo-500 mr-1 text-xs"></i> Trending Topics</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-slate-600 font-medium">Product Launch</span>
+                                    <span class="text-slate-400">75%</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full h-2" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-slate-600 font-medium">Marketing Strategy</span>
+                                    <span class="text-slate-400">60%</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-purple-500 to-fuchsia-500 rounded-full h-2" style="width: 60%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-slate-600 font-medium">Budget Planning</span>
+                                    <span class="text-slate-400">40%</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full h-2" style="width: 40%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Working style insight -->
+                    <div class="mt-6 p-3 bg-slate-50 rounded-lg border border-slate-100 flex items-start space-x-2">
+                        <i class="fas fa-lightbulb text-amber-400 mt-0.5 text-sm"></i>
+                        <div>
+                            <p class="text-[11px] font-semibold text-slate-700">AI Insight</p>
+                            <p class="text-[11px] text-slate-500 leading-relaxed">Meetings on Tuesdays have 23% higher action item completion. Consider scheduling key meetings earlier in the week.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-xs text-slate-400 border-t border-slate-200/60 mt-8">
+        <p>© 2024 Summaria · AI-powered meeting intelligence</p>
+    </footer>
+
+    <script>
+        // ====== Transcription Simulation ======
+        const transcriptionLines = [
+            { speaker: 'Sarah', text: "Good morning everyone, let's get started.", actionItems: [], summary: 'Meeting started. Sarah is leading.' },
+            { speaker: 'Mike', text: 'Hi Sarah, hi all.', actionItems: [], summary: 'Everyone is present.' },
+            { speaker: 'Sarah', text: 'So we need to discuss the Q3 launch timeline.', actionItems: [], summary: 'Topic introduced: Q3 launch timeline.' },
+            { speaker: 'Mike', text: "I think we're on track, but we need to finalize the marketing plan.", actionItems: [], summary: 'Mike confirms timeline is mostly on track.' },
+            { speaker: 'Sarah', text: 'Yes, agreed. John, can you own the marketing plan was?', actionItems: [], summary: 'Sarah assigns marketing plan ownership.' },
+            { speaker: 'John', text: "Sure, I'll have a draft by Friday.", actionItems: [{ task: 'Finalize marketing plan draft', assignee: 'John', due: 'Friday', icon: 'fa-file-alt' }], summary: 'John commits to a draft by Friday.' },
+            { speaker: 'Sarah', text: 'Great. Also, we need to talk about the budget increase.', actionItems: [], summary: 'Budget increase discussed.' },
+            { speaker: 'Mike', text: 'I can prepare a budget projection.', actionItems: [{ task: 'Prepare budget projection', assignee: 'Mike', due: 'Next week', icon: 'fa-chart-line' }], summary: 'Mike will prepare budget projection.' },
+            { speaker: 'Sarah', text: "Perfect. And let's schedule a follow-up for next Tuesday.", actionItems: [], summary: 'Follow-up scheduled for Tuesday.' },
+            { speaker: 'John', text: "I'll send out an invite.", actionItems: [{ task: 'Send follow-up meeting invite', assignee: 'John', due: 'Tuesday', icon: 'fa-calendar-check' }], summary: 'John will send meeting invite.' },
+            { speaker: 'Sarah', text: 'Thanks everyone, great meeting.', actionItems: [], summary: 'Meeting concluded.' },
+        ];
+
+        let isTranscribing = false;
+        let typingInterval = null;
+        let currentLineIndex = 0;
+        let currentCharIndex = 0;
+        let echoTimer = null;
+
+        function getSpeakerColor(speaker) {
+            const colors = {
+                'Sarah': 'bg-pink-100 text-pink-700',
+                'Mike': 'bg-blue-100 text-blue-700',
+                'John': 'bg-emerald-100 text-emerald-700',
+            };
+            return colors[speaker] || 'bg-slate-100 text-slate-600';
+        }
+
+        function createLineDiv(index) {
+            const line = transcriptionLines[index];
+            const box = document.getElementById('transcriptionBox');
+            const lineDiv = document.createElement('div');
+            lineDiv.id = `line-${index}`;
+            lineDiv.className = 'flex items-start space-x-3 py-1.5 animate-fade-in';
+            lineDiv.innerHTML = `
+                <span class="flex-shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold ${getSpeakerColor(line.speaker)}">${line.speaker}</span>
+                <span class="transcript-text text-sm text-slate-700 leading-relaxed"></span>
+            `;
+            box.appendChild(lineDiv);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function typeChar() {
+            if (currentLineIndex >= transcriptionLines.length) {
+                clearInterval(typingInterval);
+                typingInterval = null;
+                isTranscribing = false;
+                document.getElementById('startBtn').disabled = false;
+                document.getElementById('startBtn').classList.remove('opacity-50');
+                document.getElementById('startBtn').innerHTML = '<i class="fas fa-play mr-1 text-xs"></i> Start';
+                const box = document.getElementById('transcriptionBox');
+                const doneDiv = document.createElement('div');
+                doneDiv.className = 'text-center text-slate-400 text-xs py-3 animate-fade-in';
+                doneDiv.innerHTML = '<i class="fas fa-check-circle mr-1"></i> Transcription complete';
+                box.appendChild(doneDiv);
+                box.scrollTop = box.scrollHeight;
+                return;
+            }
+
+            const line = transcriptionLines[currentLineIndex];
+            const lineDiv = document.getElementById(`line-${currentLineIndex}`);
+            const textSpan = lineDiv.querySelector('.transcript-text');
+            const lineText = line.text;
+
+            if (currentCharIndex < lineText.length) {
+                textSpan.textContent = lineText.substring(0, currentCharIndex + 1);
+                currentCharIndex++;
+                const box = document.getElementById('transcriptionBox');
+                box.scrollTop = box.scrollHeight;
+            } else {
+                if (line.actionItems.length > 0) {
+                    line.actionItems.forEach(item => addActionItem(item));
+                }
+                updateLiveSummary(line.summary);
+                currentLineIndex++;
+                currentCharIndex = 0;
+                if (currentLineIndex < transcriptionLines.length) {
+                    createLineDiv(currentLineIndex);
+                }
+            }
+        }
+
+        function startTranscription() {
+            if (isTranscribing) return;
+            isTranscribing = true;
+
+            const box = document.getElementById('transcriptionBox');
+            box.innerHTML = '';
+            document.getElementById('actionItemsList').innerHTML = '';
+            document.getElementById('actionCount').textContent = '0';
+            document.getElementById('meetingSummaryBanner').classList.remove('hidden');
+            document.getElementById('liveSummaryText').textContent = 'The meeting is starting...';
+
+            currentLineIndex = 0;
+            currentCharIndex = 0;
+
+            createLineDiv(0);
+            typingInterval = setInterval(typeChar, 25);
+
+            const startBtn = document.getElementById('startBtn');
+            startBtn.disabled = true;
+            startBtn.classList.add('opacity-60');
+            startBtn.innerHTML = '<i class="fas fa-microphone mr-1 text-xs"></i> Live';
+        }
+
+        function stopTranscription() {
+            if (!isTranscribing) return;
+            isTranscribing = false;
+            if (typingInterval) {
+                clearInterval(typingInterval);
+                typingInterval = null;
+            }
+            const startBtn = document.getElementById('startBtn');
+            startBtn.disabled = false;
+            startBtn.classList.remove('opacity-60');
+            startBtn.innerHTML = '<i class="fas fa-play mr-1 text-xs"></i> Resume';
+
+            // Add pause indicator
+            const box = document.getElementById('transcriptionBox');
+            const pauseDiv = document.createElement('div');
+            pauseDiv.className = 'text-center text-slate-400 text-xs py-2 animate-fade-in';
+            pauseDiv.innerHTML = '<i class="fas fa-pause-circle mr-1"></i> Transcription paused';
+            box.appendChild(pauseDiv);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function resetTranscription() {
+            stopTranscription();
+            clearInterval(typingInterval);
+            typingInterval = null;
+            isTranscribing = false;
+            currentLineIndex = 0;
+            currentCharIndex = 0;
+            const box = document.getElementById('transcriptionBox');
+            box.innerHTML = `
+                <div class="text-center text-slate-400 text-sm py-20">
+                    <div class="mb-3"><i class="fas fa-microphone text-4xl opacity-40"></i></div>
+                    <p>Click <span class="font-semibold text-indigo-400">Start</span> to begin live transcription</p>
+                </div>
+            `;
+            document.getElementById('actionItemsList').innerHTML = `
+                <div class="text-center text-slate-400 text-sm py-20">
+                    <div class="mb-3"><i class="fas fa-list-check text-4xl opacity-40"></i></div>
+                    <p>Action items will appear here<br>as they're detected</p>
+                </div>
+            `;
+            document.getElementById('actionCount').textContent = '0';
+            document.getElementById('meetingSummaryBanner').classList.add('hidden');
+            const startBtn = document.getElementById('startBtn');
+            startBtn.disabled = false;
+            startBtn.classList.remove('opacity-60');
+            startBtn.innerHTML = '<i class="fas fa-play mr-1 text-xs"></i> Start';
+        }
+
+        // ====== Action Items ======
+        function addActionItem(item) {
+            const list = document.getElementById('actionItemsList');
+            const placeholder = list.querySelector('div.text-center');
+            if (placeholder) placeholder.remove();
+
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'p-4 bg-slate-50 hover:bg-slate-100/70 rounded-xl border border-slate-200/70 flex items-start space-x-3 transition-all duration-200 animate-slide-in';
+            itemDiv.innerHTML = `
+                <input type="checkbox" class="mt-1 w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500 border-slate-300 cursor-pointer task-checkbox">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-slate-800 leading-snug task-label">${item.task}</p>
+                    <div class="mt-2 flex items-center space-x-3">
+                        <div class="flex items-center space-x-1">
+                            <i class="fas fa-user text-slate-400 text-[10px]"></i>
+                            <select class="text-[11px] border-slate-200 rounded-md px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white font-medium text-slate-600 assignee-select">
+                                <option value="John" ${item.assignee === 'John' ? 'selected' : ''}>John</option>
+                                <option value="Sarah" ${item.assignee === 'Sarah' ? 'selected' : ''}>Sarah</option>
+                                <option value="Mike" ${item.assignee === 'Mike' ? 'selected' : ''}>Mike</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <i class="fas fa-calendar text-slate-400 text-[10px]"></i>
+                            <span class="text-[11px] text-slate-500 font-medium">${item.due}</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="text-slate-300 hover:text-red-400 transition-colors mt-1" title="Remove">
+                    <i class="fas fa-xmark text-xs"></i>
+                </button>
+            `;
+
+            list.appendChild(itemDiv);
+
+            // Update count
+            const count = list.querySelectorAll('div.p-4').length;
+            document.getElementById('actionCount').textContent = count;
+
+            // Checkbox interaction
+            const checkbox = itemDiv.querySelector('.task-checkbox');
+            const label = itemDiv.querySelector('.task-label');
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    label.classList.add('line-through', 'text-slate-400');
+                    itemDiv.classList.add('bg-emerald-50', 'border-emerald-200');
+                } else {
+                    label.classList.remove('line-through', 'text-slate-400');
+                    itemDiv.classList.remove('bg-emerald-50', 'border-emerald-200');
+                }
+            });
+
+            // Remove button
+            const removeBtn = itemDiv.querySelector('button');
+            removeBtn.addEventListener('click', function() {
+                itemDiv.remove();
+                const count = document.querySelectorAll('#actionItemsList div.p-4').length;
+                document.getElementById('actionCount').textContent = count;
+                if (count === 0) {
+                    document.getElementById('actionItemsList').innerHTML = `
+                        <div class="text-center text-slate-400 text-sm py-20">
+                            <div class="mb-3"><i class="fas fa-list-check text-4xl opacity-40"></i></div>
+                            <p>Action items will appear here<br>as they're detected</p>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        // ====== Live Summary ======
+        function updateLiveSummary(summaryText) {
+            const el = document.getElementById('liveSummaryText');
+            el.textContent = summaryText;
+        }
+
+        // ====== Document Summarizer ======
+        function summarizeDocument(text) {
+            const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
+            if (sentences.length < 2) {
+                return 'The document is too short for effective summarization. Please provide at least 2-3 sentences.';
+            }
+
+            const words = text.toLowerCase().match(/\b[a-zA-Z]{3,}\b/g) || [];
+            const stopWords = new Set([
+                'the', 'and', 'for', 'with', 'this', 'that', 'from', 'have', 'are', 'was', 'were',
+                'has', 'had', 'not', 'but', 'any', 'all', 'can', 'out', 'into', 'its', 'his', 'her',
+                'their', 'them', 'they', 'you', 'your', 'our', 'over', 'about', 'when', 'what', 'will',
+                'would', 'could', 'should', 'may', 'might', 'shall', 'than', 'then', 'there', 'these',
+                'those', 'each', 'every', 'such', 'more', 'most', 'some', 'other'
+            ]);
+
+            const wordFreq = {};
+            words.forEach(word => {
+                if (!stopWords.has(word)) {
+                    wordFreq[word] = (wordFreq[word] || 0) + 1;
+                }
+            });
+
+            const sentenceScores = sentences.map((sentence, idx) => {
+                const sentenceWords = sentence.toLowerCase().match(/\b[a-zA-Z]{3,}\b/g) || [];
+                let score = 0;
+                sentenceWords.forEach(word => {
+                    if (wordFreq[word]) {
+                        score += wordFreq[word];
+                    }
+                });
+                // Boost score for sentences at the beginning
+                if (idx === 0) score *= 1.3;
+                if (idx === 1) score *= 1.1;
+                return { sentence: sentence.trim(), score, idx };
+            });
+
+            sentenceScores.sort((a, b) => b.score - a.score);
+            const topSentences = sentenceScores.slice(0, Math.min(3, sentences.length)).sort((a, b) => a.idx - b.idx);
+
+            return topSentences.map(s => s.sentence).join(' ');
+        }
+
+        // ====== Event Listeners ======
+        document.getElementById('startBtn').addEventListener('click', startTranscription);
+
+        document.getElementById('stopBtn').addEventListener('click', stopTranscription);
+
+        document.getElementById('resetBtn').addEventListener('click', resetTranscription);
+
+        document.getElementById('summarizeBtn').addEventListener('click', function() {
+            const input = document.getElementById('docInput').value.trim();
+            if (!input) {
+                const output = document.getElementById('summaryOutput');
+                output.classList.remove('hidden');
+                output.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-circle-exclamation text-amber-500"></i>
+                        <p class="text-sm font-medium text-amber-700">Please paste a document to summarize.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const loading = document.getElementById('summaryLoading');
+            const output = document.getElementById('summaryOutput');
+            const summarizeBtn = document.getElementById('summarizeBtn');
+            loading.classList.remove('hidden');
+            output.classList.add('hidden');
+            summarizeBtn.disabled = true;
+            summarizeBtn.classList.add('opacity-60');
+
+            // Simulate processing delay
+            setTimeout(() => {
+                const summary = summarizeDocument(input);
+                loading.classList.add('hidden');
+                summarizeBtn.disabled = false;
+                summarizeBtn.classList.remove('opacity-60');
+
+                output.innerHTML = `
+                    <div class="flex items-start space-x-2 mb-2">
+                        <i class="fas fa-wand-magic-sparkles text-indigo-500 mt-0.5"></i>
+                        <span class="font-semibold text-indigo-700 text-sm">AI Summary</span>
+                        <span class="ml-auto text-[10px] bg-indigo-100 text-indigo-500 px-2 py-0.5 rounded-full font-medium">${input.split(/\s+/).filter(w => w.length > 0).length} chars</span>
+                    </div>
+                    <p class="text-slate-600 leading-relaxed text-sm">${summary}</p>
+                `;
+                output.classList.remove('hidden');
+            }, 1500);
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', function() {
+            document.getElementById('docInput').value = '';
+            document.getElementById('summaryOutput').classList.add('hidden');
+            document.getElementById('wordCount').textContent = '0 words';
+        });
+
+        // Word count listener
+        document.getElementById('docInput').addEventListener('input', function() {
+            const text = this.value.trim();
+            const words = text ? text.split(/\s+/).filter(w => w.length > 0).length : 0;
+            document.getElementById('wordCount').textContent = words + ' words';
+        });
+    </script>
+
+</body>
+</html>
