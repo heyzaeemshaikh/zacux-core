@@ -193,19 +193,20 @@
           logBox.scrollTop = logBox.scrollHeight;
         }
 
-        // Assets list
-        if (data.recent_assets && data.recent_assets.length > 0) {
-          const assetBox = document.getElementById('assets-container');
-          assetBox.innerHTML = data.recent_assets.map(a => `
-            <div class="p-3 bg-slate-900 rounded-xl border border-slate-800 flex justify-between items-center">
-              <div>
-                <p class="font-bold text-slate-200">${a.title}</p>
-                <p class="text-[10px] text-slate-500 font-mono">${a.timestamp}</p>
-              </div>
-              <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 font-mono text-[10px] border border-emerald-800">LIVE</span>
-            </div>
-          `).join('');
-        }
+        // Assets list (Clickable Links)
+if (data.recent_assets && data.recent_assets.length > 0) {
+  const assetBox = document.getElementById('assets-container');
+  assetBox.innerHTML = data.recent_assets.map(a => `
+    <a href="${a.file || '#'}" target="_blank" class="p-3 bg-slate-900/90 hover:bg-slate-800 transition rounded-xl border border-slate-800 flex justify-between items-center block">
+      <div>
+        <p class="font-bold text-slate-200">${a.title}</p>
+        <p class="text-[10px] text-slate-500 font-mono">${a.timestamp}</p>
+      </div>
+      <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 font-mono text-[10px] border border-emerald-800">OPEN ↗</span>
+    </a>
+  `).join('');
+}
+
 
       } catch (err) {
         console.error("Dashboard fetch error:", err);
