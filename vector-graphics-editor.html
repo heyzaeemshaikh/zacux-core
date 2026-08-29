@@ -16,335 +16,317 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="bg-[#090d16] h-screen">
-  <!-- Top Toolbar -->
-  <nav class="flex justify-between bg-[#111727] py-2 px-4 text-white border-b border-[#2c3e50]">
-    <div class="flex items-center">
-      <h1 class="text-lg font-bold mr-4">Vectra</h1>
-      <button class="btn-tool btn-tool--active">
+<body class="bg-gray-900 text-gray-200 h-screen relative">
+  <!-- Toolbar -->
+  <nav class="flex justify-between bg-gray-800 p-4 fixed top-0 left-0 right-0 z-10">
+    <div class="flex items-center space-x-4">
+      <a href="#" class="text-lg font-bold">Vectra</a>
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
         <i class="fas fa-file fa-lg mr-2"></i> File
       </button>
-      <button class="btn-tool">
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
         <i class="fas fa-edit fa-lg mr-2"></i> Edit
       </button>
-      <button class="btn-tool">
-        <i class="fas fa-object-ungroup fa-lg mr-2"></i> Layers
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
+        <i class="fas fa-vector-square fa-lg mr-2"></i> Vector
       </button>
     </div>
-    <div class="flex items-center">
-      <button class="btn-tool">
+    <div class="flex items-center space-x-4">
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
         <i class="fas fa-undo fa-lg mr-2"></i> Undo
       </button>
-      <button class="btn-tool">
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
         <i class="fas fa-redo fa-lg mr-2"></i> Redo
       </button>
-      <button class="btn-tool">
-        <i class="fas fa-save fa-lg mr-2"></i> Save
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
+        <i class="fas fa-download fa-lg mr-2"></i> Export
       </button>
     </div>
   </nav>
 
-  <!-- Left Sidebar -->
-  <aside class="fixed h-screen top-12 left-0 w-64 bg-[#111727] py-4 px-2 border-r border-[#2c3e50]">
-    <h2 class="text-lg font-bold mb-2">Layers</h2>
-    <ul>
-      <li class="layer-item py-2 px-2 cursor-pointer hover:bg-[#2c3e50]">
-        <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 1
+  <!-- Object Panel -->
+  <div class="fixed top-14 left-0 bottom-0 w-64 bg-gray-800 p-4 z-10">
+    <h2 class="text-lg font-bold mb-4">Object Panel</h2>
+    <ul class="space-y-2">
+      <li>
+        <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded w-full">
+          <i class="fas fa-circle fa-lg mr-2"></i> Circle
+        </button>
       </li>
-      <li class="layer-item py-2 px-2 cursor-pointer hover:bg-[#2c3e50]">
-        <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 2
+      <li>
+        <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded w-full">
+          <i class="fas fa-square fa-lg mr-2"></i> Square
+        </button>
+      </li>
+      <li>
+        <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded w-full">
+          <i class="fas fa-triangle fa-lg mr-2"></i> Triangle
+        </button>
       </li>
     </ul>
-    <h2 class="text-lg font-bold mt-4 mb-2">Node Editor</h2>
-    <div class="node-editor py-2 px-2">
-      <button class="btn-node btn-node--active">
-        <i class="fas fa-circle fa-lg mr-2"></i> Circle
-      </button>
-      <button class="btn-node">
-        <i class="fas fa-square fa-lg mr-2"></i> Square
-      </button>
-      <button class="btn-node">
-        <i class="fas fa-line fa-lg mr-2"></i> Line
-      </button>
-    </div>
-  </aside>
+  </div>
+
+  <!-- Layers Panel -->
+  <div class="fixed top-14 right-0 bottom-0 w-64 bg-gray-800 p-4 z-10">
+    <h2 class="text-lg font-bold mb-4">Layers Panel</h2>
+    <ul class="space-y-2">
+      <li>
+        <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded w-full">
+          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 1
+        </button>
+      </li>
+      <li>
+        <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded w-full">
+          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 2
+        </button>
+      </li>
+      <li>
+        <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded w-full">
+          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 3
+        </button>
+      </li>
+    </ul>
+  </div>
 
   <!-- Main Viewport -->
-  <div class="main-viewport flex-1 h-screen p-4">
-    <canvas class="canvas w-full h-full" width="800" height="600"></canvas>
-  </div>
-
-  <!-- Floating Side Panels -->
-  <div class="float-panel top-12 right-4 w-48 bg-[#111727] py-2 px-2 border border-[#2c3e50]">
-    <h2 class="text-lg font-bold mb-2">Tool Options</h2>
-    <label class="block py-2">
-      <span class="text-sm font-bold">Stroke Color:</span>
-      <input type="color" class="ml-2" value="#ffffff">
-    </label>
-    <label class="block py-2">
-      <span class="text-sm font-bold">Fill Color:</span>
-      <input type="color" class="ml-2" value="#ffffff">
-    </label>
-  </div>
-
-  <!-- Bottom Status Panel -->
-  <footer class="footer bg-[#111727] py-2 px-4 border-t border-[#2c3e50]">
-    <div class="flex justify-between items-center">
-      <span class="text-sm font-bold">Coords: X: 100, Y: 200</span>
-      <span class="text-sm font-bold">Zoom: 100%</span>
-      <span class="text-sm font-bold">Grid Size: 10px</span>
+  <div class="absolute top-14 left-64 right-64 bottom-4 p-4 overflow-auto">
+    <canvas id="viewport" class="w-full h-full" width="800" height="600"></canvas>
+    <div class="absolute top-0 left-0 right-0 flex justify-between items-center p-2 bg-gray-800 bg-opacity-50">
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
+        <i class="fas fa-search-plus fa-lg mr-2"></i> Zoom In
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
+        <i class="fas fa-search-minus fa-lg mr-2"></i> Zoom Out
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
+        <i class="fas fa-arrows-alt fa-lg mr-2"></i> Pan
+      </button>
     </div>
-  </footer>
+  </div>
+
+  <!-- Status Panel -->
+  <div class="fixed bottom-0 left-0 right-0 p-4 bg-gray-800 z-10">
+    <div class="flex items-center space-x-4">
+      <i class="fas fa-circle fa-lg text-green-500 mr-2"></i> Connected
+    </div>
+    <div class="flex items-center space-x-4">
+      <i class="fas fa-exclamation-triangle fa-lg text-yellow-500 mr-2"></i> Warning: Unsaved Changes
+    </div>
+    <div class="flex items-center space-x-4">
+      <i class="fas fa-bell fa-lg text-blue-500 mr-2"></i> Notification: New Update Available
+    </div>
+  </div>
 </body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Import required libraries
-import { createRoot } from 'react-dom/client';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import React from 'react';
+// Import necessary libraries
+import { Vector2 } from './vector2.js';
+import { SvgParser } from './svg-parser.js';
+import { NodeEditor } from './node-editor.js';
+import { UndoRedoManager } from './undo-redo-manager.js';
+import { FileExporter } from './file-exporter.js';
 
-// Define the initial state
-const initialState = {
-  nodes: [],
-  selectedNode: null,
-  undoHistory: [],
-  redoHistory: []
-};
-
-// Define the reducers
-const nodeReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'ADD_NODE':
-      return { ...state, nodes: [...state.nodes, action.node] };
-    case 'SELECT_NODE':
-      return { ...state, selectedNode: action.node };
-    case 'UNDO':
-      return { ...state, nodes: state.undoHistory.pop() };
-    case 'REDO':
-      return { ...state, nodes: state.redoHistory.pop() };
-    default:
-      return state;
-  }
-};
-
-const rootReducer = combineReducers({
-  nodes: nodeReducer
-});
-
-// Create the Redux store
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
-
-// Define the Vectra app component
-class VectraApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      nodes: [],
-      selectedNode: null
-    };
-    this.handleNodeAdd = this.handleNodeAdd.bind(this);
-    this.handleNodeSelect = this.handleNodeSelect.bind(this);
-    this.handleUndo = this.handleUndo.bind(this);
-    this.handleRedo = this.handleRedo.bind(this);
+// Initialize application
+class Vectra {
+  constructor() {
+    this.name = 'Vectra';
+    this.slug = 'vector-graphics-editor';
+    this.toolbar = document.getElementById('toolbar');
+    this.objectPanel = document.getElementById('object-panel');
+    this.layersPanel = document.getElementById('layers-panel');
+    this.mainViewport = document.getElementById('main-viewport');
+    this.statusPanel = document.getElementById('status-panel');
+    this.state = {};
+    this.stateStore = new StateStore();
+    this.undoRedoManager = new UndoRedoManager();
+    this.fileExporter = new FileExporter();
+    this.svgParser = new SvgParser();
+    this.nodeEditor = new NodeEditor();
+    this.canvas = document.createElement('canvas');
+    this.canvas.width = 800;
+    this.canvas.height = 600;
+    this.ctx = this.canvas.getContext('2d');
+    this.mainViewport.appendChild(this.canvas);
+    this.addEventListeners();
   }
 
-  handleNodeAdd(node) {
-    store.dispatch({ type: 'ADD_NODE', node });
+  addEventListeners() {
+    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
+    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
+    this.toolbar.addEventListener('click', (e) => this.handleToolbarClick(e));
   }
 
-  handleNodeSelect(node) {
-    store.dispatch({ type: 'SELECT_NODE', node });
+  handleMouseDown(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    this.nodeEditor.selectNodeAt(x, y);
+    this.updateState();
   }
 
-  handleUndo() {
-    store.dispatch({ type: 'UNDO' });
+  handleMouseMove(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    this.nodeEditor.moveNodeTo(x, y);
+    this.updateState();
   }
 
-  handleRedo() {
-    store.dispatch({ type: 'REDO' });
+  handleMouseUp(e) {
+    this.undoRedoManager.saveState(this.state);
   }
 
-  render() {
-    return (
-      <div>
-        <TopToolbar onNodeAdd={this.handleNodeAdd} onUndo={this.handleUndo} onRedo={this.handleRedo} />
-        <LeftSidebar nodes={store.getState().nodes} onSelect={this.handleNodeSelect} />
-        <MainViewport nodes={store.getState().nodes} selectedNode={store.getState().selectedNode} />
-        <BottomStatusPanel />
-      </div>
-    );
-  }
-}
-
-// Define the TopToolbar component
-class TopToolbar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleNodeAdd = this.handleNodeAdd.bind(this);
-    this.handleUndo = this.handleUndo.bind(this);
-    this.handleRedo = this.handleRedo.bind(this);
+  handleToolbarClick(e) {
+    if (e.target.id === 'undo-button') {
+      this.undoRedoManager.undo();
+    } else if (e.target.id === 'redo-button') {
+      this.undoRedoManager.redo();
+    } else if (e.target.id === 'export-button') {
+      this.exportFile();
+    }
   }
 
-  handleNodeAdd() {
-    this.props.onNodeAdd({ id: Math.random(), x: 0, y: 0 });
+  updateState() {
+    this.state = this.nodeEditor.getState();
+    this.stateStore.saveState(this.state);
   }
 
-  handleUndo() {
-    this.props.onUndo();
-  }
-
-  handleRedo() {
-    this.props.onRedo();
-  }
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.handleNodeAdd}>Add Node</button>
-        <button onClick={this.handleUndo}>Undo</button>
-        <button onClick={this.handleRedo}>Redo</button>
-      </div>
-    );
+  exportFile() {
+    const format = document.getElementById('export-format').value;
+    this.fileExporter.export(format, this.state);
   }
 }
 
-// Define the LeftSidebar component
-class LeftSidebar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleSelect = this.handleSelect.bind(this);
+// State management
+class StateStore {
+  constructor() {
+    this.state = {};
   }
 
-  handleSelect(node) {
-    this.props.onSelect(node);
+  saveState(state) {
+    this.state = state;
+    localStorage.setItem('vectra-state', JSON.stringify(state));
   }
 
-  render() {
-    return (
-      <div>
-        <h2>Layers</h2>
-        <ul>
-          {this.props.nodes.map(node => (
-            <li key={node.id} onClick={() => this.handleSelect(node)}>
-              {node.id}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
+  loadState() {
+    const storedState = localStorage.getItem('vectra-state');
+    if (storedState) {
+      this.state = JSON.parse(storedState);
+    }
+    return this.state;
   }
 }
 
-// Define the MainViewport component
-class MainViewport extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.handleMouseUp = this.handleMouseUp.bind(this);
+// Undo/Redo management
+class UndoRedoManager {
+  constructor() {
+    this.history = [];
+    this.current = -1;
   }
 
-  handleMouseDown(event) {
-    console.log('Mouse down:', event);
+  saveState(state) {
+    this.history.push(state);
+    this.current++;
   }
 
-  handleMouseMove(event) {
-    console.log('Mouse move:', event);
+  undo() {
+    if (this.current > 0) {
+      this.current--;
+      return this.history[this.current];
+    }
   }
 
-  handleMouseUp(event) {
-    console.log('Mouse up:', event);
-  }
-
-  render() {
-    return (
-      <div>
-        <svg width="800" height="600" onMouseDown={this.handleMouseDown} onMouseMove={this.handleMouseMove} onMouseUp={this.handleMouseUp}>
-          {this.props.nodes.map(node => (
-            <circle key={node.id} cx={node.x} cy={node.y} r="10" fill="black" />
-          ))}
-        </svg>
-      </div>
-    );
+  redo() {
+    if (this.current < this.history.length - 1) {
+      this.current++;
+      return this.history[this.current];
+    }
   }
 }
 
-// Define the BottomStatusPanel component
-class BottomStatusPanel extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>Status: Ready</p>
-      </div>
-    );
+// File export logic
+class FileExporter {
+  constructor() {}
+
+  export(format, state) {
+    const data = JSON.stringify(state);
+    if (format === 'png') {
+      this.exportAsImage(data);
+    } else if (format === 'svg') {
+      this.exportAsSvg(data);
+    } else if (format === 'json') {
+      this.exportAsJson(data);
+    }
+  }
+
+  exportAsImage(data) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 600;
+    const ctx = canvas.getContext('2d');
+    // Render state as image
+    const url = canvas.toDataURL();
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'vectra-image.png';
+    a.click();
+  }
+
+  exportAsSvg(data) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.width = 800;
+    svg.height = 600;
+    // Render state as SVG
+    const serializer = new XMLSerializer();
+    const xml = serializer.serializeToString(svg);
+    const a = document.createElement('a');
+    a.href = 'data:image/svg+xml,' + xml;
+    a.download = 'vectra-svg.svg';
+    a.click();
+  }
+
+  exportAsJson(data) {
+    const a = document.createElement('a');
+    a.href = 'data:application/json,' + data;
+    a.download = 'vectra-state.json';
+    a.click();
   }
 }
 
-// Define the file export logic
-function exportFile(type, data) {
-  const blob = new Blob([data], { type: `image/${type}` });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `vectra.${type}`;
-  a.click();
-}
+// Node editing algorithms
+class NodeEditor {
+  constructor() {
+    this.nodes = [];
+    this.selectedNode = null;
+  }
 
-// Define the export handlers
-function handleExportPNG() {
-  const svg = document.querySelector('svg');
-  const svgData = new XMLSerializer().serializeToString(svg);
-  const canvas = document.createElement('canvas');
-  canvas.width = 800;
-  canvas.height = 600;
-  const ctx = canvas.getContext('2d');
-  const img = new Image();
-  img.onload = function() {
-    ctx.drawImage(img, 0, 0);
-    const pngData = canvas.toDataURL('image/png');
-    exportFile('png', pngData.substring(22));
-  };
-  img.src = `data:image/svg+xml,${svgData}`;
-}
-
-function handleExportSVG() {
-  const svg = document.querySelector('svg');
-  const svgData = new XMLSerializer().serializeToString(svg);
-  exportFile('svg', svgData);
-}
-
-function handleExportJSON() {
-  const nodes = store.getState().nodes;
-  const jsonData = JSON.stringify(nodes);
-  exportFile('json', jsonData);
-}
-
-// Add event listeners for export buttons
-document.addEventListener('DOMContentLoaded', function() {
-  const exportButtons = document.querySelectorAll('.export-button');
-  exportButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      if (button.dataset.type === 'png') {
-        handleExportPNG();
-      } else if (button.dataset.type === 'svg') {
-        handleExportSVG();
-      } else if (button.dataset.type === 'json') {
-        handleExportJSON();
+  selectNodeAt(x, y) {
+    // Find node at coordinates
+    for (let i = 0; i < this.nodes.length; i++) {
+      if (this.nodes[i].contains(x, y)) {
+        this.selectedNode = this.nodes[i];
+        break;
       }
-    });
-  });
-});
+    }
+  }
 
-// Render the Vectra app
-const root = createRoot(document.getElementById('root'));
-root.render(
-  <Provider store={store}>
-    <VectraApp />
-  </Provider>
-);
+  moveNodeTo(x, y) {
+    if (this.selectedNode) {
+      // Move selected node to coordinates
+      this.selectedNode.x = x;
+      this.selectedNode.y = y;
+    }
+  }
+
+  getState() {
+    return this.nodes.map((node) => node.getState());
+  }
+}
+
+// Initialize Vectra
+const vectra = new Vectra();
 </script>
 </body>
 </html>
