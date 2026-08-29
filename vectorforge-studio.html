@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VectorForge Studio</title>
+  <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+  <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
+  <style>
+    body { background-color: #090d16; color: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    .panel-glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
+
+<div class="flex h-screen bg-gray-900 text-gray-100" id="vectorforge-studio">
+  <!-- Toolbar -->
+  <div class="flex justify-between bg-gray-800 p-2 shadow-md" id="toolbar">
+    <div class="flex items-center">
+      <i class="fas fa-cube fa-lg mr-2 text-blue-500"></i>
+      <span class="font-bold text-lg">VectorForge Studio</span>
+    </div>
+    <div class="flex items-center">
+      <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-md mx-1" title="New Project">
+        <i class="fas fa-file fa-lg text-white"></i>
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-md mx-1" title="Open Project">
+        <i class="fas fa-folder-open fa-lg text-white"></i>
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-md mx-1" title="Save Project">
+        <i class="fas fa-save fa-lg text-white"></i>
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-md mx-1" title="Undo">
+        <i class="fas fa-undo fa-lg text-white"></i>
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-md mx-1" title="Redo">
+        <i class="fas fa-redo fa-lg text-white"></i>
+      </button>
+    </div>
+    <div class="flex items-center">
+      <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-md mx-1" title="Layers">
+        <i class="fas fa-layer-group fa-lg text-white"></i>
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-md mx-1" title="Properties">
+        <i class="fas fa-cog fa-lg text-white"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Layers Drawer -->
+  <div class="w-64 bg-gray-800 p-2 shadow-md" id="layers-drawer">
+    <div class="flex justify-between items-center mb-2">
+      <span class="font-bold text-lg">Layers</span>
+      <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-md" title="New Layer">
+        <i class="fas fa-plus fa-lg text-white"></i>
+      </button>
+    </div>
+    <ul>
+      <li class="py-2 border-b border-gray-700">
+        <span class="font-bold">Layer 1</span>
+      </li>
+      <li class="py-2 border-b border-gray-700">
+        <span class="font-bold">Layer 2</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Canvas Viewport -->
+  <div class="flex-1 bg-gray-900" id="canvas-viewport">
+    <svg width="100%" height="100%" viewBox="0 0 100 100">
+      <!-- Canvas content will be rendered here -->
+    </svg>
+  </div>
+
+  <!-- Property Inspector -->
+  <div class="w-64 bg-gray-800 p-2 shadow-md" id="property-inspector">
+    <div class="flex justify-between items-center mb-2">
+      <span class="font-bold text-lg">Properties</span>
+      <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-md" title="Reset Properties">
+        <i class="fas fa-undo fa-lg text-white"></i>
+      </button>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-200 text-sm mb-1" for="fill-color">Fill Color</label>
+      <input type="color" id="fill-color" value="#ffffff" class="block w-full">
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-200 text-sm mb-1" for="stroke-color">Stroke Color</label>
+      <input type="color" id="stroke-color" value="#000000" class="block w-full">
+    </div>
+  </div>
+
+  <!-- Status Bar -->
+  <div class="flex justify-between bg-gray-800 p-2 shadow-md" id="status-bar">
+    <div class="flex items-center">
+      <i class="fas fa-cursor fa-lg mr-2 text-blue-500"></i>
+      <span class="font-bold text-lg">Vector Node Stack: 0/100</span>
+    </div>
+    <div class="flex items-center">
+      <i class="fas fa-save fa-lg mr-2 text-blue-500"></i>
+      <span class="font-bold text-lg">Local Storage: 0 bytes</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
+// VectorForge Studio Engine
+
+class VectorNode {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.children = [];
+  }
+
+  addChild(node) {
+    this.children.push(node);
+  }
+
+  removeChild(node) {
+    const index = this.children.indexOf(node);
+    if (index !== -1) {
+      this.children.splice(index, 1);
+    }
+  }
+}
+
+class VectorPath {
+  constructor() {
+    this.nodes = [];
+  }
+
+  addNode(node) {
+    this.nodes.push(node);
+  }
+
+  removeNode(node) {
+    const index = this.nodes.indexOf(node);
+    if (index !== -1) {
+      this.nodes.splice(index, 1);
+    }
+  }
+
+  getPoints() {
+    return this.nodes.map(node => [node.x, node.y]);
+  }
+}
+
+class VectorForgeStudio {
+  constructor(canvas, toolbar, layersDrawer, propertyInspector) {
+    this.canvas = canvas;
+    this.toolbar = toolbar;
+    this.layersDrawer = layersDrawer;
+    this.propertyInspector = propertyInspector;
+    this.vectorPaths = [];
+    this.currentPath = null;
+    this.undoHistory = [];
+    this.redoHistory = [];
+
+    this.canvas.addEventListener('mousedown', this.handleMouseDown.bind(this));
+    this.canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
+    this.canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
+
+    this.loadFromLocalStorage();
+  }
+
+  handleMouseDown(event) {
+    const x = event.clientX - this.canvas.offsetLeft;
+    const y = event.clientY - this.canvas.offsetTop;
+    const node = new VectorNode(x, y);
+    if (!this.currentPath) {
+      this.currentPath = new VectorPath();
+      this.vectorPaths.push(this.currentPath);
+    }
+    this.currentPath.addNode(node);
+    this.undoHistory.push(this.getSnapshot());
+    this.redoHistory = [];
+    this.render();
+  }
+
+  handleMouseMove(event) {
+    if (this.currentPath) {
+      const x = event.clientX - this.canvas.offsetLeft;
+      const y = event.clientY - this.canvas.offsetTop;
+      const node = this.currentPath.nodes[this.currentPath.nodes.length - 1];
+      node.x = x;
+      node.y = y;
+      this.render();
+    }
+  }
+
+  handleMouseUp(event) {
+    this.currentPath = null;
+  }
+
+  render() {
+    const ctx = this.canvas.getContext('2d');
+    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    for (const path of this.vectorPaths) {
+      ctx.beginPath();
+      for (const node of path.nodes) {
+        ctx.lineTo(node.x, node.y);
+      }
+      ctx.stroke();
+    }
+  }
+
+  getSnapshot() {
+    return this.vectorPaths.map(path => path.getPoints());
+  }
+
+  loadFromLocalStorage() {
+    const storedData = localStorage.getItem('vectorforge-studio');
+    if (storedData) {
+      const data = JSON.parse(storedData);
+      this.vectorPaths = data.map(path => {
+        const vectorPath = new VectorPath();
+        for (const point of path) {
+          const node = new VectorNode(point[0], point[1]);
+          vectorPath.addNode(node);
+        }
+        return vectorPath;
+      });
+      this.render();
+    }
+  }
+
+  saveToLocalStorage() {
+    const data = this.vectorPaths.map(path => path.getPoints());
+    localStorage.setItem('vectorforge-studio', JSON.stringify(data));
+  }
+
+  undo() {
+    if (this.undoHistory.length > 0) {
+      const snapshot = this.undoHistory.pop();
+      this.redoHistory.push(this.getSnapshot());
+      this.vectorPaths = snapshot.map(path => {
+        const vectorPath = new VectorPath();
+        for (const point of path) {
+          const node = new VectorNode(point[0], point[1]);
+          vectorPath.addNode(node);
+        }
+        return vectorPath;
+      });
+      this.render();
+    }
+  }
+
+  redo() {
+    if (this.redoHistory.length > 0) {
+      const snapshot = this.redoHistory.pop();
+      this.undoHistory.push(this.getSnapshot());
+      this.vectorPaths = snapshot.map(path => {
+        const vectorPath = new VectorPath();
+        for (const point of path) {
+          const node = new VectorNode(point[0], point[1]);
+          vectorPath.addNode(node);
+        }
+        return vectorPath;
+      });
+      this.render();
+    }
+  }
+
+  exportAsPNG() {
+    const ctx = this.canvas.getContext('2d');
+    const dataURL = this.canvas.toDataURL();
+    const a = document.createElement('a');
+    a.href = dataURL;
+    a.download = 'vectorforge-studio.png';
+    a.click();
+  }
+
+  exportAsSVG() {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', this.canvas.width);
+    svg.setAttribute('height', this.canvas.height);
+    for (const path of this.vectorPaths) {
+      const pathElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      pathElement.setAttribute('d', path.nodes.map(node => `L${node.x} ${node.y}`).join(''));
+      pathElement.setAttribute('stroke', 'black');
+      pathElement.setAttribute('fill', 'none');
+      svg.appendChild(pathElement);
+    }
+    const serializer = new XMLSerializer();
+    const svgString = serializer.serializeToString(svg);
+    const a = document.createElement('a');
+    a.href = 'data:image/svg+xml,' + encodeURIComponent(svgString);
+    a.download = 'vectorforge-studio.svg';
+    a.click();
+  }
+
+  exportAsJSON() {
+    const data = this.vectorPaths.map(path => path.getPoints());
+    const json = JSON.stringify(data);
+    const a = document.createElement('a');
+    a.href = 'data:application/json,' + encodeURIComponent(json);
+    a.download = 'vectorforge-studio.json';
+    a.click();
+  }
+}
+
+const canvas = document.getElementById('canvas');
+const toolbar = document.getElementById('toolbar');
+const layersDrawer = document.getElementById('layers-drawer');
+const propertyInspector = document.getElementById('property-inspector');
+
+const studio = new VectorForgeStudio(canvas, toolbar, layersDrawer, propertyInspector);
+
+document.getElementById('undo-button').addEventListener('click', () => studio.undo());
+document.getElementById('redo-button').addEventListener('click', () => studio.redo());
+document.getElementById('export-png-button').addEventListener('click', () => studio.exportAsPNG());
+document.getElementById('export-svg-button').addEventListener('click', () => studio.exportAsSVG());
+document.getElementById('export-json-button').addEventListener('click', () => studio.exportAsJSON());
+</script>
+</body>
+</html>
