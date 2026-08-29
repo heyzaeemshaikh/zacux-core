@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VectorCraft</title>
+  <title>VectorForge</title>
   <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
   <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
   <style>
@@ -16,289 +16,390 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="bg-[#090d16] text-white h-screen overflow-hidden">
+<body class="h-screen w-screen bg-[#090d16] text-white flex flex-col">
   <!-- Toolbar -->
-  <nav class="flex justify-between bg-[#111826] p-2 fixed top-0 left-0 right-0 z-10">
+  <nav class="flex justify-between p-4 border-b border-gray-600">
     <div class="flex items-center">
-      <button class="mr-2 hover:text-gray-400" title="Undo">
-        <i class="fas fa-undo fa-lg"></i>
+      <h1 class="text-2xl font-bold mr-4">VectorForge</h1>
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg mr-2">
+        <i class="fas fa-undo fa-lg mr-2"></i>Undo
       </button>
-      <button class="mr-2 hover:text-gray-400" title="Redo">
-        <i class="fas fa-redo fa-lg"></i>
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg mr-2">
+        <i class="fas fa-redo fa-lg mr-2"></i>Redo
       </button>
     </div>
     <div class="flex items-center">
-      <span class="text-lg font-bold mr-4">VectorCraft</span>
-      <button class="mr-2 hover:text-gray-400" title="New File">
-        <i class="fas fa-file fa-lg"></i>
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg mr-2">
+        <i class="fas fa-file-export fa-lg mr-2"></i>Export
       </button>
-      <button class="mr-2 hover:text-gray-400" title="Open File">
-        <i class="fas fa-folder-open fa-lg"></i>
-      </button>
-      <button class="mr-2 hover:text-gray-400" title="Save File">
-        <i class="fas fa-save fa-lg"></i>
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg mr-2">
+        <i class="fas fa-cog fa-lg mr-2"></i>Settings
       </button>
     </div>
   </nav>
 
-  <!-- Layers Panel -->
-  <aside class="fixed left-0 top-12 h-screen w-64 bg-[#1a202c] p-4 z-0">
-    <h2 class="text-lg font-bold mb-4">Layers</h2>
-    <ul class="list-none m-0 p-0">
-      <li class="mb-2">
-        <button class="w-full text-left hover:bg-[#272e3f] py-2">
-          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 1
-        </button>
-      </li>
-      <li class="mb-2">
-        <button class="w-full text-left hover:bg-[#272e3f] py-2">
-          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 2
-        </button>
-      </li>
-    </ul>
-  </aside>
+  <!-- Main Viewport -->
+  <div class="flex flex-1">
+    <!-- Sidebar -->
+    <div class="w-64 p-4 border-r border-gray-600">
+      <h2 class="text-xl font-bold mb-4">Layers</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-600">
+          <i class="fas fa-layer-group fa-lg mr-2"></i>Layer 1
+        </li>
+        <li class="py-2 border-b border-gray-600">
+          <i class="fas fa-layer-group fa-lg mr-2"></i>Layer 2
+        </li>
+        <li class="py-2 border-b border-gray-600">
+          <i class="fas fa-layer-group fa-lg mr-2"></i>Layer 3
+        </li>
+      </ul>
+      <h2 class="text-xl font-bold mt-4 mb-4">Properties</h2>
+      <div>
+        <label class="block mb-2">Fill Color</label>
+        <input type="color" value="#ff0000">
+      </div>
+      <div>
+        <label class="block mb-2">Stroke Color</label>
+        <input type="color" value="#00ff00">
+      </div>
+    </div>
 
-  <!-- Main SVG Viewport -->
-  <main class="flex-1 relative overflow-hidden" style="margin-left: 16rem; margin-top: 4rem;">
-    <svg class="absolute inset-0" id="svg-viewport">
-      <!-- SVG Content will be rendered here -->
-    </svg>
-  </main>
+    <!-- SVG Canvas -->
+    <div class="flex-1 p-4">
+      <svg width="100%" height="100%" viewBox="0 0 100 100">
+        <!-- SVG Content -->
+      </svg>
+    </div>
 
-  <!-- Node Editing Tools -->
-  <aside class="fixed right-0 top-12 h-screen w-64 bg-[#1a202c] p-4 z-0">
-    <h2 class="text-lg font-bold mb-4">Node Editing Tools</h2>
-    <div class="flex flex-col mb-4">
-      <button class="mb-2 hover:bg-[#272e3f] py-2 w-full text-left">
-        <i class="fas fa-pen fa-lg mr-2"></i> Edit Node
+    <!-- Floating Side Panels -->
+    <div class="fixed top-0 right-0 p-4">
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg mb-2">
+        <i class="fas fa-node fa-lg mr-2"></i>Edit Node
       </button>
-      <button class="mb-2 hover:bg-[#272e3f] py-2 w-full text-left">
-        <i class="fas fa-clone fa-lg mr-2"></i> Duplicate Node
-      </button>
-      <button class="mb-2 hover:bg-[#272e3f] py-2 w-full text-left">
-        <i class="fas fa-trash fa-lg mr-2"></i> Delete Node
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg mb-2">
+        <i class="fas fa-vector-square fa-lg mr-2"></i>Insert Shape
       </button>
     </div>
-    <h2 class="text-lg font-bold mb-4">Node Properties</h2>
-    <form class="mb-4">
-      <label class="block mb-2" for="node-id">ID:</label>
-      <input type="text" id="node-id" class="w-full p-2">
-      <label class="block mb-2" for="nodeclass">Class:</label>
-      <input type="text" id="node-class" class="w-full p-2">
-    </form>
-  </aside>
+  </div>
 
   <!-- Status Panel -->
-  <footer class="fixed bottom-0 left-0 right-0 bg-[#111826] p-2 z-10">
-    <div class="flex justify-between items-center">
-      <span class="text-gray-400 mr-4">Notifications and Export Options</span>
-      <button class="mr-2 hover:text-gray-400" title="Export as PNG">
-        <i class="fas fa-file-image fa-lg"></i>
-      </button>
-      <button class="mr-2 hover:text-gray-400" title="Export as JPEG">
-        <i class="fas fa-file-image fa-lg"></i>
-      </button>
-      <button class="mr-2 hover:text-gray-400" title="Export as SVG">
-        <i class="fas fa-file-code fa-lg"></i>
-      </button>
+  <div class="p-4 border-t border-gray-600">
+    <div class="flex items-center">
+      <i class="fas fa-check fa-lg text-green-500 mr-2"></i>
+      <span>Project saved</span>
     </div>
-  </footer>
+    <div class="flex items-center">
+      <i class="fas fa-exclamation-triangle fa-lg text-yellow-500 mr-2"></i>
+      <span>Warning: unsaved changes</span>
+    </div>
+  </div>
 </body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// VectorCraft Engine
-
-// Import required libraries
-import { createStore, combineReducers } from 'redux';
-import { applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { localStorageMiddleware } from './localStorageMiddleware';
-import { indexedDBMiddleware } from './indexedDBMiddleware';
-
-// Constants and Variables
-const APP_NAME = 'VectorCraft';
-const SLUG = 'vector-graphic-editor';
-
-// Redux State Management
-const initialState = {
-  nodes: [],
-  selectedNode: null,
-  undoHistory: [],
-  redoHistory: [],
-  userPreferences: {}
-};
-
-const rootReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'ADD_NODE':
-      return {...state, nodes: [...state.nodes, action.node] };
-    case 'SELECT_NODE':
-      return {...state, selectedNode: action.node };
-    case 'UNDO':
-      return {...state, undoHistory: [...state.undoHistory, state] };
-    case 'REDO':
-      return {...state, redoHistory: [...state.redoHistory, state] };
-    case 'SAVE_USER_PREFERENCES':
-      return {...state, userPreferences: action.preferences };
-    default:
-      return state;
-  }
-};
-
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(localStorageMiddleware, indexedDBMiddleware))
-);
-
-// Local Storage Middleware
-const localStorageMiddleware = (store) => (next) => (action) => {
-  if (action.type === 'SAVE_USER_PREFERENCES') {
-    localStorage.setItem('userPreferences', JSON.stringify(action.preferences));
-  }
-  return next(action);
-};
-
-// IndexedDB Middleware
-const indexedDBMiddleware = (store) => (next) => (action) => {
-  if (action.type === 'SAVE_SVG_DOCUMENT') {
-    const request = window.indexedDB.open('vectorcraft_db', 1);
-    request.onupgradeneeded = (event) => {
-      const db = event.target.result;
-      db.createObjectStore('svg_documents');
+// VectorForge Engine
+class VectorForge {
+  constructor() {
+    this.state = {
+      nodes: [],
+      undoHistory: [],
+      redoHistory: [],
+      preferences: {
+        theme: 'light',
+        gridSize: 10,
+      },
+      project: {
+        name: 'New Project',
+        data: '',
+      },
     };
-    request.onsuccess = (event) => {
-      const db = event.target.result;
-      const transaction = db.transaction('svg_documents', 'readwrite');
-      const store = transaction.objectStore('svg_documents');
-      store.add(action.svgDocument);
+
+    this.canvas = document.getElementById('canvas');
+    this.toolbar = document.getElementById('toolbar');
+    this.sidebar = document.getElementById('sidebar');
+    this.viewport = document.getElementById('viewport');
+    this.statusPanel = document.getElementById('status-panel');
+
+    this.initEventListeners();
+    this.initStateManagement();
+    this.initExportEngines();
+  }
+
+  initEventListeners() {
+    this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
+    this.canvas.addEventListener('mousedown', (e) => this.handleCanvasMouseDown(e));
+    this.canvas.addEventListener('mousemove', (e) => this.handleCanvasMouseMove(e));
+    this.canvas.addEventListener('mouseup', (e) => this.handleCanvasMouseUp(e));
+
+    this.toolbar.addEventListener('click', (e) => this.handleToolbarClick(e));
+    this.sidebar.addEventListener('click', (e) => this.handleSidebarClick(e));
+  }
+
+  initStateManagement() {
+    this.loadStateFromLocalStorage();
+    this.saveStateToLocalStorage();
+
+    window.addEventListener('beforeunload', () => this.saveStateToLocalStorage());
+  }
+
+  initExportEngines() {
+    this.exportEngines = {
+      png: (data) => this.exportPng(data),
+      svg: (data) => this.exportSvg(data),
+      json: (data) => this.exportJson(data),
     };
   }
-  return next(action);
-};
 
-// SVG Engine
-class SVGEngine {
-  constructor(svgElement) {
-    this.svgElement = svgElement;
-    this.nodes = [];
+  handleCanvasClick(e) {
+    const x = e.clientX;
+    const y = e.clientY;
+    const node = this.findNodeAtPosition(x, y);
+
+    if (node) {
+      this.editNode(node);
+    } else {
+      this.addNode(x, y);
+    }
+  }
+
+  handleCanvasMouseDown(e) {
+    this.isMouseDown = true;
+    this.isDragging = false;
     this.selectedNode = null;
-    this.nodeEditingTools = {};
   }
 
-  addNode(node) {
-    this.nodes.push(node);
-    this.svgElement.appendChild(node);
+  handleCanvasMouseMove(e) {
+    if (this.isMouseDown) {
+      const x = e.clientX;
+      const y = e.clientY;
+      const node = this.findNodeAtPosition(x, y);
+
+      if (node) {
+        this.isDragging = true;
+        this.selectedNode = node;
+        this.updateNodePosition(node, x, y);
+      }
+    }
   }
 
-  selectNode(node) {
-    this.selectedNode = node;
+  handleCanvasMouseUp(e) {
+    this.isMouseDown = false;
+    this.isDragging = false;
   }
 
-  renderNode(node) {
-    const nodeElement = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    nodeElement.setAttribute('x', node.x);
-    nodeElement.setAttribute('y', node.y);
-    nodeElement.setAttribute('width', node.width);
-    nodeElement.setAttribute('height', node.height);
-    nodeElement.setAttribute('fill', node.fill);
-    this.svgElement.appendChild(nodeElement);
+  handleToolbarClick(e) {
+    const target = e.target;
+    const action = target.dataset.action;
+
+    switch (action) {
+      case 'undo':
+        this.undo();
+        break;
+      case 'redo':
+        this.redo();
+        break;
+      case 'export':
+        this.exportProject();
+        break;
+      default:
+        break;
+    }
   }
 
-  handleNodeEditing(event) {
-    if (event.type === 'mousedown') {
-      this.selectNode(event.target);
-    } else if (event.type === 'mousemove' && this.selectedNode) {
-      this.selectedNode.x = event.clientX;
-      this.selectedNode.y = event.clientY;
-      this.renderNode(this.selectedNode);
-    } else if (event.type === 'mouseup') {
-      this.selectedNode = null;
+  handleSidebarClick(e) {
+    const target = e.target;
+    const action = target.dataset.action;
+
+    switch (action) {
+      case 'add-node':
+        this.addNode();
+        break;
+      case 'delete-node':
+        this.deleteNode();
+        break;
+      default:
+        break;
+    }
+  }
+
+  findNodeAtPosition(x, y) {
+    const nodes = this.state.nodes;
+
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+      const rect = node.rect;
+
+      if (x >= rect.x && x <= rect.x + rect.width && y >= rect.y && y <= rect.y + rect.height) {
+        return node;
+      }
+    }
+
+    return null;
+  }
+
+  addNode(x, y) {
+    const node = {
+      id: this.generateNodeId(),
+      rect: {
+        x: x,
+        y: y,
+        width: 100,
+        height: 100,
+      },
+    };
+
+    this.state.nodes.push(node);
+    this.saveStateToLocalStorage();
+  }
+
+  editNode(node) {
+    const index = this.state.nodes.indexOf(node);
+    const rect = node.rect;
+
+    rect.x = rect.x + 10;
+    rect.y = rect.y + 10;
+
+    this.state.nodes[index] = node;
+    this.saveStateToLocalStorage();
+  }
+
+  deleteNode() {
+    const node = this.selectedNode;
+
+    if (node) {
+      const index = this.state.nodes.indexOf(node);
+      this.state.nodes.splice(index, 1);
+      this.saveStateToLocalStorage();
+    }
+  }
+
+  updateNodePosition(node, x, y) {
+    const rect = node.rect;
+
+    rect.x = x;
+    rect.y = y;
+
+    this.state.nodes[this.state.nodes.indexOf(node)] = node;
+    this.saveStateToLocalStorage();
+  }
+
+  loadStateFromLocalStorage() {
+    const storedState = localStorage.getItem('vectorforge-state');
+
+    if (storedState) {
+      this.state = JSON.parse(storedState);
+    }
+  }
+
+  saveStateToLocalStorage() {
+    const storedState = JSON.stringify(this.state);
+    localStorage.setItem('vectorforge-state', storedState);
+  }
+
+  generateNodeId() {
+    return Math.random().toString(36).substr(2, 9);
+  }
+
+  exportProject() {
+    const format = document.querySelector('input[name="export-format"]:checked').value;
+
+    switch (format) {
+      case 'png':
+        this.exportPng(this.state);
+        break;
+      case 'svg':
+        this.exportSvg(this.state);
+        break;
+      case 'json':
+        this.exportJson(this.state);
+        break;
+      default:
+        break;
+    }
+  }
+
+  exportPng(data) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const svg = new Blob([this.generateSvg(data)], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(svg);
+
+    canvas.width = data.width;
+    canvas.height = data.height;
+    ctx.drawImage(document.getElementById('viewport').getImage(), 0, 0);
+
+    const png = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = png;
+    a.download = 'vectorforge.png';
+    a.click();
+  }
+
+  exportSvg(data) {
+    const svg = this.generateSvg(data);
+    const blob = new Blob([svg], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'vectorforge.svg';
+    a.click();
+  }
+
+  exportJson(data) {
+    const json = JSON.stringify(data);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'vectorforge.json';
+    a.click();
+  }
+
+  generateSvg(data) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', data.width);
+    svg.setAttribute('height', data.height);
+
+    for (let i = 0; i < data.nodes.length; i++) {
+      const node = data.nodes[i];
+      const rect = node.rect;
+
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', rect.x + rect.width / 2);
+      circle.setAttribute('cy', rect.y + rect.height / 2);
+      circle.setAttribute('r', 10);
+
+      g.appendChild(circle);
+      svg.appendChild(g);
+    }
+
+    return new XMLSerializer().serializeToString(svg);
+  }
+
+  undo() {
+    const undoHistory = this.state.undoHistory;
+
+    if (undoHistory.length > 0) {
+      const previousState = undoHistory.pop();
+      this.state = previousState;
+      this.saveStateToLocalStorage();
+    }
+  }
+
+  redo() {
+    const redoHistory = this.state.redoHistory;
+
+    if (redoHistory.length > 0) {
+      const nextState = redoHistory.pop();
+      this.state = nextState;
+      this.saveStateToLocalStorage();
     }
   }
 }
 
-// File Export Logic
-const exportFile = (fileType, fileData) => {
-  const file = new Blob([fileData], { type: fileType });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(file);
-  a.download = 'vectorcraft_' + new Date().toLocaleString() + '.' + fileType;
-  a.click();
-};
-
-const exportPNG = (svgElement) => {
-  const svgData = new XMLSerializer().serializeToString(svgElement);
-  const canvas = document.createElement('canvas');
-  canvas.width = svgElement.width.baseVal.value;
-  canvas.height = svgElement.height.baseVal.value;
-  const ctx = canvas.getContext('2d');
-  const image = new Image();
-  image.src = 'data:image/svg+xml,' + encodeURIComponent(svgData);
-  image.onload = () => {
-    ctx.drawImage(image, 0, 0);
-    exportFile('image/png', canvas.toDataURL('image/png'));
-  };
-};
-
-const exportSVG = (svgElement) => {
-  const svgData = new XMLSerializer().serializeToString(svgElement);
-  exportFile('image/svg+xml', svgData);
-};
-
-const exportJSON = (svgElement) => {
-  const svgData = new XMLSerializer().serializeToString(svgElement);
-  const jsonData = JSON.stringify(svgData);
-  exportFile('application/json', jsonData);
-};
-
-// Main Function
-const main = () => {
-  const svgElement = document.getElementById('svg-viewport');
-  const svgEngine = new SVGEngine(svgElement);
-
-  // Add event listeners for node editing
-  svgElement.addEventListener('mousedown', (event) => svgEngine.handleNodeEditing(event));
-  svgElement.addEventListener('mousemove', (event) => svgEngine.handleNodeEditing(event));
-  svgElement.addEventListener('mouseup', (event) => svgEngine.handleNodeEditing(event));
-
-  // Add toolbar buttons
-  const toolbar = document.getElementById('toolbar');
-  const undoButton = document.createElement('button');
-  undoButton.textContent = 'Undo';
-  undoButton.onclick = () => store.dispatch({ type: 'UNDO' });
-  toolbar.appendChild(undoButton);
-
-  const redoButton = document.createElement('button');
-  redoButton.textContent = 'Redo';
-  redoButton.onclick = () => store.dispatch({ type: 'REDO' });
-  toolbar.appendChild(redoButton);
-
-  const saveButton = document.createElement('button');
-  saveButton.textContent = 'Save';
-  saveButton.onclick = () => {
-    const svgData = new XMLSerializer().serializeToString(svgElement);
-    exportFile('image/svg+xml', svgData);
-  };
-  toolbar.appendChild(saveButton);
-
-  const exportPNGButton = document.createElement('button');
-  exportPNGButton.textContent = 'Export PNG';
-  exportPNGButton.onclick = () => exportPNG(svgElement);
-  toolbar.appendChild(exportPNGButton);
-
-  const exportSVGButton = document.createElement('button');
-  exportSVGButton.textContent = 'Export SVG';
-  exportSVGButton.onclick = () => exportSVG(svgElement);
-  toolbar.appendChild(exportSVGButton);
-
-  const exportJSONButton = document.createElement('button');
-  exportJSONButton.textContent = 'Export JSON';
-  exportJSONButton.onclick = () => exportJSON(svgElement);
-  toolbar.appendChild(exportJSONButton);
-};
-
-main();
+const vectorForge = new VectorForge();
 </script>
 </body>
 </html>
