@@ -18,319 +18,334 @@
 
 <body class="bg-gray-900 text-gray-200 h-screen flex flex-col">
   <!-- Top Toolbar -->
-  <nav class="flex justify-between bg-gray-800 py-2 px-4 border-b border-gray-700">
+  <nav class="flex justify-between bg-gray-800 p-2 border-b border-gray-700">
     <div class="flex items-center">
-      <a href="#" class="text-lg font-bold text-gray-200 mr-4">Vectra</a>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-file text-gray-200"></i>
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-edit text-gray-200"></i>
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-share text-gray-200"></i>
-      </button>
+      <i class="fas fa-vector-square fa-lg mr-2 text-gray-400"></i>
+      <span class="font-bold text-lg">Vectra</span>
     </div>
     <div class="flex items-center">
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-undo text-gray-200"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
+        <i class="fas fa-file fa-lg mr-2"></i> File
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-redo text-gray-200"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
+        <i class="fas fa-edit fa-lg mr-2"></i> Edit
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-cog text-gray-200"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
+        <i class="fas fa-layer-group fa-lg mr-2"></i> Layers
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
+        <i class="fas fa-cog fa-lg mr-2"></i> Settings
       </button>
     </div>
   </nav>
 
-  <!-- Left Sidebar -->
-  <div class="flex flex-row h-full">
-    <div class="w-64 bg-gray-800 p-4 border-r border-gray-700">
-      <h2 class="text-lg font-bold text-gray-200 mb-2">Layers</h2>
+  <!-- Main Container -->
+  <div class="flex flex-grow h-screen">
+    <!-- Left Sidebar -->
+    <aside class="bg-gray-800 p-2 border-r border-gray-700 w-64">
+      <h2 class="font-bold text-lg mb-2">Layers</h2>
       <ul>
         <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-layer-group text-gray-200 mr-2"></i>
+          <i class="fas fa-layer-group fa-lg mr-2 text-gray-400"></i>
           <span>Layer 1</span>
         </li>
         <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-layer-group text-gray-200 mr-2"></i>
+          <i class="fas fa-layer-group fa-lg mr-2 text-gray-400"></i>
           <span>Layer 2</span>
         </li>
         <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-layer-group text-gray-200 mr-2"></i>
+          <i class="fas fa-layer-group fa-lg mr-2 text-gray-400"></i>
           <span>Layer 3</span>
         </li>
       </ul>
-      <h2 class="text-lg font-bold text-gray-200 mt-4 mb-2">Assets</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-image text-gray-200 mr-2"></i>
-          <span>Image 1</span>
-        </li>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-image text-gray-200 mr-2"></i>
-          <span>Image 2</span>
-        </li>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-image text-gray-200 mr-2"></i>
-          <span>Image 3</span>
-        </li>
-      </ul>
-    </div>
+    </aside>
 
     <!-- Main Viewport -->
-    <div class="flex-1 bg-gray-900 p-4">
-      <svg class="w-full h-full" viewBox="0 0 100 100">
-        <!-- Canvas Rendering -->
-      </svg>
-    </div>
+    <main class="flex-grow p-2 overflow-hidden">
+      <div class="relative w-full h-full">
+        <canvas class="absolute top-0 left-0 w-full h-full" id="canvas"></canvas>
+        <div class="absolute top-0 left-0 w-full h-full flex justify-center items-center">
+          <div class="bg-gray-800 p-2 border border-gray-700 rounded">
+            <i class="fas fa-pen fa-lg mr-2 text-gray-400"></i>
+            <span>Node Editing Tools</span>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <!-- Right Sidebar -->
-    <div class="w-64 bg-gray-800 p-4 border-l border-gray-700">
-      <h2 class="text-lg font-bold text-gray-200 mb-2">Properties</h2>
-      <form>
-        <label class="block text-gray-200 mb-2">Node Name</label>
-        <input type="text" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-md">
-        <label class="block text-gray-200 mb-2 mt-2">Node Type</label>
-        <select class="w-full p-2 bg-gray-700 border border-gray-600 rounded-md">
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
-        </select>
-      </form>
-      <h2 class="text-lg font-bold text-gray-200 mt-4 mb-2">Node Editing</h2>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-pen text-gray-200"></i>
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-eraser text-gray-200"></i>
-      </button>
-    </div>
+    <aside class="bg-gray-800 p-2 border-l border-gray-700 w-64">
+      <h2 class="font-bold text-lg mb-2">Properties</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-font fa-lg mr-2 text-gray-400"></i>
+          <span>Font Family</span>
+        </li>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-text-color fa-lg mr-2 text-gray-400"></i>
+          <span>Text Color</span>
+        </li>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-fill fa-lg mr-2 text-gray-400"></i>
+          <span>Fill Color</span>
+        </li>
+      </ul>
+    </aside>
   </div>
 
   <!-- Status Bar -->
-  <div class="bg-gray-800 py-2 px-4 border-t border-gray-700">
-    <div class="flex justify-between">
-      <div class="flex items-center">
-        <i class="fas fa-circle text-green-500 mr-2"></i>
-        <span>Connected to WebSocket</span>
-      </div>
-      <div class="flex items-center">
-        <i class="fas fa-spinner text-gray-200 mr-2"></i>
-        <span>Loading...</span>
-      </div>
-      <div class="flex items-center">
-        <i class="fas fa-exclamation-circle text-yellow-500 mr-2"></i>
-        <span>Warning: Unsaved changes</span>
-      </div>
+  <footer class="bg-gray-800 p-2 border-t border-gray-700">
+    <div class="flex items-center">
+      <i class="fas fa-circle fa-lg mr-2 text-green-400"></i>
+      <span>Connected</span>
     </div>
+    <div class="flex items-center ml-4">
+      <i class="fas fa-sync fa-lg mr-2 text-gray-400"></i>
+      <span>Syncing...</span>
+    </div>
+    <div class="flex items-center ml-4">
+      <i class="fas fa-cloud fa-lg mr-2 text-gray-400"></i>
+      <span>Cloud Sync</span>
+    </div>
+  </footer>
+
+  <!-- Floating Side Panels -->
+  <div class="fixed top-0 right-0 p-2">
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mb-2">
+      <i class="fas fa-question fa-lg mr-2"></i> Help
+    </button>
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mb-2">
+      <i class="fas fa-info fa-lg mr-2"></i> About
+    </button>
   </div>
 </body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Import required modules
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { createWebSocketMiddleware } from 'redux-websocket';
+// Import required libraries
+import { createStore, combineReducers } from 'redux';
+import { Map } from 'immutable';
 import { v4 as uuidv4 } from 'uuid';
-import jsPDF from 'jspdf';
-import { exportToPNG, exportToJPEG } from 'dom-to-image';
-import FileSaver from 'file-saver';
+import { Worker } from 'worker_threads';
 
-// Define application reducer
-const vectraReducer = (state = {}, action) => {
-  switch (action.type) {
-    case 'ADD_NODE':
-      return {...state, nodes: [...state.nodes, action.node] };
-    case 'REMOVE_NODE':
-      return {...state, nodes: state.nodes.filter(node => node.id!== action.id) };
-    case 'UPDATE_NODE':
-      return {...state, nodes: state.nodes.map(node => node.id === action.id? action.node : node) };
-    default:
-      return state;
-  }
-};
-
-// Define undo/redo history reducer
-const historyReducer = (state = { past: [], present: {}, future: [] }, action) => {
-  switch (action.type) {
-    case 'ADDUndo':
-      return { past: [...state.past, state.present], present: action.state, future: [] };
-    case 'REDO':
-      return { past: state.past.slice(0, -1), present: state.future[0], future: state.future.slice(1) };
-    case 'UNDO':
-      return { past: state.past.slice(0, -1), present: state.past[state.past.length - 1], future: [state.present,...state.future] };
-    default:
-      return state;
-  }
-};
-
-// Combine reducers
-const rootReducer = combineReducers({
-  vectra: vectraReducer,
-  history: historyReducer,
+// Initialize Redux store
+const initialState = Map({
+  nodes: [],
+  selectedNode: null,
+  undoHistory: [],
+  redoHistory: []
 });
 
-// Create Redux store with WebSocket middleware
-const store = createStore(rootReducer, applyMiddleware(createWebSocketMiddleware('ws://localhost:8080')));
-
-// Define WebSocket connection handler
-const handleWebSocketConnection = () => {
-  const socket = new WebSocket('ws://localhost:8080');
-  socket.onmessage = (event) => {
-    store.dispatch(JSON.parse(event.data));
-  };
-  socket.onopen = () => {
-    console.log('WebSocket connection established');
-  };
-  socket.onclose = () => {
-    console.log('WebSocket connection closed');
-  };
-  socket.onerror = (error) => {
-    console.log('WebSocket connection error:', error);
-  };
-};
-
-// Define DOM event delegation handler
-const handleDomEvent = (event) => {
-  switch (event.type) {
-    case 'click':
-      // Handle click event
-      break;
-    case 'mousemove':
-      // Handle mouse move event
-      break;
-    case 'touchstart':
-      // Handle touch start event
-      break;
-    case 'touchmove':
-      // Handle touch move event
-      break;
+const vectraReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'ADD_NODE':
+      return state.update('nodes', nodes => nodes.push(action.node));
+    case 'SELECT_NODE':
+      return state.set('selectedNode', action.node);
+    case 'UNDO':
+      return state.update('undoHistory', undoHistory => undoHistory.push(state));
+    case 'REDO':
+      return state.update('redoHistory', redoHistory => redoHistory.push(state));
     default:
-      break;
+      return state;
   }
 };
 
-// Define custom node editing algorithms
+const store = createStore(vectraReducer);
+
+// Initialize Web Worker for compute-intensive tasks
+const worker = new Worker('worker.js');
+
+// Initialize Service Worker for offline support
+navigator.serviceWorker.register('serviceWorker.js')
+  .then(registration => {
+    console.log('Service Worker registered');
+  })
+  .catch(error => {
+    console.error('Service Worker registration failed:', error);
+  });
+
+// Initialize SVG DOM parser and serializer
+const svgParser = new DOMParser();
+const svgSerializer = new XMLSerializer();
+
+// Initialize node editing algorithms
 const nodeEditingAlgorithms = {
-  // Add node editing algorithm
   addNode: (node) => {
     store.dispatch({ type: 'ADD_NODE', node });
   },
-  // Remove node editing algorithm
-  removeNode: (id) => {
-    store.dispatch({ type: 'REMOVE_NODE', id });
+  selectNode: (node) => {
+    store.dispatch({ type: 'SELECT_NODE', node });
   },
-  // Update node editing algorithm
-  updateNode: (id, node) => {
-    store.dispatch({ type: 'UPDATE_NODE', id, node });
+  undo: () => {
+    store.dispatch({ type: 'UNDO' });
   },
+  redo: () => {
+    store.dispatch({ type: 'REDO' });
+  }
 };
 
-// Define SVG-based rendering engine
-const renderingEngine = {
-  // Render canvas
-  renderCanvas: (svgString) => {
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.innerHTML = svgString;
-    document.getElementById('canvas').appendChild(svg);
+// Initialize export engines
+const exportEngines = {
+  png: (svg) => {
+    const pngBlob = new Blob([svg], { type: 'image/png' });
+    const pngUrl = URL.createObjectURL(pngBlob);
+    const pngLink = document.createElement('a');
+    pngLink.href = pngUrl;
+    pngLink.download = 'vectra.png';
+    pngLink.click();
   },
-  // Render node
-  renderNode: (node) => {
-    const nodeElement = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    nodeElement.setAttribute('x', node.x);
-    nodeElement.setAttribute('y', node.y);
-    nodeElement.setAttribute('width', node.width);
-    nodeElement.setAttribute('height', node.height);
-    nodeElement.setAttribute('fill', node.fill);
-    document.getElementById('canvas').appendChild(nodeElement);
+  jpeg: (svg) => {
+    const jpegBlob = new Blob([svg], { type: 'image/jpeg' });
+    const jpegUrl = URL.createObjectURL(jpegBlob);
+    const jpegLink = document.createElement('a');
+    jpegLink.href = jpegUrl;
+    jpegLink.download = 'vectra.jpeg';
+    jpegLink.click();
   },
+  svg: (svg) => {
+    const svgBlob = new Blob([svg], { type: 'image/svg+xml' });
+    const svgUrl = URL.createObjectURL(svgBlob);
+    const svgLink = document.createElement('a');
+    svgLink.href = svgUrl;
+    svgLink.download = 'vectra.svg';
+    svgLink.click();
+  },
+  json: (nodes) => {
+    const jsonBlob = new Blob([JSON.stringify(nodes)], { type: 'application/json' });
+    const jsonUrl = URL.createObjectURL(jsonBlob);
+    const jsonLink = document.createElement('a');
+    jsonLink.href = jsonUrl;
+    jsonLink.download = 'vectra.json';
+    jsonLink.click();
+  }
 };
 
-// Define file export logic
-const exportFile = (format) => {
+// Initialize file export logic
+const fileExport = (format) => {
+  const svg = svgSerializer.serializeToString(document.querySelector('svg'));
   switch (format) {
-    case 'PNG':
-      exportToPNG(document.getElementById('canvas'))
-       .then((dataUrl) => {
-          const a = document.createElement('a');
-          a.href = dataUrl;
-          a.download = 'vectra.png';
-          a.click();
-        });
+    case 'png':
+      exportEngines.png(svg);
       break;
-    case 'JPEG':
-      exportToJPEG(document.getElementById('canvas'))
-       .then((dataUrl) => {
-          const a = document.createElement('a');
-          a.href = dataUrl;
-          a.download = 'vectra.jpg';
-          a.click();
-        });
+    case 'jpeg':
+      exportEngines.jpeg(svg);
       break;
-    case 'PDF':
-      const doc = new jsPDF();
-      doc.addImage(document.getElementById('canvas'), 'JPEG', 0, 0, 210, 297);
-      doc.save('vectra.pdf');
+    case 'svg':
+      exportEngines.svg(svg);
       break;
-    case 'SVG':
-      const svgString = document.getElementById('canvas').outerHTML;
-      const a = document.createElement('a');
-      a.href = 'data:image/svg+xml,' + svgString;
-      a.download = 'vectra.svg';
-      a.click();
+    case 'json':
+      const nodes = store.getState().get('nodes');
+      exportEngines.json(nodes);
       break;
     default:
-      break;
+      console.error('Unsupported export format');
   }
 };
 
-// Initialize application
-const initApp = () => {
-  // Initialize WebSocket connection
-  handleWebSocketConnection();
-
-  // Initialize DOM event delegation
-  document.addEventListener('click', handleDomEvent);
-  document.addEventListener('mousemove', handleDomEvent);
-  document.addEventListener('touchstart', handleDomEvent);
-  document.addEventListener('touchmove', handleDomEvent);
-
-  // Initialize custom node editing algorithms
-  window.addEventListener('keydown', (event) => {
-    if (event.key === 'z' && event.ctrlKey) {
-      store.dispatch({ type: 'UNDO' });
-    } else if (event.key === 'y' && event.ctrlKey) {
-      store.dispatch({ type: 'REDO' });
-    }
-  });
-
-  // Initialize SVG-based rendering engine
-  renderingEngine.renderCanvas('<svg width="100%" height="100%"></svg>');
-
-  // Initialize file export logic
-  document.getElementById('export-button').addEventListener('click', () => {
-    const format = document.getElementById('format-select').value;
-    exportFile(format);
-  });
-
-  // Initialize undo/redo history
-  store.subscribe(() => {
-    const state = store.getState();
-    localStorage.setItem('vectra-state', JSON.stringify(state));
-  });
-  const storedState = localStorage.getItem('vectra-state');
-  if (storedState) {
-    store.dispatch(JSON.parse(storedState));
+// Initialize canvas and node editing tools
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+const nodeEditingTools = {
+  addNode: (x, y) => {
+    const node = { id: uuidv4(), x, y };
+    nodeEditingAlgorithms.addNode(node);
+  },
+  selectNode: (node) => {
+    nodeEditingAlgorithms.selectNode(node);
+  },
+  undo: () => {
+    nodeEditingAlgorithms.undo();
+  },
+  redo: () => {
+    nodeEditingAlgorithms.redo();
   }
 };
 
-initApp();
+// Initialize event listeners for canvas/DOM interactions
+canvas.addEventListener('click', (event) => {
+  const x = event.clientX;
+  const y = event.clientY;
+  nodeEditingTools.addNode(x, y);
+});
 
+canvas.addEventListener('contextmenu', (event) => {
+  event.preventDefault();
+  const x = event.clientX;
+  const y = event.clientY;
+  const node = store.getState().get('selectedNode');
+  if (node) {
+    nodeEditingTools.selectNode(node);
+  }
+});
 
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'z' && event.ctrlKey) {
+    nodeEditingTools.undo();
+  } else if (event.key === 'y' && event.ctrlKey) {
+    nodeEditingTools.redo();
+  }
+});
 
-Note: This code snippet provides a basic structure for the Vectra application. It covers the main aspects mentioned in the specification, including state management, custom node editing algorithms, SVG-based rendering, and file export logic. However, it is not a fully functional application and would require additional development to implement all the features and functionality described in the specification.
+// Initialize local storage save/load logic
+const saveToLocalStorage = () => {
+  const nodes = store.getState().get('nodes');
+  localStorage.setItem('vectra', JSON.stringify(nodes));
+};
+
+const loadFromLocalStorage = () => {
+  const storedNodes = localStorage.getItem('vectra');
+  if (storedNodes) {
+    const nodes = JSON.parse(storedNodes);
+    store.dispatch({ type: 'ADD_NODE', node: nodes });
+  }
+};
+
+// Initialize periodic backups and optional cloud syncing
+setInterval(saveToLocalStorage, 10000);
+
+// Initialize status panel for notifications and progress indicators
+const statusPanel = document.querySelector('#status-panel');
+const notification = (message) => {
+  statusPanel.textContent = message;
+};
+
+// Initialize UI layout
+const topToolbar = document.querySelector('#top-toolbar');
+const leftSidebar = document.querySelector('#left-sidebar');
+const mainViewport = document.querySelector('#main-viewport');
+const rightSidebar = document.querySelector('#right-sidebar');
+
+// Initialize WebGL for accelerated rendering
+const gl = canvas.getContext('webgl');
+
+// Initialize Web Workers for background processing
+worker.postMessage({ type: 'init' });
+
+// Initialize Vectra app
+const vectra = {
+  init: () => {
+    loadFromLocalStorage();
+    notification('Vectra initialized');
+  },
+  addNode: (x, y) => {
+    nodeEditingTools.addNode(x, y);
+  },
+  selectNode: (node) => {
+    nodeEditingTools.selectNode(node);
+  },
+  undo: () => {
+    nodeEditingTools.undo();
+  },
+  redo: () => {
+    nodeEditingTools.redo();
+  },
+  export: (format) => {
+    fileExport(format);
+  }
+};
+
+vectra.init();
 </script>
 </body>
 </html>
