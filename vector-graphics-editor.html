@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vectron</title>
+  <title>Vectra</title>
   <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
   <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
   <style>
@@ -16,361 +16,393 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="bg-gray-900 text-gray-200 h-screen overflow-hidden">
-  <!-- Top toolbar -->
-  <header class="flex justify-between items-center py-2 bg-gray-800 border-b border-gray-700">
+<body class="h-screen w-screen bg-[#090d16] text-white flex flex-col">
+  <!-- Top Toolbar -->
+  <header class="flex justify-between items-center py-2 border-b border-gray-600">
     <div class="flex items-center">
       <button class="mr-2">
-        <i class="fas fa-undo text-lg"></i>
+        <i class="fas fa-undo fa-lg text-gray-300 hover:text-white"></i>
       </button>
       <button class="mr-2">
-        <i class="fas fa-redo text-lg"></i>
+        <i class="fas fa-redo fa-lg text-gray-300 hover:text-white"></i>
+      </button>
+      <button class="mr-2">
+        <i class="fas fa-zoom-in fa-lg text-gray-300 hover:text-white"></i>
+      </button>
+      <button class="mr-2">
+        <i class="fas fa-zoom-out fa-lg text-gray-300 hover:text-white"></i>
       </button>
     </div>
-    <h1 class="text-lg font-bold">Vectron</h1>
     <div class="flex items-center">
       <button class="mr-2">
-        <i class="fas fa-file-export text-lg"></i>
+        <i class="fas fa-file fa-lg text-gray-300 hover:text-white"></i>
+        File
       </button>
       <button class="mr-2">
-        <i class="fas fa-cog text-lg"></i>
+        <i class="fas fa-folder fa-lg text-gray-300 hover:text-white"></i>
+        Open
+      </button>
+      <button class="mr-2">
+        <i class="fas fa-save fa-lg text-gray-300 hover:text-white"></i>
+        Save
       </button>
     </div>
   </header>
 
-  <!-- Node editing toolbar -->
-  <div class="fixed top-12 left-0 bg-gray-800 p-2 border-r border-gray-700 h-screen">
-    <button class="mb-2">
-      <i class="fas fa-vector-square text-lg"></i>
-    </button>
-    <button class="mb-2">
-      <i class="fas fa-pen text-lg"></i>
-    </button>
-    <button class="mb-2">
-      <i class="fas fa-eraser text-lg"></i>
-    </button>
-    <button class="mb-2">
-      <i class="fas fa-text text-lg"></i>
-    </button>
-  </div>
-
-  <!-- Layers panel -->
-  <div class="fixed top-12 right-0 bg-gray-800 p-2 border-l border-gray-700 h-screen w-64">
-    <h2 class="text-lg font-bold mb-2">Layers</h2>
+  <!-- Left Sidebar -->
+  <aside class="flex flex-col w-64 py-2 border-r border-gray-600 absolute top-12 left-0 h-screen">
+    <h2 class="mb-2 text-lg font-bold">Layers</h2>
     <ul>
-      <li class="py-1">Layer 1</li>
-      <li class="py-1">Layer 2</li>
-      <li class="py-1">Layer 3</li>
+      <li class="py-1">
+        <i class="fas fa-layer-group fa-lg text-gray-300 mr-2"></i>
+        Layer 1
+      </li>
+      <li class="py-1">
+        <i class="fas fa-layer-group fa-lg text-gray-300 mr-2"></i>
+        Layer 2
+      </li>
+      <li class="py-1">
+        <i class="fas fa-layer-group fa-lg text-gray-300 mr-2"></i>
+        Layer 3
+      </li>
     </ul>
-  </div>
+    <button class="mt-4">
+      <i class="fas fa-plus fa-lg text-gray-300 mr-2"></i>
+      New Layer
+    </button>
+  </aside>
 
-  <!-- Main viewport -->
-  <div class="flex-1 relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-full">
-      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-        <!-- SVG content will be rendered here -->
-      </svg>
-    </div>
-    <div class="absolute bottom-0 left-0 w-full p-2 bg-gray-800 border-t border-gray-700">
-      <button class="mr-2">
-        <i class="fas fa-search-plus text-lg"></i>
-      </button>
-      <button class="mr-2">
-        <i class="fas fa-search-minus text-lg"></i>
-      </button>
-      <input type="range" class="w-1/2" min="10" max="200" value="100">
-      <span class="ml-2">100%</span>
-    </div>
-  </div>
+  <!-- Main Viewport -->
+  <main class="flex-1 py-2 relative">
+    <svg class="w-full h-full" viewBox="0 0 100 100">
+      <!-- SVG Canvas -->
+    </svg>
+  </main>
 
-  <!-- Status panel -->
-  <div class="fixed bottom-0 left-0 bg-gray-800 p-2 border-t border-gray-700 w-full">
-    <div class="flex justify-between items-center">
-      <span>Notifications and warnings will appear here</span>
-      <button class="mr-2">
-        <i class="fas fa-bell text-lg"></i>
-      </button>
+  <!-- Right Sidebar -->
+  <aside class="flex flex-col w-64 py-2 border-l border-gray-600 absolute top-12 right-0 h-screen">
+    <h2 class="mb-2 text-lg font-bold">Node Editing Tools</h2>
+    <ul>
+      <li class="py-1">
+        <i class="fas fa-pencil-alt fa-lg text-gray-300 mr-2"></i>
+        Select
+      </li>
+      <li class="py-1">
+        <i class="fas fa-vector-square fa-lg text-gray-300 mr-2"></i>
+        Rectangle
+      </li>
+      <li class="py-1">
+        <i class="fas fa-ellipse fa-lg text-gray-300 mr-2"></i>
+        Ellipse
+      </li>
+    </ul>
+    <button class="mt-4">
+      <i class="fas fa-plus fa-lg text-gray-300 mr-2"></i>
+      New Tool
+    </button>
+  </aside>
+
+  <!-- Bottom Status Panel -->
+  <footer class="flex justify-between items-center py-2 border-t border-gray-600">
+    <div class="flex items-center">
+      <i class="fas fa-circle fa-lg text-green-500 mr-2"></i>
+      <span>Connected to Web Worker</span>
     </div>
-  </div>
+    <div class="flex items-center">
+      <i class="fas fa-clock fa-lg text-gray-300 mr-2"></i>
+      <span>Rendering Time: 0ms</span>
+    </div>
+    <div class="flex items-center">
+      <i class="fas fa-memory fa-lg text-gray-300 mr-2"></i>
+      <span>Memory Usage: 0MB</span>
+    </div>
+  </footer>
 </body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Import required libraries
-import { createRoot } from 'react-dom/client';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-
-// Define constants
-const APP_NAME = 'Vectron';
-const LOCAL_STORAGE_KEY = 'vectron-state';
-
-// Define initial state
-const initialState = {
-  nodes: [],
-  selectedNode: null,
-  undoHistory: [],
-  redoHistory: [],
-};
-
-// Define reducer functions
-function nodesReducer(state = initialState.nodes, action) {
-  switch (action.type) {
-    case 'ADD_NODE':
-      return [...state, action.node];
-    case 'REMOVE_NODE':
-      return state.filter((node) => node.id !== action.nodeId);
-    case 'UPDATE_NODE':
-      return state.map((node) => (node.id === action.nodeId ? action.node : node));
-    default:
-      return state;
-  }
-}
-
-function selectedNodeReducer(state = initialState.selectedNode, action) {
-  switch (action.type) {
-    case 'SELECT_NODE':
-      return action.node;
-    case 'DESELECT_NODE':
-      return null;
-    default:
-      return state;
-  }
-}
-
-function undoHistoryReducer(state = initialState.undoHistory, action) {
-  switch (action.type) {
-    case 'ADD_UNDO_STATE':
-      return [...state, action.state];
-    case 'REMOVE_UNDO_STATE':
-      return state.slice(0, -1);
-    default:
-      return state;
-  }
-}
-
-function redoHistoryReducer(state = initialState.redoHistory, action) {
-  switch (action.type) {
-    case 'ADD_REDO_STATE':
-      return [...state, action.state];
-    case 'REMOVE_REDO_STATE':
-      return state.slice(0, -1);
-    default:
-      return state;
-  }
-}
-
-// Combine reducer functions
-const rootReducer = combineReducers({
-  nodes: nodesReducer,
-  selectedNode: selectedNodeReducer,
-  undoHistory: undoHistoryReducer,
-  redoHistory: redoHistoryReducer,
-});
-
-// Create Redux store
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
-
-// Define actions
-function addNode(node) {
-  store.dispatch({ type: 'ADD_NODE', node });
-}
-
-function removeNode(nodeId) {
-  store.dispatch({ type: 'REMOVE_NODE', nodeId });
-}
-
-function updateNode(nodeId, node) {
-  store.dispatch({ type: 'UPDATE_NODE', nodeId, node });
-}
-
-function selectNode(node) {
-  store.dispatch({ type: 'SELECT_NODE', node });
-}
-
-function deselectNode() {
-  store.dispatch({ type: 'DESELECT_NODE' });
-}
-
-function addUndoState(state) {
-  store.dispatch({ type: 'ADD_UNDO_STATE', state });
-}
-
-function removeUndoState() {
-  store.dispatch({ type: 'REMOVE_UNDO_STATE' });
-}
-
-function addRedoState(state) {
-  store.dispatch({ type: 'ADD_REDO_STATE', state });
-}
-
-function removeRedoState() {
-  store.dispatch({ type: 'REMOVE_REDO_STATE' });
-}
-
-// Define SVG parser and renderer
-class SVGParser {
-  constructor(svgString) {
-    this.svgString = svgString;
+// Vectra Engine
+class VectraEngine {
+  constructor() {
+    this.state = {
+      nodes: [],
+      layers: [],
+      history: [],
+      currentHistoryIndex: -1,
+    };
+    this.ui = {
+      toolbar: null,
+      leftSidebar: null,
+      rightSidebar: null,
+      mainViewport: null,
+      statusPanel: null,
+    };
+    this.canvas = null;
+    this.ctx = null;
+    this.worker = null;
+    this.pluginSystem = {};
+    this.init();
   }
 
-  parse() {
-    const parser = new DOMParser();
-    const svgDoc = parser.parseFromString(this.svgString, 'image/svg+xml');
-    return svgDoc.documentElement;
+  init() {
+    this.initUI();
+    this.initCanvas();
+    this.initWorker();
+    this.initEventListeners();
+    this.initStateManagement();
+    this.initPluginSystem();
   }
-}
 
-class SVGRenderer {
-  constructor(svgElement) {
-    this.svgElement = svgElement;
+  initUI() {
+    this.ui.toolbar = document.getElementById('toolbar');
+    this.ui.leftSidebar = document.getElementById('left-sidebar');
+    this.ui.rightSidebar = document.getElementById('right-sidebar');
+    this.ui.mainViewport = document.getElementById('main-viewport');
+    this.ui.statusPanel = document.getElementById('status-panel');
+  }
+
+  initCanvas() {
+    this.canvas = document.createElement('canvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.ui.mainViewport.appendChild(this.canvas);
+  }
+
+  initWorker() {
+    this.worker = new Worker('worker.js');
+    this.worker.onmessage = (e) => {
+      if (e.data.type === 'render') {
+        this.ctx.putImageData(e.data.imageData, 0, 0);
+      }
+    };
+  }
+
+  initEventListeners() {
+    this.canvas.addEventListener('mousedown', (e) => {
+      this.handleMouseDown(e);
+    });
+    this.canvas.addEventListener('mousemove', (e) => {
+      this.handleMouseMove(e);
+    });
+    this.canvas.addEventListener('mouseup', (e) => {
+      this.handleMouseUp(e);
+    });
+    this.ui.toolbar.addEventListener('click', (e) => {
+      if (e.target.id === 'undo') {
+        this.undo();
+      } else if (e.target.id === 'redo') {
+        this.redo();
+      }
+    });
+  }
+
+  initStateManagement() {
+    this.state = JSON.parse(localStorage.getItem('vectra-state')) || this.state;
+    this.state.history = JSON.parse(localStorage.getItem('vectra-history')) || [];
+    this.state.currentHistoryIndex = JSON.parse(localStorage.getItem('vectra-current-history-index')) || -1;
+  }
+
+  initPluginSystem() {
+    // Initialize plugin system
+  }
+
+  handleMouseDown(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    this.worker.postMessage({ type: 'mousedown', x, y });
+  }
+
+  handleMouseMove(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    this.worker.postMessage({ type: 'mousemove', x, y });
+  }
+
+  handleMouseUp(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    this.worker.postMessage({ type: 'mouseup', x, y });
+  }
+
+  undo() {
+    if (this.state.currentHistoryIndex > 0) {
+      this.state.currentHistoryIndex--;
+      this.state = JSON.parse(localStorage.getItem('vectra-history'))[this.state.currentHistoryIndex];
+      this.render();
+    }
+  }
+
+  redo() {
+    if (this.state.currentHistoryIndex < this.state.history.length - 1) {
+      this.state.currentHistoryIndex++;
+      this.state = JSON.parse(localStorage.getItem('vectra-history'))[this.state.currentHistoryIndex];
+      this.render();
+    }
   }
 
   render() {
-    const svgString = new XMLSerializer().serializeToString(this.svgElement);
-    return svgString;
+    this.worker.postMessage({ type: 'render', state: this.state });
+  }
+
+  exportFile(format) {
+    if (format === 'png') {
+      const link = document.createElement('a');
+      link.href = this.canvas.toDataURL('image/png');
+      link.download = 'vectra.png';
+      link.click();
+    } else if (format === 'svg') {
+      const svg = this.getSVG();
+      const link = document.createElement('a');
+      link.href = 'data:image/svg+xml,' + encodeURIComponent(svg);
+      link.download = 'vectra.svg';
+      link.click();
+    } else if (format === 'json') {
+      const json = JSON.stringify(this.state);
+      const link = document.createElement('a');
+      link.href = 'data:application/json,' + encodeURIComponent(json);
+      link.download = 'vectra.json';
+      link.click();
+    }
+  }
+
+  getSVG() {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', this.canvas.width);
+    svg.setAttribute('height', this.canvas.height);
+    for (const node of this.state.nodes) {
+      const element = document.createElementNS('http://www.w3.org/2000/svg', node.type);
+      element.setAttribute('x', node.x);
+      element.setAttribute('y', node.y);
+      element.setAttribute('width', node.width);
+      element.setAttribute('height', node.height);
+      svg.appendChild(element);
+    }
+    return new XMLSerializer().serializeToString(svg);
   }
 }
 
-// Define file export logic
-function exportFile(format, data) {
-  const blob = new Blob([data], { type: `image/${format}` });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `vectron.${format}`;
-  a.click();
-}
+// Worker script
+self.onmessage = (e) => {
+  if (e.data.type === 'render') {
+    const state = e.data.state;
+    const imageData = new ImageData(state.width, state.height);
+    for (const node of state.nodes) {
+      for (let x = node.x; x < node.x + node.width; x++) {
+        for (let y = node.y; y < node.y + node.height; y++) {
+          const index = (y * state.width * 4) + (x * 4);
+          imageData.data[index] = node.color.r;
+          imageData.data[index + 1] = node.color.g;
+          imageData.data[index + 2] = node.color.b;
+          imageData.data[index + 3] = node.color.a;
+        }
+      }
+    }
+    self.postMessage({ type: 'render', imageData });
+  }
+};
 
-// Define canvas event listeners
-function handleCanvasMouseDown(event) {
-  const canvas = event.target;
-  const rect = canvas.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-  // Handle node creation or selection
-}
+// Redux store
+const store = {
+  state: {
+    nodes: [],
+    layers: [],
+    history: [],
+    currentHistoryIndex: -1,
+  },
+  dispatch: (action) => {
+    switch (action.type) {
+      case 'ADD_NODE':
+        store.state.nodes.push(action.node);
+        break;
+      case 'REMOVE_NODE':
+        store.state.nodes = store.state.nodes.filter((node) => node.id !== action.nodeId);
+        break;
+      case 'UPDATE_NODE':
+        store.state.nodes = store.state.nodes.map((node) => {
+          if (node.id === action.nodeId) {
+            return { ...node, ...action.node };
+          }
+          return node;
+        });
+        break;
+      default:
+        break;
+    }
+    store.state.history.push(JSON.parse(JSON.stringify(store.state)));
+    store.state.currentHistoryIndex++;
+    localStorage.setItem('vectra-state', JSON.stringify(store.state));
+    localStorage.setItem('vectra-history', JSON.stringify(store.state.history));
+    localStorage.setItem('vectra-current-history-index', JSON.stringify(store.state.currentHistoryIndex));
+  },
+};
 
-function handleCanvasMouseMove(event) {
-  const canvas = event.target;
-  const rect = canvas.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-  // Handle node dragging or resizing
-}
+// JSON patching
+const jsonPatch = (obj, patch) => {
+  const result = { ...obj };
+  for (const op of patch) {
+    switch (op.op) {
+      case 'add':
+        result[op.path] = op.value;
+        break;
+      case 'remove':
+        delete result[op.path];
+        break;
+      case 'replace':
+        result[op.path] = op.value;
+        break;
+      default:
+        break;
+    }
+  }
+  return result;
+};
 
-function handleCanvasMouseUp(event) {
-  const canvas = event.target;
-  const rect = canvas.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-  // Handle node creation or selection
-}
+// LocalStorage persistence
+const loadState = () => {
+  const state = localStorage.getItem('vectra-state');
+  if (state) {
+    return JSON.parse(state);
+  }
+  return {
+    nodes: [],
+    layers: [],
+    history: [],
+    currentHistoryIndex: -1,
+  };
+};
 
-// Define main application component
-function VectronApp() {
-  return (
-    <div>
-      <TopToolbar />
-      <NodeEditingToolbar />
-      <LayersPanel />
-      <MainViewport />
-      <StatusPanel />
-    </div>
-  );
-}
+const saveState = (state) => {
+  localStorage.setItem('vectra-state', JSON.stringify(state));
+};
 
-// Define top toolbar component
-function TopToolbar() {
-  return (
-    <div>
-      <button onClick={() => addUndoState(store.getState())}>Undo</button>
-      <button onClick={() => removeUndoState()}>Redo</button>
-    </div>
-  );
-}
+const loadHistory = () => {
+  const history = localStorage.getItem('vectra-history');
+  if (history) {
+    return JSON.parse(history);
+  }
+  return [];
+};
 
-// Define node editing toolbar component
-function NodeEditingToolbar() {
-  return (
-    <div>
-      <button onClick={() => addNode({ id: uuidv4(), type: 'rect' })}>Add Rect</button>
-      <button onClick={() => addNode({ id: uuidv4(), type: 'circle' })}>Add Circle</button>
-    </div>
-  );
-}
+const saveHistory = (history) => {
+  localStorage.setItem('vectra-history', JSON.stringify(history));
+};
 
-// Define layers panel component
-function LayersPanel() {
-  return (
-    <div>
-      <ul>
-        {store.getState().nodes.map((node) => (
-          <li key={node.id}>{node.type}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+const loadCurrentHistoryIndex = () => {
+  const currentHistoryIndex = localStorage.getItem('vectra-current-history-index');
+  if (currentHistoryIndex) {
+    return JSON.parse(currentHistoryIndex);
+  }
+  return -1;
+};
 
-// Define main viewport component
-function MainViewport() {
-  return (
-    <div>
-      <canvas
-        width={800}
-        height={600}
-        onMouseDown={handleCanvasMouseDown}
-        onMouseMove={handleCanvasMouseMove}
-        onMouseUp={handleCanvasMouseUp}
-      />
-    </div>
-  );
-}
+const saveCurrentHistoryIndex = (currentHistoryIndex) => {
+  localStorage.setItem('vectra-current-history-index', JSON.stringify(currentHistoryIndex));
+};
 
-// Define status panel component
-function StatusPanel() {
-  return (
-    <div>
-      <p>Notifications and warnings will appear here</p>
-    </div>
-  );
-}
-
-// Render application
-const root = createRoot(document.getElementById('root'));
-root.render(
-  <Provider store={store}>
-    <VectronApp />
-  </Provider>
-);
-
-// Load state from local storage
-const storedState = localStorage.getItem(LOCAL_STORAGE_KEY);
-if (storedState) {
-  store.dispatch({ type: 'LOAD_STATE', state: JSON.parse(storedState) });
-}
-
-// Save state to local storage periodically
-setInterval(() => {
-  const state = store.getState();
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
-}, 10000);
-
-// Export file logic
-function handleExportFile(format) {
-  const state = store.getState();
-  const svgString = new SVGRenderer(state.nodes).render();
-  exportFile(format, svgString);
-}
-
-// Add event listeners for file export
-document.getElementById('export-png').addEventListener('click', () => handleExportFile('png'));
-document.getElementById('export-svg').addEventListener('click', () => handleExportFile('svg'));
-document.getElementById('export-json').addEventListener('click', () => handleExportFile('json'));
+// Initialize Vectra engine
+const vectra = new VectraEngine();
 </script>
 </body>
 </html>
