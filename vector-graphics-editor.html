@@ -16,317 +16,223 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="bg-gray-900 text-gray-200 h-screen relative">
-  <!-- Toolbar -->
-  <nav class="flex justify-between bg-gray-800 p-4 fixed top-0 left-0 right-0 z-10">
-    <div class="flex items-center space-x-4">
-      <a href="#" class="text-lg font-bold">Vectra</a>
-      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
-        <i class="fas fa-file fa-lg mr-2"></i> File
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
-        <i class="fas fa-edit fa-lg mr-2"></i> Edit
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
-        <i class="fas fa-vector-square fa-lg mr-2"></i> Vector
-      </button>
-    </div>
-    <div class="flex items-center space-x-4">
-      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
-        <i class="fas fa-undo fa-lg mr-2"></i> Undo
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
-        <i class="fas fa-redo fa-lg mr-2"></i> Redo
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
-        <i class="fas fa-download fa-lg mr-2"></i> Export
-      </button>
-    </div>
-  </nav>
-
-  <!-- Object Panel -->
-  <div class="fixed top-14 left-0 bottom-0 w-64 bg-gray-800 p-4 z-10">
-    <h2 class="text-lg font-bold mb-4">Object Panel</h2>
-    <ul class="space-y-2">
-      <li>
-        <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded w-full">
-          <i class="fas fa-circle fa-lg mr-2"></i> Circle
-        </button>
-      </li>
-      <li>
-        <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded w-full">
-          <i class="fas fa-square fa-lg mr-2"></i> Square
-        </button>
-      </li>
-      <li>
-        <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded w-full">
-          <i class="fas fa-triangle fa-lg mr-2"></i> Triangle
-        </button>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Layers Panel -->
-  <div class="fixed top-14 right-0 bottom-0 w-64 bg-gray-800 p-4 z-10">
-    <h2 class="text-lg font-bold mb-4">Layers Panel</h2>
-    <ul class="space-y-2">
-      <li>
-        <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded w-full">
-          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 1
-        </button>
-      </li>
-      <li>
-        <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded w-full">
-          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 2
-        </button>
-      </li>
-      <li>
-        <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded w-full">
-          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 3
-        </button>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Main Viewport -->
-  <div class="absolute top-14 left-64 right-64 bottom-4 p-4 overflow-auto">
-    <canvas id="viewport" class="w-full h-full" width="800" height="600"></canvas>
-    <div class="absolute top-0 left-0 right-0 flex justify-between items-center p-2 bg-gray-800 bg-opacity-50">
-      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
-        <i class="fas fa-search-plus fa-lg mr-2"></i> Zoom In
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
-        <i class="fas fa-search-minus fa-lg mr-2"></i> Zoom Out
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
-        <i class="fas fa-arrows-alt fa-lg mr-2"></i> Pan
-      </button>
+<body class="bg-gray-900 text-white h-screen flex flex-col">
+  <!-- Top Toolbar -->
+  <div class="flex justify-between items-center py-2 bg-gray-800 border-b border-gray-700">
+    <h1 class="text-2xl font-bold pl-4"><i class="fas fa-vector-square"></i> Vectra</h1>
+    <div class="flex items-center pr-4">
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="New File"><i class="fas fa-file"></i></button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Open File"><i class="fas fa-folder-open"></i></button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Save File"><i class="fas fa-save"></i></button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Export"><i class="fas fa-share-square"></i></button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Undo"><i class="fas fa-undo"></i></button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Redo"><i class="fas fa-redo"></i></button>
     </div>
   </div>
 
-  <!-- Status Panel -->
-  <div class="fixed bottom-0 left-0 right-0 p-4 bg-gray-800 z-10">
-    <div class="flex items-center space-x-4">
-      <i class="fas fa-circle fa-lg text-green-500 mr-2"></i> Connected
+  <!-- Left Sidebar (Layers and Objects) -->
+  <div class="flex flex-row h-full">
+    <div class="w-64 bg-gray-800 border-r border-gray-700 p-4">
+      <h2 class="text-xl font-bold mb-4">Layers</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-700"><i class="fas fa-layer-group"></i> Layer 1</li>
+        <li class="py-2 border-b border-gray-700"><i class="fas fa-layer-group"></i> Layer 2</li>
+        <li class="py-2 border-b border-gray-700"><i class="fas fa-layer-group"></i> Layer 3</li>
+      </ul>
+      <h2 class="text-xl font-bold mt-4 mb-4">Objects</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-700"><i class="fas fa-square"></i> Rectangle</li>
+        <li class="py-2 border-b border-gray-700"><i class="fas fa-circle"></i> Circle</li>
+        <li class="py-2 border-b border-gray-700"><i class="fas fa-polygon"></i> Polygon</li>
+      </ul>
     </div>
-    <div class="flex items-center space-x-4">
-      <i class="fas fa-exclamation-triangle fa-lg text-yellow-500 mr-2"></i> Warning: Unsaved Changes
+
+    <!-- Central Viewport (Canvas) -->
+    <div class="flex-1 bg-gray-900 p-4">
+      <svg class="w-full h-full" id="vectra-canvas"></svg>
     </div>
-    <div class="flex items-center space-x-4">
-      <i class="fas fa-bell fa-lg text-blue-500 mr-2"></i> Notification: New Update Available
+
+    <!-- Right Sidebar (Properties and Node Editing) -->
+    <div class="w-64 bg-gray-800 border-l border-gray-700 p-4">
+      <h2 class="text-xl font-bold mb-4">Properties</h2>
+      <form>
+        <label class="block text-gray-400 py-2">Fill Color:</label>
+        <input type="color" class="w-full py-2 border border-gray-700 rounded">
+        <label class="block text-gray-400 py-2">Stroke Color:</label>
+        <input type="color" class="w-full py-2 border border-gray-700 rounded">
+        <label class="block text-gray-400 py-2">Stroke Width:</label>
+        <input type="number" class="w-full py-2 border border-gray-700 rounded">
+      </form>
+      <h2 class="text-xl font-bold mt-4 mb-4">Node Editing</h2>
+      <form>
+        <label class="block text-gray-400 py-2">Node Type:</label>
+        <select class="w-full py-2 border border-gray-700 rounded">
+          <option>Rectangle</option>
+          <option>Circle</option>
+          <option>Polygon</option>
+        </select>
+        <label class="block text-gray-400 py-2">Node Size:</label>
+        <input type="number" class="w-full py-2 border border-gray-700 rounded">
+      </form>
     </div>
+  </div>
+
+  <!-- Bottom Status Panel -->
+  <div class="flex justify-between items-center py-2 bg-gray-800 border-t border-gray-700">
+    <p class="pl-4 text-gray-400">Notifications: None</p>
+    <p class="pr-4 text-gray-400">Progress: 0%</p>
   </div>
 </body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Import necessary libraries
-import { Vector2 } from './vector2.js';
-import { SvgParser } from './svg-parser.js';
-import { NodeEditor } from './node-editor.js';
-import { UndoRedoManager } from './undo-redo-manager.js';
-import { FileExporter } from './file-exporter.js';
+// Import required libraries
+import * as d3 from 'd3';
+import { fabric } from 'fabric';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import localStorage from 'redux-persist/lib/storage';
+import thunk from 'redux-thunk';
+import { v4 as uuidv4 } from 'uuid';
 
-// Initialize application
-class Vectra {
-  constructor() {
-    this.name = 'Vectra';
-    this.slug = 'vector-graphics-editor';
-    this.toolbar = document.getElementById('toolbar');
-    this.objectPanel = document.getElementById('object-panel');
-    this.layersPanel = document.getElementById('layers-panel');
-    this.mainViewport = document.getElementById('main-viewport');
-    this.statusPanel = document.getElementById('status-panel');
-    this.state = {};
-    this.stateStore = new StateStore();
-    this.undoRedoManager = new UndoRedoManager();
-    this.fileExporter = new FileExporter();
-    this.svgParser = new SvgParser();
-    this.nodeEditor = new NodeEditor();
-    this.canvas = document.createElement('canvas');
-    this.canvas.width = 800;
-    this.canvas.height = 600;
-    this.ctx = this.canvas.getContext('2d');
-    this.mainViewport.appendChild(this.canvas);
-    this.addEventListeners();
+// Define initial state
+const initialState = {
+  canvas: {
+    width: 800,
+    height: 600,
+    objects: []
+  },
+  undoHistory: [],
+  redoHistory: []
+};
+
+// Define reducers
+const canvasReducer = (state = initialState.canvas, action) => {
+  switch (action.type) {
+    case 'ADD_OBJECT':
+      return { ...state, objects: [...state.objects, action.object] };
+    case 'REMOVE_OBJECT':
+      return { ...state, objects: state.objects.filter(object => object.id !== action.id) };
+    default:
+      return state;
   }
+};
 
-  addEventListeners() {
-    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
-    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
-    this.toolbar.addEventListener('click', (e) => this.handleToolbarClick(e));
+const undoHistoryReducer = (state = initialState.undoHistory, action) => {
+  switch (action.type) {
+    case 'ADD_UNDO':
+      return [...state, action.state];
+    case 'REMOVE_UNDO':
+      return state.slice(0, -1);
+    default:
+      return state;
   }
+};
 
-  handleMouseDown(e) {
-    const rect = this.canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    this.nodeEditor.selectNodeAt(x, y);
-    this.updateState();
+const redoHistoryReducer = (state = initialState.redoHistory, action) => {
+  switch (action.type) {
+    case 'ADD_REDO':
+      return [...state, action.state];
+    case 'REMOVE_REDO':
+      return state.slice(0, -1);
+    default:
+      return state;
   }
+};
 
-  handleMouseMove(e) {
-    const rect = this.canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    this.nodeEditor.moveNodeTo(x, y);
-    this.updateState();
-  }
+// Combine reducers
+const rootReducer = combineReducers({
+  canvas: canvasReducer,
+  undoHistory: undoHistoryReducer,
+  redoHistory: redoHistoryReducer
+});
 
-  handleMouseUp(e) {
-    this.undoRedoManager.saveState(this.state);
-  }
+// Create store with persistence
+const persistConfig = {
+  key: 'vectra',
+  storage: localStorage,
+  blacklist: ['undoHistory', 'redoHistory']
+};
 
-  handleToolbarClick(e) {
-    if (e.target.id === 'undo-button') {
-      this.undoRedoManager.undo();
-    } else if (e.target.id === 'redo-button') {
-      this.undoRedoManager.redo();
-    } else if (e.target.id === 'export-button') {
-      this.exportFile();
-    }
-  }
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+const store = createStore(persistedReducer, applyMiddleware(thunk));
+const persistor = persistStore(store);
 
-  updateState() {
-    this.state = this.nodeEditor.getState();
-    this.stateStore.saveState(this.state);
-  }
+// Initialize canvas and Fabric.js
+const canvas = new fabric.Canvas('canvas', {
+  width: 800,
+  height: 600
+});
 
-  exportFile() {
-    const format = document.getElementById('export-format').value;
-    this.fileExporter.export(format, this.state);
-  }
-}
+// Add event listeners for canvas interactions
+canvas.on('object:added', (options) => {
+  store.dispatch({ type: 'ADD_OBJECT', object: options.target });
+});
 
-// State management
-class StateStore {
-  constructor() {
-    this.state = {};
-  }
+canvas.on('object:removed', (options) => {
+  store.dispatch({ type: 'REMOVE_OBJECT', id: options.target.id });
+});
 
-  saveState(state) {
-    this.state = state;
-    localStorage.setItem('vectra-state', JSON.stringify(state));
-  }
+// Define undo/redo functionality
+const undo = () => {
+  const currentState = store.getState();
+  store.dispatch({ type: 'ADD_REDO', state: currentState });
+  const previousState = store.getState().undoHistory[store.getState().undoHistory.length - 1];
+  store.dispatch({ type: 'REMOVE_UNDO' });
+  return previousState;
+};
 
-  loadState() {
-    const storedState = localStorage.getItem('vectra-state');
-    if (storedState) {
-      this.state = JSON.parse(storedState);
-    }
-    return this.state;
-  }
-}
+const redo = () => {
+  const currentState = store.getState();
+  store.dispatch({ type: 'ADD_UNDO', state: currentState });
+  const nextState = store.getState().redoHistory[store.getState().redoHistory.length - 1];
+  store.dispatch({ type: 'REMOVE_REDO' });
+  return nextState;
+};
 
-// Undo/Redo management
-class UndoRedoManager {
-  constructor() {
-    this.history = [];
-    this.current = -1;
-  }
+// Define export logic
+const exportPNG = () => {
+  const dataURL = canvas.toDataURL({
+    format: 'png'
+  });
+  const link = document.createElement('a');
+  link.href = dataURL;
+  link.download = 'vectra-export.png';
+  link.click();
+};
 
-  saveState(state) {
-    this.history.push(state);
-    this.current++;
-  }
+const exportSVG = () => {
+  const svg = canvas.toSVG();
+  const link = document.createElement('a');
+  link.href = 'data:image/svg+xml,' + encodeURIComponent(svg);
+  link.download = 'vectra-export.svg';
+  link.click();
+};
 
-  undo() {
-    if (this.current > 0) {
-      this.current--;
-      return this.history[this.current];
-    }
-  }
+const exportJSON = () => {
+  const data = store.getState();
+  const jsonData = JSON.stringify(data);
+  const link = document.createElement('a');
+  link.href = 'data:application/json,' + encodeURIComponent(jsonData);
+  link.download = 'vectra-export.json';
+  link.click();
+};
 
-  redo() {
-    if (this.current < this.history.length - 1) {
-      this.current++;
-      return this.history[this.current];
-    }
-  }
-}
+// Initialize Vectra application
+const init = () => {
+  // Initialize canvas and Fabric.js
+  canvas.renderAll();
 
-// File export logic
-class FileExporter {
-  constructor() {}
+  // Add event listeners for toolbar actions
+  document.getElementById('undo-button').addEventListener('click', undo);
+  document.getElementById('redo-button').addEventListener('click', redo);
+  document.getElementById('export-png-button').addEventListener('click', exportPNG);
+  document.getElementById('export-svg-button').addEventListener('click', exportSVG);
+  document.getElementById('export-json-button').addEventListener('click', exportJSON);
+};
 
-  export(format, state) {
-    const data = JSON.stringify(state);
-    if (format === 'png') {
-      this.exportAsImage(data);
-    } else if (format === 'svg') {
-      this.exportAsSvg(data);
-    } else if (format === 'json') {
-      this.exportAsJson(data);
-    }
-  }
-
-  exportAsImage(data) {
-    const canvas = document.createElement('canvas');
-    canvas.width = 800;
-    canvas.height = 600;
-    const ctx = canvas.getContext('2d');
-    // Render state as image
-    const url = canvas.toDataURL();
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'vectra-image.png';
-    a.click();
-  }
-
-  exportAsSvg(data) {
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.width = 800;
-    svg.height = 600;
-    // Render state as SVG
-    const serializer = new XMLSerializer();
-    const xml = serializer.serializeToString(svg);
-    const a = document.createElement('a');
-    a.href = 'data:image/svg+xml,' + xml;
-    a.download = 'vectra-svg.svg';
-    a.click();
-  }
-
-  exportAsJson(data) {
-    const a = document.createElement('a');
-    a.href = 'data:application/json,' + data;
-    a.download = 'vectra-state.json';
-    a.click();
-  }
-}
-
-// Node editing algorithms
-class NodeEditor {
-  constructor() {
-    this.nodes = [];
-    this.selectedNode = null;
-  }
-
-  selectNodeAt(x, y) {
-    // Find node at coordinates
-    for (let i = 0; i < this.nodes.length; i++) {
-      if (this.nodes[i].contains(x, y)) {
-        this.selectedNode = this.nodes[i];
-        break;
-      }
-    }
-  }
-
-  moveNodeTo(x, y) {
-    if (this.selectedNode) {
-      // Move selected node to coordinates
-      this.selectedNode.x = x;
-      this.selectedNode.y = y;
-    }
-  }
-
-  getState() {
-    return this.nodes.map((node) => node.getState());
-  }
-}
-
-// Initialize Vectra
-const vectra = new Vectra();
+// Run initialization
+init();
 </script>
 </body>
 </html>
