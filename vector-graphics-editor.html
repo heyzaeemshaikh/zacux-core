@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vectrix</title>
+  <title>Vectra</title>
   <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
   <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
   <style>
@@ -16,388 +16,284 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="bg-gray-900 text-gray-200 h-screen overflow-hidden">
-  <!-- Toolbar -->
-  <div class="flex justify-between items-center p-2 bg-gray-800 border-b border-gray-700">
+<body class="bg-[#090d16] h-screen flex flex-col">
+  <!-- Top Toolbar -->
+  <nav class="flex justify-between bg-[#151a29] text-white p-2">
     <div class="flex items-center">
-      <a href="#" class="text-lg font-bold mr-4">Vectrix</a>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-file fa-fw"></i>
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-edit fa-fw"></i>
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-share fa-fw"></i>
-      </button>
+      <i class="fas fa-undo fa-lg mr-2 cursor-pointer"></i>
+      <i class="fas fa-redo fa-lg mr-2 cursor-pointer"></i>
+      <i class="fas fa-search-plus fa-lg mr-2 cursor-pointer"></i>
+      <i class="fas fa-search-minus fa-lg mr-2 cursor-pointer"></i>
     </div>
     <div class="flex items-center">
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-undo fa-fw"></i>
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-redo fa-fw"></i>
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-trash fa-fw"></i>
-      </button>
+      <i class="fas fa-file fa-lg mr-2 cursor-pointer"></i>
+      <i class="fas fa-save fa-lg mr-2 cursor-pointer"></i>
+      <i class="fas fa-export fa-lg mr-2 cursor-pointer"></i>
     </div>
+  </nav>
+
+  <!-- Left Sidebar -->
+  <div class="flex h-[calc(100vh-64px)]">
+    <aside class="bg-[#21252b] w-64 p-2 text-white">
+      <h2 class="text-lg font-bold mb-2">Layers</h2>
+      <ul>
+        <li class="py-1 cursor-pointer">Layer 1</li>
+        <li class="py-1 cursor-pointer">Layer 2</li>
+        <li class="py-1 cursor-pointer">Layer 3</li>
+      </ul>
+      <h2 class="text-lg font-bold mt-4 mb-2">Node Editing Tools</h2>
+      <div class="flex flex-col">
+        <i class="fas fa-pencil-alt fa-lg mr-2 cursor-pointer mb-2"></i>
+        <i class="fas fa-eraser fa-lg mr-2 cursor-pointer mb-2"></i>
+        <i class="fas fa-eye fa-lg mr-2 cursor-pointer mb-2"></i>
+      </div>
+    </aside>
+
+    <!-- Main Viewport -->
+    <main class="flex-1 p-2">
+      <svg class="w-full h-full" viewBox="0 0 100 100">
+        <!-- SVG Rendering and Editing Capabilities -->
+      </svg>
+    </main>
+
+    <!-- Right Sidebar (Floating) -->
+    <aside class="fixed right-0 top-16 bg-[#21252b] w-64 p-2 text-white shadow-md">
+      <h2 class="text-lg font-bold mb-2">Tool Options</h2>
+      <div class="flex flex-col">
+        <label class="block text-gray-400">Stroke Color</label>
+        <input type="color" class="w-full mb-2">
+        <label class="block text-gray-400">Fill Color</label>
+        <input type="color" class="w-full mb-2">
+      </div>
+    </aside>
   </div>
 
-  <!-- Layer Sidebar -->
-  <div class="fixed top-12 left-0 w-64 h-screen bg-gray-800 p-2 border-r border-gray-700">
-    <h2 class="text-lg font-bold mb-2">Layers</h2>
-    <ul>
-      <li class="py-1">
-        <input type="checkbox" id="layer-1" checked>
-        <label for="layer-1" class="ml-2">Layer 1</label>
-      </li>
-      <li class="py-1">
-        <input type="checkbox" id="layer-2">
-        <label for="layer-2" class="ml-2">Layer 2</label>
-      </li>
-      <li class="py-1">
-        <input type="checkbox" id="layer-3">
-        <label for="layer-3" class="ml-2">Layer 3</label>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Node Sidebar -->
-  <div class="fixed top-12 right-0 w-64 h-screen bg-gray-800 p-2 border-l border-gray-700">
-    <h2 class="text-lg font-bold mb-2">Nodes</h2>
-    <ul>
-      <li class="py-1">
-        <input type="radio" id="node-1" name="node" checked>
-        <label for="node-1" class="ml-2">Node 1</label>
-      </li>
-      <li class="py-1">
-        <input type="radio" id="node-2" name="node">
-        <label for="node-2" class="ml-2">Node 2</label>
-      </li>
-      <li class="py-1">
-        <input type="radio" id="node-3" name="node">
-        <label for="node-3" class="ml-2">Node 3</label>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Main Viewport -->
-  <div class="flex-1 overflow-hidden relative">
-    <svg class="absolute top-0 left-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <!-- SVG content will be rendered here -->
-    </svg>
-  </div>
-
-  <!-- Status Panel -->
-  <div class="fixed bottom-0 left-0 w-full bg-gray-800 p-2 border-t border-gray-700">
-    <div class="flex justify-between items-center">
-      <span class="text-sm">Zoom: 100%</span>
-      <span class="text-sm">Selected Node: None</span>
-      <span class="text-sm">Undo History: 0</span>
-      <span class="text-sm">Redo History: 0</span>
+  <!-- Bottom Status Panel -->
+  <footer class="bg-[#151a29] text-white p-2">
+    <div class="flex justify-between">
+      <span>Real-time Feedback and Notifications</span>
+      <i class="fas fa-bell fa-lg cursor-pointer"></i>
     </div>
-    <div class="flex justify-between items-center mt-2">
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-save fa-fw"></i>
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-export fa-fw"></i>
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md mr-2">
-        <i class="fas fa-info fa-fw"></i>
-      </button>
-    </div>
-  </div>
+  </footer>
 </body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Initialize Vectrix application
-class Vectrix {
-  constructor(appName, slug, architectureSummary, uiLayoutSpec, stateManagementSpec, coreEngineSpec) {
-    this.appName = appName;
-    this.slug = slug;
-    this.architectureSummary = architectureSummary;
-    this.uiLayoutSpec = uiLayoutSpec;
-    this.stateManagementSpec = stateManagementSpec;
-    this.coreEngineSpec = coreEngineSpec;
-    this.canvas = null;
-    this.toolbar = null;
-    this.layerSidebar = null;
-    this.nodeSidebar = null;
-    this.statusPanel = null;
-    this.stateStore = null;
-    this.undoRedoHistory = null;
-    this.collaborativeEditing = null;
-    this.svgRenderingEngine = null;
-    this.nodeEditingAlgorithms = null;
-    this.exportEngines = null;
-  }
-
-  init() {
-    // Initialize canvas and DOM elements
-    this.canvas = document.getElementById('canvas');
-    this.toolbar = document.getElementById('toolbar');
-    this.layerSidebar = document.getElementById('layer-sidebar');
-    this.nodeSidebar = document.getElementById('node-sidebar');
-    this.statusPanel = document.getElementById('status-panel');
-
-    // Initialize state management system
-    this.stateStore = new ReduxStore();
-    this.undoRedoHistory = new UndoRedoHistory();
-    this.collaborativeEditing = new CollaborativeEditing();
-
-    // Initialize core engine components
-    this.svgRenderingEngine = new SvgRenderingEngine();
-    this.nodeEditingAlgorithms = new NodeEditingAlgorithms();
-    this.exportEngines = new ExportEngines();
-
-    // Add event listeners for canvas and DOM interactions
-    this.addEventListeners();
-  }
-
-  addEventListeners() {
-    // Add event listeners for canvas interactions
-    this.canvas.addEventListener('mousedown', (event) => {
-      this.handleCanvasMouseDown(event);
-    });
-    this.canvas.addEventListener('mousemove', (event) => {
-      this.handleCanvasMouseMove(event);
-    });
-    this.canvas.addEventListener('mouseup', (event) => {
-      this.handleCanvasMouseUp(event);
-    });
-
-    // Add event listeners for toolbar interactions
-    this.toolbar.addEventListener('click', (event) => {
-      this.handleToolbarClick(event);
-    });
-
-    // Add event listeners for layer and node sidebar interactions
-    this.layerSidebar.addEventListener('click', (event) => {
-      this.handleLayerSidebarClick(event);
-    });
-    this.nodeSidebar.addEventListener('click', (event) => {
-      this.handleNodeSidebarClick(event);
-    });
-
-    // Add event listeners for status panel interactions
-    this.statusPanel.addEventListener('click', (event) => {
-      this.handleStatusPanelClick(event);
-    });
-  }
-
-  handleCanvasMouseDown(event) {
-    // Handle canvas mouse down event
-    this.svgRenderingEngine.handleMouseDown(event);
-  }
-
-  handleCanvasMouseMove(event) {
-    // Handle canvas mouse move event
-    this.svgRenderingEngine.handleMouseMove(event);
-  }
-
-  handleCanvasMouseUp(event) {
-    // Handle canvas mouse up event
-    this.svgRenderingEngine.handleMouseUp(event);
-  }
-
-  handleToolbarClick(event) {
-    // Handle toolbar click event
-    if (event.target.id === 'save-button') {
-      this.saveFile();
-    } else if (event.target.id === 'export-button') {
-      this.exportFile();
-    }
-  }
-
-  handleLayerSidebarClick(event) {
-    // Handle layer sidebar click event
-    this.layerSidebar.handleClick(event);
-  }
-
-  handleNodeSidebarClick(event) {
-    // Handle node sidebar click event
-    this.nodeSidebar.handleClick(event);
-  }
-
-  handleStatusPanelClick(event) {
-    // Handle status panel click event
-    this.statusPanel.handleClick(event);
-  }
-
-  saveFile() {
-    // Save file to local storage
-    const fileData = this.stateStore.getState();
-    localStorage.setItem('vectrix-file', JSON.stringify(fileData));
-  }
-
-  exportFile() {
-    // Export file as PNG, SVG, or JSON
-    const fileFormat = this.exportEngines.getFileFormat();
-    if (fileFormat === 'png') {
-      this.exportEngines.exportAsPng();
-    } else if (fileFormat === 'svg') {
-      this.exportEngines.exportAsSvg();
-    } else if (fileFormat === 'json') {
-      this.exportEngines.exportAsJson();
-    }
-  }
-}
-
-class ReduxStore {
+// Initialize the Vectra application
+class Vectra {
   constructor() {
     this.state = {};
+    thisยอด = [];
+    this.revision = 0;
+    this.cache = {};
+    this.tools = [];
+    this.history = [];
+    this.setViewport();
+    this.setToolbar();
+    this.setSidebar();
+    this.setStatusPanel();
+    this.setReduxStore();
+    this.setExportFormats();
   }
 
-  getState() {
-    return this.state;
+  // Set the viewport for SVG rendering and editing
+  setViewport() {
+    this.viewport = document.getElementById('viewport');
+    this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    this.svg.setAttribute('width', '100%');
+    this.svg.setAttribute('height', '100%');
+    this.viewport.appendChild(this.svg);
+    this.renderSVG();
   }
 
-  dispatch(action) {
-    this.state = action(this.state);
-  }
-}
-
-class UndoRedoHistory {
-  constructor() {
-    this.undoStack = [];
-    this.redoStack = [];
-  }
-
-  pushUndoState(state) {
-    this.undoStack.push(state);
-  }
-
-  pushRedoState(state) {
-    this.redoStack.push(state);
+  // Render the SVG elements
+  renderSVG() {
+    this.svg.innerHTML = '';
+    for (let i = 0; i < this.state.layers.length; i++) {
+      const layer = this.state.layers[i];
+      for (let j = 0; j < layer.nodes.length; j++) {
+        const node = layer.nodes[j];
+        const element = document.createElementNS('http://www.w3.org/2000/svg', node.type);
+        for (let k = 0; k < node.attributes.length; k++) {
+          const attribute = node.attributes[k];
+          element.setAttribute(attribute.name, attribute.value);
+        }
+        this.svg.appendChild(element);
+      }
+    }
   }
 
+  // Set the toolbar with undo/redo, zoom, and file operations
+  setToolbar() {
+    this.toolbar = document.getElementById('toolbar');
+    this.undoButton = document.createElement('button');
+    this.undoButton.textContent = 'Undo';
+    this.undoButton.addEventListener('click', () => this.undo());
+    this.toolbar.appendChild(this.undoButton);
+    this.redoButton = document.createElement('button');
+    this.redoButton.textContent = 'Redo';
+    this.redoButton.addEventListener('click', () => this.redo());
+    this.toolbar.appendChild(this.redoButton);
+    this.zoomButton = document.createElement('button');
+    this.zoomButton.textContent = 'Zoom';
+    this.zoomButton.addEventListener('click', () => this.zoom());
+    this.toolbar.appendChild(this.zoomButton);
+    this.fileButton = document.createElement('button');
+    this.fileButton.textContent = 'File';
+    this.fileButton.addEventListener('click', () => this.file());
+    this.toolbar.appendChild(this.fileButton);
+  }
+
+  // Set the sidebar with layer management and node editing tools
+  setSidebar() {
+    this.sidebar = document.getElementById('sidebar');
+    this.layerList = document.createElement('ul');
+    this.sidebar.appendChild(this.layerList);
+    for (let i = 0; i < this.state.layers.length; i++) {
+      const layer = this.state.layers[i];
+      const layerItem = document.createElement('li');
+      layerItem.textContent = layer.name;
+      this.layerList.appendChild(layerItem);
+    }
+  }
+
+  // Set the status panel with real-time feedback and notifications
+  setStatusPanel() {
+    this.statusPanel = document.getElementById('status-panel');
+  }
+
+  // Set the Redux store for state management
+  setReduxStore() {
+    this.reduxStore = {};
+    this.reduxStore.subscribe = () => {};
+    this.reduxStore.dispatch = (action) => {
+      switch (action.type) {
+        case 'ADD_LAYER':
+          this.state.layers.push(action.layer);
+          this.renderSVG();
+          break;
+        case 'REMOVE_LAYER':
+          this.state.layers = this.state.layers.filter((layer) => layer.id!== action.layerId);
+          this.renderSVG();
+          break;
+        case 'UPDATE_LAYER':
+          const layerId = action.layerId;
+          const layerIndex = this.state.layers.findIndex((layer) => layer.id === layerId);
+          if (layerIndex!== -1) {
+            this.state.layers[layerIndex] = action.layer;
+            this.renderSVG();
+          }
+          break;
+        default:
+          break;
+      }
+    };
+  }
+
+  // Set the export formats for PNG, JPEG, and SVG
+  setExportFormats() {
+    this.exportFormats = ['png', 'jpeg', 'svg'];
+  }
+
+  // Undo the last action
   undo() {
-    if (this.undoStack.length > 0) {
-      const state = this.undoStack.pop();
-      this.redoStack.push(state);
+    if (this.history.length > 0) {
+      this.revision--;
+      this.state = JSON.parse(JSON.stringify(this.history[this.revision]));
+      this.renderSVG();
     }
   }
 
+  // Redo the next action
   redo() {
-    if (this.redoStack.length > 0) {
-      const state = this.redoStack.pop();
-      this.undoStack.push(state);
+    if (this.revision < this.history.length - 1) {
+      this.revision++;
+      this.state = JSON.parse(JSON.stringify(this.history[this.revision]));
+      this.renderSVG();
     }
   }
-}
 
-class CollaborativeEditing {
-  constructor() {
-    this.collaborators = [];
-  }
-
-  addCollaborator(collaborator) {
-    this.collaborators.push(collaborator);
-  }
-
-  removeCollaborator(collaborator) {
-    const index = this.collaborators.indexOf(collaborator);
-    if (index!== -1) {
-      this.collaborators.splice(index, 1);
+  // Zoom the SVG
+  zoom() {
+    const scale = this.svg.getAttribute('scale');
+    if (scale) {
+      this.svg.setAttribute('scale', parseFloat(scale) + 0.1);
+    } else {
+      this.svg.setAttribute('scale', 1.1);
     }
   }
-}
 
-class SvgRenderingEngine {
-  constructor() {
-    this.svgElement = null;
+  // File operations
+  file() {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/svg+xml,application/json';
+    fileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        const data = JSON.parse(reader.result);
+        this.state = data;
+        this.renderSVG();
+      });
+      reader.readAsText(file);
+    });
+    fileInput.click();
   }
 
-  handleMouseDown(event) {
-    // Handle SVG mouse down event
-  }
-
-  handleMouseMove(event) {
-    // Handle SVG mouse move event
-  }
-
-  handleMouseUp(event) {
-    // Handle SVG mouse up event
-  }
-}
-
-class NodeEditingAlgorithms {
-  constructor() {
-    this.node = null;
-  }
-
-  editNode(node) {
-    // Edit node using algorithms
-  }
-}
-
-class ExportEngines {
-  constructor() {
-    this.fileFormat = null;
-  }
-
-  getFileFormat() {
-    return this.fileFormat;
-  }
-
-  exportAsPng() {
-    // Export file as PNG
-    const pngData = this.getPngData();
-    const blob = new Blob([pngData], { type: 'image/png' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'vectrix.png';
-    a.click();
-  }
-
-  exportAsSvg() {
-    // Export file as SVG
-    const svgData = this.getSVGData();
+  // Export the SVG as PNG, JPEG, or SVG
+  exportSVG(format) {
+    const svgData = new XMLSerializer().serializeToString(this.svg);
     const blob = new Blob([svgData], { type: 'image/svg+xml' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'vectrix.svg';
+    a.download = `vectra.${format}`;
     a.click();
-  }
-
-  exportAsJson() {
-    // Export file as JSON
-    const jsonData = this.getJSONData();
-    const blob = new Blob([jsonData], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'vectrix.json';
-    a.click();
-  }
-
-  getPngData() {
-    // Get PNG data
-  }
-
-  getSVGData() {
-    // Get SVG data
-  }
-
-  getJSONData() {
-    // Get JSON data
   }
 }
 
-const vectrix = new Vectrix(
-  'Vectrix',
-  'vector-graphics-editor',
-  'Microservices-based, modular, and scalable architecture with a focus on performance and security',
-  'Toolbar with menu and shortcuts, layer and node sidebars, infinite canvas main viewport, status panel with real-time updates and notifications',
-  'Redux-based state store with local storage persistence, undo/redo history, and collaborative editing features',
-  'Custom-built SVG rendering engine, node editing algorithms, and export engines for PNG, JPEG, PDF, and SVG formats'
-);
-vectrix.init();
+// Initialize the Vectra application
+const vectra = new Vectra();
+
+// Set up the Web Workers for node editing, path manipulation, and export operations
+const worker = new Worker('worker.js');
+worker.addEventListener('message', (event) => {
+  if (event.data.type === 'EXPORT') {
+    vectra.exportSVG(event.data.format);
+  }
+});
+
+// Set up the event listeners for canvas/DOM interactions
+document.addEventListener('click', (event) => {
+  if (event.target === vectra.svg) {
+    const node = event.target.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'circle'));
+    node.setAttribute('cx', event.clientX);
+    node.setAttribute('cy', event.clientY);
+    node.setAttribute('r', 10);
+    vectra.renderSVG();
+  }
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'z' && event.ctrlKey) {
+    vectra.undo();
+  } else if (event.key === 'y' && event.ctrlKey) {
+    vectra.redo();
+  }
+});
+
+// Save the state to LocalStorage
+setInterval(() => {
+  localStorage.setItem('vectra-state', JSON.stringify(vectra.state));
+}, 1000);
+
+// Load the state from LocalStorage
+const storedState = localStorage.getItem('vectra-state');
+if (storedState) {
+  vectra.state = JSON.parse(storedState);
+  vectra.renderSVG();
+}
 </script>
 </body>
 </html>
