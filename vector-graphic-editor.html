@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vectra</title>
+  <title>VectorCraft</title>
   <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
   <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
   <style>
@@ -16,336 +16,289 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="bg-gray-900 text-gray-200 h-screen flex flex-col">
-  <!-- Top Toolbar -->
-  <nav class="flex justify-between bg-gray-800 p-2 border-b border-gray-700">
+<body class="bg-[#090d16] text-white h-screen overflow-hidden">
+  <!-- Toolbar -->
+  <nav class="flex justify-between bg-[#111826] p-2 fixed top-0 left-0 right-0 z-10">
     <div class="flex items-center">
-      <i class="fas fa-vector-square fa-lg mr-2 text-gray-400"></i>
-      <span class="font-bold text-lg">Vectra</span>
+      <button class="mr-2 hover:text-gray-400" title="Undo">
+        <i class="fas fa-undo fa-lg"></i>
+      </button>
+      <button class="mr-2 hover:text-gray-400" title="Redo">
+        <i class="fas fa-redo fa-lg"></i>
+      </button>
     </div>
     <div class="flex items-center">
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
-        <i class="fas fa-file fa-lg mr-2"></i> File
+      <span class="text-lg font-bold mr-4">VectorCraft</span>
+      <button class="mr-2 hover:text-gray-400" title="New File">
+        <i class="fas fa-file fa-lg"></i>
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
-        <i class="fas fa-edit fa-lg mr-2"></i> Edit
+      <button class="mr-2 hover:text-gray-400" title="Open File">
+        <i class="fas fa-folder-open fa-lg"></i>
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
-        <i class="fas fa-layer-group fa-lg mr-2"></i> Layers
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
-        <i class="fas fa-cog fa-lg mr-2"></i> Settings
+      <button class="mr-2 hover:text-gray-400" title="Save File">
+        <i class="fas fa-save fa-lg"></i>
       </button>
     </div>
   </nav>
 
-  <!-- Main Container -->
-  <div class="flex flex-grow h-screen">
-    <!-- Left Sidebar -->
-    <aside class="bg-gray-800 p-2 border-r border-gray-700 w-64">
-      <h2 class="font-bold text-lg mb-2">Layers</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-layer-group fa-lg mr-2 text-gray-400"></i>
-          <span>Layer 1</span>
-        </li>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-layer-group fa-lg mr-2 text-gray-400"></i>
-          <span>Layer 2</span>
-        </li>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-layer-group fa-lg mr-2 text-gray-400"></i>
-          <span>Layer 3</span>
-        </li>
-      </ul>
-    </aside>
+  <!-- Layers Panel -->
+  <aside class="fixed left-0 top-12 h-screen w-64 bg-[#1a202c] p-4 z-0">
+    <h2 class="text-lg font-bold mb-4">Layers</h2>
+    <ul class="list-none m-0 p-0">
+      <li class="mb-2">
+        <button class="w-full text-left hover:bg-[#272e3f] py-2">
+          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 1
+        </button>
+      </li>
+      <li class="mb-2">
+        <button class="w-full text-left hover:bg-[#272e3f] py-2">
+          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 2
+        </button>
+      </li>
+    </ul>
+  </aside>
 
-    <!-- Main Viewport -->
-    <main class="flex-grow p-2 overflow-hidden">
-      <div class="relative w-full h-full">
-        <canvas class="absolute top-0 left-0 w-full h-full" id="canvas"></canvas>
-        <div class="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-          <div class="bg-gray-800 p-2 border border-gray-700 rounded">
-            <i class="fas fa-pen fa-lg mr-2 text-gray-400"></i>
-            <span>Node Editing Tools</span>
-          </div>
-        </div>
-      </div>
-    </main>
+  <!-- Main SVG Viewport -->
+  <main class="flex-1 relative overflow-hidden" style="margin-left: 16rem; margin-top: 4rem;">
+    <svg class="absolute inset-0" id="svg-viewport">
+      <!-- SVG Content will be rendered here -->
+    </svg>
+  </main>
 
-    <!-- Right Sidebar -->
-    <aside class="bg-gray-800 p-2 border-l border-gray-700 w-64">
-      <h2 class="font-bold text-lg mb-2">Properties</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-font fa-lg mr-2 text-gray-400"></i>
-          <span>Font Family</span>
-        </li>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-text-color fa-lg mr-2 text-gray-400"></i>
-          <span>Text Color</span>
-        </li>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-fill fa-lg mr-2 text-gray-400"></i>
-          <span>Fill Color</span>
-        </li>
-      </ul>
-    </aside>
-  </div>
-
-  <!-- Status Bar -->
-  <footer class="bg-gray-800 p-2 border-t border-gray-700">
-    <div class="flex items-center">
-      <i class="fas fa-circle fa-lg mr-2 text-green-400"></i>
-      <span>Connected</span>
+  <!-- Node Editing Tools -->
+  <aside class="fixed right-0 top-12 h-screen w-64 bg-[#1a202c] p-4 z-0">
+    <h2 class="text-lg font-bold mb-4">Node Editing Tools</h2>
+    <div class="flex flex-col mb-4">
+      <button class="mb-2 hover:bg-[#272e3f] py-2 w-full text-left">
+        <i class="fas fa-pen fa-lg mr-2"></i> Edit Node
+      </button>
+      <button class="mb-2 hover:bg-[#272e3f] py-2 w-full text-left">
+        <i class="fas fa-clone fa-lg mr-2"></i> Duplicate Node
+      </button>
+      <button class="mb-2 hover:bg-[#272e3f] py-2 w-full text-left">
+        <i class="fas fa-trash fa-lg mr-2"></i> Delete Node
+      </button>
     </div>
-    <div class="flex items-center ml-4">
-      <i class="fas fa-sync fa-lg mr-2 text-gray-400"></i>
-      <span>Syncing...</span>
-    </div>
-    <div class="flex items-center ml-4">
-      <i class="fas fa-cloud fa-lg mr-2 text-gray-400"></i>
-      <span>Cloud Sync</span>
+    <h2 class="text-lg font-bold mb-4">Node Properties</h2>
+    <form class="mb-4">
+      <label class="block mb-2" for="node-id">ID:</label>
+      <input type="text" id="node-id" class="w-full p-2">
+      <label class="block mb-2" for="nodeclass">Class:</label>
+      <input type="text" id="node-class" class="w-full p-2">
+    </form>
+  </aside>
+
+  <!-- Status Panel -->
+  <footer class="fixed bottom-0 left-0 right-0 bg-[#111826] p-2 z-10">
+    <div class="flex justify-between items-center">
+      <span class="text-gray-400 mr-4">Notifications and Export Options</span>
+      <button class="mr-2 hover:text-gray-400" title="Export as PNG">
+        <i class="fas fa-file-image fa-lg"></i>
+      </button>
+      <button class="mr-2 hover:text-gray-400" title="Export as JPEG">
+        <i class="fas fa-file-image fa-lg"></i>
+      </button>
+      <button class="mr-2 hover:text-gray-400" title="Export as SVG">
+        <i class="fas fa-file-code fa-lg"></i>
+      </button>
     </div>
   </footer>
-
-  <!-- Floating Side Panels -->
-  <div class="fixed top-0 right-0 p-2">
-    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mb-2">
-      <i class="fas fa-question fa-lg mr-2"></i> Help
-    </button>
-    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mb-2">
-      <i class="fas fa-info fa-lg mr-2"></i> About
-    </button>
-  </div>
 </body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
+// VectorCraft Engine
+
 // Import required libraries
 import { createStore, combineReducers } from 'redux';
-import { Map } from 'immutable';
-import { v4 as uuidv4 } from 'uuid';
-import { Worker } from 'worker_threads';
+import { applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { localStorageMiddleware } from './localStorageMiddleware';
+import { indexedDBMiddleware } from './indexedDBMiddleware';
 
-// Initialize Redux store
-const initialState = Map({
+// Constants and Variables
+const APP_NAME = 'VectorCraft';
+const SLUG = 'vector-graphic-editor';
+
+// Redux State Management
+const initialState = {
   nodes: [],
   selectedNode: null,
   undoHistory: [],
-  redoHistory: []
-});
+  redoHistory: [],
+  userPreferences: {}
+};
 
-const vectraReducer = (state = initialState, action) => {
+const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_NODE':
-      return state.update('nodes', nodes => nodes.push(action.node));
+      return {...state, nodes: [...state.nodes, action.node] };
     case 'SELECT_NODE':
-      return state.set('selectedNode', action.node);
+      return {...state, selectedNode: action.node };
     case 'UNDO':
-      return state.update('undoHistory', undoHistory => undoHistory.push(state));
+      return {...state, undoHistory: [...state.undoHistory, state] };
     case 'REDO':
-      return state.update('redoHistory', redoHistory => redoHistory.push(state));
+      return {...state, redoHistory: [...state.redoHistory, state] };
+    case 'SAVE_USER_PREFERENCES':
+      return {...state, userPreferences: action.preferences };
     default:
       return state;
   }
 };
 
-const store = createStore(vectraReducer);
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(localStorageMiddleware, indexedDBMiddleware))
+);
 
-// Initialize Web Worker for compute-intensive tasks
-const worker = new Worker('worker.js');
-
-// Initialize Service Worker for offline support
-navigator.serviceWorker.register('serviceWorker.js')
-  .then(registration => {
-    console.log('Service Worker registered');
-  })
-  .catch(error => {
-    console.error('Service Worker registration failed:', error);
-  });
-
-// Initialize SVG DOM parser and serializer
-const svgParser = new DOMParser();
-const svgSerializer = new XMLSerializer();
-
-// Initialize node editing algorithms
-const nodeEditingAlgorithms = {
-  addNode: (node) => {
-    store.dispatch({ type: 'ADD_NODE', node });
-  },
-  selectNode: (node) => {
-    store.dispatch({ type: 'SELECT_NODE', node });
-  },
-  undo: () => {
-    store.dispatch({ type: 'UNDO' });
-  },
-  redo: () => {
-    store.dispatch({ type: 'REDO' });
+// Local Storage Middleware
+const localStorageMiddleware = (store) => (next) => (action) => {
+  if (action.type === 'SAVE_USER_PREFERENCES') {
+    localStorage.setItem('userPreferences', JSON.stringify(action.preferences));
   }
+  return next(action);
 };
 
-// Initialize export engines
-const exportEngines = {
-  png: (svg) => {
-    const pngBlob = new Blob([svg], { type: 'image/png' });
-    const pngUrl = URL.createObjectURL(pngBlob);
-    const pngLink = document.createElement('a');
-    pngLink.href = pngUrl;
-    pngLink.download = 'vectra.png';
-    pngLink.click();
-  },
-  jpeg: (svg) => {
-    const jpegBlob = new Blob([svg], { type: 'image/jpeg' });
-    const jpegUrl = URL.createObjectURL(jpegBlob);
-    const jpegLink = document.createElement('a');
-    jpegLink.href = jpegUrl;
-    jpegLink.download = 'vectra.jpeg';
-    jpegLink.click();
-  },
-  svg: (svg) => {
-    const svgBlob = new Blob([svg], { type: 'image/svg+xml' });
-    const svgUrl = URL.createObjectURL(svgBlob);
-    const svgLink = document.createElement('a');
-    svgLink.href = svgUrl;
-    svgLink.download = 'vectra.svg';
-    svgLink.click();
-  },
-  json: (nodes) => {
-    const jsonBlob = new Blob([JSON.stringify(nodes)], { type: 'application/json' });
-    const jsonUrl = URL.createObjectURL(jsonBlob);
-    const jsonLink = document.createElement('a');
-    jsonLink.href = jsonUrl;
-    jsonLink.download = 'vectra.json';
-    jsonLink.click();
+// IndexedDB Middleware
+const indexedDBMiddleware = (store) => (next) => (action) => {
+  if (action.type === 'SAVE_SVG_DOCUMENT') {
+    const request = window.indexedDB.open('vectorcraft_db', 1);
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result;
+      db.createObjectStore('svg_documents');
+    };
+    request.onsuccess = (event) => {
+      const db = event.target.result;
+      const transaction = db.transaction('svg_documents', 'readwrite');
+      const store = transaction.objectStore('svg_documents');
+      store.add(action.svgDocument);
+    };
   }
+  return next(action);
 };
 
-// Initialize file export logic
-const fileExport = (format) => {
-  const svg = svgSerializer.serializeToString(document.querySelector('svg'));
-  switch (format) {
-    case 'png':
-      exportEngines.png(svg);
-      break;
-    case 'jpeg':
-      exportEngines.jpeg(svg);
-      break;
-    case 'svg':
-      exportEngines.svg(svg);
-      break;
-    case 'json':
-      const nodes = store.getState().get('nodes');
-      exportEngines.json(nodes);
-      break;
-    default:
-      console.error('Unsupported export format');
+// SVG Engine
+class SVGEngine {
+  constructor(svgElement) {
+    this.svgElement = svgElement;
+    this.nodes = [];
+    this.selectedNode = null;
+    this.nodeEditingTools = {};
   }
+
+  addNode(node) {
+    this.nodes.push(node);
+    this.svgElement.appendChild(node);
+  }
+
+  selectNode(node) {
+    this.selectedNode = node;
+  }
+
+  renderNode(node) {
+    const nodeElement = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    nodeElement.setAttribute('x', node.x);
+    nodeElement.setAttribute('y', node.y);
+    nodeElement.setAttribute('width', node.width);
+    nodeElement.setAttribute('height', node.height);
+    nodeElement.setAttribute('fill', node.fill);
+    this.svgElement.appendChild(nodeElement);
+  }
+
+  handleNodeEditing(event) {
+    if (event.type === 'mousedown') {
+      this.selectNode(event.target);
+    } else if (event.type === 'mousemove' && this.selectedNode) {
+      this.selectedNode.x = event.clientX;
+      this.selectedNode.y = event.clientY;
+      this.renderNode(this.selectedNode);
+    } else if (event.type === 'mouseup') {
+      this.selectedNode = null;
+    }
+  }
+}
+
+// File Export Logic
+const exportFile = (fileType, fileData) => {
+  const file = new Blob([fileData], { type: fileType });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(file);
+  a.download = 'vectorcraft_' + new Date().toLocaleString() + '.' + fileType;
+  a.click();
 };
 
-// Initialize canvas and node editing tools
-const canvas = document.querySelector('canvas');
-const ctx = canvas.getContext('2d');
-const nodeEditingTools = {
-  addNode: (x, y) => {
-    const node = { id: uuidv4(), x, y };
-    nodeEditingAlgorithms.addNode(node);
-  },
-  selectNode: (node) => {
-    nodeEditingAlgorithms.selectNode(node);
-  },
-  undo: () => {
-    nodeEditingAlgorithms.undo();
-  },
-  redo: () => {
-    nodeEditingAlgorithms.redo();
-  }
+const exportPNG = (svgElement) => {
+  const svgData = new XMLSerializer().serializeToString(svgElement);
+  const canvas = document.createElement('canvas');
+  canvas.width = svgElement.width.baseVal.value;
+  canvas.height = svgElement.height.baseVal.value;
+  const ctx = canvas.getContext('2d');
+  const image = new Image();
+  image.src = 'data:image/svg+xml,' + encodeURIComponent(svgData);
+  image.onload = () => {
+    ctx.drawImage(image, 0, 0);
+    exportFile('image/png', canvas.toDataURL('image/png'));
+  };
 };
 
-// Initialize event listeners for canvas/DOM interactions
-canvas.addEventListener('click', (event) => {
-  const x = event.clientX;
-  const y = event.clientY;
-  nodeEditingTools.addNode(x, y);
-});
-
-canvas.addEventListener('contextmenu', (event) => {
-  event.preventDefault();
-  const x = event.clientX;
-  const y = event.clientY;
-  const node = store.getState().get('selectedNode');
-  if (node) {
-    nodeEditingTools.selectNode(node);
-  }
-});
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'z' && event.ctrlKey) {
-    nodeEditingTools.undo();
-  } else if (event.key === 'y' && event.ctrlKey) {
-    nodeEditingTools.redo();
-  }
-});
-
-// Initialize local storage save/load logic
-const saveToLocalStorage = () => {
-  const nodes = store.getState().get('nodes');
-  localStorage.setItem('vectra', JSON.stringify(nodes));
+const exportSVG = (svgElement) => {
+  const svgData = new XMLSerializer().serializeToString(svgElement);
+  exportFile('image/svg+xml', svgData);
 };
 
-const loadFromLocalStorage = () => {
-  const storedNodes = localStorage.getItem('vectra');
-  if (storedNodes) {
-    const nodes = JSON.parse(storedNodes);
-    store.dispatch({ type: 'ADD_NODE', node: nodes });
-  }
+const exportJSON = (svgElement) => {
+  const svgData = new XMLSerializer().serializeToString(svgElement);
+  const jsonData = JSON.stringify(svgData);
+  exportFile('application/json', jsonData);
 };
 
-// Initialize periodic backups and optional cloud syncing
-setInterval(saveToLocalStorage, 10000);
+// Main Function
+const main = () => {
+  const svgElement = document.getElementById('svg-viewport');
+  const svgEngine = new SVGEngine(svgElement);
 
-// Initialize status panel for notifications and progress indicators
-const statusPanel = document.querySelector('#status-panel');
-const notification = (message) => {
-  statusPanel.textContent = message;
+  // Add event listeners for node editing
+  svgElement.addEventListener('mousedown', (event) => svgEngine.handleNodeEditing(event));
+  svgElement.addEventListener('mousemove', (event) => svgEngine.handleNodeEditing(event));
+  svgElement.addEventListener('mouseup', (event) => svgEngine.handleNodeEditing(event));
+
+  // Add toolbar buttons
+  const toolbar = document.getElementById('toolbar');
+  const undoButton = document.createElement('button');
+  undoButton.textContent = 'Undo';
+  undoButton.onclick = () => store.dispatch({ type: 'UNDO' });
+  toolbar.appendChild(undoButton);
+
+  const redoButton = document.createElement('button');
+  redoButton.textContent = 'Redo';
+  redoButton.onclick = () => store.dispatch({ type: 'REDO' });
+  toolbar.appendChild(redoButton);
+
+  const saveButton = document.createElement('button');
+  saveButton.textContent = 'Save';
+  saveButton.onclick = () => {
+    const svgData = new XMLSerializer().serializeToString(svgElement);
+    exportFile('image/svg+xml', svgData);
+  };
+  toolbar.appendChild(saveButton);
+
+  const exportPNGButton = document.createElement('button');
+  exportPNGButton.textContent = 'Export PNG';
+  exportPNGButton.onclick = () => exportPNG(svgElement);
+  toolbar.appendChild(exportPNGButton);
+
+  const exportSVGButton = document.createElement('button');
+  exportSVGButton.textContent = 'Export SVG';
+  exportSVGButton.onclick = () => exportSVG(svgElement);
+  toolbar.appendChild(exportSVGButton);
+
+  const exportJSONButton = document.createElement('button');
+  exportJSONButton.textContent = 'Export JSON';
+  exportJSONButton.onclick = () => exportJSON(svgElement);
+  toolbar.appendChild(exportJSONButton);
 };
 
-// Initialize UI layout
-const topToolbar = document.querySelector('#top-toolbar');
-const leftSidebar = document.querySelector('#left-sidebar');
-const mainViewport = document.querySelector('#main-viewport');
-const rightSidebar = document.querySelector('#right-sidebar');
-
-// Initialize WebGL for accelerated rendering
-const gl = canvas.getContext('webgl');
-
-// Initialize Web Workers for background processing
-worker.postMessage({ type: 'init' });
-
-// Initialize Vectra app
-const vectra = {
-  init: () => {
-    loadFromLocalStorage();
-    notification('Vectra initialized');
-  },
-  addNode: (x, y) => {
-    nodeEditingTools.addNode(x, y);
-  },
-  selectNode: (node) => {
-    nodeEditingTools.selectNode(node);
-  },
-  undo: () => {
-    nodeEditingTools.undo();
-  },
-  redo: () => {
-    nodeEditingTools.redo();
-  },
-  export: (format) => {
-    fileExport(format);
-  }
-};
-
-vectra.init();
+main();
 </script>
 </body>
 </html>
