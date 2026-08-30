@@ -16,371 +16,290 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<div class="flex h-screen bg-[#090d16] text-white">
-  <!-- Toolbar -->
-  <div class="flex justify-between p-2 border-b border-gray-600">
-    <div class="flex space-x-2">
-      <button class="p-2 bg-gray-800 hover:bg-gray-700 rounded">
-        <i class="fas fa-file fa-lg"></i>
+<body class="h-screen bg-gray-900 text-gray-100 flex flex-col">
+  <!-- Header Toolbar -->
+  <header class="bg-gray-800 py-2 flex justify-between items-center">
+    <div class="flex items-center">
+      <a href="#" class="text-lg font-bold mr-4">VectorForge Studio</a>
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+        <i class="fas fa-file fa-sm mr-2"></i> New
       </button>
-      <button class="p-2 bg-gray-800 hover:bg-gray-700 rounded">
-        <i class="fas fa-folder fa-lg"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+        <i class="fas fa-folder fa-sm mr-2"></i> Open
       </button>
-      <button class="p-2 bg-gray-800 hover:bg-gray-700 rounded">
-        <i class="fas fa-undo fa-lg"></i>
-      </button>
-      <button class="p-2 bg-gray-800 hover:bg-gray-700 rounded">
-        <i class="fas fa-redo fa-lg"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+        <i class="fas fa-save fa-sm mr-2"></i> Save
       </button>
     </div>
-    <div class="flex space-x-2">
-      <button class="p-2 bg-gray-800 hover:bg-gray-700 rounded">
-        <i class="fas fa-vector-square fa-lg"></i> VectorForge Studio
+    <div class="flex items-center">
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+        <i class="fas fa-undo fa-sm mr-2"></i> Undo
       </button>
-      <button class="p-2 bg-gray-800 hover:bg-gray-700 rounded">
-        <i class="fas fa-cog fa-lg"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+        <i class="fas fa-redo fa-sm mr-2"></i> Redo
       </button>
     </div>
-  </div>
-  <!-- Main Workspace -->
-  <div class="flex flex-1">
+  </header>
+
+  <!-- Main Content -->
+  <div class="flex flex-1 overflow-hidden">
     <!-- Layers Drawer -->
-    <div class="w-60 p-2 border-r border-gray-600">
-      <h2 class="text-lg font-bold mb-2">Layers</h2>
+    <aside class="w-64 bg-gray-800 p-4 overflow-y-auto flex-shrink-0">
+      <h5 class="font-bold mb-2">Layers</h5>
       <ul>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 1
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-layer-group fa-sm mr-2"></i> Layer 1
         </li>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 2
-        </li>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 3
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-layer-group fa-sm mr-2"></i> Layer 2
         </li>
       </ul>
-    </div>
+    </aside>
+
     <!-- Canvas Viewport -->
-    <div class="flex-1 p-2">
-      <div class="w-full h-full bg-gray-800 rounded">
-        <svg class="w-full h-full" viewBox="0 0 100 100">
-          <!-- Canvas content -->
-        </svg>
+    <div class="flex-1 overflow-hidden relative">
+      <div class="absolute top-0 left-0 w-full h-full bg-gray-900">
+        <canvas class="w-full h-full" id="canvas"></canvas>
+      </div>
+      <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div class="flex justify-between items-center p-4">
+          <div class="text-sm text-gray-500">Zoom: 100%</div>
+          <div class="text-sm text-gray-500">Grid: ON</div>
+        </div>
       </div>
     </div>
+
     <!-- Property Inspector -->
-    <div class="w-60 p-2 border-l border-gray-600">
-      <h2 class="text-lg font-bold mb-2">Properties</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-text fa-lg mr-2"></i> Text
-        </li>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-vector-square fa-lg mr-2"></i> Vector
-        </li>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-image fa-lg mr-2"></i> Image
-        </li>
-      </ul>
-    </div>
+    <aside class="w-64 bg-gray-800 p-4 overflow-y-auto flex-shrink-0">
+      <h5 class="font-bold mb-2">Properties</h5>
+      <div class="mb-4">
+        <label class="block text-sm font-bold mb-2">Fill:</label>
+        <input type="color" class="w-full">
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-bold mb-2">Stroke:</label>
+        <input type="color" class="w-full">
+      </div>
+    </aside>
   </div>
+
   <!-- Status Bar -->
-  <div class="flex justify-between p-2 border-t border-gray-600">
-    <div class="flex space-x-2">
-      <span>Zoom: 100%</span>
-      <span>Grid: ON</span>
-      <span>Guides: ON</span>
-    </div>
-    <div class="flex space-x-2">
-      <button class="p-2 bg-gray-800 hover:bg-gray-700 rounded">
-        <i class="fas fa-question fa-lg"></i>
-      </button>
-      <button class="p-2 bg-gray-800 hover:bg-gray-700 rounded">
-        <i class="fas fa-info fa-lg"></i>
-      </button>
-    </div>
-  </div>
+  <footer class="bg-gray-800 p-2 flex justify-between items-center">
+    <div class="text-sm text-gray-500">VectorForge Studio</div>
+    <div class="text-sm text-gray-500">Zoom: 100% | Grid: ON</div>
+  </footer>
+
   <!-- Tool Options -->
-  <div class="absolute top-12 right-4">
-    <button class="p-2 bg-gray-800 hover:bg-gray-700 rounded">
-      <i class="fas fa-ellipsis-v fa-lg"></i>
+  <div class="fixed bottom-0 right-0 mb-4 mr-4 bg-gray-800 p-2 rounded">
+    <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+      <i class="fas fa-pencil-alt fa-sm mr-2"></i> Draw
     </button>
-    <div class="absolute top-12 right-12 bg-gray-800 p-2 border border-gray-600 rounded">
-      <ul>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-magic fa-lg mr-2"></i> Magic Tool
-        </li>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-eye-dropper fa-lg mr-2"></i> Eyedropper Tool
-        </li>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-crop fa-lg mr-2"></i> Crop Tool
-        </li>
-      </ul>
-    </div>
+    <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+      <i class="fas fa-vector-square fa-sm mr-2"></i> Shape
+    </button>
+    <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+      <i class="fas fa-text fa-sm mr-2"></i> Text
+    </button>
   </div>
-</div>
+</body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// VectorForge Studio Engine
-class VectorForgeStudio {
+// Core Engine
+class VectorForgeEngine {
   constructor() {
-    this.appName = 'VectorForge Studio';
-    this.slug = 'vectorforge-studio';
-    this.architectureSummary = 'High performance vector path editor and SVG studio';
-    this.uiLayoutSpec = 'Toolbar, layers drawer, canvas viewport, property inspector';
-    this.stateManagementSpec = 'Vector node stack with local storage persistence';
-    this.coreEngineSpec = 'Bézier curve math, Canvas SVG rendering and path exporters';
-
     this.vectorNodeStack = [];
     this.undoHistory = [];
     this.redoHistory = [];
-
     this.canvas = document.getElementById('canvas');
     this.ctx = this.canvas.getContext('2d');
     this.toolbar = document.getElementById('toolbar');
-    this.layersDrawer = document.getElementById('layers-drawer');
-    this.propertyInspector = document.getElementById('property-inspector');
-
-    this.initEventListeners();
-    this.initStateManagement();
-    this.initCoreEngine();
+    this.layersDrawer = document.getElementById('layersDrawer');
+    this.propertyInspector = document.getElementById('propertyInspector');
+    this.exportFormats = ['png', 'svg', 'json'];
   }
 
-  initEventListeners() {
-    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
-    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
-    this.toolbar.addEventListener('click', (e) => this.handleToolbarClick(e));
-    this.layersDrawer.addEventListener('click', (e) => this.handleLayersDrawerClick(e));
-    this.propertyInspector.addEventListener('change', (e) => this.handlePropertyInspectorChange(e));
-  }
-
-  initStateManagement() {
-    this.loadStateFromLocalStorage();
-    this.vectorNodeStack.push({ type: 'root', children: [] });
-  }
-
-  initCoreEngine() {
-    this.coreEngine = new CoreEngine(this);
-  }
-
-  handleMouseDown(e) {
-    const rect = this.canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    this.coreEngine.handleMouseDown(x, y);
-  }
-
-  handleMouseMove(e) {
-    const rect = this.canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    this.coreEngine.handleMouseMove(x, y);
-  }
-
-  handleMouseUp(e) {
-    const rect = this.canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    this.coreEngine.handleMouseUp(x, y);
-  }
-
-  handleToolbarClick(e) {
-    if (e.target.id === 'undo-button') {
-      this.undo();
-    } else if (e.target.id === 'redo-button') {
-      this.redo();
-    } else if (e.target.id === 'save-button') {
-      this.saveStateToLocalStorage();
-    } else if (e.target.id === 'export-button') {
-      this.exportFile();
+  // Bézier Curve Math
+  calculateBezierPoint(controlPoints, t) {
+    const n = controlPoints.length - 1;
+    let point = { x: 0, y: 0 };
+    for (let i = 0; i <= n; i++) {
+      const bernsteinPolynomial = this.bernsteinPolynomial(n, i, t);
+      point.x += bernsteinPolynomial * controlPoints[i].x;
+      point.y += bernsteinPolynomial * controlPoints[i].y;
     }
+    return point;
   }
 
-  handleLayersDrawerClick(e) {
-    if (e.target.id === 'add-layer-button') {
-      this.addLayer();
-    } else if (e.target.id === 'remove-layer-button') {
-      this.removeLayer();
-    }
+  bernsteinPolynomial(n, i, t) {
+    return this.binomialCoefficient(n, i) * Math.pow(t, i) * Math.pow(1 - t, n - i);
   }
 
-  handlePropertyInspectorChange(e) {
-    if (e.target.id === 'vector-node-type') {
-      this.updateVectorNodeType(e.target.value);
-    } else if (e.target.id === 'vector-node-properties') {
-      this.updateVectorNodeProperties(e.target.value);
+  binomialCoefficient(n, i) {
+    return this.factorial(n) / (this.factorial(i) * this.factorial(n - i));
+  }
+
+  factorial(n) {
+    let result = 1;
+    for (let i = 2; i <= n; i++) {
+      result *= i;
     }
+    return result;
+  }
+
+  // Canvas SVG Rendering
+  renderVectorPath(vectorPath) {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.beginPath();
+    for (let i = 0; i < vectorPath.length; i++) {
+      const point = vectorPath[i];
+      if (i === 0) {
+        this.ctx.moveTo(point.x, point.y);
+      } else {
+        this.ctx.lineTo(point.x, point.y);
+      }
+    }
+    this.ctx.stroke();
+  }
+
+  // State Management
+  pushVectorNodeToStack(vectorNode) {
+    this.vectorNodeStack.push(vectorNode);
+    this.undoHistory.push(this.vectorNodeStack.slice());
+    this.redoHistory = [];
+    this.saveToLocalStorage();
   }
 
   undo() {
     if (this.undoHistory.length > 0) {
-      const state = this.undoHistory.pop();
-      this.vectorNodeStack = state.vectorNodeStack;
-      this.redoHistory.push({ vectorNodeStack: this.vectorNodeStack });
-      this.renderCanvas();
+      this.redoHistory.push(this.vectorNodeStack.slice());
+      this.vectorNodeStack = this.undoHistory.pop();
+      this.saveToLocalStorage();
     }
   }
 
   redo() {
     if (this.redoHistory.length > 0) {
-      const state = this.redoHistory.pop();
-      this.vectorNodeStack = state.vectorNodeStack;
-      this.undoHistory.push({ vectorNodeStack: this.vectorNodeStack });
-      this.renderCanvas();
+      this.undoHistory.push(this.vectorNodeStack.slice());
+      this.vectorNodeStack = this.redoHistory.pop();
+      this.saveToLocalStorage();
     }
   }
 
-  saveStateToLocalStorage() {
-    localStorage.setItem('vectorforge-studio-state', JSON.stringify(this.vectorNodeStack));
+  saveToLocalStorage() {
+    localStorage.setItem('vectorNodeStack', JSON.stringify(this.vectorNodeStack));
   }
 
-  loadStateFromLocalStorage() {
-    const state = localStorage.getItem('vectorforge-studio-state');
-    if (state) {
-      this.vectorNodeStack = JSON.parse(state);
+  loadFromLocalStorage() {
+    const storedVectorNodeStack = localStorage.getItem('vectorNodeStack');
+    if (storedVectorNodeStack) {
+      this.vectorNodeStack = JSON.parse(storedVectorNodeStack);
     }
   }
 
-  exportFile() {
-    const fileTypes = ['png', 'svg', 'json'];
-    const fileType = prompt('Choose a file type:', fileTypes.join(', '));
-    if (fileType) {
-      const file = new Blob([this.coreEngine.exportFile(fileType)], { type: `application/${fileType}` });
-      const url = URL.createObjectURL(file);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `vectorforge-studio-${fileType}`;
-      a.click();
+  // Event Listeners
+  addEventListenerToCanvas() {
+    this.canvas.addEventListener('mousedown', (e) => {
+      const point = { x: e.clientX, y: e.clientY };
+      this.pushVectorNodeToStack(point);
+      this.renderVectorPath(this.vectorNodeStack);
+    });
+  }
+
+  addEventListenerToToolbar() {
+    this.toolbar.addEventListener('click', (e) => {
+      if (e.target.id === 'undo') {
+        this.undo();
+        this.renderVectorPath(this.vectorNodeStack);
+      } else if (e.target.id === 'redo') {
+        this.redo();
+        this.renderVectorPath(this.vectorNodeStack);
+      }
+    });
+  }
+
+  // File Export Logic
+  exportFile(format) {
+    if (format === 'png') {
+      const link = document.createElement('a');
+      link.href = this.canvas.toDataURL();
+      link.download = 'vectorForgeStudio.png';
+      link.click();
+    } else if (format === 'svg') {
+      const svg = this.canvas.toDataURL('image/svg+xml');
+      const link = document.createElement('a');
+      link.href = svg;
+      link.download = 'vectorForgeStudio.svg';
+      link.click();
+    } else if (format === 'json') {
+      const json = JSON.stringify(this.vectorNodeStack);
+      const link = document.createElement('a');
+      link.href = 'data:application/json,' + encodeURIComponent(json);
+      link.download = 'vectorForgeStudio.json';
+      link.click();
     }
   }
 
-  addLayer() {
-    this.vectorNodeStack.push({ type: 'layer', children: [] });
-    this.renderCanvas();
-  }
-
-  removeLayer() {
-    this.vectorNodeStack.pop();
-    this.renderCanvas();
-  }
-
-  updateVectorNodeType(type) {
-    this.vectorNodeStack[this.vectorNodeStack.length - 1].type = type;
-    this.renderCanvas();
-  }
-
-  updateVectorNodeProperties(properties) {
-    this.vectorNodeStack[this.vectorNodeStack.length - 1].properties = properties;
-    this.renderCanvas();
-  }
-
-  renderCanvas() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.coreEngine.renderCanvas(this.ctx);
-  }
-}
-
-class CoreEngine {
-  constructor(vectorForgeStudio) {
-    this.vectorForgeStudio = vectorForgeStudio;
-  }
-
-  handleMouseDown(x, y) {
-    // Bézier curve math
-    const curve = new BezierCurve(x, y);
-    this.vectorForgeStudio.vectorNodeStack.push(curve);
-    this.vectorForgeStudio.renderCanvas();
-  }
-
-  handleMouseMove(x, y) {
-    // Update Bézier curve control points
-    const curve = this.vectorForgeStudio.vectorNodeStack[this.vectorForgeStudio.vectorNodeStack.length - 1];
-    curve.updateControlPoints(x, y);
-    this.vectorForgeStudio.renderCanvas();
-  }
-
-  handleMouseUp(x, y) {
-    // Add Bézier curve to vector node stack
-    const curve = this.vectorForgeStudio.vectorNodeStack[this.vectorForgeStudio.vectorNodeStack.length - 1];
-    curve.addPoint(x, y);
-    this.vectorForgeStudio.renderCanvas();
-  }
-
-  exportFile(fileType) {
-    if (fileType === 'png') {
-      // Export as PNG
-      return this.vectorForgeStudio.canvas.toDataURL('image/png');
-    } else if (fileType === 'svg') {
-      // Export as SVG
-      const svg = new SVGDocument();
-      this.vectorForgeStudio.vectorNodeStack.forEach((node) => {
-        svg.appendChild(node.toSVG());
-      });
-      return svg.toString();
-    } else if (fileType === 'json') {
-      // Export as JSON
-      return JSON.stringify(this.vectorForgeStudio.vectorNodeStack);
-    }
-  }
-
-  renderCanvas(ctx) {
-    // Render vector nodes
-    this.vectorForgeStudio.vectorNodeStack.forEach((node) => {
-      node.render(ctx);
+  init() {
+    this.loadFromLocalStorage();
+    this.renderVectorPath(this.vectorNodeStack);
+    this.addEventListenerToCanvas();
+    this.addEventListenerToToolbar();
+    const exportButton = document.getElementById('export');
+    exportButton.addEventListener('click', (e) => {
+      if (e.target.id === 'export') {
+        this.exportFile(e.target.value);
+      }
     });
   }
 }
 
-class BezierCurve {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.controlPoints = [];
-  }
+const vectorForgeEngine = new VectorForgeEngine();
+vectorForgeEngine.init();
 
-  updateControlPoints(x, y) {
-    this.controlPoints.push({ x, y });
-  }
 
-  addPoint(x, y) {
-    this.controlPoints.push({ x, y });
-  }
+// UI Layout
+const uiLayout = {
+  toolbar: document.getElementById('toolbar'),
+  layersDrawer: document.getElementById('layersDrawer'),
+  canvas: document.getElementById('canvas'),
+  propertyInspector: document.getElementById('propertyInspector')
+};
 
-  render(ctx) {
-    // Render Bézier curve
-    ctx.beginPath();
-    ctx.moveTo(this.x, this.y);
-    this.controlPoints.forEach((point) => {
-      ctx.bezierCurveTo(point.x, point.y, point.x, point.y, point.x, point.y);
-    });
-    ctx.stroke();
-  }
+// Render UI Layout
+function renderUiLayout() {
+  uiLayout.toolbar.style.position = 'absolute';
+  uiLayout.toolbar.style.top = '0px';
+  uiLayout.toolbar.style.left = '0px';
+  uiLayout.toolbar.style.width = '100%';
+  uiLayout.toolbar.style.height = '50px';
+  uiLayout.toolbar.style.background = '#f0f0f0';
+  uiLayout.toolbar.style.borderBottom = '1px solid #ccc';
 
-  toSVG() {
-    // Convert Bézier curve to SVG path
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('d', `M ${this.x} ${this.y} C ${this.controlPoints.map((point) => `${point.x} ${point.y}`).join(' ')}`);
-    return path;
-  }
+  uiLayout.layersDrawer.style.position = 'absolute';
+  uiLayout.layersDrawer.style.top = '50px';
+  uiLayout.layersDrawer.style.left = '0px';
+  uiLayout.layersDrawer.style.width = '200px';
+  uiLayout.layersDrawer.style.height = '100%';
+  uiLayout.layersDrawer.style.background = '#f0f0f0';
+  uiLayout.layersDrawer.style.borderRight = '1px solid #ccc';
+
+  uiLayout.canvas.style.position = 'absolute';
+  uiLayout.canvas.style.top = '50px';
+  uiLayout.canvas.style.left = '200px';
+  uiLayout.canvas.style.width = '100%';
+  uiLayout.canvas.style.height = '100%';
+
+  uiLayout.propertyInspector.style.position = 'absolute';
+  uiLayout.propertyInspector.style.top = '50px';
+  uiLayout.propertyInspector.style.right = '0px';
+  uiLayout.propertyInspector.style.width = '200px';
+  uiLayout.propertyInspector.style.height = '100%';
+  uiLayout.propertyInspector.style.background = '#f0f0f0';
+  uiLayout.propertyInspector.style.borderLeft = '1px solid #ccc';
 }
 
-class SVGDocument {
-  constructor() {
-    this.documentElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  }
-
-  appendChild(node) {
-    this.documentElement.appendChild(node);
-  }
-
-  toString() {
-    return new XMLSerializer().serializeToString(this.documentElement);
-  }
-}
-
-const vectorForgeStudio = new VectorForgeStudio();
+renderUiLayout();
 </script>
 </body>
 </html>
