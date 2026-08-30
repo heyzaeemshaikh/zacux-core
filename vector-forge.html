@@ -16,114 +16,101 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="h-screen w-screen bg-[#090d16] text-white flex flex-col">
+<body class="bg-[#090d16] h-screen w-screen overflow-hidden">
   <!-- Toolbar -->
-  <nav class="flex justify-between p-4 border-b border-gray-600">
-    <div class="flex items-center">
-      <i class="fas fa-cube fa-lg mr-2"></i>
-      <span class="text-lg font-bold">VectorForge</span>
-    </div>
+  <div class="flex justify-between items-center py-2 px-4 border-b border-gray-600">
+    <h1 class="text-2xl text-white font-bold">VectorForge</h1>
     <div class="flex items-center space-x-4">
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="New Project">
-        <i class="fas fa-plus fa-lg"></i>
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 text-white flex items-center space-x-2 rounded" title="Undo">
+        <i class="fas fa-undo"></i>
+        <span>Undo</span>
       </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Open Project">
-        <i class="fas fa-folder-open fa-lg"></i>
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 text-white flex items-center space-x-2 rounded" title="Redo">
+        <i class="fas fa-redo"></i>
+        <span>Redo</span>
       </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Save Project">
-        <i class="fas fa-save fa-lg"></i>
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 text-white flex items-center space-x-2 rounded" title="Layer Management">
+        <i class="fas fa-layer-group"></i>
+        <span>Layers</span>
       </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Undo">
-        <i class="fas fa-undo fa-lg"></i>
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 text-white flex items-center space-x-2 rounded" title="Node Editing">
+        <i class="fas fa-edit"></i>
+        <span>Edit Node</span>
       </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Redo">
-        <i class="fas fa-redo fa-lg"></i>
-      </button>
-    </div>
-    <div class="flex items-center space-x-4">
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Node Editing">
-        <i class="fas fa-edit fa-lg"></i>
-      </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Layer Management">
-        <i class="fas fa-layer-group fa-lg"></i>
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 text-white flex items-center space-x-2 rounded" title="Export Options">
+        <i class="fas fa-file-export"></i>
+        <span>Export</span>
       </button>
     </div>
-  </nav>
+  </div>
 
   <!-- Sidebar -->
-  <div class="flex flex-row h-full">
-    <!-- Properties Panel -->
-    <div class="w-64 p-4 border-r border-gray-600">
-      <h2 class="text-lg font-bold mb-2">Properties</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-600">
-          <span class="text-sm font-bold">Node ID</span>
-          <input type="text" class="w-full p-2 mt-1 bg-gray-800 text-white border border-gray-600 rounded">
-        </li>
-        <li class="py-2 border-b border-gray-600">
-          <span class="text-sm font-bold">Node Type</span>
-          <select class="w-full p-2 mt-1 bg-gray-800 text-white border border-gray-600 rounded">
-            <option>Rect</option>
-            <option>Circle</option>
-            <option>Path</option>
-          </select>
-        </li>
-      </ul>
-    </div>
+  <div class="fixed top-0 left-0 h-screen w-64 bg-gray-800 p-4 border-r border-gray-600 flex flex-col space-y-4">
+    <h2 class="text-xl text-white font-bold">Properties</h2>
+    <ul class="flex flex-col space-y-2">
+      <li>
+        <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 text-white flex items-center space-x-2 rounded" title="Properties Panel">
+          <i class="fas fa-cog"></i>
+          <span>Properties</span>
+        </button>
+      </li>
+      <li>
+        <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 text-white flex items-center space-x-2 rounded" title="Layers Panel">
+          <i class="fas fa-layer-group"></i>
+          <span>Layers</span>
+        </button>
+      </li>
+      <li>
+        <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 text-white flex items-center space-x-2 rounded" title="Assets Panel">
+          <i class="fas fa-box"></i>
+          <span>Assets</span>
+        </button>
+      </li>
+    </ul>
+  </div>
 
-    <!-- Asset Panel -->
-    <div class="w-64 p-4 border-r border-gray-600">
-      <h2 class="text-lg font-bold mb-2">Assets</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-600">
-          <span class="text-sm font-bold">Image 1</span>
-          <img src="#" alt="Image 1" class="w-full h-32 object-cover mt-1">
-        </li>
-        <li class="py-2 border-b border-gray-600">
-          <span class="text-sm font-bold">Image 2</span>
-          <img src="#" alt="Image 2" class="w-full h-32 object-cover mt-1">
-        </li>
-      </ul>
-    </div>
+  <!-- Main Viewport -->
+  <div class="flex-1 overflow-hidden p-4">
+    <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <!-- SVG Content will be rendered here -->
+    </svg>
+  </div>
 
-    <!-- Main Viewport -->
-    <div class="flex-1 p-4">
-      <svg class="w-full h-full" id="svg-canvas">
-        <!-- SVG Content -->
-      </svg>
-    </div>
-
-    <!-- Status Panel -->
-    <div class="w-64 p-4 border-l border-gray-600">
-      <h2 class="text-lg font-bold mb-2">Status</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-600">
-          <span class="text-sm font-bold">Connection Status</span>
-          <span class="text-sm">Connected</span>
-        </li>
-        <li class="py-2 border-b border-gray-600">
-          <span class="text-sm font-bold">Sync Status</span>
-          <span class="text-sm">Syncing...</span>
-        </li>
-      </ul>
-    </div>
+  <!-- Status Panel -->
+  <div class="fixed bottom-0 left-0 h-12 w-full bg-gray-800 p-2 border-t border-gray-600 flex justify-between items-center space-x-4 text-white text-sm">
+    <span>Status: Ready</span>
+    <span>Changes: 0</span>
+    <span>Backup: Not started</span>
+    <span>Collaborators: 0</span>
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 flex items-center space-x-2 rounded" title="Notifications">
+      <i class="fas fa-bell"></i>
+      <span>Notifications</span>
+    </button>
   </div>
 
   <!-- Floating Side Panels -->
-  <div class="fixed bottom-0 right-0 mb-4 mr-4">
-    <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Toggle Properties Panel">
-      <i class="fas fa-cog fa-lg"></i>
-    </button>
-    <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Toggle Asset Panel">
-      <i class="fas fa-image fa-lg"></i>
-    </button>
-  </div>
-
-  <!-- Status Bar -->
-  <div class="fixed bottom-0 left-0 p-4 border-t border-gray-600 w-full">
-    <span class="text-sm">VectorForge</span>
-    <span class="text-sm ml-4">v1.0.0</span>
-    <span class="text-sm ml-4">Microfrontend-based modular architecture</span>
+  <div class="fixed top-0 right-0 h-screen w-64 bg-gray-800 p-4 border-l border-gray-600 flex flex-col space-y-4">
+    <h2 class="text-xl text-white font-bold">Tool Options</h2>
+    <ul class="flex flex-col space-y-2">
+      <li>
+        <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 text-white flex items-center space-x-2 rounded" title="Select Tool">
+          <i class="fas fa-mouse-pointer"></i>
+          <span>Select</span>
+        </button>
+      </li>
+      <li>
+        <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 text-white flex items-center space-x-2 rounded" title="Draw Tool">
+          <i class="fas fa-pencil-alt"></i>
+          <span>Draw</span>
+        </button>
+      </li>
+      <li>
+        <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 text-white flex items-center space-x-2 rounded" title="Type Tool">
+          <i class="fas fa-font"></i>
+          <span>Type</span>
+        </button>
+      </li>
+    </ul>
   </div>
 </body>
 
@@ -135,220 +122,194 @@ class VectorForge {
     this.state = {
       nodes: [],
       layers: [],
-      history: [],
-      currentHistoryIndex: -1,
-    };
-
-    this.toolbar = {
-      nodeEditing: true,
-      layerManagement: true,
-    };
-
-    this.sidebar = {
-      properties: {},
       assets: [],
+      undoHistory: [],
+      redoHistory: []
     };
-
+    this.toolbar = {
+      undo: this.undo.bind(this),
+      redo: this.redo.bind(this),
+      export: this.export.bind(this)
+    };
+    this.sidebar = {
+      propertiesPanel: this.propertiesPanel.bind(this),
+      layersPanel: this.layersPanel.bind(this),
+      assetsPanel: this.assetsPanel.bind(this)
+    };
     this.viewport = {
-      svg: document.createElementNS("http://www.w3.org/2000/svg", "svg"),
-      canvas: document.createElement("canvas"),
+      canvas: document.createElementNS("http://www.w3.org/2000/svg", "svg"),
+      nodeEditing: this.nodeEditing.bind(this)
     };
-
     this.statusPanel = {
-      feedback: "",
-      notifications: [],
+      updates: this.updates.bind(this),
+      notifications: this.notifications.bind(this)
     };
-
-    this.initEventListeners();
-    this.initStateManagement();
-    this.initCoreEngine();
+    this.localStorage = window.localStorage;
+    this.init();
   }
 
-  initEventListeners() {
-    this.viewport.canvas.addEventListener("mousedown", (e) => {
-      this.handleMouseDown(e);
-    });
+  init() {
+    this.loadState();
+    this.renderToolbar();
+    this.renderSidebar();
+    this.renderViewport();
+    this.renderStatusPanel();
+    this.addEventListeners();
+  }
 
-    this.viewport.canvas.addEventListener("mousemove", (e) => {
-      this.handleMouseMove(e);
-    });
+  loadState() {
+    const storedState = this.localStorage.getItem("vector-forge-state");
+    if (storedState) {
+      this.state = JSON.parse(storedState);
+    }
+  }
 
-    this.viewport.canvas.addEventListener("mouseup", (e) => {
-      this.handleMouseUp(e);
+  saveState() {
+    this.localStorage.setItem("vector-forge-state", JSON.stringify(this.state));
+  }
+
+  renderToolbar() {
+    const toolbar = document.createElement("div");
+    toolbar.innerHTML = `
+      <button id="undo">Undo</button>
+      <button id="redo">Redo</button>
+      <button id="export">Export</button>
+    `;
+    document.body.appendChild(toolbar);
+    document.getElementById("undo").addEventListener("click", this.toolbar.undo);
+    document.getElementById("redo").addEventListener("click", this.toolbar.redo);
+    document.getElementById("export").addEventListener("click", this.toolbar.export);
+  }
+
+  renderSidebar() {
+    const sidebar = document.createElement("div");
+    sidebar.innerHTML = `
+      <div id="properties-panel">Properties Panel</div>
+      <div id="layers-panel">Layers Panel</div>
+      <div id="assets-panel">Assets Panel</div>
+    `;
+    document.body.appendChild(sidebar);
+    document.getElementById("properties-panel").addEventListener("click", this.sidebar.propertiesPanel);
+    document.getElementById("layers-panel").addEventListener("click", this.sidebar.layersPanel);
+    document.getElementById("assets-panel").addEventListener("click", this.sidebar.assetsPanel);
+  }
+
+  renderViewport() {
+    const viewport = document.createElement("div");
+    viewport.appendChild(this.viewport.canvas);
+    document.body.appendChild(viewport);
+    this.viewport.canvas.addEventListener("click", this.viewport.nodeEditing);
+  }
+
+  renderStatusPanel() {
+    const statusPanel = document.createElement("div");
+    statusPanel.innerHTML = `
+      <div id="updates">Updates</div>
+      <div id="notifications">Notifications</div>
+    `;
+    document.body.appendChild(statusPanel);
+    document.getElementById("updates").addEventListener("click", this.statusPanel.updates);
+    document.getElementById("notifications").addEventListener("click", this.statusPanel.notifications);
+  }
+
+  addEventListeners() {
+    this.viewport.canvas.addEventListener("click", (event) => {
+      const node = {
+        id: Math.random(),
+        x: event.clientX,
+        y: event.clientY
+      };
+      this.state.nodes.push(node);
+      this.saveState();
     });
   }
 
-  initStateManagement() {
-    this.loadStateFromLocalStorage();
-
-    window.addEventListener("beforeunload", () => {
-      this.saveStateToLocalStorage();
-    });
-
-    window.addEventListener("online", () => {
-      this.syncState();
-    });
+  undo() {
+    if (this.state.undoHistory.length > 0) {
+      const previousState = this.state.undoHistory.pop();
+      this.state = previousState;
+      this.saveState();
+    }
   }
 
-  initCoreEngine() {
-    this.worker = new Worker("worker.js");
+  redo() {
+    if (this.state.redoHistory.length > 0) {
+      const nextState = this.state.redoHistory.pop();
+      this.state = nextState;
+      this.saveState();
+    }
+  }
 
-    this.worker.onmessage = (e) => {
-      if (e.data.type === "parseSVG") {
-        this.state.nodes = e.data.nodes;
-        this.renderSVG();
-      } else if (e.data.type === "export") {
-        this.handleExport(e.data);
+  export() {
+    const exportOptions = {
+      png: () => {
+        const svgData = new XMLSerializer().serializeToString(this.viewport.canvas);
+        const img = new Image();
+        img.src = "data:image/svg+xml," + svgData;
+        const canvas = document.createElement("canvas");
+        canvas.width = this.viewport.canvas.width.baseVal.value;
+        canvas.height = this.viewport.canvas.height.baseVal.value;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        const pngData = canvas.toDataURL("image/png");
+        const a = document.createElement("a");
+        a.href = pngData;
+        a.download = "vector-forge.png";
+        a.click();
+      },
+      svg: () => {
+        const svgData = new XMLSerializer().serializeToString(this.viewport.canvas);
+        const a = document.createElement("a");
+        a.href = "data:image/svg+xml," + svgData;
+        a.download = "vector-forge.svg";
+        a.click();
+      },
+      json: () => {
+        const jsonData = JSON.stringify(this.state);
+        const a = document.createElement("a");
+        a.href = "data:application/json," + jsonData;
+        a.download = "vector-forge.json";
+        a.click();
       }
     };
+    const exportMenu = document.createElement("div");
+    exportMenu.innerHTML = `
+      <button id="export-png">PNG</button>
+      <button id="export-svg">SVG</button>
+      <button id="export-json">JSON</button>
+    `;
+    document.body.appendChild(exportMenu);
+    document.getElementById("export-png").addEventListener("click", exportOptions.png);
+    document.getElementById("export-svg").addEventListener("click", exportOptions.svg);
+    document.getElementById("export-json").addEventListener("click", exportOptions.json);
   }
 
-  handleMouseDown(e) {
-    const node = this.getNodeAtPosition(e.clientX, e.clientY);
-
-    if (node) {
-      this.state.selectedNode = node;
-      this.renderSVG();
-    }
+  propertiesPanel() {
+    console.log("Properties Panel");
   }
 
-  handleMouseMove(e) {
-    if (this.state.selectedNode) {
-      this.state.selectedNode.x = e.clientX;
-      this.state.selectedNode.y = e.clientY;
-      this.renderSVG();
-    }
+  layersPanel() {
+    console.log("Layers Panel");
   }
 
-  handleMouseUp(e) {
-    this.state.selectedNode = null;
+  assetsPanel() {
+    console.log("Assets Panel");
   }
 
-  getNodeAtPosition(x, y) {
-    for (const node of this.state.nodes) {
-      if (node.x <= x && node.x + node.width >= x && node.y <= y && node.y + node.height >= y) {
-        return node;
-      }
-    }
-
-    return null;
+  nodeEditing() {
+    console.log("Node Editing");
   }
 
-  renderSVG() {
-    const svg = this.viewport.svg;
-
-    svg.innerHTML = "";
-
-    for (const node of this.state.nodes) {
-      const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-      rect.setAttribute("x", node.x);
-      rect.setAttribute("y", node.y);
-      rect.setAttribute("width", node.width);
-      rect.setAttribute("height", node.height);
-      svg.appendChild(rect);
-    }
+  updates() {
+    console.log("Updates");
   }
 
-  saveStateToLocalStorage() {
-    localStorage.setItem("vector-forge-state", JSON.stringify(this.state));
-  }
-
-  loadStateFromLocalStorage() {
-    const state = localStorage.getItem("vector-forge-state");
-
-    if (state) {
-      this.state = JSON.parse(state);
-    }
-  }
-
-  syncState() {
-    // Sync state with server
-  }
-
-  handleExport(data) {
-    const type = data.type;
-    const blob = new Blob([data.data], { type: type });
-
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `vector-forge.${type.split("/")[1]}`;
-    link.click();
-  }
-
-  exportPNG() {
-    this.worker.postMessage({
-      type: "export",
-      format: "png",
-      data: this.viewport.svg.outerHTML,
-    });
-  }
-
-  exportSVG() {
-    this.worker.postMessage({
-      type: "export",
-      format: "svg",
-      data: this.viewport.svg.outerHTML,
-    });
-  }
-
-  exportJSON() {
-    this.worker.postMessage({
-      type: "export",
-      format: "json",
-      data: JSON.stringify(this.state.nodes),
-    });
+  notifications() {
+    console.log("Notifications");
   }
 }
 
-// Worker script
-self.onmessage = (e) => {
-  if (e.data.type === "export") {
-    const format = e.data.format;
-    const data = e.data.data;
-
-    let blob;
-
-    if (format === "png") {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      const svg = new Blob([data], { type: "image/svg+xml" });
-      const url = URL.createObjectURL(svg);
-      const img = new Image();
-
-      img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
-        blob = canvas.toBlob((b) => {
-          self.postMessage({
-            type: "export",
-            data: b,
-          });
-        }, "image/png");
-      };
-
-      img.src = url;
-    } else if (format === "svg") {
-      blob = new Blob([data], { type: "image/svg+xml" });
-      self.postMessage({
-        type: "export",
-        data: blob,
-      });
-    } else if (format === "json") {
-      blob = new Blob([data], { type: "application/json" });
-      self.postMessage({
-        type: "export",
-        data: blob,
-      });
-    }
-  }
-};
-
-// Usage
 const vectorForge = new VectorForge();
-vectorForge.exportPNG();
-vectorForge.exportSVG();
-vectorForge.exportJSON();
 </script>
 </body>
 </html>
