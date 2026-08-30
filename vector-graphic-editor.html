@@ -16,101 +16,110 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<div class="h-screen w-screen flex flex-col bg-[#090d16] text-white">
+<body class="h-screen w-screen bg-gray-900 text-gray-100 flex flex-col">
   <!-- Top Toolbar -->
-  <div class="flex justify-between p-2 border-b border-gray-600">
+  <header class="flex justify-between items-center py-2 bg-gray-800 border-b border-gray-700">
     <div class="flex items-center">
-      <i class="fa fa-vector-square fa-lg mr-2"></i>
-      <span>VectorForge</span>
-    </div>
-    <div class="flex items-center space-x-2">
-      <button class="px-2 py-1 bg-gray-800 hover:bg-gray-700 rounded">
-        <i class="fa fa-file fa-lg mr-2"></i> New
+      <a href="#" class="text-lg font-bold mr-4">VectorForge</a>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
+        <i class="fas fa-file fa-sm mr-2"></i> File
       </button>
-      <button class="px-2 py-1 bg-gray-800 hover:bg-gray-700 rounded">
-        <i class="fa fa-folder fa-lg mr-2"></i> Open
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
+        <i class="fas fa-edit fa-sm mr-2"></i> Edit
       </button>
-      <button class="px-2 py-1 bg-gray-800 hover:bg-gray-700 rounded">
-        <i class="fa fa-save fa-lg mr-2"></i> Save
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
+        <i class="fas fa-object-ungroup fa-sm mr-2"></i> Layers
       </button>
     </div>
-  </div>
-  <!-- Main Content -->
-  <div class="flex flex-1">
-    <!-- Left Sidebar -->
-    <div class="w-64 p-2 border-r border-gray-600">
-      <div class="mb-4">
-        <h2 class="mb-2">Layers</h2>
-        <ul>
-          <li class="py-1 border-b border-gray-600">
-            <i class="fa fa-layer-group fa-lg mr-2"></i> Layer 1
-          </li>
-          <li class="py-1 border-b border-gray-600">
-            <i class="fa fa-layer-group fa-lg mr-2"></i> Layer 2
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h2 class="mb-2">Tool Options</h2>
-        <ul>
-          <li class="py-1 border-b border-gray-600">
-            <i class="fa fa-pen fa-lg mr-2"></i> Pencil
-          </li>
-          <li class="py-1 border-b border-gray-600">
-            <i class="fa fa-vector-square fa-lg mr-2"></i> Shape
-          </li>
-        </ul>
-      </div>
+    <div class="flex items-center">
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
+        <i class="fas fa-undo fa-sm mr-2"></i> Undo
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
+        <i class="fas fa-redo fa-sm mr-2"></i> Redo
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
+        <i class="fas fa-save fa-sm mr-2"></i> Save
+      </button>
     </div>
-    <!-- Main Viewport -->
-    <div class="flex-1 p-2 relative">
-      <canvas id="viewport" class="w-full h-full absolute"></canvas>
-      <div class="absolute top-0 left-0 w-full h-full">
-        <i class="fa fa-arrows fa-lg absolute top-2 left-2"></i>
-        <i class="fa fa-undo fa-lg absolute top-2 right-2"></i>
-        <i class="fa fa-redo fa-lg absolute bottom-2 right-2"></i>
-      </div>
+  </header>
+
+  <!-- Left Sidebar -->
+  <aside class="flex flex-col w-64 bg-gray-800 border-r border-gray-700 h-screen p-4">
+    <h5 class="text-lg font-bold mb-4">Layers</h5>
+    <ul>
+      <li class="py-2 border-b border-gray-700">
+        <i class="fas fa-layer-group fa-sm mr-2"></i> Layer 1
+      </li>
+      <li class="py-2 border-b border-gray-700">
+        <i class="fas fa-layer-group fa-sm mr-2"></i> Layer 2
+      </li>
+      <li class="py-2 border-b border-gray-700">
+        <i class="fas fa-layer-group fa-sm mr-2"></i> Layer 3
+      </li>
+    </ul>
+    <h5 class="text-lg font-bold mt-4 mb-4">Assets</h5>
+    <ul>
+      <li class="py-2 border-b border-gray-700">
+        <i class="fas fa-image fa-sm mr-2"></i> Image 1
+      </li>
+      <li class="py-2 border-b border-gray-700">
+        <i class="fas fa-image fa-sm mr-2"></i> Image 2
+      </li>
+      <li class="py-2 border-b border-gray-700">
+        <i class="fas fa-image fa-sm mr-2"></i> Image 3
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Main Viewport -->
+  <main class="flex-1 flex overflow-hidden">
+    <div class="flex-1 overflow-auto p-4">
+      <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <!-- Canvas Rendering -->
+      </svg>
     </div>
-    <!-- Floating Side Panels -->
-    <div class="absolute right-0 top-0 w-64 p-2 border border-gray-600 bg-gray-800">
-      <h2 class="mb-2">Properties</h2>
-      <ul>
-        <li class="py-1 border-b border-gray-600">
-          <i class="fa fa-font fa-lg mr-2"></i> Font
-        </li>
-        <li class="py-1 border-b border-gray-600">
-          <i class="fa fa-paint-brush fa-lg mr-2"></i> Color
-        </li>
-      </ul>
+  </main>
+
+  <!-- Right Sidebar -->
+  <aside class="flex flex-col w-64 bg-gray-800 border-l border-gray-700 h-screen p-4">
+    <h5 class="text-lg font-bold mb-4">Properties</h5>
+    <div class="mb-4">
+      <label class="block text-sm font-bold mb-2">Fill Color</label>
+      <input type="color" class="w-full h-10">
     </div>
-    <div class="absolute right-0 bottom-0 w-64 p-2 border border-gray-600 bg-gray-800">
-      <h2 class="mb-2">Help</h2>
-      <ul>
-        <li class="py-1 border-b border-gray-600">
-          <i class="fa fa-question fa-lg mr-2"></i> FAQ
-        </li>
-        <li class="py-1 border-b border-gray-600">
-          <i class="fa fa-book fa-lg mr-2"></i> Documentation
-        </li>
-      </ul>
+    <div class="mb-4">
+      <label class="block text-sm font-bold mb-2">Stroke Color</label>
+      <input type="color" class="w-full h-10">
     </div>
-  </div>
-  <!-- Bottom Status Panel -->
-  <div class="flex justify-between p-2 border-t border-gray-600">
-    <div class="flex items-center space-x-2">
-      <i class="fa fa-circle fa-lg text-green-500 mr-2"></i>
-      <span>Connected</span>
+    <div class="mb-4">
+      <label class="block text-sm font-bold mb-2">Stroke Width</label>
+      <input type="number" class="w-full h-10">
     </div>
-    <div class="flex items-center space-x-2">
-      <i class="fa fa-clock fa-lg mr-2"></i>
-      <span>12:00 PM</span>
+    <h5 class="text-lg font-bold mt-4 mb-4">Settings</h5>
+    <div class="mb-4">
+      <label class="block text-sm font-bold mb-2">Grid Size</label>
+      <input type="number" class="w-full h-10">
     </div>
-    <div class="flex items-center space-x-2">
-      <i class="fa fa-battery-full fa-lg mr-2"></i>
-      <span>100%</span>
+    <div class="mb-4">
+      <label class="block text-sm font-bold mb-2">Snap to Grid</label>
+      <input type="checkbox" class="mr-2">
     </div>
-  </div>
-</div>
+  </aside>
+
+  <!-- Status Bar -->
+  <footer class="flex justify-between items-center py-2 bg-gray-800 border-t border-gray-700">
+    <div class="flex items-center">
+      <i class="fas fa-circle fa-sm text-green-500 mr-2"></i> Online
+    </div>
+    <div class="flex items-center">
+      <i class="fas fa-spinner fa-sm text-gray-500 mr-2"></i> Loading...
+    </div>
+    <div class="flex items-center">
+      <i class="fas fa-exclamation-triangle fa-sm text-yellow-500 mr-2"></i> Warning: Unsaved changes
+    </div>
+  </footer>
+</body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
@@ -118,178 +127,208 @@
 class VectorForge {
   constructor() {
     this.state = {
-      nodes: [],
-      selectedNode: null,
+      layers: [],
+      assets: [],
+      properties: {},
+      settings: {},
       undoHistory: [],
       redoHistory: []
     };
-    this.localStorageKey = 'vector-forge-state';
+
+    this.localStorage = window.localStorage;
+    this.reduxStore = this.createReduxStore();
     this.canvas = document.getElementById('canvas');
     this.ctx = this.canvas.getContext('2d');
-    this.toolbar = document.getElementById('toolbar');
-    this.sidebar = document.getElementById('sidebar');
-    this.viewport = document.getElementById('viewport');
-    this.statusPanel = document.getElementById('status-panel');
+    this.svgNS = 'http://www.w3.org/2000/svg';
+
     this.initEventListeners();
-    this.loadStateFromLocalStorage();
+    this.initCanvas();
+    this.initSVGRenderer();
+    this.initServiceWorker();
+  }
+
+  createReduxStore() {
+    const initialState = {
+      layers: [],
+      assets: [],
+      properties: {},
+      settings: {}
+    };
+
+    const reducer = (state = initialState, action) => {
+      switch (action.type) {
+        case 'ADD_LAYER':
+          return { ...state, layers: [...state.layers, action.layer] };
+        case 'REMOVE_LAYER':
+          return { ...state, layers: state.layers.filter(layer => layer.id !== action.layerId) };
+        case 'UPDATE_PROPERTIES':
+          return { ...state, properties: { ...state.properties, ...action.properties } };
+        case 'UPDATE_SETTINGS':
+          return { ...state, settings: { ...state.settings, ...action.settings } };
+        default:
+          return state;
+      }
+    };
+
+    const store = {
+      getState: () => reducer(),
+      dispatch: action => {
+        const newState = reducer(store.getState(), action);
+        store.setState(newState);
+      },
+      subscribe: callback => {
+        callback();
+      }
+    };
+
+    store.setState = state => {
+      store.state = state;
+      store.subscribe();
+    };
+
+    return store;
   }
 
   initEventListeners() {
-    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
-    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
-    this.toolbar.addEventListener('click', (e) => this.handleToolbarClick(e));
-    this.sidebar.addEventListener('click', (e) => this.handleSidebarClick(e));
-  }
-
-  handleMouseDown(e) {
-    const rect = this.canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    this.state.selectedNode = this.getNodeAtPosition(x, y);
-    if (this.state.selectedNode) {
-      this.state.selectedNode.x = x;
-      this.state.selectedNode.y = y;
-    } else {
-      this.state.selectedNode = { x, y, width: 0, height: 0 };
-      this.state.nodes.push(this.state.selectedNode);
-    }
-    this.updateCanvas();
-  }
-
-  handleMouseMove(e) {
-    if (this.state.selectedNode) {
-      const rect = this.canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      this.state.selectedNode.x = x;
-      this.state.selectedNode.y = y;
-      this.updateCanvas();
-    }
-  }
-
-  handleMouseUp(e) {
-    this.state.selectedNode = null;
-  }
-
-  handleToolbarClick(e) {
-    if (e.target.id === 'undo-button') {
-      this.undo();
-    } else if (e.target.id === 'redo-button') {
-      this.redo();
-    } else if (e.target.id === 'save-button') {
-      this.saveStateToLocalStorage();
-    } else if (e.target.id === 'export-button') {
-      this.exportFile();
-    }
-  }
-
-  handleSidebarClick(e) {
-    if (e.target.id === 'layer-button') {
-      this.toggleLayer();
-    }
-  }
-
-  getNodeAtPosition(x, y) {
-    for (const node of this.state.nodes) {
-      if (x >= node.x && x <= node.x + node.width && y >= node.y && y <= node.y + node.height) {
-        return node;
+    document.addEventListener('click', event => {
+      if (event.target === this.canvas) {
+        this.handleCanvasClick(event);
       }
-    }
-    return null;
+    });
+
+    document.addEventListener('mousemove', event => {
+      if (event.target === this.canvas) {
+        this.handleCanvasMouseMove(event);
+      }
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'z' && event.ctrlKey) {
+        this.undo();
+      } else if (event.key === 'y' && event.ctrlKey) {
+        this.redo();
+      }
+    });
   }
 
-  updateCanvas() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    for (const node of this.state.nodes) {
-      this.ctx.fillStyle = 'black';
-      this.ctx.fillRect(node.x, node.y, node.width, node.height);
+  initCanvas() {
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+  }
+
+  initSVGRenderer() {
+    this.svg = document.createElementNS(this.svgNS, 'svg');
+    this.svg.setAttribute('width', this.canvas.width);
+    this.svg.setAttribute('height', this.canvas.height);
+    this.canvas.parentNode.appendChild(this.svg);
+  }
+
+  initServiceWorker() {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(registration => {
+          console.log('Service worker registered:', registration);
+        })
+        .catch(error => {
+          console.error('Service worker registration failed:', error);
+        });
     }
   }
 
-  saveStateToLocalStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.state));
+  handleCanvasClick(event) {
+    const x = event.clientX;
+    const y = event.clientY;
+    this.addLayer(x, y);
   }
 
-  loadStateFromLocalStorage() {
-    const storedState = localStorage.getItem(this.localStorageKey);
-    if (storedState) {
-      this.state = JSON.parse(storedState);
-      this.updateCanvas();
-    }
+  handleCanvasMouseMove(event) {
+    const x = event.clientX;
+    const y = event.clientY;
+    this.updateProperties(x, y);
+  }
+
+  addLayer(x, y) {
+    const layer = {
+      id: Math.random(),
+      x,
+      y,
+      width: 100,
+      height: 100
+    };
+
+    this.reduxStore.dispatch({ type: 'ADD_LAYER', layer });
+    this.renderLayer(layer);
+  }
+
+  updateProperties(x, y) {
+    const properties = {
+      x,
+      y
+    };
+
+    this.reduxStore.dispatch({ type: 'UPDATE_PROPERTIES', properties });
+  }
+
+  renderLayer(layer) {
+    const rect = document.createElementNS(this.svgNS, 'rect');
+    rect.setAttribute('x', layer.x);
+    rect.setAttribute('y', layer.y);
+    rect.setAttribute('width', layer.width);
+    rect.setAttribute('height', layer.height);
+    rect.setAttribute('fill', 'rgba(0, 0, 0, 0.5)');
+    this.svg.appendChild(rect);
   }
 
   undo() {
     if (this.state.undoHistory.length > 0) {
-      const previousState = this.state.undoHistory.pop();
-      this.state = previousState;
-      this.updateCanvas();
+      const lastAction = this.state.undoHistory.pop();
+      this.reduxStore.dispatch(lastAction);
+      this.state.redoHistory.push(lastAction);
     }
   }
 
   redo() {
     if (this.state.redoHistory.length > 0) {
-      const nextState = this.state.redoHistory.pop();
-      this.state = nextState;
-      this.updateCanvas();
+      const lastAction = this.state.redoHistory.pop();
+      this.reduxStore.dispatch(lastAction);
+      this.state.undoHistory.push(lastAction);
     }
   }
 
-  exportFile() {
-    const fileFormat = document.getElementById('file-format').value;
-    const fileName = document.getElementById('file-name').value;
-    if (fileFormat === 'png') {
-      this.exportPng(fileName);
-    } else if (fileFormat === 'svg') {
-      this.exportSvg(fileName);
-    } else if (fileFormat === 'json') {
-      this.exportJson(fileName);
+  save() {
+    const data = JSON.stringify(this.reduxStore.getState());
+    this.localStorage.setItem('vector-forge-data', data);
+  }
+
+  load() {
+    const data = this.localStorage.getItem('vector-forge-data');
+    if (data) {
+      this.reduxStore.setState(JSON.parse(data));
     }
   }
 
-  exportPng(fileName) {
-    const link = document.createElement('a');
-    link.href = this.canvas.toDataURL('image/png');
-    link.download = fileName + '.png';
-    link.click();
+  exportPNG() {
+    const png = this.canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = png;
+    a.download = 'vector-forge.png';
+    a.click();
   }
 
-  exportSvg(fileName) {
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('width', this.canvas.width);
-    svg.setAttribute('height', this.canvas.height);
-    for (const node of this.state.nodes) {
-      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      rect.setAttribute('x', node.x);
-      rect.setAttribute('y', node.y);
-      rect.setAttribute('width', node.width);
-      rect.setAttribute('height', node.height);
-      rect.setAttribute('fill', 'black');
-      svg.appendChild(rect);
-    }
-    const serializer = new XMLSerializer();
-    const svgString = serializer.serializeToString(svg);
-    const link = document.createElement('a');
-    link.href = 'data:image/svg+xml,' + encodeURIComponent(svgString);
-    link.download = fileName + '.svg';
-    link.click();
+  exportSVG() {
+    const svg = this.svg.outerHTML;
+    const a = document.createElement('a');
+    a.href = 'data:image/svg+xml,' + encodeURIComponent(svg);
+    a.download = 'vector-forge.svg';
+    a.click();
   }
 
-  exportJson(fileName) {
-    const json = JSON.stringify(this.state);
-    const link = document.createElement('a');
-    link.href = 'data:application/json,' + encodeURIComponent(json);
-    link.download = fileName + '.json';
-    link.click();
-  }
-
-  toggleLayer() {
-    const layerButton = document.getElementById('layer-button');
-    if (layerButton.classList.contains('active')) {
-      layerButton.classList.remove('active');
-    } else {
-      layerButton.classList.add('active');
-    }
+  exportJSON() {
+    const data = JSON.stringify(this.reduxStore.getState());
+    const a = document.createElement('a');
+    a.href = 'data:application/json,' + encodeURIComponent(data);
+    a.download = 'vector-forge.json';
+    a.click();
   }
 }
 
