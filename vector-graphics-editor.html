@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vectra</title>
+  <title>VectorForge</title>
   <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
   <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
   <style>
@@ -17,349 +17,371 @@
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
 <body class="h-screen bg-gray-900 text-gray-100 flex flex-col">
-  <!-- Toolbar -->
-  <div class="flex justify-between items-center p-2 border-b border-gray-700">
+  <!-- Top Toolbar -->
+  <header class="bg-gray-800 py-2 flex justify-between items-center">
     <div class="flex items-center">
-      <button class="mr-2 p-2 hover:bg-gray-700 rounded" title="Undo">
-        <i class="fas fa-undo"></i>
+      <a href="#" class="text-lg font-bold mr-4">VectorForge</a>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded mr-2">
+        <i class="fas fa-file fa-lg"></i>
       </button>
-      <button class="mr-2 p-2 hover:bg-gray-700 rounded" title="Redo">
-        <i class="fas fa-redo"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded mr-2">
+        <i class="fas fa-edit fa-lg"></i>
       </button>
-      <button class="mr-2 p-2 hover:bg-gray-700 rounded" title="Layer Management">
-        <i class="fas fa-layer-group"></i>
-      </button>
-      <button class="mr-2 p-2 hover:bg-gray-700 rounded" title="Node Editing">
-        <i class="fas fa-edit"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded mr-2">
+        <i class="fas fa-share fa-lg"></i>
       </button>
     </div>
     <div class="flex items-center">
-      <span class="text-lg font-bold">Vectra</span>
-      <span class="ml-2 text-sm">Vector Graphics Editor</span>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded mr-2">
+        <i class="fas fa-undo fa-lg"></i>
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded mr-2">
+        <i class="fas fa-redo fa-lg"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Left Sidebar -->
+  <aside class="bg-gray-800 w-64 py-4 flex flex-col h-screen fixed top-12 left-0">
+    <h5 class="text-lg font-bold mb-2">Layers</h5>
+    <ul>
+      <li class="py-1">
+        <input type="checkbox" id="layer-1" class="mr-2">
+        <label for="layer-1">Layer 1</label>
+      </li>
+      <li class="py-1">
+        <input type="checkbox" id="layer-2" class="mr-2">
+        <label for="layer-2">Layer 2</label>
+      </li>
+      <li class="py-1">
+        <input type="checkbox" id="layer-3" class="mr-2">
+        <label for="layer-3">Layer 3</label>
+      </li>
+    </ul>
+    <h5 class="text-lg font-bold mt-4 mb-2">Assets</h5>
+    <ul>
+      <li class="py-1">
+        <i class="fas fa-image fa-lg mr-2"></i>
+        <span>Image 1</span>
+      </li>
+      <li class="py-1">
+        <i class="fas fa-image fa-lg mr-2"></i>
+        <span>Image 2</span>
+      </li>
+      <li class="py-1">
+        <i class="fas fa-image fa-lg mr-2"></i>
+        <span>Image 3</span>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Main Viewport -->
+  <main class="flex-1 flex justify-center items-center relative">
+    <div class="w-full h-full bg-gray-700 flex justify-center items-center">
+      <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <!-- Graphic content will be rendered here -->
+      </svg>
+    </div>
+    <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
+      <!-- Grid or guidelines will be rendered here -->
+    </div>
+  </main>
+
+  <!-- Right Sidebar -->
+  <aside class="bg-gray-800 w-64 py-4 flex flex-col h-screen fixed top-12 right-0">
+    <h5 class="text-lg font-bold mb-2">Properties</h5>
+    <form>
+      <label for="stroke-color" class="block mb-1">Stroke Color:</label>
+      <input type="color" id="stroke-color" class="block mb-2">
+      <label for="fill-color" class="block mb-1">Fill Color:</label>
+      <input type="color" id="fill-color" class="block mb-2">
+      <label for="stroke-width" class="block mb-1">Stroke Width:</label>
+      <input type="number" id="stroke-width" class="block mb-2">
+    </form>
+    <h5 class="text-lg font-bold mt-4 mb-2">Settings</h5>
+    <ul>
+      <li class="py-1">
+        <input type="checkbox" id="grid" class="mr-2">
+        <label for="grid">Show Grid</label>
+      </li>
+      <li class="py-1">
+        <input type="checkbox" id="guides" class="mr-2">
+        <label for="guides">Show Guides</label>
+      </li>
+      <li class="py-1">
+        <input type="checkbox" id="snap-to-grid" class="mr-2">
+        <label for="snap-to-grid">Snap to Grid</label>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Status Panel -->
+  <footer class="bg-gray-800 py-2 flex justify-between items-center">
+    <div class="flex items-center">
+      <i class="fas fa-circle fa-lg text-green-500 mr-2"></i>
+      <span>Connected</span>
     </div>
     <div class="flex items-center">
-      <button class="mr-2 p-2 hover:bg-gray-700 rounded" title="Help">
-        <i class="fas fa-question-circle"></i>
-      </button>
-      <button class="mr-2 p-2 hover:bg-gray-700 rounded" title="Settings">
-       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      <i class="fas fa-spinner fa-lg text-gray-500 mr-2"></i>
+      <span>Loading...</span>
+    </div>
+    <div class="flex items-center">
+      <i class="fas fa-bell fa-lg text-gray-500 mr-2"></i>
+      <span>Notifications</span>
+    </div>
+  </footer>
+
+  <!-- Floating Panels -->
+  <div class="fixed bottom-0 right-0 mb-4 mr-4">
+    <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded">
+      <i class="fas fa-question fa-lg"></i>
+    </button>
+  </div>
+  <div class="fixed bottom-0 left-0 mb-4 ml-4">
+    <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded">
+      <i class="fas fa-info fa-lg"></i>
+    </button>
+  </div>
+</body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Vectra Engine
-class VectraEngine {
-  constructor(canvas, options) {
-    this.canvas = canvas;
-    this.ctx = canvas.getContext('2d');
-    this.svgCanvas = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    this.svgCtx = this.svgCanvas.getContext('2d');
-    this.undoHistory = [];
-    this.redoHistory = [];
+// VectorForge Engine
+class VectorForge {
+  constructor() {
     this.state = {
-      nodes: [],
       layers: [],
-      properties: {}
-    };
-    this.options = options;
-    this.init();
-  }
-
-  init() {
-    this.addEventListener();
-    this.initState();
-    this.initWorkers();
-  }
-
-  addEventListener() {
-    this.canvas.addEventListener('click', (e) => {
-      this.handleCanvasClick(e);
-    });
-    this.canvas.addEventListener('mousemove', (e) => {
-      this.handleCanvasMouseMove(e);
-    });
-    this.canvas.addEventListener('wheel', (e) => {
-      this.handleCanvasWheel(e);
-    });
-  }
-
-  handleCanvasClick(e) {
-    const rect = this.canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientX - rect.top;
-    this.addNode(x, y);
-  }
-
-  handleCanvasMouseMove(e) {
-    const rect = this.canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientX - rect.top;
-    this.updateNode(x, y);
-  }
-
-  handleCanvasWheel(e) {
-    const rect = this.canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientX - rect.top;
-    this.zoomCanvas(x, y, e.deltaY);
-  }
-
-  addNode(x, y) {
-    const node = {
-      x,
-      y,
-      type: 'ellipse',
-      radius: 10,
-      fill: 'rgba(255, 0, 0, 1)'
-    };
-    this.state.nodes.push(node);
-    this.undoHistory.push(this.state);
-    this.renderCanvas();
-  }
-
-  updateNode(x, y) {
-    const node = this.state.nodes[this.state.nodes.length - 1];
-    if (node) {
-      node.x = x;
-      node.y = y;
-    }
-    this.renderCanvas();
-  }
-
-  zoomCanvas(x, y, deltaY) {
-    const scale = deltaY > 0? 1.1 : 0.9;
-    this.canvas.style.transform = `scale(${scale})`;
-    this.renderCanvas();
-  }
-
-  initState() {
-    this.state = {
-      nodes: [],
-      layers: [],
-      properties: {}
-    };
-    this.loadState();
-  }
-
-  saveState() {
-    const state = JSON.stringify(this.state);
-    localStorage.setItem('vectra-state', state);
-    this.sendStateToServer(state);
-  }
-
-  loadState() {
-    const state = localStorage.getItem('vectra-state');
-    if (state) {
-      this.state = JSON.parse(state);
-    }
-  }
-
-  sendStateToServer(state) {
-    fetch('/vectra-state', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
+      assets: [],
+      graphic: {
+        width: 800,
+        height: 600,
+        elements: []
       },
-      body: state
-    });
-  }
-
-  initWorkers() {
-    this.worker = new Worker('webworker.js');
-    this.worker.onmessage = (e) => {
-      this.handleWorkerMessage(e.data);
+      undoHistory: [],
+      redoHistory: []
     };
+
+    this.localStorageKey = 'vector-forge-state';
+
+    this.loadStateFromLocalStorage();
+
+    this.canvas = document.getElementById('canvas');
+    this.ctx = this.canvas.getContext('2d');
+
+    this.svgParser = new SVGParser();
+    this.exportEngines = {
+      png: new PNGExportEngine(),
+      jpg: new JPGExportEngine(),
+      svg: new SVGExportEngine(),
+      pdf: new PDFExportEngine()
+    };
+
+    this.addEventListeners();
   }
 
-  handleWorkerMessage(data) {
-    this.state = data;
-    this.renderCanvas();
+  addEventListeners() {
+    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
+    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
+
+    document.getElementById('save-button').addEventListener('click', () => this.saveStateToLocalStorage());
+    document.getElementById('undo-button').addEventListener('click', () => this.undo());
+    document.getElementById('redo-button').addEventListener('click', () => this.redo());
+
+    document.getElementById('export-png-button').addEventListener('click', () => this.exportAsPNG());
+    document.getElementById('export-jpg-button').addEventListener('click', () => this.exportAsJPG());
+    document.getElementById('export-svg-button').addEventListener('click', () => this.exportAsSVG());
+    document.getElementById('export-pdf-button').addEventListener('click', () => this.exportAsPDF());
   }
 
-  renderCanvas() {
+  handleMouseDown(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    this.state.graphic.elements.push({
+      type: 'rectangle',
+      x: x,
+      y: y,
+      width: 100,
+      height: 100
+    });
+
+    this.saveStateToLocalStorage();
+    this.render();
+  }
+
+  handleMouseMove(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    this.state.graphic.elements[this.state.graphic.elements.length - 1].x = x;
+    this.state.graphic.elements[this.state.graphic.elements.length - 1].y = y;
+
+    this.saveStateToLocalStorage();
+    this.render();
+  }
+
+  handleMouseUp(e) {
+    this.state.undoHistory.push(JSON.parse(JSON.stringify(this.state)));
+  }
+
+  saveStateToLocalStorage() {
+    localStorage.setItem(this.localStorageKey, JSON.stringify(this.state));
+  }
+
+  loadStateFromLocalStorage() {
+    const storedState = localStorage.getItem(this.localStorageKey);
+
+    if (storedState) {
+      this.state = JSON.parse(storedState);
+    }
+  }
+
+  undo() {
+    if (this.state.undoHistory.length > 0) {
+      this.state.redoHistory.push(JSON.parse(JSON.stringify(this.state)));
+      this.state = this.state.undoHistory.pop();
+      this.render();
+    }
+  }
+
+  redo() {
+    if (this.state.redoHistory.length > 0) {
+      this.state.undoHistory.push(JSON.parse(JSON.stringify(this.state)));
+      this.state = this.state.redoHistory.pop();
+      this.render();
+    }
+  }
+
+  render() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.state.nodes.forEach((node) => {
-      this.ctx.beginPath();
-      this.ctx.arc(node.x, node.y, node.radius, 0, 2 * Math.PI);
-      this.ctx.fillStyle = node.fill;
-      this.ctx.fill();
-    });
-  }
 
-  exportFile(type, filename) {
-    switch (type) {
-      case 'png':
-        this.exportPng(filename);
-        break;
-      case 'svg':
-        this.exportSvg(filename);
-        break;
-      case 'json':
-        this.exportJson(filename);
-        break;
-      default:
-        console.error('Unsupported file type');
+    for (const element of this.state.graphic.elements) {
+      this.ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+      this.ctx.fillRect(element.x, element.y, element.width, element.height);
     }
   }
 
-  exportPng(filename) {
+  exportAsPNG() {
+    const pngData = this.exportEngines.png.export(this.state.graphic);
+    const link = document.createElement('a');
+    link.href = pngData;
+    link.download = 'graphic.png';
+    link.click();
+  }
+
+  exportAsJPG() {
+    const jpgData = this.exportEngines.jpg.export(this.state.graphic);
+    const link = document.createElement('a');
+    link.href = jpgData;
+    link.download = 'graphic.jpg';
+    link.click();
+  }
+
+  exportAsSVG() {
+    const svgData = this.exportEngines.svg.export(this.state.graphic);
+    const link = document.createElement('a');
+    link.href = svgData;
+    link.download = 'graphic.svg';
+    link.click();
+  }
+
+  exportAsPDF() {
+    const pdfData = this.exportEngines.pdf.export(this.state.graphic);
+    const link = document.createElement('a');
+    link.href = pdfData;
+    link.download = 'graphic.pdf';
+    link.click();
+  }
+}
+
+class SVGParser {
+  parse(svgString) {
+    const parser = new DOMParser();
+    const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
+    return svgDoc.documentElement;
+  }
+}
+
+class PNGExportEngine {
+  export(graphic) {
     const canvas = document.createElement('canvas');
+    canvas.width = graphic.width;
+    canvas.height = graphic.height;
     const ctx = canvas.getContext('2d');
-    canvas.width = this.canvas.width;
-    canvas.height = this.canvas.height;
-    ctx.drawImage(this.canvas, 0, 0);
-    const dataURL = canvas.toDataURL('image/png');
-    const a = document.createElement('a');
-    a.href = dataURL;
-    a.download = filename;
-    a.click();
-  }
 
-  exportSvg(filename) {
-    const svg = this.svgCanvas;
-    svg.setAttribute('width', this.canvas.width);
-    svg.setAttribute('height', this.canvas.height);
-    this.state.nodes.forEach((node) => {
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('cx', node.x);
-      circle.setAttribute('cy', node.y);
-      circle.setAttribute('r', node.radius);
-      circle.setAttribute('fill', node.fill);
-      svg.appendChild(circle);
-    });
-    const dataURL = new XMLSerializer().serializeToString(svg);
-    const a = document.createElement('a');
-    a.href = 'data:image/svg+xml,' + encodeURIComponent(dataURL);
-    a.download = filename;
-    a.click();
-  }
-
-  exportJson(filename) {
-    const data = JSON.stringify(this.state);
-    const blob = new Blob([data], {type: 'application/json'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = filename;
-    a.click();
-  }
-}
-
-// Redux Store
-class ReduxStore {
-  constructor() {
-    this.state = {
-      nodes: [],
-      layers: [],
-      properties: {}
-    };
-    this.listeners = [];
-  }
-
-  dispatch(action) {
-    switch (action.type) {
-      case 'ADD_NODE':
-        this.state.nodes.push(action.node);
-        break;
-      case 'UPDATE_NODE':
-        this.state.nodes = this.state.nodes.map((node) => {
-          if (node.id === action.node.id) {
-            return action.node;
-          }
-          return node;
-        });
-        break;
-      case 'REMOVE_NODE':
-        this.state.nodes = this.state.nodes.filter((node) => node.id!== action.node.id);
-        break;
-      default:
-        console.error('Unsupported action type');
+    for (const element of graphic.elements) {
+      ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+      ctx.fillRect(element.x, element.y, element.width, element.height);
     }
-    this.listeners.forEach((listener) => listener(this.state));
-  }
 
-  subscribe(listener) {
-    this.listeners.push(listener);
+    return canvas.toDataURL('image/png');
   }
 }
 
-// Service Worker
-class ServiceWorker {
-  constructor() {
-    this.cache = {};
-  }
+class JPGExportEngine {
+  export(graphic) {
+    const canvas = document.createElement('canvas');
+    canvas.width = graphic.width;
+    canvas.height = graphic.height;
+    const ctx = canvas.getContext('2d');
 
-  handleFetch(event) {
-    const request = event.request;
-    const url = request.url;
-    if (this.cache[url]) {
-      event.respondWith(this.cache[url]);
-    } else {
-      fetch(request).then((response) => {
-        this.cache[url] = response;
-        event.respondWith(response);
-      });
+    for (const element of graphic.elements) {
+      ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+      ctx.fillRect(element.x, element.y, element.width, element.height);
     }
-  }
 
-  handleInstall(event) {
-    event.waitUntil(caches.open('vectra-cache').then((cache) => {
-      cache.addAll([
-        'index.html',
-        'vectra.js',
-        'style.css'
-      ]);
-    }));
-  }
-
-  handleActivate(event) {
-    event.waitUntil(caches.keys().then((keys) => {
-      keys.forEach((key) => {
-        if (key!== 'vectra-cache') {
-          caches.delete(key);
-        }
-      });
-    }));
+    return canvas.toDataURL('image/jpeg');
   }
 }
 
-// Web Worker
-class WebWorker {
-  constructor() {
-    this.onmessage = (event) => {
-      switch (event.data.type) {
-        case 'COMPUTE_NODES':
-          this.computeNodes(event.data.nodes);
-          break;
-        default:
-          console.error('Unsupported message type');
-      }
-    };
-  }
+class SVGExportEngine {
+  export(graphic) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', graphic.width);
+    svg.setAttribute('height', graphic.height);
 
-  computeNodes(nodes) {
-    // Perform computationally intensive tasks here
-    const result = nodes.map((node) => {
-      // Simulate computation
-      return node;
-    });
-    this.postMessage(result);
+    for (const element of graphic.elements) {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', element.x);
+      rect.setAttribute('y', element.y);
+      rect.setAttribute('width', element.width);
+      rect.setAttribute('height', element.height);
+      rect.setAttribute('fill', 'black');
+      svg.appendChild(rect);
+    }
+
+    const serializer = new XMLSerializer();
+    return 'data:image/svg+xml,' + encodeURIComponent(serializer.serializeToString(svg));
   }
 }
 
-// Initialize Vectra Engine
-const vectraEngine = new VectraEngine(document.getElementById('canvas'), {
-  // Options
-});
+class PDFExportEngine {
+  export(graphic) {
+    const doc = new jsPDF();
+    doc.addImage(this.getCanvas(graphic), 'PNG', 0, 0, graphic.width, graphic.height);
+    return doc.output('dataurlstring');
+  }
 
-// Initialize Redux Store
-const reduxStore = new ReduxStore();
+  getCanvas(graphic) {
+    const canvas = document.createElement('canvas');
+    canvas.width = graphic.width;
+    canvas.height = graphic.height;
+    const ctx = canvas.getContext('2d');
 
-// Initialize Service Worker
-navigator.serviceWorker.register('service-worker.js').then((registration) => {
-  console.log('Service worker registered');
-});
+    for (const element of graphic.elements) {
+      ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+      ctx.fillRect(element.x, element.y, element.width, element.height);
+    }
 
-// Initialize Web Worker
-const webWorker = new WebWorker();
+    return canvas.toDataURL('image/png');
+  }
+}
+
+// Initialize VectorForge
+const vectorForge = new VectorForge();
 </script>
 </body>
 </html>
