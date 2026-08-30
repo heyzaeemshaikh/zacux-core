@@ -16,366 +16,331 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="bg-gray-900 text-gray-100 h-screen overflow-hidden">
-  <!-- Top Toolbar -->
-  <div class="flex justify-between items-center p-4 border-b border-gray-700">
-    <h1 class="text-2xl font-bold">VectorForge</h1>
-    <div class="flex space-x-4">
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded">
-        <i class="fas fa-file text-lg mr-2"></i> New
+<body class="bg-[#090d16] text-white h-screen">
+  <!-- Toolbar -->
+  <nav class="flex justify-between bg-[#151a30] p-2 fixed top-0 left-0 right-0 z-10">
+    <div class="flex items-center">
+      <button class="bg-[#20273a] hover:bg-[#303b53] p-2 rounded-md mr-2">
+        <i class="fas fa-undo fa-lg"></i>
       </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded">
-        <i class="fas fa-folder-open text-lg mr-2"></i> Open
+      <button class="bg-[#20273a] hover:bg-[#303b53] p-2 rounded-md mr-2">
+        <i class="fas fa-redo fa-lg"></i>
       </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded">
-        <i class="fas fa-save text-lg mr-2"></i> Save
+      <button class="bg-[#20273a] hover:bg-[#303b53] p-2 rounded-md mr-2">
+        <i class="fas fa-layer-group fa-lg"></i>
+      </button>
+      <button class="bg-[#20273a] hover:bg-[#303b53] p-2 rounded-md mr-2">
+        <i class="fas fa-edit fa-lg"></i>
       </button>
     </div>
-  </div>
+    <div class="flex items-center">
+      <button class="bg-[#20273a] hover:bg-[#303b53] p-2 rounded-md mr-2">
+        <i class="fas fa-file-export fa-lg"></i>
+      </button>
+      <button class="bg-[#20273a] hover:bg-[#303b53] p-2 rounded-md mr-2">
+        <i class="fas fa-cloud fa-lg"></i>
+      </button>
+    </div>
+  </nav>
 
-  <!-- Left Sidebar -->
-  <div class="fixed top-16 left-0 bottom-16 w-64 bg-gray-800 p-4 border-r border-gray-700">
-    <h2 class="text-lg font-bold mb-4">Layers</h2>
+  <!-- Sidebar -->
+  <div class="fixed top-12 left-0 bottom-0 w-64 bg-[#151a30] p-2 z-10">
+    <h2 class="text-lg font-bold mb-2">Object Inspector</h2>
     <ul>
-      <li class="py-2 border-b border-gray-700">
-        <i class="fas fa-layer-group text-lg mr-2"></i> Layer 1
+      <li class="py-2 border-b border-[#303b53]">
+        <i class="fas fa-circle fa-lg mr-2"></i>
+        <span>Circle</span>
       </li>
-      <li class="py-2 border-b border-gray-700">
-        <i class="fas fa-layer-group text-lg mr-2"></i> Layer 2
+      <li class="py-2 border-b border-[#303b53]">
+        <i class="fas fa-square fa-lg mr-2"></i>
+        <span>Rectangle</span>
       </li>
-      <li class="py-2 border-b border-gray-700">
-        <i class="fas fa-layer-group text-lg mr-2"></i> Layer 3
+      <li class="py-2 border-b border-[#303b53]">
+        <i class="fas fa-polygon fa-lg mr-2"></i>
+        <span>Polygon</span>
       </li>
     </ul>
-    <h2 class="text-lg font-bold mt-4 mb-4">Node Editor</h2>
-    <div class="flex space-x-4">
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded">
-        <i class="fas fa-plus text-lg mr-2"></i> Add Node
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded">
-        <i class="fas fa-edit text-lg mr-2"></i> Edit Node
-      </button>
+    <h2 class="text-lg font-bold mt-4 mb-2">Properties</h2>
+    <div class="flex flex-wrap">
+      <label class="block py-2">
+        <span class="block text-sm font-bold mb-1">Fill Color</span>
+        <input type="color" class="w-full">
+      </label>
+      <label class="block py-2">
+        <span class="block text-sm font-bold mb-1">Stroke Color</span>
+        <input type="color" class="w-full">
+      </label>
+      <label class="block py-2">
+        <span class="block text-sm font-bold mb-1">Stroke Width</span>
+        <input type="number" class="w-full">
+      </label>
     </div>
   </div>
 
   <!-- Main Viewport -->
-  <div class="ml-64 pl-4 pr-4 pt-4 pb-4 overflow-auto">
+  <div class="flex-1 p-12 overflow-auto" id="viewport">
     <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <!-- SVG Content -->
+      <!-- SVG content will be rendered here -->
     </svg>
   </div>
 
-  <!-- Bottom Status Panel -->
-  <div class="fixed bottom-0 left-0 right-0 p-4 bg-gray-800 border-t border-gray-700">
+  <!-- Status Panel -->
+  <div class="fixed bottom-0 left-0 right-0 bg-[#151a30] p-2 z-10">
     <div class="flex justify-between items-center">
-      <div class="flex space-x-4">
-        <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded">
-          <i class="fas fa-undo text-lg mr-2"></i> Undo
-        </button>
-        <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded">
-          <i class="fas fa-redo text-lg mr-2"></i> Redo
-        </button>
-      </div>
-      <div class="flex space-x-4">
-        <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded">
-          <i class="fas fa-search-minus text-lg mr-2"></i> Zoom Out
-        </button>
-        <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded">
-          <i class="fas fa-search-plus text-lg mr-2"></i> Zoom In
-        </button>
-        <span class="text-lg">100%</span>
+      <span class="text-sm">VectorForge - vector-graphic-editor</span>
+      <div class="flex items-center">
+        <i class="fas fa-circle fa-lg text-green-500 mr-2"></i>
+        <span class="text-sm">Connected</span>
       </div>
     </div>
   </div>
 
   <!-- Floating Side Panels -->
-  <div class="fixed top-16 right-0 bottom-16 w-64 bg-gray-800 p-4 border-l border-gray-700">
-    <h2 class="text-lg font-bold mb-4">Tool Options</h2>
-    <div class="flex space-x-4">
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded">
-        <i class="fas fa-pencil-alt text-lg mr-2"></i> Pencil
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded">
-        <i class="fas fa-brush text-lg mr-2"></i> Brush
-      </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded">
-        <i class="fas fa-eraser text-lg mr-2"></i> Eraser
-      </button>
-    </div>
+  <div class="fixed top-12 right-0 bottom-0 w-64 bg-[#151a30] p-2 z-10">
+    <h2 class="text-lg font-bold mb-2">Layers</h2>
+    <ul>
+      <li class="py-2 border-b border-[#303b53]">
+        <i class="fas fa-layer-group fa-lg mr-2"></i>
+        <span>Layer 1</span>
+      </li>
+      <li class="py-2 border-b border-[#303b53]">
+        <i class="fas fa-layer-group fa-lg mr-2"></i>
+        <span>Layer 2</span>
+      </li>
+    </ul>
+  </div>
+  <div class="fixed top-12 right-64 bottom-0 w-64 bg-[#151a30] p-2 z-10">
+    <h2 class="text-lg font-bold mb-2">Tools</h2>
+    <ul>
+      <li class="py-2 border-b border-[#303b53]">
+        <i class="fas fa-pencil-alt fa-lg mr-2"></i>
+        <span>Pencil</span>
+      </li>
+      <li class="py-2 border-b border-[#303b53]">
+        <i class="fas fa-brush fa-lg mr-2"></i>
+        <span>Brush</span>
+      </li>
+    </ul>
   </div>
 </body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
 // VectorForge Engine
-
-// Import required libraries
-const Redux = {
-  createStore: (reducer, initialState) => {
-    let state = initialState;
-    const listeners = [];
-
-    const getState = () => state;
-    const dispatch = (action) => {
-      state = reducer(state, action);
-      listeners.forEach((listener) => listener());
-    };
-    const subscribe = (listener) => {
-      listeners.push(listener);
-      return () => {
-        const index = listeners.indexOf(listener);
-        if (index !== -1) {
-          listeners.splice(index, 1);
-        }
-      };
+class VectorForge {
+  constructor() {
+    this.state = {
+      nodes: [],
+      layers: [],
+      undoHistory: [],
+      redoHistory: []
     };
 
-    return { getState, dispatch, subscribe };
-  },
-};
+    this.toolbar = {
+      undo: () => this.undo(),
+      redo: () => this.redo(),
+      layerManagement: () => this.layerManagement(),
+      nodeEditingTools: () => this.nodeEditingTools()
+    };
 
-// Initialize Redux store
-const initialState = {
-  layers: [],
-  nodes: [],
-  selection: [],
-  undoHistory: [],
-  redoHistory: [],
-};
+    this.sidebar = {
+      objectInspector: () => this.objectInspector(),
+      propertiesPanel: () => this.propertiesPanel()
+    };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "ADD_LAYER":
-      return { ...state, layers: [...state.layers, action.layer] };
-    case "ADD_NODE":
-      return { ...state, nodes: [...state.nodes, action.node] };
-    case "SELECT_NODE":
-      return { ...state, selection: [action.node] };
-    case "UNDO":
-      if (state.undoHistory.length > 0) {
-        const previousState = state.undoHistory.pop();
-        return { ...previousState, redoHistory: [...state.redoHistory, state] };
-      }
-      return state;
-    case "REDO":
-      if (state.redoHistory.length > 0) {
-        const nextState = state.redoHistory.pop();
-        return { ...nextState, undoHistory: [...state.undoHistory, state] };
-      }
-      return state;
-    default:
-      return state;
+    this.viewport = {
+      svgRenderer: () => this.svgRenderer(),
+      panning: () => this.panning(),
+      zooming: () => this.zooming()
+    };
+
+    this.statusPanel = {
+      realTimeFeedback: () => this.realTimeFeedback(),
+      notifications: () => this.notifications()
+    };
+
+    this.serviceWorker = {
+      offlineSupport: () => this.offlineSupport()
+    };
+
+    this.webWorkers = {
+      computeIntensiveTasks: () => this.computeIntensiveTasks()
+    };
+
+    this.exportEngine = {
+      png: () => this.exportPng(),
+      jpg: () => this.exportJpg(),
+      pdf: () => this.exportPdf(),
+      svg: () => this.exportSvg(),
+      json: () => this.exportJson()
+    };
+
+    this.eventListeners = {
+      canvas: () => this.canvasEventListeners(),
+      dom: () => this.domEventListeners()
+    };
+
+    this.stateManagement = {
+      reduxStore: () => this.reduxStore(),
+      localStorage: () => this.localStorage(),
+      cloudSyncing: () => this.cloudSyncing()
+    };
+
+    this.init();
   }
-};
 
-const store = Redux.createStore(reducer, initialState);
+  init() {
+    this.stateManagement.reduxStore();
+    this.eventListeners.canvas();
+    this.eventListeners.dom();
+  }
 
-// Initialize SVG canvas
-const svgCanvas = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-svgCanvas.setAttribute("width", "100%");
-svgCanvas.setAttribute("height", "100%");
-document.body.appendChild(svgCanvas);
+  // Event Listeners
+  canvasEventListeners() {
+    const canvas = document.getElementById('canvas');
+    canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
+    canvas.addEventListener('mousemove', (e) => this.handleCanvasMouseMove(e));
+    canvas.addEventListener('mouseup', (e) => this.handleCanvasMouseUp(e));
+    canvas.addEventListener('mousedown', (e) => this.handleCanvasMouseDown(e));
+  }
 
-// Add event listeners for canvas interactions
-svgCanvas.addEventListener("click", (event) => {
-  const node = {
-    x: event.clientX,
-    y: event.clientY,
-    width: 50,
-    height: 50,
-  };
-  store.dispatch({ type: "ADD_NODE", node });
-});
+  domEventListeners() {
+    document.addEventListener('keydown', (e) => this.handleKeyDown(e));
+    document.addEventListener('keyup', (e) => this.handleKeyUp(e));
+  }
 
-svgCanvas.addEventListener("contextmenu", (event) => {
-  event.preventDefault();
-  const node = {
-    x: event.clientX,
-    y: event.clientY,
-    width: 50,
-    height: 50,
-  };
-  store.dispatch({ type: "SELECT_NODE", node });
-});
+  handleCanvasClick(e) {
+    console.log('Canvas Clicked');
+  }
 
-// Initialize undo/redo history
-store.subscribe(() => {
-  const state = store.getState();
-  localStorage.setItem("vector-forge-state", JSON.stringify(state));
-});
+  handleCanvasMouseMove(e) {
+    console.log('Mouse Moving');
+  }
 
-// Load initial state from LocalStorage
-const storedState = localStorage.getItem("vector-forge-state");
-if (storedState) {
-  store.dispatch({ type: "LOAD_STATE", state: JSON.parse(storedState) });
+  handleCanvasMouseUp(e) {
+    console.log('Mouse Up');
+  }
+
+  handleCanvasMouseDown(e) {
+    console.log('Mouse Down');
+  }
+
+  handleKeyDown(e) {
+    console.log('Key Down');
+  }
+
+  handleKeyUp(e) {
+    console.log('Key Up');
+  }
+
+  // State Management
+  reduxStore() {
+    const store = {
+      getState: () => this.state,
+      dispatch: (action) => this.dispatch(action)
+    };
+
+    return store;
+  }
+
+  dispatch(action) {
+    switch (action.type) {
+      case 'ADD_NODE':
+        this.state.nodes.push(action.node);
+        break;
+      case 'REMOVE_NODE':
+        this.state.nodes = this.state.nodes.filter((node) => node.id !== action.nodeId);
+        break;
+      default:
+        break;
+    }
+  }
+
+  localStorage() {
+    const saveState = () => {
+      localStorage.setItem('state', JSON.stringify(this.state));
+    };
+
+    const loadState = () => {
+      const storedState = localStorage.getItem('state');
+      if (storedState) {
+        this.state = JSON.parse(storedState);
+      }
+    };
+
+    return { saveState, loadState };
+  }
+
+  cloudSyncing() {
+    const syncState = () => {
+      // Implement cloud syncing logic
+    };
+
+    return { syncState };
+  }
+
+  // Undo/Redo History
+  undo() {
+    if (this.state.undoHistory.length > 0) {
+      const previousState = this.state.undoHistory.pop();
+      this.state = previousState;
+    }
+  }
+
+  redo() {
+    if (this.state.redoHistory.length > 0) {
+      const nextState = this.state.redoHistory.pop();
+      this.state = nextState;
+    }
+  }
+
+  // File Export
+  exportPng() {
+    const canvas = document.getElementById('canvas');
+    const png = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = png;
+    a.download = 'vectorforge.png';
+    a.click();
+  }
+
+  exportJpg() {
+    const canvas = document.getElementById('canvas');
+    const jpg = canvas.toDataURL('image/jpeg');
+    const a = document.createElement('a');
+    a.href = jpg;
+    a.download = 'vectorforge.jpg';
+    a.click();
+  }
+
+  exportPdf() {
+    const canvas = document.getElementById('canvas');
+    const pdf = new jsPDF();
+    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, canvas.width, canvas.height);
+    pdf.save('vectorforge.pdf');
+  }
+
+  exportSvg() {
+    const svg = document.getElementById('svg');
+    const serializer = new XMLSerializer();
+    const svgString = serializer.serializeToString(svg);
+    const a = document.createElement('a');
+    a.href = 'data:image/svg+xml,' + svgString;
+    a.download = 'vectorforge.svg';
+    a.click();
+  }
+
+  exportJson() {
+    const json = JSON.stringify(this.state);
+    const a = document.createElement('a');
+    a.href = 'data:application/json,' + json;
+    a.download = 'vectorforge.json';
+    a.click();
+  }
 }
 
-// File export logic
-const exportFile = (format) => {
-  const state = store.getState();
-  const svg = svgCanvas.outerHTML;
-  const blob = new Blob([svg], { type: `image/${format}` });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `vector-forge.${format}`;
-  a.click();
-};
-
-document.getElementById("export-png").addEventListener("click", () => {
-  exportFile("png");
-});
-
-document.getElementById("export-svg").addEventListener("click", () => {
-  exportFile("svg");
-});
-
-document.getElementById("export-json").addEventListener("click", () => {
-  const state = store.getState();
-  const json = JSON.stringify(state);
-  const blob = new Blob([json], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "vector-forge.json";
-  a.click();
-});
-
-// Top toolbar
-const topToolbar = document.createElement("div");
-topToolbar.style.position = "fixed";
-topToolbar.style.top = "0";
-topToolbar.style.left = "0";
-topToolbar.style.width = "100%";
-topToolbar.style.height = "50px";
-topToolbar.style.background = "#333";
-topToolbar.style.color = "#fff";
-topToolbar.style.padding = "10px";
-topToolbar.style.display = "flex";
-topToolbar.style.justifyContent = "space-between";
-topToolbar.style.alignItems = "center";
-document.body.appendChild(topToolbar);
-
-const undoButton = document.createElement("button");
-undoButton.textContent = "Undo";
-undoButton.addEventListener("click", () => {
-  store.dispatch({ type: "UNDO" });
-});
-topToolbar.appendChild(undoButton);
-
-const redoButton = document.createElement("button");
-redoButton.textContent = "Redo";
-redoButton.addEventListener("click", () => {
-  store.dispatch({ type: "REDO" });
-});
-topToolbar.appendChild(redoButton);
-
-const exportButton = document.createElement("button");
-exportButton.textContent = "Export";
-exportButton.addEventListener("click", () => {
-  const format = prompt("Enter export format (png, svg, json)");
-  if (format) {
-    exportFile(format);
-  }
-});
-topToolbar.appendChild(exportButton);
-
-// Left sidebar
-const leftSidebar = document.createElement("div");
-leftSidebar.style.position = "fixed";
-leftSidebar.style.top = "50px";
-leftSidebar.style.left = "0";
-leftSidebar.style.width = "200px";
-leftSidebar.style.height = "calc(100% - 50px)";
-leftSidebar.style.background = "#333";
-leftSidebar.style.color = "#fff";
-leftSidebar.style.padding = "10px";
-leftSidebar.style.display = "flex";
-leftSidebar.style.flexDirection = "column";
-document.body.appendChild(leftSidebar);
-
-const layersList = document.createElement("ul");
-leftSidebar.appendChild(layersList);
-
-store.subscribe(() => {
-  const state = store.getState();
-  layersList.innerHTML = "";
-  state.layers.forEach((layer) => {
-    const layerItem = document.createElement("li");
-    layerItem.textContent = layer.name;
-    layersList.appendChild(layerItem);
-  });
-});
-
-const nodeEditor = document.createElement("div");
-nodeEditor.style.padding = "10px";
-nodeEditor.style.border = "1px solid #666";
-nodeEditor.style.borderRadius = "5px";
-leftSidebar.appendChild(nodeEditor);
-
-store.subscribe(() => {
-  const state = store.getState();
-  nodeEditor.innerHTML = "";
-  if (state.selection.length > 0) {
-    const node = state.selection[0];
-    const nodeForm = document.createElement("form");
-    nodeForm.innerHTML = `
-      <label>X: <input type="number" value="${node.x}"></label>
-      <label>Y: <input type="number" value="${node.y}"></label>
-      <label>Width: <input type="number" value="${node.width}"></label>
-      <label>Height: <input type="number" value="${node.height}"></label>
-    `;
-    nodeEditor.appendChild(nodeForm);
-  }
-});
-
-// Main viewport
-const mainViewport = document.createElement("div");
-mainViewport.style.position = "absolute";
-mainViewport.style.top = "50px";
-mainViewport.style.left = "200px";
-mainViewport.style.width = "calc(100% - 200px)";
-mainViewport.style.height = "calc(100% - 50px)";
-mainViewport.style.overflow = "auto";
-document.body.appendChild(mainViewport);
-
-mainViewport.appendChild(svgCanvas);
-
-// Bottom status panel
-const bottomStatusPanel = document.createElement("div");
-bottomStatusPanel.style.position = "fixed";
-bottomStatusPanel.style.bottom = "0";
-bottomStatusPanel.style.left = "0";
-bottomStatusPanel.style.width = "100%";
-bottomStatusPanel.style.height = "50px";
-bottomStatusPanel.style.background = "#333";
-bottomStatusPanel.style.color = "#fff";
-bottomStatusPanel.style.padding = "10px";
-bottomStatusPanel.style.display = "flex";
-bottomStatusPanel.style.justifyContent = "space-between";
-bottomStatusPanel.style.alignItems = "center";
-document.body.appendChild(bottomStatusPanel);
-
-const zoomInButton = document.createElement("button");
-zoomInButton.textContent = "Zoom In";
-zoomInButton.addEventListener("click", () => {
-  svgCanvas.setAttribute("zoom", parseFloat(svgCanvas.getAttribute("zoom")) + 0.1);
-});
-bottomStatusPanel.appendChild(zoomInButton);
-
-const zoomOutButton = document.createElement("button");
-zoomOutButton.textContent = "Zoom Out";
-zoomOutButton.addEventListener("click", () => {
-  svgCanvas.setAttribute("zoom", parseFloat(svgCanvas.getAttribute("zoom")) - 0.1);
-});
-bottomStatusPanel.appendChild(zoomOutButton);
-
-const zoomResetButton = document.createElement("button");
-zoomResetButton.textContent = "Reset Zoom";
-zoomResetButton.addEventListener("click", () => {
-  svgCanvas.setAttribute("zoom", 1);
-});
-bottomStatusPanel.appendChild(zoomResetButton);
+// Initialize VectorForge
+const vectorForge = new VectorForge();
 </script>
 </body>
 </html>
