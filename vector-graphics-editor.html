@@ -16,223 +16,350 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="bg-gray-900 text-white h-screen flex flex-col">
-  <!-- Top Toolbar -->
-  <div class="flex justify-between items-center py-2 bg-gray-800 border-b border-gray-700">
-    <h1 class="text-2xl font-bold pl-4"><i class="fas fa-vector-square"></i> Vectra</h1>
-    <div class="flex items-center pr-4">
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="New File"><i class="fas fa-file"></i></button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Open File"><i class="fas fa-folder-open"></i></button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Save File"><i class="fas fa-save"></i></button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Export"><i class="fas fa-share-square"></i></button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Undo"><i class="fas fa-undo"></i></button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Redo"><i class="fas fa-redo"></i></button>
+<body class="h-screen bg-gray-900 text-gray-100 flex flex-col">
+  <!-- Toolbar -->
+  <div class="flex justify-between items-center p-2 border-b border-gray-700">
+    <div class="flex items-center">
+      <button class="mr-2 p-2 hover:bg-gray-700 rounded" title="Undo">
+        <i class="fas fa-undo"></i>
+      </button>
+      <button class="mr-2 p-2 hover:bg-gray-700 rounded" title="Redo">
+        <i class="fas fa-redo"></i>
+      </button>
+      <button class="mr-2 p-2 hover:bg-gray-700 rounded" title="Layer Management">
+        <i class="fas fa-layer-group"></i>
+      </button>
+      <button class="mr-2 p-2 hover:bg-gray-700 rounded" title="Node Editing">
+        <i class="fas fa-edit"></i>
+      </button>
     </div>
-  </div>
-
-  <!-- Left Sidebar (Layers and Objects) -->
-  <div class="flex flex-row h-full">
-    <div class="w-64 bg-gray-800 border-r border-gray-700 p-4">
-      <h2 class="text-xl font-bold mb-4">Layers</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-700"><i class="fas fa-layer-group"></i> Layer 1</li>
-        <li class="py-2 border-b border-gray-700"><i class="fas fa-layer-group"></i> Layer 2</li>
-        <li class="py-2 border-b border-gray-700"><i class="fas fa-layer-group"></i> Layer 3</li>
-      </ul>
-      <h2 class="text-xl font-bold mt-4 mb-4">Objects</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-700"><i class="fas fa-square"></i> Rectangle</li>
-        <li class="py-2 border-b border-gray-700"><i class="fas fa-circle"></i> Circle</li>
-        <li class="py-2 border-b border-gray-700"><i class="fas fa-polygon"></i> Polygon</li>
-      </ul>
+    <div class="flex items-center">
+      <span class="text-lg font-bold">Vectra</span>
+      <span class="ml-2 text-sm">Vector Graphics Editor</span>
     </div>
-
-    <!-- Central Viewport (Canvas) -->
-    <div class="flex-1 bg-gray-900 p-4">
-      <svg class="w-full h-full" id="vectra-canvas"></svg>
-    </div>
-
-    <!-- Right Sidebar (Properties and Node Editing) -->
-    <div class="w-64 bg-gray-800 border-l border-gray-700 p-4">
-      <h2 class="text-xl font-bold mb-4">Properties</h2>
-      <form>
-        <label class="block text-gray-400 py-2">Fill Color:</label>
-        <input type="color" class="w-full py-2 border border-gray-700 rounded">
-        <label class="block text-gray-400 py-2">Stroke Color:</label>
-        <input type="color" class="w-full py-2 border border-gray-700 rounded">
-        <label class="block text-gray-400 py-2">Stroke Width:</label>
-        <input type="number" class="w-full py-2 border border-gray-700 rounded">
-      </form>
-      <h2 class="text-xl font-bold mt-4 mb-4">Node Editing</h2>
-      <form>
-        <label class="block text-gray-400 py-2">Node Type:</label>
-        <select class="w-full py-2 border border-gray-700 rounded">
-          <option>Rectangle</option>
-          <option>Circle</option>
-          <option>Polygon</option>
-        </select>
-        <label class="block text-gray-400 py-2">Node Size:</label>
-        <input type="number" class="w-full py-2 border border-gray-700 rounded">
-      </form>
-    </div>
-  </div>
-
-  <!-- Bottom Status Panel -->
-  <div class="flex justify-between items-center py-2 bg-gray-800 border-t border-gray-700">
-    <p class="pl-4 text-gray-400">Notifications: None</p>
-    <p class="pr-4 text-gray-400">Progress: 0%</p>
-  </div>
-</body>
+    <div class="flex items-center">
+      <button class="mr-2 p-2 hover:bg-gray-700 rounded" title="Help">
+        <i class="fas fa-question-circle"></i>
+      </button>
+      <button class="mr-2 p-2 hover:bg-gray-700 rounded" title="Settings">
+       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Import required libraries
-import * as d3 from 'd3';
-import { fabric } from 'fabric';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist';
-import localStorage from 'redux-persist/lib/storage';
-import thunk from 'redux-thunk';
-import { v4 as uuidv4 } from 'uuid';
-
-// Define initial state
-const initialState = {
-  canvas: {
-    width: 800,
-    height: 600,
-    objects: []
-  },
-  undoHistory: [],
-  redoHistory: []
-};
-
-// Define reducers
-const canvasReducer = (state = initialState.canvas, action) => {
-  switch (action.type) {
-    case 'ADD_OBJECT':
-      return { ...state, objects: [...state.objects, action.object] };
-    case 'REMOVE_OBJECT':
-      return { ...state, objects: state.objects.filter(object => object.id !== action.id) };
-    default:
-      return state;
+// Vectra Engine
+class VectraEngine {
+  constructor(canvas, options) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.svgCanvas = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    this.svgCtx = this.svgCanvas.getContext('2d');
+    this.undoHistory = [];
+    this.redoHistory = [];
+    this.state = {
+      nodes: [],
+      layers: [],
+      properties: {}
+    };
+    this.options = options;
+    this.init();
   }
-};
 
-const undoHistoryReducer = (state = initialState.undoHistory, action) => {
-  switch (action.type) {
-    case 'ADD_UNDO':
-      return [...state, action.state];
-    case 'REMOVE_UNDO':
-      return state.slice(0, -1);
-    default:
-      return state;
+  init() {
+    this.addEventListener();
+    this.initState();
+    this.initWorkers();
   }
-};
 
-const redoHistoryReducer = (state = initialState.redoHistory, action) => {
-  switch (action.type) {
-    case 'ADD_REDO':
-      return [...state, action.state];
-    case 'REMOVE_REDO':
-      return state.slice(0, -1);
-    default:
-      return state;
+  addEventListener() {
+    this.canvas.addEventListener('click', (e) => {
+      this.handleCanvasClick(e);
+    });
+    this.canvas.addEventListener('mousemove', (e) => {
+      this.handleCanvasMouseMove(e);
+    });
+    this.canvas.addEventListener('wheel', (e) => {
+      this.handleCanvasWheel(e);
+    });
   }
-};
 
-// Combine reducers
-const rootReducer = combineReducers({
-  canvas: canvasReducer,
-  undoHistory: undoHistoryReducer,
-  redoHistory: redoHistoryReducer
+  handleCanvasClick(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientX - rect.top;
+    this.addNode(x, y);
+  }
+
+  handleCanvasMouseMove(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientX - rect.top;
+    this.updateNode(x, y);
+  }
+
+  handleCanvasWheel(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientX - rect.top;
+    this.zoomCanvas(x, y, e.deltaY);
+  }
+
+  addNode(x, y) {
+    const node = {
+      x,
+      y,
+      type: 'ellipse',
+      radius: 10,
+      fill: 'rgba(255, 0, 0, 1)'
+    };
+    this.state.nodes.push(node);
+    this.undoHistory.push(this.state);
+    this.renderCanvas();
+  }
+
+  updateNode(x, y) {
+    const node = this.state.nodes[this.state.nodes.length - 1];
+    if (node) {
+      node.x = x;
+      node.y = y;
+    }
+    this.renderCanvas();
+  }
+
+  zoomCanvas(x, y, deltaY) {
+    const scale = deltaY > 0? 1.1 : 0.9;
+    this.canvas.style.transform = `scale(${scale})`;
+    this.renderCanvas();
+  }
+
+  initState() {
+    this.state = {
+      nodes: [],
+      layers: [],
+      properties: {}
+    };
+    this.loadState();
+  }
+
+  saveState() {
+    const state = JSON.stringify(this.state);
+    localStorage.setItem('vectra-state', state);
+    this.sendStateToServer(state);
+  }
+
+  loadState() {
+    const state = localStorage.getItem('vectra-state');
+    if (state) {
+      this.state = JSON.parse(state);
+    }
+  }
+
+  sendStateToServer(state) {
+    fetch('/vectra-state', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: state
+    });
+  }
+
+  initWorkers() {
+    this.worker = new Worker('webworker.js');
+    this.worker.onmessage = (e) => {
+      this.handleWorkerMessage(e.data);
+    };
+  }
+
+  handleWorkerMessage(data) {
+    this.state = data;
+    this.renderCanvas();
+  }
+
+  renderCanvas() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.state.nodes.forEach((node) => {
+      this.ctx.beginPath();
+      this.ctx.arc(node.x, node.y, node.radius, 0, 2 * Math.PI);
+      this.ctx.fillStyle = node.fill;
+      this.ctx.fill();
+    });
+  }
+
+  exportFile(type, filename) {
+    switch (type) {
+      case 'png':
+        this.exportPng(filename);
+        break;
+      case 'svg':
+        this.exportSvg(filename);
+        break;
+      case 'json':
+        this.exportJson(filename);
+        break;
+      default:
+        console.error('Unsupported file type');
+    }
+  }
+
+  exportPng(filename) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = this.canvas.width;
+    canvas.height = this.canvas.height;
+    ctx.drawImage(this.canvas, 0, 0);
+    const dataURL = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = dataURL;
+    a.download = filename;
+    a.click();
+  }
+
+  exportSvg(filename) {
+    const svg = this.svgCanvas;
+    svg.setAttribute('width', this.canvas.width);
+    svg.setAttribute('height', this.canvas.height);
+    this.state.nodes.forEach((node) => {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', node.x);
+      circle.setAttribute('cy', node.y);
+      circle.setAttribute('r', node.radius);
+      circle.setAttribute('fill', node.fill);
+      svg.appendChild(circle);
+    });
+    const dataURL = new XMLSerializer().serializeToString(svg);
+    const a = document.createElement('a');
+    a.href = 'data:image/svg+xml,' + encodeURIComponent(dataURL);
+    a.download = filename;
+    a.click();
+  }
+
+  exportJson(filename) {
+    const data = JSON.stringify(this.state);
+    const blob = new Blob([data], {type: 'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+  }
+}
+
+// Redux Store
+class ReduxStore {
+  constructor() {
+    this.state = {
+      nodes: [],
+      layers: [],
+      properties: {}
+    };
+    this.listeners = [];
+  }
+
+  dispatch(action) {
+    switch (action.type) {
+      case 'ADD_NODE':
+        this.state.nodes.push(action.node);
+        break;
+      case 'UPDATE_NODE':
+        this.state.nodes = this.state.nodes.map((node) => {
+          if (node.id === action.node.id) {
+            return action.node;
+          }
+          return node;
+        });
+        break;
+      case 'REMOVE_NODE':
+        this.state.nodes = this.state.nodes.filter((node) => node.id!== action.node.id);
+        break;
+      default:
+        console.error('Unsupported action type');
+    }
+    this.listeners.forEach((listener) => listener(this.state));
+  }
+
+  subscribe(listener) {
+    this.listeners.push(listener);
+  }
+}
+
+// Service Worker
+class ServiceWorker {
+  constructor() {
+    this.cache = {};
+  }
+
+  handleFetch(event) {
+    const request = event.request;
+    const url = request.url;
+    if (this.cache[url]) {
+      event.respondWith(this.cache[url]);
+    } else {
+      fetch(request).then((response) => {
+        this.cache[url] = response;
+        event.respondWith(response);
+      });
+    }
+  }
+
+  handleInstall(event) {
+    event.waitUntil(caches.open('vectra-cache').then((cache) => {
+      cache.addAll([
+        'index.html',
+        'vectra.js',
+        'style.css'
+      ]);
+    }));
+  }
+
+  handleActivate(event) {
+    event.waitUntil(caches.keys().then((keys) => {
+      keys.forEach((key) => {
+        if (key!== 'vectra-cache') {
+          caches.delete(key);
+        }
+      });
+    }));
+  }
+}
+
+// Web Worker
+class WebWorker {
+  constructor() {
+    this.onmessage = (event) => {
+      switch (event.data.type) {
+        case 'COMPUTE_NODES':
+          this.computeNodes(event.data.nodes);
+          break;
+        default:
+          console.error('Unsupported message type');
+      }
+    };
+  }
+
+  computeNodes(nodes) {
+    // Perform computationally intensive tasks here
+    const result = nodes.map((node) => {
+      // Simulate computation
+      return node;
+    });
+    this.postMessage(result);
+  }
+}
+
+// Initialize Vectra Engine
+const vectraEngine = new VectraEngine(document.getElementById('canvas'), {
+  // Options
 });
 
-// Create store with persistence
-const persistConfig = {
-  key: 'vectra',
-  storage: localStorage,
-  blacklist: ['undoHistory', 'redoHistory']
-};
+// Initialize Redux Store
+const reduxStore = new ReduxStore();
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-const store = createStore(persistedReducer, applyMiddleware(thunk));
-const persistor = persistStore(store);
-
-// Initialize canvas and Fabric.js
-const canvas = new fabric.Canvas('canvas', {
-  width: 800,
-  height: 600
+// Initialize Service Worker
+navigator.serviceWorker.register('service-worker.js').then((registration) => {
+  console.log('Service worker registered');
 });
 
-// Add event listeners for canvas interactions
-canvas.on('object:added', (options) => {
-  store.dispatch({ type: 'ADD_OBJECT', object: options.target });
-});
-
-canvas.on('object:removed', (options) => {
-  store.dispatch({ type: 'REMOVE_OBJECT', id: options.target.id });
-});
-
-// Define undo/redo functionality
-const undo = () => {
-  const currentState = store.getState();
-  store.dispatch({ type: 'ADD_REDO', state: currentState });
-  const previousState = store.getState().undoHistory[store.getState().undoHistory.length - 1];
-  store.dispatch({ type: 'REMOVE_UNDO' });
-  return previousState;
-};
-
-const redo = () => {
-  const currentState = store.getState();
-  store.dispatch({ type: 'ADD_UNDO', state: currentState });
-  const nextState = store.getState().redoHistory[store.getState().redoHistory.length - 1];
-  store.dispatch({ type: 'REMOVE_REDO' });
-  return nextState;
-};
-
-// Define export logic
-const exportPNG = () => {
-  const dataURL = canvas.toDataURL({
-    format: 'png'
-  });
-  const link = document.createElement('a');
-  link.href = dataURL;
-  link.download = 'vectra-export.png';
-  link.click();
-};
-
-const exportSVG = () => {
-  const svg = canvas.toSVG();
-  const link = document.createElement('a');
-  link.href = 'data:image/svg+xml,' + encodeURIComponent(svg);
-  link.download = 'vectra-export.svg';
-  link.click();
-};
-
-const exportJSON = () => {
-  const data = store.getState();
-  const jsonData = JSON.stringify(data);
-  const link = document.createElement('a');
-  link.href = 'data:application/json,' + encodeURIComponent(jsonData);
-  link.download = 'vectra-export.json';
-  link.click();
-};
-
-// Initialize Vectra application
-const init = () => {
-  // Initialize canvas and Fabric.js
-  canvas.renderAll();
-
-  // Add event listeners for toolbar actions
-  document.getElementById('undo-button').addEventListener('click', undo);
-  document.getElementById('redo-button').addEventListener('click', redo);
-  document.getElementById('export-png-button').addEventListener('click', exportPNG);
-  document.getElementById('export-svg-button').addEventListener('click', exportSVG);
-  document.getElementById('export-json-button').addEventListener('click', exportJSON);
-};
-
-// Run initialization
-init();
+// Initialize Web Worker
+const webWorker = new WebWorker();
 </script>
 </body>
 </html>
