@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vectorium</title>
+  <title>VectorForge</title>
   <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
   <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
   <style>
@@ -16,234 +16,332 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="h-screen bg-[#090d16] text-white flex flex-col">
+<div class="flex h-screen bg-gray-900 text-gray-100" id="vector-forge-app">
   <!-- Top Toolbar -->
-  <div class="flex justify-between items-center p-4 border-b border-gray-600">
+  <nav class="flex justify-between items-center py-2 bg-gray-800 text-gray-200 border-b border-gray-700">
     <div class="flex items-center">
-      <i class="fas fa-undo fa-lg mr-4 cursor-pointer"></i>
-      <i class="fas fa-redo fa-lg mr-4 cursor-pointer"></i>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded mr-4">New</button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded mr-4">Open</button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded mr-4">Save</button>
+      <a href="#" class="text-lg font-bold mr-2">VectorForge</a>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
+        <i class="fas fa-file fa-sm mr-1"></i> New
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
+        <i class="fas fa-folder fa-sm mr-1"></i> Open
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
+        <i class="fas fa-save fa-sm mr-1"></i> Save
+      </button>
     </div>
     <div class="flex items-center">
-      <span class="text-lg font-bold mr-4">Vectorium</span>
-      <i class="fas fa-cog fa-lg mr-4 cursor-pointer"></i>
-      <i class="fas fa-question-circle fa-lg cursor-pointer"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
+        <i class="fas fa-undo fa-sm mr-1"></i> Undo
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
+        <i class="fas fa-redo fa-sm mr-1"></i> Redo
+      </button>
     </div>
+  </nav>
+
+  <!-- Main Workspace -->
+  <div class="flex flex-1 h-screen">
+    <!-- Left Sidebar -->
+    <aside class="w-64 bg-gray-800 p-4 border-r border-gray-700">
+      <h2 class="text-lg font-bold mb-2">Layers</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-700">
+          <a href="#" class="text-gray-200 hover:text-gray-100">
+            <i class="fas fa-layer-group fa-sm mr-1"></i> Layer 1
+          </a>
+        </li>
+        <li class="py-2 border-b border-gray-700">
+          <a href="#" class="text-gray-200 hover:text-gray-100">
+            <i class="fas fa-layer-group fa-sm mr-1"></i> Layer 2
+          </a>
+        </li>
+      </ul>
+      <h2 class="text-lg font-bold mt-4 mb-2">Node Editing</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-700">
+          <a href="#" class="text-gray-200 hover:text-gray-100">
+            <i class="fas fa-pencil-alt fa-sm mr-1"></i> Edit Node
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Viewport -->
+    <main class="flex-1 h-screen p-4">
+      <div class="h-full w-full" id="canvas-renderer">
+        <!-- Canvas rendering area -->
+      </div>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="w-64 bg-gray-800 p-4 border-l border-gray-700">
+      <h2 class="text-lg font-bold mb-2">Properties</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-700">
+          <a href="#" class="text-gray-200 hover:text-gray-100">
+            <i class="fas fa-cog fa-sm mr-1"></i> Object Properties
+          </a>
+        </li>
+      </ul>
+      <h2 class="text-lg font-bold mt-4 mb-2">Attributes</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-700">
+          <a href="#" class="text-gray-200 hover:text-gray-100">
+            <i class="fas fa-tag fa-sm mr-1"></i> Add Attribute
+          </a>
+        </li>
+      </ul>
+    </aside>
   </div>
 
-  <!-- Left Sidebar -->
-  <div class="flex flex-grow flex-col h-screen">
-    <div class="w-
+  <!-- Bottom Status Panel -->
+  <div class="bg-gray-800 text-gray-200 p-2 border-t border-gray-700">
+    <div class="flex justify-between items-center">
+      <span>Status: Ready</span>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
+        <i class="fas fa-sync fa-sm mr-1"></i> Sync
+      </button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Vectorium Engine
-class VectoriumEngine {
+// VectorForge Engine
+class VectorForge {
   constructor() {
     this.state = {
-      layers: [],
-      selectedLayer: null,
+      nodes: [],
+      selectedNode: null,
       undoHistory: [],
       redoHistory: []
     };
+
     this.canvas = document.getElementById('canvas');
     this.ctx = this.canvas.getContext('2d');
-    this.svg = document.getElementById('svg');
+    this.svg = SVG(this.canvas);
+
     this.toolbar = document.getElementById('toolbar');
-    this.sidebar = document.getElementById('sidebar');
+    this.layersSidebar = document.getElementById('layers-sidebar');
+    this.propertiesSidebar = document.getElementById('properties-sidebar');
     this.statusPanel = document.getElementById('status-panel');
 
-    // Initialize event listeners
+    this.initEventListeners();
+    this.initStateManagement();
+    this.initCoreEngine();
+  }
+
+  initEventListeners() {
     this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
-    this.canvas.addEventListener('mousedown', (e) => this.handleCanvasMouseDown(e));
     this.canvas.addEventListener('mousemove', (e) => this.handleCanvasMouseMove(e));
+    this.canvas.addEventListener('mousedown', (e) => this.handleCanvasMouseDown(e));
     this.canvas.addEventListener('mouseup', (e) => this.handleCanvasMouseUp(e));
+
     this.toolbar.addEventListener('click', (e) => this.handleToolbarClick(e));
-    this.sidebar.addEventListener('click', (e) => this.handleSidebarClick(e));
+    this.layersSidebar.addEventListener('click', (e) => this.handleLayersSidebarClick(e));
+    this.propertiesSidebar.addEventListener('click', (e) => this.handlePropertiesSidebarClick(e));
+  }
 
-    // Initialize state management
-    this.stateStore = new StateStore(this.state);
-    this.stateStore.loadState();
+  initStateManagement() {
+    this.stateStore = Redux.createStore((state = this.state, action) => {
+      switch (action.type) {
+        case 'ADD_NODE':
+          return { ...state, nodes: [...state.nodes, action.node] };
+        case 'SELECT_NODE':
+          return { ...state, selectedNode: action.node };
+        case 'UNDO':
+          return { ...state, undoHistory: [...state.undoHistory, state] };
+        case 'REDO':
+          return { ...state, redoHistory: [...state.redoHistory, state] };
+        default:
+          return state;
+      }
+    });
 
-    // Initialize SVG parsing and rendering engine
-    this.svgEngine = new SvgEngine(this.svg, this.ctx);
+    this.stateStore.subscribe(() => {
+      this.saveStateToLocalStorage();
+    });
 
-    // Initialize export engines
-    this.pngExportEngine = new PngExportEngine(this.canvas);
-    this.svgExportEngine = new SvgExportEngine(this.svg);
-    this.jsonExportEngine = new JsonExportEngine(this.state);
+    this.loadStateFromLocalStorage();
+  }
+
+  initCoreEngine() {
+    this.formulaEngine = new FormulaEngine();
+    this.fabric = new Fabric(this.canvas);
+
+    this.exportOptions = {
+      png: () => this.exportAsPng(),
+      svg: () => this.exportAsSvg(),
+      json: () => this.exportAsJson(),
+      pdf: () => this.exportAsPdf()
+    };
   }
 
   handleCanvasClick(e) {
-    const x = e.clientX - this.canvas.offsetLeft;
-    const y = e.clientY - this.canvas.offsetTop;
-    this.svgEngine.handleCanvasClick(x, y);
-  }
-
-  handleCanvasMouseDown(e) {
-    const x = e.clientX - this.canvas.offsetLeft;
-    const y = e.clientY - this.canvas.offsetTop;
-    this.svgEngine.handleCanvasMouseDown(x, y);
+    const node = this.getNodeAtPosition(e.clientX, e.clientY);
+    if (node) {
+      this.stateStore.dispatch({ type: 'SELECT_NODE', node });
+    }
   }
 
   handleCanvasMouseMove(e) {
-    const x = e.clientX - this.canvas.offsetLeft;
-    const y = e.clientY - this.canvas.offsetTop;
-    this.svgEngine.handleCanvasMouseMove(x, y);
+    const node = this.getNodeAtPosition(e.clientX, e.clientY);
+    if (node) {
+      this.stateStore.dispatch({ type: 'SELECT_NODE', node });
+    }
+  }
+
+  handleCanvasMouseDown(e) {
+    const node = this.getNodeAtPosition(e.clientX, e.clientY);
+    if (node) {
+      this.stateStore.dispatch({ type: 'SELECT_NODE', node });
+    }
   }
 
   handleCanvasMouseUp(e) {
-    const x = e.clientX - this.canvas.offsetLeft;
-    const y = e.clientY - this.canvas.offsetTop;
-    this.svgEngine.handleCanvasMouseUp(x, y);
+    const node = this.getNodeAtPosition(e.clientX, e.clientY);
+    if (node) {
+      this.stateStore.dispatch({ type: 'SELECT_NODE', node });
+    }
   }
 
   handleToolbarClick(e) {
-    const target = e.target;
-    if (target.id === 'undo-button') {
-      this.stateStore.undo();
-    } else if (target.id === 'redo-button') {
-      this.stateStore.redo();
-    } else if (target.id === 'save-button') {
-      this.stateStore.saveState();
-    } else if (target.id === 'export-button') {
-      this.exportFile();
+    switch (e.target.id) {
+      case 'add-node':
+        this.addNode();
+        break;
+      case 'undo':
+        this.undo();
+        break;
+      case 'redo':
+        this.redo();
+        break;
+      default:
+        break;
     }
   }
 
-  handleSidebarClick(e) {
-    const target = e.target;
-    if (target.id === 'layer-button') {
-      this.stateStore.toggleLayer(target.dataset.layerId);
+  handleLayersSidebarClick(e) {
+    const layer = e.target.dataset.layer;
+    if (layer) {
+      this.selectLayer(layer);
     }
   }
 
-  exportFile() {
-    const exportType = document.getElementById('export-type').value;
-    if (exportType === 'png') {
-      this.pngExportEngine.exportFile();
-    } else if (exportType === 'svg') {
-      this.svgExportEngine.exportFile();
-    } else if (exportType === 'json') {
-      this.jsonExportEngine.exportFile();
-    }
-  }
-}
-
-class StateStore {
-  constructor(state) {
-    this.state = state;
-    this.undoHistory = [];
-    this.redoHistory = [];
-  }
-
-  loadState() {
-    const storedState = localStorage.getItem('vectorium-state');
-    if (storedState) {
-      this.state = JSON.parse(storedState);
+  handlePropertiesSidebarClick(e) {
+    const property = e.target.dataset.property;
+    if (property) {
+      this.editProperty(property);
     }
   }
 
-  saveState() {
-    localStorage.setItem('vectorium-state', JSON.stringify(this.state));
+  addNode() {
+    const node = this.formulaEngine.createNode();
+    this.stateStore.dispatch({ type: 'ADD_NODE', node });
   }
 
   undo() {
-    if (this.undoHistory.length > 0) {
-      const previousState = this.undoHistory.pop();
-      this.state = previousState;
-      this.redoHistory.push(JSON.parse(JSON.stringify(this.state)));
+    const previousState = this.stateStore.getState().undoHistory.pop();
+    if (previousState) {
+      this.stateStore.dispatch({ type: 'REDO', state: previousState });
     }
   }
 
   redo() {
-    if (this.redoHistory.length > 0) {
-      const nextState = this.redoHistory.pop();
-      this.state = nextState;
-      this.undoHistory.push(JSON.parse(JSON.stringify(this.state)));
+    const nextState = this.stateStore.getState().redoHistory.pop();
+    if (nextState) {
+      this.stateStore.dispatch({ type: 'UNDO', state: nextState });
     }
   }
 
-  toggleLayer(layerId) {
-    const layer = this.state.layers.find((layer) => layer.id === layerId);
-    if (layer) {
-      layer.visible =!layer.visible;
-      this.saveState();
+  selectLayer(layer) {
+    this.stateStore.dispatch({ type: 'SELECT_LAYER', layer });
+  }
+
+  editProperty(property) {
+    this.stateStore.dispatch({ type: 'EDIT_PROPERTY', property });
+  }
+
+  getNodeAtPosition(x, y) {
+    const nodes = this.stateStore.getState().nodes;
+    for (const node of nodes) {
+      if (node.x <= x && node.x + node.width >= x && node.y <= y && node.y + node.height >= y) {
+        return node;
+      }
+    }
+    return null;
+  }
+
+  saveStateToLocalStorage() {
+    const state = this.stateStore.getState();
+    localStorage.setItem('vector-forge-state', JSON.stringify(state));
+  }
+
+  loadStateFromLocalStorage() {
+    const storedState = localStorage.getItem('vector-forge-state');
+    if (storedState) {
+      this.stateStore.dispatch({ type: 'LOAD_STATE', state: JSON.parse(storedState) });
     }
   }
+
+  exportAsPng() {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const png = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = png;
+    a.download = 'vector-forge-export.png';
+    a.click();
+  }
+
+  exportAsSvg() {
+    const svg = this.svg.svg();
+    const svgString = svg.outerHTML;
+    const a = document.createElement('a');
+    a.href = 'data:image/svg+xml,' + encodeURIComponent(svgString);
+    a.download = 'vector-forge-export.svg';
+    a.click();
+  }
+
+  exportAsJson() {
+    const state = this.stateStore.getState();
+    const json = JSON.stringify(state);
+    const a = document.createElement('a');
+    a.href = 'data:application/json,' + encodeURIComponent(json);
+    a.download = 'vector-forge-export.json';
+    a.click();
+  }
+
+  exportAsPdf() {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const pdf = new jsPDF();
+    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, canvas.width, canvas.height);
+    pdf.save('vector-forge-export.pdf');
+  }
 }
 
-class SvgEngine {
-  constructor(svg, ctx) {
-    this.svg = svg;
-    this.ctx = ctx;
-  }
-
-  handleCanvasClick(x, y) {
-    // Handle canvas click event
-  }
-
-  handleCanvasMouseDown(x, y) {
-    // Handle canvas mouse down event
-  }
-
-  handleCanvasMouseMove(x, y) {
-    // Handle canvas mouse move event
-  }
-
-  handleCanvasMouseUp(x, y) {
-    // Handle canvas mouse up event
+class FormulaEngine {
+  createNode() {
+    return {
+      x: 0,
+      y: 0,
+      width: 100,
+      height: 100,
+      type: 'rectangle'
+    };
   }
 }
 
-class PngExportEngine {
+class Fabric {
   constructor(canvas) {
     this.canvas = canvas;
   }
-
-  exportFile() {
-    const dataUrl = this.canvas.toDataURL('image/png');
-    const a = document.createElement('a');
-    a.href = dataUrl;
-    a.download = 'vectorium.png';
-    a.click();
-  }
 }
 
-class SvgExportEngine {
-  constructor(svg) {
-    this.svg = svg;
-  }
-
-  exportFile() {
-    const xmlSerializer = new XMLSerializer();
-    const svgXml = xmlSerializer.serializeToString(this.svg);
-    const blob = new Blob([svgXml], { type: 'image/svg+xml' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'vectorium.svg';
-    a.click();
-  }
-}
-
-class JsonExportEngine {
-  constructor(state) {
-    this.state = state;
-  }
-
-  exportFile() {
-    const json = JSON.stringify(this.state);
-    const blob = new Blob([json], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'vectorium.json';
-    a.click();
-  }
-}
-
-const vectoriumEngine = new VectoriumEngine();
+const VectorForgeApp = new VectorForge();
 </script>
 </body>
 </html>
