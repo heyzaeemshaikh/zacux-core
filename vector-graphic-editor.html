@@ -16,277 +16,346 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<div class="flex h-screen flex-col bg-gray-900 text-gray-200" style="background-color: #090d16;">
+<body class="h-screen bg-gray-900 text-gray-200 flex flex-col">
   <!-- Top Toolbar -->
-  <nav class="flex justify-between bg-gray-800 p-2 text-lg">
+  <div class="flex justify-between items-center py-2 bg-gray-800 border-b border-gray-700">
     <div class="flex items-center">
-      <i class="fas fa-vector-square mr-2"></i>
-      <span>Vectra</span>
+      <h1 class="text-lg font-bold ml-4">Vectra</h1>
+      <a href="#" class="text-gray-200 hover:text-white ml-4">File</a>
+      <a href="#" class="text-gray-200 hover:text-white ml-4">Edit</a>
+      <a href="#" class="text-gray-200 hover:text-white ml-4">View</a>
     </div>
-    <div class="flex items-center space-x-4">
-      <button class="rounded px-2 py-1 hover:bg-gray-700" title="New File">
-        <i class="fas fa-file"></i>
+    <div class="flex items-center">
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+        <i class="fas fa-undo fa-lg text-gray-200"></i>
       </button>
-      <button class="rounded px-2 py-1 hover:bg-gray-700" title="Open File">
-        <i class="fas fa-folder-open"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+        <i class="fas fa-redo fa-lg text-gray-200"></i>
       </button>
-      <button class="rounded px-2 py-1 hover:bg-gray-700" title="Save File">
-        <i class="fas fa-save"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-4">
+        <i class="fas fa-save fa-lg text-gray-200"></i>
       </button>
-      <button class="rounded px-2 py-1 hover:bg-gray-700" title="Undo">
-        <i class="fas fa-undo"></i>
-      </button>
-      <button class="rounded px-2 py-1 hover:bg-gray-700" title="Redo">
-        <i class="fas fa-redo"></i>
-      </button>
-    </div>
-    <div class="flex items-center space-x-4">
-      <button class="rounded px-2 py-1 hover:bg-gray-700" title="Export as PNG">
-        <i class="fas fa-file-image"></i>
-      </button>
-      <button class="rounded px-2 py-1 hover:bg-gray-700" title="Export as JPEG">
-        <i class="fas fa-file-image"></i>
-      </button>
-      <button class="rounded px-2 py-1 hover:bg-gray-700" title="Export as SVG">
-        <i class="fas fa-file-code"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2" id="theme-toggle">
+        <i class="fas fa-moon fa-lg text-gray-200"></i>
       </button>
     </div>
-  </nav>
+  </div>
 
-  <!-- Left Sidebar -->
-  <div class="flex flex-grow flex-col">
-    <div class="flex flex-shrink-0 flex-col p-2 text-lg" style="width: 200px; background-color: #0a0f1d;">
-      <button class="rounded px-2 py-1 hover:bg-gray-700 mb-2" title="Layers">
-        <i class="fas fa-layer-group"></i>
-      </button>
-      <button class="rounded px-2 py-1 hover:bg-gray-700 mb-2" title="Node Management">
-        <i class="fas fa-sitemap"></i>
-      </button>
-      <button class="rounded px-2 py-1 hover:bg-gray-700 mb-2" title="Settings">
-        <i class="fas fa-cog"></i>
-      </button>
-    </div>
+  <!-- Left Sidebar (Layer Management) -->
+  <div class="hidden md:flex md:w-64 xl:w-80 p-4 flex-col bg-gray-800 border-r border-gray-700 h-screen">
+    <h2 class="text-lg font-bold mb-2">Layers</h2>
+    <ul>
+      <li class="py-2 border-b border-gray-700">
+        <a href="#" class="text-gray-200 hover:text-white flex items-center">
+          <i class="fas fa-layer-group fa-lg mr-2"></i>
+          Layer 1
+        </a>
+      </li>
+      <li class="py-2 border-b border-gray-700">
+        <a href="#" class="text-gray-200 hover:text-white flex items-center">
+          <i class="fas fa-layer-group fa-lg mr-2"></i>
+          Layer 2
+        </a>
+      </li>
+      <li class="py-2 border-b border-gray-700">
+        <a href="#" class="text-gray-200 hover:text-white flex items-center">
+          <i class="fas fa-layer-group fa-lg mr-2"></i>
+          Layer 3
+        </a>
+      </li>
+    </ul>
+    <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mt-4 w-full">
+      <i class="fas fa-plus fa-lg text-gray-200 mr-2"></i>
+      New Layer
+    </button>
+  </div>
 
-    <!-- Central Viewport -->
-    <div class="flex flex-grow overflow-hidden">
-      <div class="flex flex-grow overflow-auto p-2" style="background-color: #0a0f1d;">
-        <svg class="w-full h-full" id="graphic-editor"></svg>
-      </div>
-    </div>
+  <!-- Central Canvas Viewport -->
+  <div class="flex-1 flex justify-center items-center overflow-hidden">
+    <svg id="canvas" class="w-full h-full" width="100%" height="100%"></svg>
+  </div>
+
+  <!-- Right Sidebar (Properties and Node Editing Tools) -->
+  <div class="hidden md:flex md:w-64 xl:w-80 p-4 flex-col bg-gray-800 border-l border-gray-700 h-screen">
+    <h2 class="text-lg font-bold mb-2">Properties</h2>
+    <form>
+      <label class="block text-gray-200 text-sm mb-2" for="node-name">Node Name:</label>
+      <input type="text" id="node-name" class="bg-gray-700 text-gray-200 py-2 px-4 rounded w-full mb-2">
+      <label class="block text-gray-200 text-sm mb-2" for="node-x">X:</label>
+      <input type="number" id="node-x" class="bg-gray-700 text-gray-200 py-2 px-4 rounded w-full mb-2">
+      <label class="block text-gray-200 text-sm mb-2" for="node-y">Y:</label>
+      <input type="number" id="node-y" class="bg-gray-700 text-gray-200 py-2 px-4 rounded w-full mb-2">
+    </form>
+    <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mt-4 w-full">
+      <i class="fas fa-edit fa-lg text-gray-200 mr-2"></i>
+      Edit Node
+    </button>
   </div>
 
   <!-- Bottom Status Panel -->
-  <div class="flex flex-shrink-0 flex-col p-2 text-lg" style="height: 40px; background-color: #0a0f1d;">
-    <div class="flex items-center space-x-4 text-sm">
-      <span>Zoom: 100%</span>
-      <span>Nodes: 0</span>
-      <span>Layers: 0</span>
-    </div>
+  <div class="flex justify-between items-center py-2 bg-gray-800 border-t border-gray-700">
+    <p class="text-gray-200 ml-4">Zoom: 100% | Selected Node: None</p>
+    <p class="text-gray-200 mr-4">Vectra - Vector Graphic Editor</p>
   </div>
-
-  <!-- Floating Side Panels -->
-  <div class="fixed right-0 bottom-0 mb-4 mr-4">
-    <div class="flex flex-col space-y-2">
-      <button class="rounded px-2 py-1 hover:bg-gray-700" title="Tool Options">
-        <i class="fas fa-wrench"></i>
-      </button>
-      <button class="rounded px-2 py-1 hover:bg-gray-700" title="Help">
-        <i class="fas fa-question-circle"></i>
-      </button>
-    </div>
-  </div>
-</div>
+</body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-class VectraEngine {
+// Import required libraries
+const fs = require('fs');
+const { createCanvas } = require('canvas');
+
+// Initialize the application
+class Vectra {
   constructor() {
-    this.initStateStore();
-    this.initUI();
-    this.initEventListener();
-    this.initSVGParser();
-    this.initExportEngine();
-  }
-
-  initStateStore() {
-    this.stateStore = {
-      UndoStack: [],
-      RedoStack: [],
-      LocalStorageKey: 'VectraState',
-      GetState: () => {
-        const state = localStorage.getItem(this.stateStore.LocalStorageKey);
-        return state? JSON.parse(state) : { nodes: [], layers: [] };
-      },
-      SaveState: (state) => {
-        localStorage.setItem(this.stateStore.LocalStorageKey, JSON.stringify(state));
-      },
-      SnapshotState: () => {
-        const currentState = this.stateStore.GetState();
-        this.stateStore.UndoStack.push(currentState);
-      },
-      Undo: () => {
-        if (this.stateStore.UndoStack.length > 0) {
-          const previousState = this.stateStore.UndoStack.pop();
-          this.stateStore.RedoStack.push(this.stateStore.GetState());
-          this.stateStore.SaveState(previousState);
-        }
-      },
-      Redo: () => {
-        if (this.stateStore.RedoStack.length > 0) {
-          const nextState = this.stateStore.RedoStack.pop();
-          this.stateStore.UndoStack.push(this.stateStore.GetState());
-          this.stateStore.SaveState(nextState);
-        }
-      },
+    this.state = {
+      nodes: [],
+      selectedNode: null,
+      undoHistory: [],
+      redoHistory: []
     };
-
-    this.stateStore.SnapshotState();
-  }
-
-  initUI() {
+    this.localStorage = window.localStorage;
+    this.canvas = document.getElementById('canvas');
+    this.ctx = this.canvas.getContext('2d');
     this.toolbar = document.getElementById('toolbar');
-    this.layersPanel = document.getElementById('layers-panel');
-    this.viewport = document.getElementById('viewport');
+    this.layerManagement = document.getElementById('layer-management');
+    this.propertiesPanel = document.getElementById('properties-panel');
+    this.nodeEditingTools = document.getElementById('node-editing-tools');
     this.statusPanel = document.getElementById('status-panel');
+    this.initEventListeners();
+    this.initState();
   }
 
-  initEventListener() {
-    this.viewport.addEventListener('click', (event) => {
-      const node = this.getNodeUnderMouse(event.clientX, event.clientY);
-      if (node) {
-        this.selectNode(node);
-      }
-    });
-
-    this.viewport.addEventListener('mousemove', (event) => {
-      this.updateNodePosition(event.clientX, event.clientY);
-    });
-
-    this.viewport.addEventListener('contextmenu', (event) => {
-      event.preventDefault();
-      this.showContextMenu(event.clientX, event.clientY);
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'z' && event.ctrlKey) {
-        this.stateStore.Undo();
-      } else if (event.key === 'y' && event.ctrlKey) {
-        this.stateStore.Redo();
-      }
-    });
+  // Initialize event listeners
+  initEventListeners() {
+    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
+    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
+    this.toolbar.addEventListener('click', (e) => this.handleToolbarClick(e));
+    this.layerManagement.addEventListener('click', (e) => this.handleLayerManagementClick(e));
+    this.propertiesPanel.addEventListener('click', (e) => this.handlePropertiesPanelClick(e));
+    this.nodeEditingTools.addEventListener('click', (e) => this.handleNodeEditingToolsClick(e));
   }
 
-  initSVGParser() {
-    this.svgParser = {
-      Parse: (svgString) => {
-        const parser = new DOMParser();
-        const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
-        return svgDoc.documentElement;
-      },
-    };
+  // Initialize state
+  initState() {
+    const storedState = this.localStorage.getItem('vectra-state');
+    if (storedState) {
+      this.state = JSON.parse(storedState);
+    }
+    this.renderCanvas();
   }
 
-  initExportEngine() {
-    this.exportEngine = {
-      ExportPNG: (canvas) => {
-        const PNGEncoder = new PNGEncoder();
-        const pngData = PNGEncoder.encode(canvas);
-        const blob = new Blob([pngData], { type: 'image/png' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'image.png';
-        a.click();
-      },
-      ExportSVG: (svgString) => {
-        const blob = new Blob([svgString], { type: 'image/svg+xml' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'image.svg';
-        a.click();
-      },
-      ExportJSON: (nodes) => {
-        const json = JSON.stringify(nodes);
-        const blob = new Blob([json], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'nodes.json';
-        a.click();
-      },
-    };
+  // Handle mouse down event
+  handleMouseDown(e) {
+    const node = this.getNodeAtPosition(e.clientX, e.clientY);
+    if (node) {
+      this.state.selectedNode = node;
+      this.renderCanvas();
+    }
   }
 
-  getNodeUnderMouse(x, y) {
-    const nodes = this.stateStore.GetState().nodes;
-    for (const node of nodes) {
-      if (node.x <= x && x <= node.x + node.width && node.y <= y && y <= node.y + node.height) {
+  // Handle mouse move event
+  handleMouseMove(e) {
+    if (this.state.selectedNode) {
+      this.state.selectedNode.x = e.clientX;
+      this.state.selectedNode.y = e.clientY;
+      this.renderCanvas();
+    }
+  }
+
+  // Handle mouse up event
+  handleMouseUp(e) {
+    this.state.selectedNode = null;
+    this.renderCanvas();
+  }
+
+  // Handle toolbar click event
+  handleToolbarClick(e) {
+    const target = e.target;
+    if (target.id === 'undo-button') {
+      this.undo();
+    } else if (target.id === 'redo-button') {
+      this.redo();
+    } else if (target.id === 'save-button') {
+      this.save();
+    } else if (target.id === 'export-button') {
+      this.export();
+    }
+  }
+
+  // Handle layer management click event
+  handleLayerManagementClick(e) {
+    const target = e.target;
+    if (target.id === 'add-layer-button') {
+      this.addLayer();
+    } else if (target.id === 'remove-layer-button') {
+      this.removeLayer();
+    }
+  }
+
+  // Handle properties panel click event
+  handlePropertiesPanelClick(e) {
+    const target = e.target;
+    if (target.id === 'node-properties-button') {
+      this.showNodeProperties();
+    }
+  }
+
+  // Handle node editing tools click event
+  handleNodeEditingToolsClick(e) {
+    const target = e.target;
+    if (target.id === 'node-editing-tools-button') {
+      this.showNodeEditingTools();
+    }
+  }
+
+  // Get node at position
+  getNodeAtPosition(x, y) {
+    for (const node of this.state.nodes) {
+      if (node.x <= x && node.x + node.width >= x && node.y <= y && node.y + node.height >= y) {
         return node;
       }
     }
     return null;
   }
 
-  selectNode(node) {
-    this.stateStore.SnapshotState();
-    node.selected = true;
-    this.stateStore.SaveState(this.stateStore.GetState());
-    this.updateUI();
-  }
-
-  updateNodePosition(x, y) {
-    const nodes = this.stateStore.GetState().nodes;
-    for (const node of nodes) {
-      if (node.selected) {
-        node.x = x - node.width / 2;
-        node.y = y - node.height / 2;
-        this.stateStore.SnapshotState();
-        this.stateStore.SaveState(this.stateStore.GetState());
-        this.updateUI();
-      }
+  // Render canvas
+  renderCanvas() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    for (const node of this.state.nodes) {
+      this.ctx.fillStyle = node.color;
+      this.ctx.fillRect(node.x, node.y, node.width, node.height);
+    }
+    this.ctx.fillStyle = 'black';
+    this.ctx.font = '12px Arial';
+    this.ctx.textAlign = 'left';
+    this.ctx.textBaseline = 'top';
+    for (const node of this.state.nodes) {
+      this.ctx.fillText(node.text, node.x, node.y);
     }
   }
 
-  showContextMenu(x, y) {
-    const contextMenu = document.getElementById('context-menu');
-    contextMenu.style.left = `${x}px`;
-    contextMenu.style.top = `${y}px`;
-    contextMenu.style.display = 'block';
+  // Undo
+  undo() {
+    if (this.state.undoHistory.length > 0) {
+      const previousState = this.state.undoHistory.pop();
+      this.state = previousState;
+      this.renderCanvas();
+    }
   }
 
-  updateUI() {
-    this.viewport.innerHTML = '';
-    const nodes = this.stateStore.GetState().nodes;
-    for (const node of nodes) {
-      const nodeElement = document.createElement('div');
-      nodeElement.style.left = `${node.x}px`;
-      nodeElement.style.top = `${node.y}px`;
-      nodeElement.style.width = `${node.width}px`;
-      nodeElement.style.height = `${node.height}px`;
-      nodeElement.style.border = '1px solid #ccc';
-      this.viewport.appendChild(nodeElement);
+  // Redo
+  redo() {
+    if (this.state.redoHistory.length > 0) {
+      const nextState = this.state.redoHistory.pop();
+      this.state = nextState;
+      this.renderCanvas();
+    }
+  }
+
+  // Save
+  save() {
+    this.localStorage.setItem('vectra-state', JSON.stringify(this.state));
+  }
+
+  // Export
+  export() {
+    const exportType = document.getElementById('export-type').value;
+    if (exportType === 'png') {
+      this.exportPng();
+    } else if (exportType === 'svg') {
+      this.exportSvg();
+    } else if (exportType === 'json') {
+      this.exportJson();
+    }
+  }
+
+  // Export PNG
+  exportPng() {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const pngStream = canvas.toDataURL('image/png').split(',')[1];
+    const blob = new Blob([pngStream], { type: 'image/png' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'vectra.png';
+    a.click();
+  }
+
+  // Export SVG
+  exportSvg() {
+    const svg = document.getElementById('svg');
+    const svgXml = new XMLSerializer().serializeToString(svg);
+    const blob = new Blob([svgXml], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'vectra.svg';
+    a.click();
+  }
+
+  // Export JSON
+  exportJson() {
+    const json = JSON.stringify(this.state);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'vectra.json';
+    a.click();
+  }
+
+  // Add layer
+  addLayer() {
+    const layer = {
+      id: Date.now(),
+      name: 'New Layer',
+      nodes: []
+    };
+    this.state.layers.push(layer);
+    this.renderCanvas();
+  }
+
+  // Remove layer
+  removeLayer() {
+    const layerId = document.getElementById('layer-id').value;
+    const layerIndex = this.state.layers.findIndex((layer) => layer.id === layerId);
+    if (layerIndex !== -1) {
+      this.state.layers.splice(layerIndex, 1);
+      this.renderCanvas();
+    }
+  }
+
+  // Show node properties
+  showNodeProperties() {
+    const nodeId = document.getElementById('node-id').value;
+    const node = this.state.nodes.find((node) => node.id === nodeId);
+    if (node) {
+      document.getElementById('node-properties').innerHTML = `
+        <p>Node ID: ${node.id}</p>
+        <p>Node Name: ${node.name}</p>
+        <p>Node Type: ${node.type}</p>
+      `;
+    }
+  }
+
+  // Show node editing tools
+  showNodeEditingTools() {
+    const nodeId = document.getElementById('node-id').value;
+    const node = this.state.nodes.find((node) => node.id === nodeId);
+    if (node) {
+      document.getElementById('node-editing-tools').innerHTML = `
+        <button id="edit-node-button">Edit Node</button>
+        <button id="delete-node-button">Delete Node</button>
+      `;
     }
   }
 }
 
-class PNGEncoder {
-  encode(canvas) {
-    const pngData = [];
-    for (let y = 0; y < canvas.height; y++) {
-      for (let x = 0; x < canvas.width; x++) {
-        const pixel = canvas.getContext('2d').getImageData(x, y, 1, 1).data;
-        pngData.push(pixel[0]);
-        pngData.push(pixel[1]);
-        pngData.push(pixel[2]);
-        pngData.push(pixel[3]);
-      }
-    }
-    return new Uint8Array(pngData);
-  }
-}
-
-const vectraEngine = new VectraEngine();
+// Initialize the application
+const vectra = new Vectra();
 </script>
 </body>
 </html>
