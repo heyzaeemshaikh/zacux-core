@@ -17,376 +17,381 @@
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
 <body class="bg-gray-900 text-gray-100 h-screen">
-  <!-- Top Toolbar -->
-  <nav class="flex justify-between bg-gray-800 p-4 fixed top-0 left-0 right-0 z-10">
-    <div class="flex items-center">
-      <i class="fas fa-tasks text-lg mr-2"></i>
-      <span class="text-lg font-bold">KanbanFlow</span>
-    </div>
-    <div class="flex items-center">
+  <!-- Toolbar -->
+  <header class="flex justify-between items-center py-4 bg-gray-800 border-b border-gray-700">
+    <h1 class="text-2xl font-bold ml-4">KanbanFlow</h1>
+    <div class="flex items-center mr-4">
       <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md mr-2">
-        <i class="fas fa-cog"></i>
+        <i class="fas fa-sync-alt text-gray-100"></i>
       </button>
       <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md mr-2">
-        <i class="fas fa-user"></i>
+        <i class="fas fa-cog text-gray-100"></i>
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md">
-        <i class="fas fa-sign-out-alt"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md mr-2">
+        <i class="fas fa-question-circle text-gray-100"></i>
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md mr-2">
+        <i class="fas fa-user-circle text-gray-100"></i>
       </button>
     </div>
-  </nav>
+  </header>
 
   <!-- Left Sidebar -->
-  <aside class="fixed left-0 top-14 bottom-14 w-64 bg-gray-800 p-4 z-10">
-    <h2 class="text-lg font-bold mb-4">Boards</h2>
+  <aside class="w-64 bg-gray-800 h-screen p-4 border-r border-gray-700 fixed top-0 left-0 bottom-0">
+    <h2 class="text-xl font-bold mb-4">Boards</h2>
     <ul>
-      <li class="py-2 hover:bg-gray-700 rounded-md">
-        <i class="fas fa-board mr-2"></i>
-        Board 1
+      <li class="py-2">
+        <a href="#" class="text-gray-100 hover:text-gray-200">
+          <i class="fas fa-board text-gray-100 mr-2"></i>
+          Board 1
+        </a>
       </li>
-      <li class="py-2 hover:bg-gray-700 rounded-md">
-        <i class="fas fa-board mr-2"></i>
-        Board 2
+      <li class="py-2">
+        <a href="#" class="text-gray-100 hover:text-gray-200">
+          <i class="fas fa-board text-gray-100 mr-2"></i>
+          Board 2
+        </a>
       </li>
-      <li class="py-2 hover:bg-gray-700 rounded-md">
-        <i class="fas fa-board mr-2"></i>
-        Board 3
-      </li>
-    </ul>
-    <h2 class="text-lg font-bold mt-4 mb-4">Lists</h2>
-    <ul>
-      <li class="py-2 hover:bg-gray-700 rounded-md">
-        <i class="fas fa-list mr-2"></i>
-        List 1
-      </li>
-      <li class="py-2 hover:bg-gray-700 rounded-md">
-        <i class="fas fa-list mr-2"></i>
-        List 2
-      </li>
-      <li class="py-2 hover:bg-gray-700 rounded-md">
-        <i class="fas fa-list mr-2"></i>
-        List 3
+      <li class="py-2">
+        <a href="#" class="text-gray-100 hover:text-gray-200">
+          <i class="fas fa-board text-gray-100 mr-2"></i>
+          Board 3
+        </a>
       </li>
     </ul>
   </aside>
 
   <!-- Main Viewport -->
-  <main class="ml-64 p-4 pt-14">
+  <main class="ml-64 p-4 h-screen overflow-y-auto">
     <div class="grid grid-cols-3 gap-4">
       <div class="bg-gray-700 p-4 rounded-md">
-        <h2 class="text-lg font-bold mb-4">To-Do</h2>
-        <ul class="drag-zone">
-          <li class="bg-gray-600 p-4 mb-2 rounded-md draggable">
-            Task 1
+        <h3 class="text-xl font-bold mb-4">To-Do</h3>
+        <ul class="list-none">
+          <li class="py-2" draggable="true">
+            <div class="bg-gray-600 p-4 rounded-md">
+              <p class="text-gray-100">Task 1</p>
+            </div>
           </li>
-          <li class="bg-gray-600 p-4 mb-2 rounded-md draggable">
-            Task 2
+          <li class="py-2" draggable="true">
+            <div class="bg-gray-600 p-4 rounded-md">
+              <p class="text-gray-100">Task 2</p>
+            </div>
           </li>
-          <li class="bg-gray-600 p-4 mb-2 rounded-md draggable">
-            Task 3
-          </li>
-        </ul>
-      </div>
-      <div class="bg-gray-700 p-4 rounded-md">
-        <h2 class="text-lg font-bold mb-4">In Progress</h2>
-        <ul class="drag-zone">
-          <li class="bg-gray-600 p-4 mb-2 rounded-md draggable">
-            Task 4
-          </li>
-          <li class="bg-gray-600 p-4 mb-2 rounded-md draggable">
-            Task 5
-          </li>
-          <li class="bg-gray-600 p-4 mb-2 rounded-md draggable">
-            Task 6
+          <li class="py-2" draggable="true">
+            <div class="bg-gray-600 p-4 rounded-md">
+              <p class="text-gray-100">Task 3</p>
+            </div>
           </li>
         </ul>
       </div>
       <div class="bg-gray-700 p-4 rounded-md">
-        <h2 class="text-lg font-bold mb-4">Done</h2>
-        <ul class="drag-zone">
-          <li class="bg-gray-600 p-4 mb-2 rounded-md draggable">
-            Task 7
+        <h3 class="text-xl font-bold mb-4">In Progress</h3>
+        <ul class="list-none">
+          <li class="py-2" draggable="true">
+            <div class="bg-gray-600 p-4 rounded-md">
+              <p class="text-gray-100">Task 4</p>
+            </div>
           </li>
-          <li class="bg-gray-600 p-4 mb-2 rounded-md draggable">
-            Task 8
+          <li class="py-2" draggable="true">
+            <div class="bg-gray-600 p-4 rounded-md">
+              <p class="text-gray-100">Task 5</p>
+            </div>
           </li>
-          <li class="bg-gray-600 p-4 mb-2 rounded-md draggable">
-            Task 9
+          <li class="py-2" draggable="true">
+            <div class="bg-gray-600 p-4 rounded-md">
+              <p class="text-gray-100">Task 6</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="bg-gray-700 p-4 rounded-md">
+        <h3 class="text-xl font-bold mb-4">Done</h3>
+        <ul class="list-none">
+          <li class="py-2" draggable="true">
+            <div class="bg-gray-600 p-4 rounded-md">
+              <p class="text-gray-100">Task 7</p>
+            </div>
+          </li>
+          <li class="py-2" draggable="true">
+            <div class="bg-gray-600 p-4 rounded-md">
+              <p class="text-gray-100">Task 8</p>
+            </div>
+          </li>
+          <li class="py-2" draggable="true">
+            <div class="bg-gray-600 p-4 rounded-md">
+              <p class="text-gray-100">Task 9</p>
+            </div>
           </li>
         </ul>
       </div>
     </div>
   </main>
 
-  <!-- Bottom Status Panel -->
-  <div class="fixed bottom-0 left-0 right-0 bg-gray-800 p-4 z-10">
-    <div class="flex justify-between items-center">
-      <div class="flex items-center">
-        <i class="fas fa-bell mr-2"></i>
-        <span class="text-lg font-bold">Notifications</span>
-      </div>
-      <div class="flex items-center">
-        <i class="fas fa-user mr-2"></i>
-        <span class="text-lg font-bold">User Feedback</span>
-      </div>
-    </div>
-  </div>
+  <!-- Right Sidebar -->
+  <aside class="w-64 bg-gray-800 h-screen p-4 border-l border-gray-700 fixed top-0 right-0 bottom-0">
+    <h2 class="text-xl font-bold mb-4">Card Editor</h2>
+    <form>
+      <label class="block mb-2">
+        <span class="text-gray-100">Title:</span>
+        <input type="text" class="block w-full p-2 bg-gray-700 border border-gray-600 rounded-md">
+      </label>
+      <label class="block mb-2">
+        <span class="text-gray-100">Description:</span>
+        <textarea class="block w-full p-2 bg-gray-700 border border-gray-600 rounded-md"></textarea>
+      </label>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md">
+        <i class="fas fa-save text-gray-100 mr-2"></i>
+        Save
+      </button>
+    </form>
+  </aside>
 
-  <!-- Floating Side Panels -->
-  <div class="fixed right-0 top-14 bottom-14 w-64 bg-gray-800 p-4 z-10">
-    <h2 class="text-lg font-bold mb-4">Settings</h2>
-    <ul>
-      <li class="py-2 hover:bg-gray-700 rounded-md">
-        <i class="fas fa-cog mr-2"></i>
-        General
+  <!-- Status Bar -->
+  <footer class="bg-gray-800 p-4 border-t border-gray-700 fixed bottom-0 left-0 right-0">
+    <p class="text-gray-100">System Messages:</p>
+    <ul class="list-none">
+      <li class="py-2">
+        <span class="text-gray-100">Message 1</span>
       </li>
-      <li class="py-2 hover:bg-gray-700 rounded-md">
-        <i class="fas fa-user mr-2"></i>
-        Profile
+      <li class="py-2">
+        <span class="text-gray-100">Message 2</span>
       </li>
-      <li class="py-2 hover:bg-gray-700 rounded-md">
-        <i class="fas fa-sign-out-alt mr-2"></i>
-        Logout
+      <li class="py-2">
+        <span class="text-gray-100">Message 3</span>
       </li>
     </ul>
-  </div>
-  <div class="fixed right-64 top-14 bottom-14 w-64 bg-gray-800 p-4 z-10">
-    <h2 class="text-lg font-bold mb-4">Tools</h2>
-    <ul>
-      <li class="py-2 hover:bg-gray-700 rounded-md">
-        <i class="fas fa-file-csv mr-2"></i>
-        Export CSV
-      </li>
-      <li class="py-2 hover:bg-gray-700 rounded-md">
-        <i class="fas fa-file-json mr-2"></i>
-        Export JSON
-      </li>
-      <li class="py-2 hover:bg-gray-700 rounded-md">
-        <i class="fas fa-file-pdf mr-2"></i>
-        Export PDF
-      </li>
-    </ul>
-  </div>
+  </footer>
 </body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
 // Import required libraries
+import { v4 as uuidv4 } from 'https://cdn.jsdelivr.net/npm/uuid@9.0.0/dist/v4.min.js';
+
+// Initialize the application
 class KanbanFlow {
   constructor() {
     this.state = {
       boards: [],
-      lists: [],
-      tasks: [],
+      cards: [],
+      selectedBoard: null,
+      selectedCard: null,
       undoHistory: [],
       redoHistory: []
     };
 
-    this.localStorageKey = "kanban-flow-state";
-    this.init();
+    this.listeners = {};
+
+    this.initUI();
+    this.initEventListeners();
+    this.loadFromLocalStorage();
   }
 
-  init() {
-    this.loadStateFromLocalStorage();
-    this.renderToolbar();
-    this.renderSidebar();
-    this.renderViewport();
-    this.renderStatusPanel();
-    this.addEventListeners();
+  // Initialize the UI components
+  initUI() {
+    this.toolbar = document.getElementById('toolbar');
+    this.leftSidebar = document.getElementById('left-sidebar');
+    this.mainViewport = document.getElementById('main-viewport');
+    this.rightSidebar = document.getElementById('right-sidebar');
+    this.statusPanel = document.getElementById('status-panel');
+
+    this.renderBoards();
+    this.renderCards();
   }
 
-  // State management
-  loadStateFromLocalStorage() {
-    const storedState = localStorage.getItem(this.localStorageKey);
-    if (storedState) {
-      this.state = JSON.parse(storedState);
-    }
-  }
-
-  saveStateToLocalStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.state));
-  }
-
-  updateState(newState) {
-    this.state = {...this.state,...newState };
-    this.saveStateToLocalStorage();
-  }
-
-  // Undo/redo history
-  addToUndoHistory(state) {
-    this.state.undoHistory.push(state);
-    this.state.redoHistory = [];
-  }
-
-  undo() {
-    if (this.state.undoHistory.length > 0) {
-      const previousState = this.state.undoHistory.pop();
-      this.state.redoHistory.push(this.state);
-      this.state = previousState;
-      this.saveStateToLocalStorage();
-      this.render();
-    }
-  }
-
-  redo() {
-    if (this.state.redoHistory.length > 0) {
-      const nextState = this.state.redoHistory.pop();
-      this.state.undoHistory.push(this.state);
-      this.state = nextState;
-      this.saveStateToLocalStorage();
-      this.render();
-    }
-  }
-
-  // Render methods
-  renderToolbar() {
-    const toolbar = document.createElement("div");
-    toolbar.classList.add("toolbar");
-    document.body.appendChild(toolbar);
-  }
-
-  renderSidebar() {
-    const sidebar = document.createElement("div");
-    sidebar.classList.add("sidebar");
-    document.body.appendChild(sidebar);
-  }
-
-  renderViewport() {
-    const viewport = document.createElement("div");
-    viewport.classList.add("viewport");
-    document.body.appendChild(viewport);
-
-    // Add event listeners for drag-and-drop
-    viewport.addEventListener("dragover", (e) => {
-      e.preventDefault();
-    });
-
-    viewport.addEventListener("drop", (e) => {
-      e.preventDefault();
-      const taskId = e.dataTransfer.getData("taskId");
-      const task = this.state.tasks.find((task) => task.id === taskId);
-      if (task) {
-        // Update task position
-        this.updateState({
-          tasks: this.state.tasks.map((t) => {
-            if (t.id === taskId) {
-              return {...t, x: e.clientX, y: e.clientY };
-            }
-            return t;
-          })
-        });
+  // Initialize event listeners for UI interactions
+  initEventListeners() {
+    // Add event listener for board selection
+    this.leftSidebar.addEventListener('click', (event) => {
+      if (event.target.classList.contains('board')) {
+        this.selectBoard(event.target.dataset.boardId);
       }
     });
-  }
 
-  renderStatusPanel() {
-    const statusPanel = document.createElement("div");
-    statusPanel.classList.add("status-panel");
-    document.body.appendChild(statusPanel);
-  }
+    // Add event listener for card creation
+    this.mainViewport.addEventListener('click', (event) => {
+      if (event.target.classList.contains('create-card')) {
+        this.createCard();
+      }
+    });
 
-  // Add event listeners
-  addEventListeners() {
-    document.addEventListener("click", (e) => {
-      if (e.target.classList.contains("task")) {
-        const taskId = e.target.dataset.taskId;
-        const task = this.state.tasks.find((task) => task.id === taskId);
-        if (task) {
-          // Update task assignment and due date
-          this.updateState({
-            tasks: this.state.tasks.map((t) => {
-              if (t.id === taskId) {
-                return {...t, assignedTo: "John Doe", dueDate: "2024-09-17" };
-              }
-              return t;
-            })
-          });
-        }
+    // Add event listener for card editing
+    this.mainViewport.addEventListener('click', (event) => {
+      if (event.target.classList.contains('edit-card')) {
+        this.editCard(event.target.dataset.cardId);
+      }
+    });
+
+    // Add event listener for card deletion
+    this.mainViewport.addEventListener('click', (event) => {
+      if (event.target.classList.contains('delete-card')) {
+        this.deleteCard(event.target.dataset.cardId);
+      }
+    });
+
+    // Add event listener for drag-and-drop card reordering
+    this.mainViewport.addEventListener('dragstart', (event) => {
+      if (event.target.classList.contains('card')) {
+        event.dataTransfer.setData('cardId', event.target.dataset.cardId);
+      }
+    });
+
+    this.mainViewport.addEventListener('dragover', (event) => {
+      event.preventDefault();
+    });
+
+    this.mainViewport.addEventListener('drop', (event) => {
+      event.preventDefault();
+      const cardId = event.dataTransfer.getData('cardId');
+      const targetCardId = event.target.dataset.cardId;
+      this.reorderCards(cardId, targetCardId);
+    });
+
+    // Add event listener for undo and redo
+    this.toolbar.addEventListener('click', (event) => {
+      if (event.target.classList.contains('undo')) {
+        this.undo();
+      } else if (event.target.classList.contains('redo')) {
+        this.redo();
       }
     });
 
     // Add event listener for file export
-    document.addEventListener("click", (e) => {
-      if (e.target.classList.contains("export-button")) {
-        const fileType = e.target.dataset.fileType;
-        if (fileType === "png") {
-          this.exportToPng();
-        } else if (fileType === "svg") {
-          this.exportToSvg();
-        } else if (fileType === "json") {
-          this.exportToJson();
-        } else if (fileType === "csv") {
-          this.exportToCsv();
-        }
+    this.toolbar.addEventListener('click', (event) => {
+      if (event.target.classList.contains('export')) {
+        this.exportFile();
       }
     });
   }
 
-  // Export methods
-  exportToPng() {
-    const canvas = document.createElement("canvas");
-    canvas.width = 1024;
-    canvas.height = 768;
-    const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "black";
-    ctx.font = "24px Arial";
-    ctx.textAlign = "left";
-    ctx.textBaseline = "top";
-    ctx.fillText("Kanban Flow", 10, 10);
-    const pngData = canvas.toDataURL("image/png");
-    const a = document.createElement("a");
-    a.href = pngData;
-    a.download = "kanban-flow.png";
-    a.click();
+  // Load data from local storage
+  loadFromLocalStorage() {
+    const storedState = localStorage.getItem('kanbanFlowState');
+    if (storedState) {
+      this.state = JSON.parse(storedState);
+      this.renderBoards();
+      this.renderCards();
+    }
   }
 
-  exportToSvg() {
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", "1024");
-    svg.setAttribute("height", "768");
-    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    rect.setAttribute("x", "10");
-    rect.setAttribute("y", "10");
-    rect.setAttribute("width", "100");
-    rect.setAttribute("height", "100");
-    rect.setAttribute("fill", "white");
-    svg.appendChild(rect);
-    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    text.setAttribute("x", "10");
-    text.setAttribute("y", "10");
-    text.setAttribute("font-size", "24");
-    text.setAttribute("font-family", "Arial");
-    text.textContent = "Kanban Flow";
-    svg.appendChild(text);
-    const svgData = new XMLSerializer().serializeToString(svg);
-    const a = document.createElement("a");
-    a.href = "data:image/svg+xml," + encodeURIComponent(svgData);
-    a.download = "kanban-flow.svg";
-    a.click();
+  // Save data to local storage
+  saveToLocalStorage() {
+    localStorage.setItem('kanbanFlowState', JSON.stringify(this.state));
   }
 
-  exportToJson() {
-    const jsonData = JSON.stringify(this.state, null, 2);
-    const a = document.createElement("a");
-    a.href = "data:application/json," + encodeURIComponent(jsonData);
-    a.download = "kanban-flow.json";
-    a.click();
+  // Render boards
+  renderBoards() {
+    this.leftSidebar.innerHTML = '';
+    this.state.boards.forEach((board) => {
+      const boardElement = document.createElement('div');
+      boardElement.classList.add('board');
+      boardElement.dataset.boardId = board.id;
+      boardElement.textContent = board.name;
+      this.leftSidebar.appendChild(boardElement);
+    });
   }
 
-  exportToCsv() {
-    const csvData = this.state.tasks.map((task) => {
-      return [task.id, task.name, task.assignedTo, task.dueDate].join(",");
-    }).join("\n");
-    const a = document.createElement("a");
-    a.href = "data:text/csv," + encodeURIComponent(csvData);
-    a.download = "kanban-flow.csv";
-    a.click();
+  // Render cards
+  renderCards() {
+    this.mainViewport.innerHTML = '';
+    this.state.cards.forEach((card) => {
+      const cardElement = document.createElement('div');
+      cardElement.classList.add('card');
+      cardElement.dataset.cardId = card.id;
+      cardElement.textContent = card.name;
+      this.mainViewport.appendChild(cardElement);
+    });
+  }
+
+  // Select a board
+  selectBoard(boardId) {
+    this.state.selectedBoard = boardId;
+    this.renderCards();
+  }
+
+  // Create a new card
+  createCard() {
+    const cardId = uuidv4();
+    const card = {
+      id: cardId,
+      name: 'New Card',
+      boardId: this.state.selectedBoard
+    };
+    this.state.cards.push(card);
+    this.saveToLocalStorage();
+    this.renderCards();
+  }
+
+  // Edit a card
+  editCard(cardId) {
+    const card = this.state.cards.find((card) => card.id === cardId);
+    if (card) {
+      card.name = prompt('Enter new card name:', card.name);
+      this.saveToLocalStorage();
+      this.renderCards();
+    }
+  }
+
+  // Delete a card
+  deleteCard(cardId) {
+    const index = this.state.cards.findIndex((card) => card.id === cardId);
+    if (index !== -1) {
+      this.state.cards.splice(index, 1);
+      this.saveToLocalStorage();
+      this.renderCards();
+    }
+  }
+
+  // Reorder cards
+  reorderCards(cardId, targetCardId) {
+    const cardIndex = this.state.cards.findIndex((card) => card.id === cardId);
+    const targetCardIndex = this.state.cards.findIndex((card) => card.id === targetCardId);
+    if (cardIndex !== -1 && targetCardIndex !== -1) {
+      const card = this.state.cards[cardIndex];
+      this.state.cards.splice(cardIndex, 1);
+      this.state.cards.splice(targetCardIndex, 0, card);
+      this.saveToLocalStorage();
+      this.renderCards();
+    }
+  }
+
+  // Undo an action
+  undo() {
+    if (this.state.undoHistory.length > 0) {
+      const undoState = this.state.undoHistory.pop();
+      this.state = undoState;
+      this.renderBoards();
+      this.renderCards();
+    }
+  }
+
+  // Redo an action
+  redo() {
+    if (this.state.redoHistory.length > 0) {
+      const redoState = this.state.redoHistory.pop();
+      this.state = redoState;
+      this.renderBoards();
+      this.renderCards();
+    }
+  }
+
+  // Export file
+  exportFile() {
+    const fileFormat = prompt('Enter file format (PNG, SVG, JSON, or File):', 'JSON');
+    const fileName = prompt('Enter file name:', 'kanban-flow');
+    const fileExtension = fileFormat.toLowerCase() === 'png' ? 'png' : fileFormat.toLowerCase() === 'svg' ? 'svg' : fileFormat.toLowerCase() === 'json' ? 'json' : 'txt';
+    const fileContent = fileFormat.toLowerCase() === 'json' ? JSON.stringify(this.state) : 'Kanban Flow data';
+
+    const blob = new Blob([fileContent], { type: `application/${fileExtension}` });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${fileName}.${fileExtension}`;
+    link.click();
   }
 }
 
-const app = new KanbanFlow();
+// Initialize the application
+const kanbanFlow = new KanbanFlow();
 </script>
 </body>
 </html>
