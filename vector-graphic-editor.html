@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VectorForge</title>
+  <title>VectorCraft</title>
   <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
   <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
   <style>
@@ -16,366 +16,268 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="h-screen w-screen bg-[#090d16] text-white flex flex-col">
+<body class="h-screen bg-gray-900 text-gray-100 flex flex-col">
   <!-- Top Toolbar -->
-  <div class="flex justify-between items-center p-4 border-b border-gray-600">
-    <h1 class="text-2xl font-bold">VectorForge</h1>
-    <div class="flex space-x-4">
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="New Project">
-        <i class="fas fa-file fa-lg"></i>
+  <header class="flex justify-between items-center p-4 border-b border-gray-700">
+    <h1 class="text-2xl font-bold">VectorCraft</h1>
+    <div class="flex items-center space-x-4">
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded">
+        <i class="fas fa-file fa-lg mr-2"></i> New
       </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Open Project">
-        <i class="fas fa-folder-open fa-lg"></i>
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded">
+        <i class="fas fa-folder fa-lg mr-2"></i> Open
       </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Save Project">
-        <i class="fas fa-save fa-lg"></i>
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded">
+        <i class="fas fa-save fa-lg mr-2"></i> Save
       </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Undo">
-        <i class="fas fa-undo fa-lg"></i>
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded">
+        <i class="fas fa-undo fa-lg mr-2"></i> Undo
       </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Redo">
-        <i class="fas fa-redo fa-lg"></i>
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded">
+        <i class="fas fa-redo fa-lg mr-2"></i> Redo
       </button>
     </div>
-  </div>
+  </header>
 
-  <!-- Main Workspace -->
-  <div class="flex flex-1">
-    <!-- Left Sidebar -->
-    <div class="w-64 bg-gray-800 p-4 border-r border-gray-600">
+  <!-- Left Sidebar -->
+  <div class="flex flex-grow">
+    <aside class="w-64 p-4 border-r border-gray-700">
       <h2 class="text-xl font-bold mb-4">Layers</h2>
       <ul>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-layer-group fa-lg mr-2"></i>
-          Layer 1
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 1
         </li>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-layer-group fa-lg mr-2"></i>
-          Layer 2
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 2
         </li>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-layer-group fa-lg mr-2"></i>
-          Layer 3
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 3
         </li>
       </ul>
-    </div>
+      <h2 class="text-xl font-bold mt-4 mb-4">Nodes</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-circle fa-lg mr-2"></i> Node 1
+        </li>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-circle fa-lg mr-2"></i> Node 2
+        </li>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-circle fa-lg mr-2"></i> Node 3
+        </li>
+      </ul>
+    </aside>
 
-    <!-- Main Viewport -->
-    <div class="flex-1 p-4">
-      <div class="relative w-full h-full">
-        <canvas class="absolute top-0 left-0 w-full h-full" id="canvas"></canvas>
-        <div class="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-          <div class="bg-gray-800 p-4 rounded">
-            <h2 class="text-xl font-bold mb-4">Node Editing Tools</h2>
-            <div class="flex space-x-4">
-              <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Select">
-                <i class="fas fa-mouse-pointer fa-lg"></i>
-              </button>
-              <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Draw">
-                <i class="fas fa-pen fa-lg"></i>
-              </button>
-              <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Eraser">
-                <i class="fas fa-eraser fa-lg"></i>
-              </button>
-            </div>
-          </div>
-        </div>
+    <!-- Central Viewport -->
+    <main class="flex-grow p-4">
+      <div class="h-full border border-gray-700 rounded">
+        <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
-    </div>
+    </main>
 
-    <!-- Right Sidebar -->
-    <div class="w-64 bg-gray-800 p-4 border-l border-gray-600">
-      <h2 class="text-xl font-bold mb-4">Properties</h2>
+    <!-- Right Floating Panel -->
+    <div class="fixed right-0 top-0 h-screen w-64 p-4 border-l border-gray-700 bg-gray-900">
+      <h2 class="text-xl font-bold mb-4">Tool Options</h2>
       <div class="space-y-4">
-        <div class="flex space-x-4">
-          <label class="text-lg font-bold">Fill Color:</label>
-          <input type="color" class="w-12 h-12">
+        <div class="flex items-center space-x-4">
+          <label class="text-lg">Stroke Width:</label>
+          <input type="range" min="1" max="10" value="5">
+          <span class="text-lg">5</span>
         </div>
-        <div class="flex space-x-4">
-          <label class="text-lg font-bold">Stroke Color:</label>
-          <input type="color" class="w-12 h-12">
+        <div class="flex items-center space-x-4">
+          <label class="text-lg">Stroke Color:</label>
+          <input type="color" value="#000000">
         </div>
-        <div class="flex space-x-4">
-          <label class="text-lg font-bold">Stroke Width:</label>
-          <input type="number" class="w-12 h-12">
+        <div class="flex items-center space-x-4">
+          <label class="text-lg">Fill Color:</label>
+          <input type="color" value="#ffffff">
         </div>
       </div>
     </div>
   </div>
 
   <!-- Bottom Status Panel -->
-  <div class="flex justify-between items-center p-4 border-t border-gray-600">
-    <div class="flex space-x-4">
-      <span class="text-lg font-bold">Zoom:</span>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Zoom In">
-        <i class="fas fa-plus fa-lg"></i>
-      </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded" title="Zoom Out">
-        <i class="fas fa-minus fa-lg"></i>
-      </button>
+  <footer class="p-4 border-t border-gray-700">
+    <div class="flex justify-between items-center">
+      <span class="text-lg">Status: Ready</span>
+      <div class="flex items-center space-x-4">
+        <i class="fas fa-circle fa-lg text-green-500 mr-2"></i> Connected
+        <i class="fas fa-bell fa-lg text-gray-500 mr-2"></i> Notifications
+      </div>
     </div>
-    <div class="flex space-x-4">
-      <span class="text-lg font-bold">Collaborators:</span>
-      <span class="text-lg font-bold">2</span>
-    </div>
-  </div>
+  </footer>
 </body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-class VectorForge {
+// VectorCraft Engine
+class VectorCraft {
   constructor() {
-    this.initUI();
-    this.initStateStore();
-    this.initEventListeners();
-    this.initExportServer();
-  }
-
-  initUI() {
-    this.topToolbar = document.createElement('div');
-    this.leftSidebar = document.createElement('div');
-    this.mainViewport = document.createElement('div');
-    this.rightSidebar = document.createElement('div');
-    this.bottomStatusPanel = document.createElement('div');
-    this.canvas = document.createElement('canvas');
-    this.ctx = this.canvas.getContext('2d');
-
-    document.body.appendChild(this.topToolbar);
-    document.body.appendChild(this.leftSidebar);
-    document.body.appendChild(this.mainViewport);
-    document.body.appendChild(this.rightSidebar);
-    document.body.appendChild(this.bottomStatusPanel);
-    this.mainViewport.appendChild(this.canvas);
-
-    this.topToolbar.innerHTML = `
-      <button id="undo">Undo</button>
-      <button id="redo">Redo</button>
-    `;
-
-    this.leftSidebar.innerHTML = `
-      <div id="layer-management"></div>
-    `;
-
-    this.rightSidebar.innerHTML = `
-      <div id="properties"></div>
-      <div id="settings"></div>
-    `;
-
-    this.bottomStatusPanel.innerHTML = `
-      <div id="status"></div>
-    `;
-  }
-
-  initStateStore() {
     this.state = {
       nodes: [],
       history: [],
-      redoHistory: []
+      currentStep: -1,
     };
 
-    this.loadStateFromLocalStorage();
+    this.toolbar = document.getElementById('toolbar');
+    this.layersPanel = document.getElementById('layers-panel');
+    this.viewport = document.getElementById('viewport');
+    this.statusPanel = document.getElementById('status-panel');
+
+    this.canvas = document.createElement('canvas');
+    this.canvas.width = 800;
+    this.canvas.height = 600;
+    this.viewport.appendChild(this.canvas);
+
+    this.ctx = this.canvas.getContext('2d');
+
+    this.worker = new Worker('worker.js');
+    this.worker.onmessage = (event) => {
+      if (event.data.type === 'render') {
+        this.render(event.data.nodes);
+      }
+    };
+
+    this.render = this.render.bind(this);
+    this.handleEvent = this.handleEvent.bind(this);
+    this.exportFile = this.exportFile.bind(this);
+
+    this.canvas.addEventListener('click', this.handleEvent);
+    this.canvas.addEventListener('mousemove', this.handleEvent);
+    this.canvas.addEventListener('mousedown', this.handleEvent);
+    this.canvas.addEventListener('mouseup', this.handleEvent);
+
+    this.loadState();
+    this.render();
   }
 
-  loadStateFromLocalStorage() {
-    const storedState = localStorage.getItem('vector-forge-state');
+  render(nodes) {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    nodes.forEach((node) => {
+      this.ctx.beginPath();
+      this.ctx.moveTo(node.x, node.y);
+      this.ctx.lineTo(node.x + node.width, node.y + node.height);
+      this.ctx.stroke();
+    });
+  }
+
+  handleEvent(event) {
+    switch (event.type) {
+      case 'click':
+        this.addNode(event.clientX, event.clientY);
+        break;
+      case 'mousemove':
+        this.updateNode(event.clientX, event.clientY);
+        break;
+      case 'mousedown':
+        this.selectNode(event.clientX, event.clientY);
+        break;
+      case 'mouseup':
+        this.deselectNode();
+        break;
+      default:
+        break;
+    }
+  }
+
+  addNode(x, y) {
+    const newNode = { x, y, width: 50, height: 50 };
+    this.state.nodes.push(newNode);
+    this.saveState();
+    this.render(this.state.nodes);
+  }
+
+  updateNode(x, y) {
+    const currentNode = this.state.nodes[this.state.currentStep];
+    if (currentNode) {
+      currentNode.x = x;
+      currentNode.y = y;
+      this.saveState();
+      this.render(this.state.nodes);
+    }
+  }
+
+  selectNode(x, y) {
+    const node = this.state.nodes.find((node) => {
+      return node.x <= x && x <= node.x + node.width && node.y <= y && y <= node.y + node.height;
+    });
+    if (node) {
+      this.state.currentStep = this.state.nodes.indexOf(node);
+    }
+  }
+
+  deselectNode() {
+    this.state.currentStep = -1;
+  }
+
+  saveState() {
+    const state = JSON.parse(JSON.stringify(this.state));
+    localStorage.setItem('vectorcraft-state', JSON.stringify(state));
+  }
+
+  loadState() {
+    const storedState = localStorage.getItem('vectorcraft-state');
     if (storedState) {
       this.state = JSON.parse(storedState);
-    }
-  }
-
-  saveStateToLocalStorage() {
-    localStorage.setItem('vector-forge-state', JSON.stringify(this.state));
-  }
-
-  initEventListeners() {
-    this.canvas.addEventListener('mousedown', (e) => {
-      this.handleMouseDown(e);
-    });
-
-    this.canvas.addEventListener('mousemove', (e) => {
-      this.handleMouseMove(e);
-    });
-
-    this.canvas.addEventListener('mouseup', (e) => {
-      this.handleMouseUp(e);
-    });
-
-    document.getElementById('undo').addEventListener('click', () => {
-      this.undo();
-    });
-
-    document.getElementById('redo').addEventListener('click', () => {
-      this.redo();
-    });
-
-    window.addEventListener('keydown', (e) => {
-      this.handleKeyDown(e);
-    });
-
-    window.addEventListener('keyup', (e) => {
-      this.handleKeyUp(e);
-    });
-  }
-
-  handleMouseDown(e) {
-    const node = this.getNodeAtPosition(e.clientX, e.clientY);
-    if (node) {
-      this.startEditingNode(node);
-    } else {
-      this.startCreatingNode();
-    }
-  }
-
-  handleMouseMove(e) {
-    if (this.editingNode) {
-      this.updateNodePosition(this.editingNode, e.clientX, e.clientY);
-    }
-  }
-
-  handleMouseUp(e) {
-    if (this.editingNode) {
-      this.stopEditingNode();
+      this.render(this.state.nodes);
     }
   }
 
   undo() {
     if (this.state.history.length > 0) {
-      const lastState = this.state.history.pop();
-      this.state.redoHistory.push(lastState);
-      this.updateState(lastState);
+      this.state.nodes = this.state.history.pop();
+      this.saveState();
+      this.render(this.state.nodes);
     }
   }
 
   redo() {
-    if (this.state.redoHistory.length > 0) {
-      const nextState = this.state.redoHistory.pop();
-      this.state.history.push(nextState);
-      this.updateState(nextState);
+    if (this.state.currentStep < this.state.history.length - 1) {
+      this.state.nodes = this.state.history[this.state.currentStep + 1];
+      this.state.currentStep++;
+      this.saveState();
+      this.render(this.state.nodes);
     }
   }
 
-  updateState(state) {
-    this.state.nodes = state.nodes;
-    this.renderCanvas();
-  }
-
-  renderCanvas() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    for (const node of this.state.nodes) {
-      this.renderNode(node);
+  exportFile(type) {
+    const data = this.state.nodes;
+    let blob;
+    switch (type) {
+      case 'png':
+        blob = new Blob([this.canvas.toDataURL().replace('image/png', 'image/octet-stream')], { type: 'image/png' });
+        break;
+      case 'svg':
+        const svg = this.getSvg(data);
+        blob = new Blob([svg], { type: 'image/svg+xml' });
+        break;
+      case 'json':
+        blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+        break;
+      default:
+        break;
     }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `vectorcraft-${type}`;
+    a.click();
   }
 
-  renderNode(node) {
-    this.ctx.beginPath();
-    this.ctx.arc(node.x, node.y, node.radius, 0, 2 * Math.PI);
-    this.ctx.fillStyle = node.color;
-    this.ctx.fill();
-  }
-
-  getNodeAtPosition(x, y) {
-    for (const node of this.state.nodes) {
-      if (Math.hypot(node.x - x, node.y - y) < node.radius) {
-        return node;
-      }
-    }
-    return null;
-  }
-
-  startEditingNode(node) {
-    this.editingNode = node;
-  }
-
-  stopEditingNode() {
-    this.editingNode = null;
-  }
-
-  updateNodePosition(node, x, y) {
-    node.x = x;
-    node.y = y;
-    this.renderCanvas();
-  }
-
-  startCreatingNode() {
-    const node = {
-      x: this.canvas.width / 2,
-      y: this.canvas.height / 2,
-      radius: 10,
-      color: 'black'
-    };
-    this.state.nodes.push(node);
-    this.editingNode = node;
-    this.renderCanvas();
-  }
-
-  initExportServer() {
-    this.exportServer = new ExportServer();
-  }
-
-  handleKeyDown(e) {
-    if (e.key === 's') {
-      this.saveFile();
-    }
-  }
-
-  handleKeyUp(e) {}
-
-  saveFile() {
-    const fileName = prompt('Enter file name');
-    const fileExtension = fileName.split('.').pop();
-    if (fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'svg' || fileExtension === 'json') {
-      this.exportServer.exportFile(fileName, fileExtension, this.state);
-    }
+  getSvg(data) {
+    return `
+      <svg xmlns="http://www.w3.org/2000/svg" width="${this.canvas.width}" height="${this.canvas.height}">
+        ${data.map((node) => {
+          return `
+            <rect x="${node.x}" y="${node.y}" width="${node.width}" height="${node.height}" fill="none" stroke="black" />
+          `;
+        }).join('')}
+      </svg>
+    `;
   }
 }
 
-class ExportServer {
-  exportFile(fileName, fileExtension, state) {
-    if (fileExtension === 'png' || fileExtension === 'jpg') {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = 800;
-      canvas.height = 600;
-      for (const node of state.nodes) {
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius, 0, 2 * Math.PI);
-        ctx.fillStyle = node.color;
-        ctx.fill();
-      }
-      const url = canvas.toDataURL();
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      a.click();
-    } else if (fileExtension === 'svg') {
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.width.baseVal.value = 800;
-      svg.height.baseVal.value = 600;
-      for (const node of state.nodes) {
-        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        circle.cx.baseVal.value = node.x;
-        circle.cy.baseVal.value = node.y;
-        circle.r.baseVal.value = node.radius;
-        circle.fill = node.color;
-        svg.appendChild(circle);
-      }
-      const serializer = new XMLSerializer();
-      const url = 'data:application/svg+xml,' + encodeURIComponent(serializer.serializeToString(svg));
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      a.click();
-    } else if (fileExtension === 'json') {
-      const url = 'data:application/json,' + encodeURIComponent(JSON.stringify(state));
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      a.click();
-    }
-  }
-}
-
-const vectorForge = new VectorForge();
+const vectorCraft = new VectorCraft();
 </script>
 </body>
 </html>
