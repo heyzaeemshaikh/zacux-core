@@ -16,109 +16,79 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="h-screen w-screen bg-gray-900 text-gray-100 flex flex-col">
-  <!-- Top Toolbar -->
-  <nav class="flex justify-between items-center py-2 px-4 bg-gray-800 border-b border-gray-700">
+<body class="bg-gray-900 text-gray-200 h-screen overflow-hidden">
+  <!-- Toolbar -->
+  <div class="flex justify-between items-center py-2 border-b border-gray-700">
     <div class="flex items-center">
-      <a href="#" class="text-lg font-bold mr-4">Vectra</a>
-      <button class="btn btn-sm btn-gray-600 hover:bg-gray-500 mr-2">
-        <i class="fas fa-file fa-sm mr-2"></i> New
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded mr-2">
+        <i class="fas fa-undo fa-lg text-gray-200"></i>
       </button>
-      <button class="btn btn-sm btn-gray-600 hover:bg-gray-500 mr-2">
-        <i class="fas fa-folder fa-sm mr-2"></i> Open
-      </button>
-      <button class="btn btn-sm btn-gray-600 hover:bg-gray-500 mr-2">
-        <i class="fas fa-save fa-sm mr-2"></i> Save
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded mr-2">
+        <i class="fas fa-redo fa-lg text-gray-200"></i>
       </button>
     </div>
     <div class="flex items-center">
-      <button class="btn btn-sm btn-gray-600 hover:bg-gray-500 mr-2">
-        <i class="fas fa-undo fa-sm mr-2"></i> Undo
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded mr-2">
+        <i class="fas fa-file-export fa-lg text-gray-200"></i>
       </button>
-      <button class="btn btn-sm btn-gray-600 hover:bg-gray-500 mr-2">
-        <i class="fas fa-redo fa-sm mr-2"></i> Redo
+      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded mr-2">
+        <i class="fas fa-cog fa-lg text-gray-200"></i>
       </button>
     </div>
-  </nav>
-
-  <!-- Left Sidebar -->
-  <div class="flex flex-row h-screen">
-    <aside class="w-64 bg-gray-800 p-4 border-r border-gray-700">
-      <h5 class="text-lg font-bold mb-2">Layers</h5>
-      <ul>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-layer-group fa-sm mr-2"></i> Layer 1
-        </li>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-layer-group fa-sm mr-2"></i> Layer 2
-        </li>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-layer-group fa-sm mr-2"></i> Layer 3
-        </li>
-      </ul>
-      <h5 class="text-lg font-bold mt-4 mb-2">Node Editing</h5>
-      <ul>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-pencil-alt fa-sm mr-2"></i> Edit Node
-        </li>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-trash fa-sm mr-2"></i> Delete Node
-        </li>
-      </ul>
-    </aside>
-
-    <!-- Main Viewport -->
-    <main class="flex-1 p-4 overflow-y-auto">
-      <div class="svg-canvas border border-gray-700 p-4">
-        <!-- SVG Canvas will be rendered here -->
-      </div>
-    </main>
-
-    <!-- Right Sidebar -->
-    <aside class="w-64 bg-gray-800 p-4 border-l border-gray-700">
-      <h5 class="text-lg font-bold mb-2">Properties</h5>
-      <ul>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-font fa-sm mr-2"></i> Font
-        </li>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-text-size fa-sm mr-2"></i> Text Size
-        </li>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-color fa-sm mr-2"></i> Color
-        </li>
-      </ul>
-      <h5 class="text-lg font-bold mt-4 mb-2">Settings</h5>
-      <ul>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-cog fa-sm mr-2"></i> General
-        </li>
-        <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-question fa-sm mr-2"></i> Help
-        </li>
-      </ul>
-    </aside>
   </div>
 
-  <!-- Bottom Status Panel -->
-  <footer class="bg-gray-800 p-2 border-t border-gray-700">
-    <div class="flex justify-between items-center">
-      <div class="flex items-center">
-        <i class="fas fa-circle fa-sm text-green-500 mr-2"></i> Connected to Cloud
-      </div>
-      <div class="flex items-center">
-        <i class="fas fa-spinner fa-sm text-gray-500 mr-2"></i> Loading...
-      </div>
+  <!-- Sidebar -->
+  <div class="flex h-screen">
+    <!-- Layer Management Panel -->
+    <div class="w-64 bg-gray-800 p-4 border-r border-gray-700">
+      <h5 class="text-gray-200 mb-2">Layers</h5>
+      <ul>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-layer-group fa-lg text-gray-200 mr-2"></i>
+          Layer 1
+        </li>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-layer-group fa-lg text-gray-200 mr-2"></i>
+          Layer 2
+        </li>
+      </ul>
     </div>
-  </footer>
 
-  <!-- Floating Side Panels -->
+    <!-- Properties Panel -->
+    <div class="w-64 bg-gray-800 p-4 border-r border-gray-700">
+      <h5 class="text-gray-200 mb-2">Properties</h5>
+      <form>
+        <label class="block text-gray-200 mb-2">Node ID</label>
+        <input type="text" class="bg-gray-700 p-2 w-full mb-4">
+        <label class="block text-gray-200 mb-2">Node Type</label>
+        <select class="bg-gray-700 p-2 w-full mb-4">
+          <option>Rect</option>
+          <option>Circle</option>
+        </select>
+      </form>
+    </div>
+
+    <!-- Main Viewport -->
+    <div class="flex-1 bg-gray-900 p-4">
+      <svg id="svg-canvas" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <!-- Status Panel -->
+    <div class="w-64 bg-gray-800 p-4">
+      <h5 class="text-gray-200 mb-2">Status</h5>
+      <p class="text-gray-200 mb-2">Nodes: 10</p>
+      <p class="text-gray-200 mb-2">Layers: 2</p>
+      <p class="text-gray-200 mb-2">Zoom: 100%</p>
+    </div>
+  </div>
+
+  <!-- Floating Panels -->
   <div class="fixed bottom-0 right-0 mb-4 mr-4">
-    <button class="btn btn-sm btn-gray-600 hover:bg-gray-500 mb-2">
-      <i class="fas fa-question fa-sm mr-2"></i> Help
+    <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded mb-2">
+      <i class="fas fa-question-circle fa-lg text-gray-200"></i>
     </button>
-    <button class="btn btn-sm btn-gray-600 hover:bg-gray-500 mb-2">
-      <i class="fas fa-cog fa-sm mr-2"></i> Settings
+    <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded">
+      <i class="fas fa-cog fa-lg text-gray-200"></i>
     </button>
   </div>
 </body>
@@ -127,209 +97,174 @@
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
 // Import required libraries
 import * as d3 from 'd3';
-import paper from 'paper';
+import * as Snap from 'snapsvg';
+import { saveAs } from 'file-saver';
 
 // Initialize state store
-let state = {
-  nodes: [],
+const initialState = {
   layers: [],
-  selectedNode: null,
-  undoHistory: [],
-  redoHistory: []
+  nodes: [],
+  editorSettings: {
+    undoHistory: [],
+    redoHistory: []
+  }
 };
 
-// Initialize local storage
-function loadStateFromLocalStorage() {
-  const storedState = localStorage.getItem('vectra-state');
-  if (storedState) {
-    state = JSON.parse(storedState);
-  }
+// State management functions
+function getState() {
+  return JSON.parse(localStorage.getItem('vectra-state')) || initialState;
 }
 
-function saveStateToLocalStorage() {
+function saveState(state) {
   localStorage.setItem('vectra-state', JSON.stringify(state));
 }
 
-// Initialize SVG canvas
-const svg = d3.select('body')
-  .append('svg')
-  .attr('width', window.innerWidth)
-  .attr('height', window.innerHeight);
-
-// Initialize Paper.js
-paper.setup(new paper.Size(window.innerWidth, window.innerHeight));
-
-// Initialize event listeners
-svg.on('click', (event) => {
-  const node = getNodeAtPosition(event.clientX, event.clientY);
-  if (node) {
-    selectNode(node);
-  } else {
-    deselectNode();
-  }
-});
-
-svg.on('mousedown', (event) => {
-  const node = getNodeAtPosition(event.clientX, event.clientY);
-  if (node) {
-    startNodeDrag(node, event.clientX, event.clientY);
-  }
-});
-
-svg.on('mousemove', (event) => {
-  if (state.selectedNode) {
-    updateNodePosition(state.selectedNode, event.clientX, event.clientY);
-  }
-});
-
-svg.on('mouseup', () => {
-  endNodeDrag();
-});
-
-// Node editing algorithms
-function getNodeAtPosition(x, y) {
-  for (const node of state.nodes) {
-    if (isNodeAtPosition(node, x, y)) {
-      return node;
-    }
-  }
-  return null;
+function updateState(state) {
+  saveState(state);
+  return state;
 }
 
-function isNodeAtPosition(node, x, y) {
-  const nodeBounds = getNodeBounds(node);
-  return x >= nodeBounds.x && x <= nodeBounds.x + nodeBounds.width && y >= nodeBounds.y && y <= nodeBounds.y + nodeBounds.height;
-}
-
-function getNodeBounds(node) {
-  const nodeElement = d3.select(`#${node.id}`);
-  const bounds = nodeElement.node().getBBox();
-  return {
-    x: bounds.x,
-    y: bounds.y,
-    width: bounds.width,
-    height: bounds.height
-  };
-}
-
-function selectNode(node) {
-  state.selectedNode = node;
-  updateNodeSelection();
-}
-
-function deselectNode() {
-  state.selectedNode = null;
-  updateNodeSelection();
-}
-
-function startNodeDrag(node, x, y) {
-  state.nodeDrag = {
-    node: node,
-    startX: x,
-    startY: y
-  };
-}
-
-function updateNodePosition(node, x, y) {
-  if (state.nodeDrag) {
-    const deltaX = x - state.nodeDrag.startX;
-    const deltaY = y - state.nodeDrag.startY;
-    node.x += deltaX;
-    node.y += deltaY;
-    state.nodeDrag.startX = x;
-    state.nodeDrag.startY = y;
-    updateNodeElement(node);
-  }
-}
-
-function endNodeDrag() {
-  state.nodeDrag = null;
-}
-
-function updateNodeSelection() {
-  for (const node of state.nodes) {
-    const nodeElement = d3.select(`#${node.id}`);
-    if (node === state.selectedNode) {
-      nodeElement.classed('selected', true);
-    } else {
-      nodeElement.classed('selected', false);
-    }
-  }
-}
-
-function updateNodeElement(node) {
-  const nodeElement = d3.select(`#${node.id}`);
-  nodeElement.attr('transform', `translate(${node.x}, ${node.y})`);
-}
-
-// Undo/redo history
+// Undo/Redo history management
 function undo() {
-  if (state.undoHistory.length > 0) {
-    const previousState = state.undoHistory.pop();
-    state.redoHistory.push(state);
-    state = previousState;
-    updateUI();
+  const state = getState();
+  if (state.editorSettings.undoHistory.length > 0) {
+    const previousState = state.editorSettings.undoHistory.pop();
+    state.editorSettings.redoHistory.push(state);
+    return updateState(previousState);
   }
+  return state;
 }
 
 function redo() {
-  if (state.redoHistory.length > 0) {
-    const nextState = state.redoHistory.pop();
-    state.undoHistory.push(state);
-    state = nextState;
-    updateUI();
+  const state = getState();
+  if (state.editorSettings.redoHistory.length > 0) {
+    const nextState = state.editorSettings.redoHistory.pop();
+    state.editorSettings.undoHistory.push(state);
+    return updateState(nextState);
   }
+  return state;
 }
 
-function updateUI() {
-  // Update SVG canvas
-  svg.selectAll('*').remove();
-  for (const node of state.nodes) {
-    const nodeElement = svg.append('g')
-      .attr('id', node.id)
-      .attr('transform', `translate(${node.x}, ${node.y})`);
-    // Add node content
-  }
+// Node editing algorithms
+function addNode(node) {
+  const state = getState();
+  state.nodes.push(node);
+  updateState(state);
 }
 
-// File export logic
-function exportAsPNG() {
-  const svgString = svg.node().outerHTML;
+function removeNode(nodeId) {
+  const state = getState();
+  state.nodes = state.nodes.filter(node => node.id !== nodeId);
+  updateState(state);
+}
+
+function updateNode(nodeId, newNode) {
+  const state = getState();
+  state.nodes = state.nodes.map(node => node.id === nodeId ? newNode : node);
+  updateState(state);
+}
+
+// SVG parsing and rendering
+function renderSVG(svgString) {
+  const svg = d3.select('svg');
+  svg.html(svgString);
+}
+
+// Export engines
+function exportPNG() {
+  const svg = d3.select('svg');
+  const svgString = svg.html();
   const pngBlob = new Blob([svgString], { type: 'image/png' });
-  const pngUrl = URL.createObjectURL(pngBlob);
-  const a = document.createElement('a');
-  a.href = pngUrl;
-  a.download = 'vectra.png';
-  a.click();
+  saveAs(pngBlob, 'vectra-export.png');
 }
 
-function exportAsSVG() {
-  const svgString = svg.node().outerHTML;
+function exportJPEG() {
+  const svg = d3.select('svg');
+  const svgString = svg.html();
+  const jpegBlob = new Blob([svgString], { type: 'image/jpeg' });
+  saveAs(jpegBlob, 'vectra-export.jpg');
+}
+
+function exportSVG() {
+  const svg = d3.select('svg');
+  const svgString = svg.html();
   const svgBlob = new Blob([svgString], { type: 'image/svg+xml' });
-  const svgUrl = URL.createObjectURL(svgBlob);
-  const a = document.createElement('a');
-  a.href = svgUrl;
-  a.download = 'vectra.svg';
-  a.click();
+  saveAs(svgBlob, 'vectra-export.svg');
 }
 
-function exportAsJSON() {
+function exportJSON() {
+  const state = getState();
   const jsonBlob = new Blob([JSON.stringify(state)], { type: 'application/json' });
-  const jsonUrl = URL.createObjectURL(jsonBlob);
-  const a = document.createElement('a');
-  a.href = jsonUrl;
-  a.download = 'vectra.json';
-  a.click();
+  saveAs(jsonBlob, 'vectra-export.json');
 }
 
-// Initialize application
-loadStateFromLocalStorage();
-updateUI();
+// Event listeners for canvas/DOM interactions
+document.addEventListener('DOMContentLoaded', () => {
+  const canvas = document.getElementById('canvas');
+  const toolbar = document.getElementById('toolbar');
+  const sidebar = document.getElementById('sidebar');
+  const statusPanel = document.getElementById('status-panel');
 
-// Add event listeners for file export
-document.getElementById('export-png').addEventListener('click', exportAsPNG);
-document.getElementById('export-svg').addEventListener('click', exportAsSVG);
-document.getElementById('export-json').addEventListener('click', exportAsJSON);
+  // Undo/Redo buttons
+  toolbar.addEventListener('click', (e) => {
+    if (e.target.id === 'undo-button') {
+      undo();
+    } else if (e.target.id === 'redo-button') {
+      redo();
+    }
+  });
+
+  // Node editing
+  canvas.addEventListener('click', (e) => {
+    const nodeId = e.target.id;
+    if (nodeId) {
+      const node = getState().nodes.find(node => node.id === nodeId);
+      if (node) {
+        // Edit node
+        updateNode(nodeId, { ...node, x: e.clientX, y: e.clientY });
+      }
+    } else {
+      // Add new node
+      addNode({ id: Math.random().toString(36).substr(2, 9), x: e.clientX, y: e.clientY });
+    }
+  });
+
+  // Export options
+  toolbar.addEventListener('click', (e) => {
+    if (e.target.id === 'export-png-button') {
+      exportPNG();
+    } else if (e.target.id === 'export-jpeg-button') {
+      exportJPEG();
+    } else if (e.target.id === 'export-svg-button') {
+      exportSVG();
+    } else if (e.target.id === 'export-json-button') {
+      exportJSON();
+    }
+  });
+
+  // Layer management
+  sidebar.addEventListener('click', (e) => {
+    if (e.target.id === 'add-layer-button') {
+      const state = getState();
+      state.layers.push({ id: Math.random().toString(36).substr(2, 9), name: 'New Layer' });
+      updateState(state);
+    } else if (e.target.id === 'remove-layer-button') {
+      const layerId = e.target.dataset.layerId;
+      const state = getState();
+      state.layers = state.layers.filter(layer => layer.id !== layerId);
+      updateState(state);
+    }
+  });
+
+  // Real-time updates and notifications
+  statusPanel.addEventListener('click', (e) => {
+    if (e.target.id === 'update-button') {
+      const state = getState();
+      // Update state and render SVG
+      renderSVG(state);
+    }
+  });
+});
 </script>
 </body>
 </html>
