@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vectrix</title>
+  <title>Vectra</title>
   <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
   <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
   <style>
@@ -16,450 +16,334 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="bg-dark h-screen overflow-hidden" style="background-color: #090d16;">
+<div class="h-screen w-screen flex flex-col bg-gray-900 text-gray-100" id="app-container">
   <!-- Top Toolbar -->
-  <nav class="flex justify-between top-0 left-0 right-0 py-2 bg-dark border-b border-gray-700">
-    <div class="flex items-center px-4">
-      <a href="#" class="text-lg font-bold text-white">Vectrix</a>
+  <nav class="flex justify-between items-center py-2 px-4 bg-gray-800 border-b border-gray-700">
+    <div class="flex items-center">
+      <i class="fas fa-vector-square fa-lg mr-2 text-gray-400"></i>
+      <span class="text-lg font-bold">Vectra</span>
     </div>
     <div class="flex items-center">
-      <button class="btn btn-sm btn-dark mx-1" title="New Project">
-        <i class="fas fa-file fa-sm text-gray-300"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded mr-2" title="Undo">
+        <i class="fas fa-undo fa-lg text-gray-400"></i>
       </button>
-      <button class="btn btn-sm btn-dark mx-1" title="Open Project">
-        <i class="fas fa-folder-open fa-sm text-gray-300"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded mr-2" title="Redo">
+        <i class="fas fa-redo fa-lg text-gray-400"></i>
       </button>
-      <button class="btn btn-sm btn-dark mx-1" title="Save Project">
-        <i class="fas fa-save fa-sm text-gray-300"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded mr-4" title="Menu">
+        <i class="fas fa-bars fa-lg text-gray-400"></i>
       </button>
-      <button class="btn btn-sm btn-dark mx-1" title="Undo">
-        <i class="fas fa-undo fa-sm text-gray-300"></i>
-      </button>
-      <button class="btn btn-sm btn-dark mx-1" title="Redo">
-        <i class="fas fa-redo fa-sm text-gray-300"></i>
-      </button>
-    </div>
-    <div class="flex items-center">
-      <button class="btn btn-sm btn-dark mx-1" title="Toggle Sidebar">
-        <i class="fas fa-bars fa-sm text-gray-300"></i>
-      </button>
-      <button class="btn btn-sm btn-dark mx-1" title="Toggle Properties">
-        <i class="fas fa-cog fa-sm text-gray-300"></i>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded mr-2" title="Settings">
+        <i class="fas fa-cog fa-lg text-gray-400"></i>
       </button>
     </div>
   </nav>
 
-  <!-- Left Sidebar (Layer Management) -->
-  <aside class="fixed top-12 left-0 bottom-0 bg-dark border-r border-gray-700 w-64 px-4 py-2">
-    <h5 class="text-sm font-bold text-gray-300 mb-2">Layers</h5>
-    <ul class="list-none">
-      <li class="mb-1">
-        <button class="btn btn-sm btn-dark w-full text-left" title="Add Layer">
-          <i class="fas fa-layer-group fa-sm text-gray-300 mr-1"></i> Add Layer
-        </button>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-sm btn-dark w-full text-left" title="Remove Layer">
-          <i class="fas fa-trash fa-sm text-gray-300 mr-1"></i> Remove Layer
-        </button>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-sm btn-dark w-full text-left" title="Rename Layer">
-          <i class="fas fa-pencil-alt fa-sm text-gray-300 mr-1"></i> Rename Layer
-        </button>
-      </li>
-    </ul>
-    <div class="mt-4">
-      <h5 class="text-sm font-bold text-gray-300 mb-2">Layer List</h5>
-      <ul class="list-none">
-        <li class="mb-1">
-          <span class="text-sm text-gray-300">Layer 1</span>
+  <!-- Left Sidebar -->
+  <div class="flex flex-row h-screen">
+    <div class="w-64 bg-gray-800 p-4 border-r border-gray-700" id="left-sidebar">
+      <h2 class="text-lg font-bold mb-2">Layers</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-layer-group fa-lg mr-2 text-gray-400"></i>
+          <span>Layer 1</span>
         </li>
-        <li class="mb-1">
-          <span class="text-sm text-gray-300">Layer 2</span>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-layer-group fa-lg mr-2 text-gray-400"></i>
+          <span>Layer 2</span>
         </li>
-        <li class="mb-1">
-          <span class="text-sm text-gray-300">Layer 3</span>
+      </ul>
+      <h2 class="text-lg font-bold mt-4 mb-2">Tools</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-pencil-alt fa-lg mr-2 text-gray-400"></i>
+          <span>Pencil</span>
+        </li>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-brush fa-lg mr-2 text-gray-400"></i>
+          <span>Brush</span>
         </li>
       </ul>
     </div>
-  </aside>
 
-  <!-- Main Viewport (SVG Canvas) -->
-  <div class="relative flex-1 p-4">
-    <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <!-- SVG content will be rendered here -->
-    </svg>
+    <!-- Main Viewport -->
+    <div class="flex-1 h-screen p-4" id="main-viewport">
+      <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" class="bg-gray-700">
+        <!-- SVG content will be rendered here -->
+      </svg>
+    </div>
+
+    <!-- Right Sidebar (Floating) -->
+    <div class="fixed right-0 top-0 h-screen w-64 bg-gray-800 p-4 border-l border-gray-700" id="right-sidebar">
+      <h2 class="text-lg font-bold mb-2">Node Editing</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-edit fa-lg mr-2 text-gray-400"></i>
+          <span>Edit Node</span>
+        </li>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-trash fa-lg mr-2 text-gray-400"></i>
+          <span>Delete Node</span>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <!-- Right Sidebar (Properties and Node Editing Tools) -->
-  <aside class="fixed top-12 right-0 bottom-0 bg-dark border-l border-gray-700 w-64 px-4 py-2">
-    <h5 class="text-sm font-bold text-gray-300 mb-2">Properties</h5>
-    <div class="mt-2">
-      <label class="text-sm text-gray-300 block mb-1">Node ID:</label>
-      <input type="text" class="form-input w-full text-sm text-gray-300" value="Node 1" disabled>
+  <!-- Bottom Status Bar -->
+  <div class="flex justify-between items-center py-2 px-4 bg-gray-800 border-t border-gray-700" id="status-bar">
+    <div class="flex items-center">
+      <i class="fas fa-info-circle fa-lg mr-2 text-gray-400"></i>
+      <span>Notifications</span>
     </div>
-    <div class="mt-2">
-      <label class="text-sm text-gray-300 block mb-1">X:</label>
-      <input type="number" class="form-input w-full text-sm text-gray-300" value="10">
+    <div class="flex items-center">
+      <i class="fas fa-spinner fa-lg mr-2 text-gray-400"></i>
+      <span>Progress: 0%</span>
     </div>
-    <div class="mt-2">
-      <label class="text-sm text-gray-300 block mb-1">Y:</label>
-      <input type="number" class="form-input w-full text-sm text-gray-300" value="20">
-    </div>
-    <h5 class="text-sm font-bold text-gray-300 mt-4 mb-2">Node Editing</h5>
-    <div class="mt-2">
-      <button class="btn btn-sm btn-dark w-full text-left" title="Add Node">
-        <i class="fas fa-plus fa-sm text-gray-300 mr-1"></i> Add Node
-      </button>
-    </div>
-    <div class="mt-2">
-      <button class="btn btn-sm btn-dark w-full text-left" title="Remove Node">
-        <i class="fas fa-trash fa-sm text-gray-300 mr-1"></i> Remove Node
-      </button>
-    </div>
-  </aside>
-
-  <!-- Bottom Status Panel -->
-  <footer class="fixed bottom-0 left-0 right-0 py-2 bg-dark border-t border-gray-700 text-sm text-gray-300">
-    <div class="flex justify-between px-4">
-      <span>Undo Stack: 3</span>
-      <span>Redo Stack: 2</span>
-      <span>Nodes: 5</span>
-      <span>Connections: 3</span>
-    </div>
-  </footer>
-</body>
+  </div>
+</div>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Import necessary libraries
-import { createStore, combineReducers } from 'redux';
-import { createWebWorker } from 'worker-loader';
-import { svgNamespace } from 'svg-namespace';
+// Import required libraries
+import * as Redux from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import { localStorage } from 'localStorage';
 
-// Define constants and enumerations
-const APP_NAME = 'Vectrix';
-const TOOLBAR_HEIGHT = 50;
-const SIDEBAR_WIDTH = 200;
-const STATUS_PANEL_HEIGHT = 20;
-const GRID_SIZE = 10;
+// Define constants
+const APP_NAME = 'Vectra';
+const SLUG = 'vector-graphic-editor';
+const LOCAL_STORAGE_KEY = 'vectra_state';
 
-// Define the initial state
+// Define initial state
 const initialState = {
   nodes: [],
-  layers: [],
-  selectedNode: null,
   undoHistory: [],
   redoHistory: [],
-  localStorage: {}
+  userPreferences: {},
+  projectData: {}
 };
 
-// Define Redux reducers
-function nodeReducer(state = initialState.nodes, action) {
-  switch (action.type) {
-    case 'ADD_NODE':
-      return [...state, action.node];
-    case 'REMOVE_NODE':
-      return state.filter(node => node.id!== action.nodeId);
-    case 'UPDATE_NODE':
-      return state.map(node => node.id === action.nodeId? action.node : node);
-    default:
-      return state;
-  }
-}
+// Define Redux actions
+const ADD_NODE = 'ADD_NODE';
+const REMOVE_NODE = 'REMOVE_NODE';
+const UPDATE_NODE = 'UPDATE_NODE';
+const UNDO_ACTION = 'UNDO_ACTION';
+const REDO_ACTION = 'REDO_ACTION';
+const SAVE_STATE = 'SAVE_STATE';
+const LOAD_STATE = 'LOAD_STATE';
 
-function layerReducer(state = initialState.layers, action) {
-  switch (action.type) {
-    case 'ADD_LAYER':
-      return [...state, action.layer];
-    case 'REMOVE_LAYER':
-      return state.filter(layer => layer.id!== action.layerId);
-    case 'UPDATE_LAYER':
-      return state.map(layer => layer.id === action.layerId? action.layer : layer);
-    default:
-      return state;
-  }
-}
-
-function selectedNodeReducer(state = initialState.selectedNode, action) {
-  switch (action.type) {
-    case 'SELECT_NODE':
-      return action.node;
-    case 'DESELECT_NODE':
-      return null;
-    default:
-      return state;
-  }
-}
-
-function undoHistoryReducer(state = initialState.undoHistory, action) {
-  switch (action.type) {
-    case 'ADD_UNDO_ACTION':
-      return [...state, action.action];
-    case 'REMOVE_UNDO_ACTION':
-      return state.slice(0, -1);
-    default:
-      return state;
-  }
-}
-
-function redoHistoryReducer(state = initialState.redoHistory, action) {
-  switch (action.type) {
-    case 'ADD_REDO_ACTION':
-      return [...state, action.action];
-    case 'REMOVE_REDO_ACTION':
-      return state.slice(0, -1);
-    default:
-      return state;
-  }
-}
-
-// Combine reducers
-const reducers = combineReducers({
-  nodes: nodeReducer,
-  layers: layerReducer,
-  selectedNode: selectedNodeReducer,
-  undoHistory: undoHistoryReducer,
-  redoHistory: redoHistoryReducer
-});
-
-// Create the Redux store
-const store = createStore(reducers, initialState);
-
-// Define actions
+// Define Redux action creators
 function addNode(node) {
-  return { type: 'ADD_NODE', node };
+  return { type: ADD_NODE, node };
 }
 
 function removeNode(nodeId) {
-  return { type: 'REMOVE_NODE', nodeId };
+  return { type: REMOVE_NODE, nodeId };
 }
 
-function updateNode(nodeId, node) {
-  return { type: 'UPDATE_NODE', nodeId, node };
+function updateNode(nodeId, newNode) {
+  return { type: UPDATE_NODE, nodeId, newNode };
 }
 
-function addLayer(layer) {
-  return { type: 'ADD_LAYER', layer };
+function undoAction() {
+  return { type: UNDO_ACTION };
 }
 
-function removeLayer(layerId) {
-  return { type: 'REMOVE_LAYER', layerId };
+function redoAction() {
+  return { type: REDO_ACTION };
 }
 
-function updateLayer(layerId, layer) {
-  return { type: 'UPDATE_LAYER', layerId, layer };
+function saveState() {
+  return { type: SAVE_STATE };
 }
 
-function selectNode(node) {
-  return { type: 'SELECT_NODE', node };
+function loadState() {
+  return { type: LOAD_STATE };
 }
 
-function deselectNode() {
-  return { type: 'DESELECT_NODE' };
+// Define Redux reducer
+function reducer(state = initialState, action) {
+  switch (action.type) {
+    case ADD_NODE:
+      return {...state, nodes: [...state.nodes, action.node] };
+    case REMOVE_NODE:
+      return {...state, nodes: state.nodes.filter(node => node.id!== action.nodeId) };
+    case UPDATE_NODE:
+      return {...state, nodes: state.nodes.map(node => node.id === action.nodeId? action.newNode : node) };
+    case UNDO_ACTION:
+      return {...state, undoHistory: [...state.undoHistory, state] };
+    case REDO_ACTION:
+      return {...state, redoHistory: [...state.redoHistory, state] };
+    case SAVE_STATE:
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+      return state;
+    case LOAD_STATE:
+      const storedState = localStorage.getItem(LOCAL_STORAGE_KEY);
+      return storedState? JSON.parse(storedState) : state;
+    default:
+      return state;
+  }
 }
 
-function addUndoAction(action) {
-  return { type: 'ADD_UNDO_ACTION', action };
-}
+// Create Redux store with middleware and LocalStorage persistence
+const store = createStore(reducer, compose(applyMiddleware(ReduxThunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
 
-function removeUndoAction() {
-  return { type: 'REMOVE_UNDO_ACTION' };
-}
-
-function addRedoAction(action) {
-  return { type: 'ADD_REDO_ACTION', action };
-}
-
-function removeRedoAction() {
-  return { type: 'REMOVE_REDO_ACTION' };
-}
-
-// Define the SVG rendering engine
-class SVGRenderingEngine {
+// Define SVG parsing and rendering engine
+class SVGEngine {
   constructor(canvas) {
     this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
     this.nodes = [];
-    this.layers = [];
   }
 
-  renderNode(node) {
-    const svgNode = document.createElementNS(svgNamespace, 'rect');
-    svgNode.setAttribute('x', node.x);
-    svgNode.setAttribute('y', node.y);
-    svgNode.setAttribute('width', node.width);
-    svgNode.setAttribute('height', node.height);
-    this.canvas.appendChild(svgNode);
-  }
-
-  renderLayer(layer) {
-    const svgLayer = document.createElementNS(svgNamespace, 'g');
-    layer.nodes.forEach(node => {
-      this.renderNode(node);
-    });
-    this.canvas.appendChild(svgLayer);
-  }
-
-  render() {
-    this.layers.forEach(layer => {
-      this.renderLayer(layer);
-    });
-  }
-}
-
-// Define the node editing algorithms
-class NodeEditingAlgorithms {
-  constructor(canvas) {
-    this.canvas = canvas;
-  }
-
-  snapToGrid(node) {
-    node.x = Math.round(node.x / GRID_SIZE) * GRID_SIZE;
-    node.y = Math.round(node.y / GRID_SIZE) * GRID_SIZE;
-  }
-
-  alignNodes(nodes) {
-    const minX = Math.min(...nodes.map(node => node.x));
-    const minY = Math.min(...nodes.map(node => node.y));
+  parseSVG(svgString) {
+    // Parse SVG string and create node objects
+    const parser = new DOMParser();
+    const svgDoc = parser.parseFromString(svgString, 'image/svg+xml');
+    const nodes = svgDoc.querySelectorAll('g, rect, circle, path');
     nodes.forEach(node => {
-      node.x -= minX;
-      node.y -= minY;
+      const newNode = {
+        id: node.id,
+        type: node.nodeName,
+        attributes: node.attributes
+      };
+      this.nodes.push(newNode);
     });
   }
+
+  renderSVG() {
+    // Render nodes on canvas
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.nodes.forEach(node => {
+      switch (node.type) {
+        case 'rect':
+          this.ctx.fillStyle = node.attributes.getNamedItem('fill').value;
+          this.ctx.fillRect(node.attributes.getNamedItem('x').value, node.attributes.getNamedItem('y').value, node.attributes.getNamedItem('width').value, node.attributes.getNamedItem('height').value);
+          break;
+        case 'circle':
+          this.ctx.fillStyle = node.attributes.getNamedItem('fill').value;
+          this.ctx.beginPath();
+          this.ctx.arc(node.attributes.getNamedItem('cx').value, node.attributes.getNamedItem('cy').value, node.attributes.getNamedItem('r').value, 0, 2 * Math.PI);
+          this.ctx.fill();
+          break;
+        case 'path':
+          this.ctx.strokeStyle = node.attributes.getNamedItem('stroke').value;
+          this.ctx.lineWidth = node.attributes.getNamedItem('stroke-width').value;
+          this.ctx.beginPath();
+          this.ctx.moveTo(node.attributes.getNamedItem('d').value.substring(1, node.attributes.getNamedItem('d').value.indexOf(' ')));
+          this.ctx.lineTo(node.attributes.getNamedItem('d').value.substring(node.attributes.getNamedItem('d').value.indexOf(' ') + 1));
+          this.ctx.stroke();
+          break;
+      }
+    });
+  }
+
+  addNode(node) {
+    // Add new node to nodes array and dispatch ADD_NODE action
+    this.nodes.push(node);
+    store.dispatch(addNode(node));
+  }
+
+  removeNode(nodeId) {
+    // Remove node from nodes array and dispatch REMOVE_NODE action
+    this.nodes = this.nodes.filter(node => node.id!== nodeId);
+    store.dispatch(removeNode(nodeId));
+  }
+
+  updateNode(nodeId, newNode) {
+    // Update node in nodes array and dispatch UPDATE_NODE action
+    this.nodes = this.nodes.map(node => node.id === nodeId? newNode : node);
+    store.dispatch(updateNode(nodeId, newNode));
+  }
 }
 
-// Define the Web Workers for export and rendering tasks
-class WebWorker {
-  constructor(workerScript) {
-    this.worker = new Worker(workerScript);
-  }
+// Create SVG engine instance
+const svgEngine = new SVGEngine(document.getElementById('canvas'));
 
-  postMessage(message) {
-    this.worker.postMessage(message);
-  }
-
-  onMessage(callback) {
-    this.worker.onmessage = callback;
-  }
-}
-
-// Define the export logic
-function exportAsPNG() {
-  const webWorker = new WebWorker('export-worker.js');
-  webWorker.postMessage({ type: 'EXPORT_AS_PNG' });
-  webWorker.onMessage(event => {
-    const pngData = event.data;
-    const a = document.createElement('a');
-    a.href = pngData;
-    a.download = 'vectrix-export.png';
-    a.click();
+// Define event listeners for canvas interactions
+document.getElementById('canvas').addEventListener('click', (event) => {
+  // Get node under cursor
+  const node = svgEngine.nodes.find(node => {
+    const rect = node.attributes.getNamedItem('x') && node.attributes.getNamedItem('y') && node.attributes.getNamedItem('width') && node.attributes.getNamedItem('height');
+    if (rect) {
+      return event.clientX > rect.x && event.clientX < rect.x + rect.width && event.clientY > rect.y && event.clientY < rect.y + rect.height;
+    }
+    return false;
   });
-}
 
-function exportAsSVG() {
-  const webWorker = new WebWorker('export-worker.js');
-  webWorker.postMessage({ type: 'EXPORT_AS_SVG' });
-  webWorker.onMessage(event => {
-    const svgData = event.data;
-    const a = document.createElement('a');
-    a.href = svgData;
-    a.download = 'vectrix-export.svg';
-    a.click();
-  });
-}
-
-function exportAsJSON() {
-  const webWorker = new WebWorker('export-worker.js');
-  webWorker.postMessage({ type: 'EXPORT_AS_JSON' });
-  webWorker.onMessage(event => {
-    const jsonData = event.data;
-    const a = document.createElement('a');
-    a.href = jsonData;
-    a.download = 'vectrix-export.json';
-    a.click();
-  });
-}
-
-// Define the event listeners
-function handleMouseDown(event) {
-  const node = event.target;
-  selectNode(node);
-}
-
-function handleMouseMove(event) {
-  const node = event.target;
-  updateNode(node.id, { x: event.clientX, y: event.clientY });
-}
-
-function handleMouseUp(event) {
-  const node = event.target;
-  deselectNode();
-}
-
-function handleKeyPress(event) {
-  if (event.key === 'z' && event.ctrlKey) {
-    removeUndoAction();
-  } else if (event.key === 'y' && event.ctrlKey) {
-    removeRedoAction();
+  // Dispatch UNDO_ACTION or REDO_ACTION if Ctrl + Z or Ctrl + Y is pressed
+  if (event.ctrlKey && event.key === 'z') {
+    store.dispatch(undoAction());
+  } else if (event.ctrlKey && event.key === 'y') {
+    store.dispatch(redoAction());
   }
-}
 
-// Initialize the application
-function init() {
-  const canvas = document.getElementById('canvas');
-  const toolbar = document.getElementById('toolbar');
-  const sidebar = document.getElementById('sidebar');
-  const statusPanel = document.getElementById('status-panel');
+  // Dispatch ADD_NODE action if new node is created
+  if (!node) {
+    const newNode = {
+      id: Math.random().toString(36).substr(2, 9),
+      type: 'rect',
+      attributes: {
+        x: event.clientX,
+        y: event.clientY,
+        width: 100,
+        height: 100,
+        fill: 'black'
+      }
+    };
+    svgEngine.addNode(newNode);
+  }
+});
 
-  const svgRenderingEngine = new SVGRenderingEngine(canvas);
-  const nodeEditingAlgorithms = new NodeEditingAlgorithms(canvas);
-
-  toolbar.addEventListener('click', event => {
-    if (event.target.id === 'add-node-button') {
-      addNode({ x: 0, y: 0, width: 100, height: 100 });
-    } else if (event.target.id === 'remove-node-button') {
-      removeNode();
+// Define file export logic
+function exportFile(type) {
+  // Get nodes and create SVG string
+  const nodes = svgEngine.nodes;
+  let svgString = '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">';
+  nodes.forEach(node => {
+    switch (node.type) {
+      case 'rect':
+        svgString += `<rect x="${node.attributes.x}" y="${node.attributes.y}" width="${node.attributes.width}" height="${node.attributes.height}" fill="${node.attributes.fill}"/>`;
+        break;
+      case 'circle':
+        svgString += `<circle cx="${node.attributes.cx}" cy="${node.attributes.cy}" r="${node.attributes.r}" fill="${node.attributes.fill}"/>`;
+        break;
+      case 'path':
+        svgString += `<path d="${node.attributes.d}" stroke="${node.attributes.stroke}" stroke-width="${node.attributes.strokeWidth}"/>`;
+        break;
     }
   });
+  svgString += '</svg>';
 
-  sidebar.addEventListener('click', event => {
-    if (event.target.id === 'add-layer-button') {
-      addLayer({ name: 'New Layer' });
-    } else if (event.target.id === 'remove-layer-button') {
-      removeLayer();
-    }
-  });
-
-  statusPanel.addEventListener('click', event => {
-    if (event.target.id === 'undo-button') {
-      removeUndoAction();
-    } else if (event.target.id === 'redo-button') {
-      removeRedoAction();
-    }
-  });
-
-  canvas.addEventListener('mousedown', handleMouseDown);
-  canvas.addEventListener('mousemove', handleMouseMove);
-  canvas.addEventListener('mouseup', handleMouseUp);
-
-  document.addEventListener('keydown', handleKeyPress);
-
-  svgRenderingEngine.render();
-
-  // Load from local storage
-  const storedState = localStorage.getItem('vectrix-state');
-  if (storedState) {
-    store.replaceState(JSON.parse(storedState));
-  }
-
-  // Save to local storage on change
-  store.subscribe(() => {
-    localStorage.setItem('vectrix-state', JSON.stringify(store.getState()));
-  });
+  // Create blob and dispatch file download
+  const blob = new Blob([svgString], { type: type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${APP_NAME}.${type === 'image/png'? 'png' : 'svg'}`;
+  a.click();
 }
 
-init();
+// Define export buttons event listeners
+document.getElementById('export-png').addEventListener('click', () => {
+  exportFile('image/png');
+});
+
+document.getElementById('export-svg').addEventListener('click', () => {
+  exportFile('image/svg+xml');
+});
+
+document.getElementById('export-json').addEventListener('click', () => {
+  const nodes = svgEngine.nodes;
+  const json = JSON.stringify(nodes);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${APP_NAME}.json`;
+  a.click();
+});
 </script>
 </body>
 </html>
