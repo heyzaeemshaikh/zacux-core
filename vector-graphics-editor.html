@@ -16,332 +16,290 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<div class="flex h-screen bg-gray-900 text-gray-100" id="vector-forge-app">
+<body class="bg-gray-900 text-gray-100 h-screen overflow-hidden">
   <!-- Top Toolbar -->
-  <nav class="flex justify-between items-center py-2 bg-gray-800 text-gray-200 border-b border-gray-700">
+  <nav class="flex justify-between bg-gray-800 p-4 border-b border-gray-700">
     <div class="flex items-center">
-      <a href="#" class="text-lg font-bold mr-2">VectorForge</a>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
-        <i class="fas fa-file fa-sm mr-1"></i> New
+      <a href="#" class="text-lg font-bold mr-4">VectorForge</a>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
+        <i class="fas fa-file fa-sm mr-2"></i> File
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
-        <i class="fas fa-folder fa-sm mr-1"></i> Open
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
+        <i class="fas fa-edit fa-sm mr-2"></i> Edit
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
-        <i class="fas fa-save fa-sm mr-1"></i> Save
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
+        <i class="fas fa-object-ungroup fa-sm mr-2"></i> Layers
       </button>
     </div>
     <div class="flex items-center">
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
-        <i class="fas fa-undo fa-sm mr-1"></i> Undo
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
+        <i class="fas fa-undo fa-sm mr-2"></i> Undo
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
-        <i class="fas fa-redo fa-sm mr-1"></i> Redo
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
+        <i class="fas fa-redo fa-sm mr-2"></i> Redo
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
+        <i class="fas fa-save fa-sm mr-2"></i> Save
       </button>
     </div>
   </nav>
 
-  <!-- Main Workspace -->
-  <div class="flex flex-1 h-screen">
-    <!-- Left Sidebar -->
-    <aside class="w-64 bg-gray-800 p-4 border-r border-gray-700">
-      <h2 class="text-lg font-bold mb-2">Layers</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-700">
-          <a href="#" class="text-gray-200 hover:text-gray-100">
-            <i class="fas fa-layer-group fa-sm mr-1"></i> Layer 1
-          </a>
-        </li>
-        <li class="py-2 border-b border-gray-700">
-          <a href="#" class="text-gray-200 hover:text-gray-100">
-            <i class="fas fa-layer-group fa-sm mr-1"></i> Layer 2
-          </a>
-        </li>
-      </ul>
-      <h2 class="text-lg font-bold mt-4 mb-2">Node Editing</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-700">
-          <a href="#" class="text-gray-200 hover:text-gray-100">
-            <i class="fas fa-pencil-alt fa-sm mr-1"></i> Edit Node
-          </a>
-        </li>
-      </ul>
-    </aside>
+  <!-- Left Sidebar -->
+  <aside class="w-64 bg-gray-800 p-4 border-r border-gray-700 h-screen fixed top-14 left-0">
+    <h5 class="text-lg font-bold mb-4">Layers</h5>
+    <ul>
+      <li class="py-2 border-b border-gray-700">
+        <i class="fas fa-layer-group fa-sm mr-2"></i> Layer 1
+      </li>
+      <li class="py-2 border-b border-gray-700">
+        <i class="fas fa-layer-group fa-sm mr-2"></i> Layer 2
+      </li>
+      <li class="py-2 border-b border-gray-700">
+        <i class="fas fa-layer-group fa-sm mr-2"></i> Layer 3
+      </li>
+    </ul>
+    <h5 class="text-lg font-bold mt-4 mb-4">Assets</h5>
+    <ul>
+      <li class="py-2 border-b border-gray-700">
+        <i class="fas fa-image fa-sm mr-2"></i> Image 1
+      </li>
+      <li class="py-2 border-b border-gray-700">
+        <i class="fas fa-image fa-sm mr-2"></i> Image 2
+      </li>
+      <li class="py-2 border-b border-gray-700">
+        <i class="fas fa-image fa-sm mr-2"></i> Image 3
+      </li>
+    </ul>
+  </aside>
 
-    <!-- Main Viewport -->
-    <main class="flex-1 h-screen p-4">
-      <div class="h-full w-full" id="canvas-renderer">
-        <!-- Canvas rendering area -->
-      </div>
-    </main>
-
-    <!-- Right Sidebar -->
-    <aside class="w-64 bg-gray-800 p-4 border-l border-gray-700">
-      <h2 class="text-lg font-bold mb-2">Properties</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-700">
-          <a href="#" class="text-gray-200 hover:text-gray-100">
-            <i class="fas fa-cog fa-sm mr-1"></i> Object Properties
-          </a>
-        </li>
-      </ul>
-      <h2 class="text-lg font-bold mt-4 mb-2">Attributes</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-700">
-          <a href="#" class="text-gray-200 hover:text-gray-100">
-            <i class="fas fa-tag fa-sm mr-1"></i> Add Attribute
-          </a>
-        </li>
-      </ul>
-    </aside>
-  </div>
+  <!-- Main Viewport -->
+  <main class="ml-64 p-4 h-screen overflow-auto">
+    <svg class="w-full h-full" viewBox="0 0 100 100">
+      <!-- Canvas Rendering -->
+    </svg>
+  </main>
 
   <!-- Bottom Status Panel -->
-  <div class="bg-gray-800 text-gray-200 p-2 border-t border-gray-700">
+  <footer class="bg-gray-800 p-4 border-t border-gray-700 fixed bottom-0 left-0 right-0">
     <div class="flex justify-between items-center">
-      <span>Status: Ready</span>
-      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-md">
-        <i class="fas fa-sync fa-sm mr-1"></i> Sync
-      </button>
+      <span class="text-sm">Status: Ready</span>
+      <span class="text-sm">Zoom: 100%</span>
+      <span class="text-sm">Selection: None</span>
     </div>
+  </footer>
+
+  <!-- Floating Side Panels -->
+  <div class="fixed top-14 right-4">
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mb-2">
+      <i class="fas fa-cog fa-sm mr-2"></i> Settings
+    </button>
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mb-2">
+      <i class="fas fa-question fa-sm mr-2"></i> Help
+    </button>
   </div>
-</div>
+
+  <!-- Tool Options -->
+  <div class="fixed top-14 left-64">
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mb-2">
+      <i class="fas fa-pencil-alt fa-sm mr-2"></i> Pencil
+    </button>
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mb-2">
+      <i class="fas fa-brush fa-sm mr-2"></i> Brush
+    </button>
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mb-2">
+      <i class="fas fa-eraser fa-sm mr-2"></i> Eraser
+    </button>
+  </div>
+</body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
 // VectorForge Engine
 class VectorForge {
-  constructor() {
+  constructor(canvasId) {
+    this.canvasId = canvasId;
+    this.canvas = document.getElementById(canvasId);
+    this.ctx = this.canvas.getContext('2d');
     this.state = {
-      nodes: [],
-      selectedNode: null,
+      layers: [],
+      selectedLayer: null,
+      assets: [],
       undoHistory: [],
       redoHistory: []
     };
-
-    this.canvas = document.getElementById('canvas');
-    this.ctx = this.canvas.getContext('2d');
-    this.svg = SVG(this.canvas);
-
-    this.toolbar = document.getElementById('toolbar');
-    this.layersSidebar = document.getElementById('layers-sidebar');
-    this.propertiesSidebar = document.getElementById('properties-sidebar');
-    this.statusPanel = document.getElementById('status-panel');
-
+    this.local Storage = window.localStorage;
     this.initEventListeners();
-    this.initStateManagement();
-    this.initCoreEngine();
+    this.initState();
   }
 
+  // Initialize event listeners for canvas interactions
   initEventListeners() {
-    this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
-    this.canvas.addEventListener('mousemove', (e) => this.handleCanvasMouseMove(e));
-    this.canvas.addEventListener('mousedown', (e) => this.handleCanvasMouseDown(e));
-    this.canvas.addEventListener('mouseup', (e) => this.handleCanvasMouseUp(e));
-
-    this.toolbar.addEventListener('click', (e) => this.handleToolbarClick(e));
-    this.layersSidebar.addEventListener('click', (e) => this.handleLayersSidebarClick(e));
-    this.propertiesSidebar.addEventListener('click', (e) => this.handlePropertiesSidebarClick(e));
+    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
+    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
   }
 
-  initStateManagement() {
-    this.stateStore = Redux.createStore((state = this.state, action) => {
-      switch (action.type) {
-        case 'ADD_NODE':
-          return { ...state, nodes: [...state.nodes, action.node] };
-        case 'SELECT_NODE':
-          return { ...state, selectedNode: action.node };
-        case 'UNDO':
-          return { ...state, undoHistory: [...state.undoHistory, state] };
-        case 'REDO':
-          return { ...state, redoHistory: [...state.redoHistory, state] };
-        default:
-          return state;
-      }
-    });
-
-    this.stateStore.subscribe(() => {
-      this.saveStateToLocalStorage();
-    });
-
-    this.loadStateFromLocalStorage();
-  }
-
-  initCoreEngine() {
-    this.formulaEngine = new FormulaEngine();
-    this.fabric = new Fabric(this.canvas);
-
-    this.exportOptions = {
-      png: () => this.exportAsPng(),
-      svg: () => this.exportAsSvg(),
-      json: () => this.exportAsJson(),
-      pdf: () => this.exportAsPdf()
-    };
-  }
-
-  handleCanvasClick(e) {
-    const node = this.getNodeAtPosition(e.clientX, e.clientY);
-    if (node) {
-      this.stateStore.dispatch({ type: 'SELECT_NODE', node });
+  // Initialize state from local storage
+  initState() {
+    const storedState = this.localStorage.getItem('vector-forge-state');
+    if (storedState) {
+      this.state = JSON.parse(storedState);
     }
   }
 
-  handleCanvasMouseMove(e) {
-    const node = this.getNodeAtPosition(e.clientX, e.clientY);
-    if (node) {
-      this.stateStore.dispatch({ type: 'SELECT_NODE', node });
+  // Handle mouse down event
+  handleMouseDown(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    this.state.selectedLayer = this.getLayerAt(x, y);
+    this.state.undoHistory.push(JSON.parse(JSON.stringify(this.state)));
+  }
+
+  // Handle mouse move event
+  handleMouseMove(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    if (this.state.selectedLayer) {
+      this.state.selectedLayer.x = x;
+      this.state.selectedLayer.y = y;
+      this.renderCanvas();
     }
   }
 
-  handleCanvasMouseDown(e) {
-    const node = this.getNodeAtPosition(e.clientX, e.clientY);
-    if (node) {
-      this.stateStore.dispatch({ type: 'SELECT_NODE', node });
-    }
+  // Handle mouse up event
+  handleMouseUp(e) {
+    this.state.redoHistory = [];
   }
 
-  handleCanvasMouseUp(e) {
-    const node = this.getNodeAtPosition(e.clientX, e.clientY);
-    if (node) {
-      this.stateStore.dispatch({ type: 'SELECT_NODE', node });
-    }
-  }
-
-  handleToolbarClick(e) {
-    switch (e.target.id) {
-      case 'add-node':
-        this.addNode();
-        break;
-      case 'undo':
-        this.undo();
-        break;
-      case 'redo':
-        this.redo();
-        break;
-      default:
-        break;
-    }
-  }
-
-  handleLayersSidebarClick(e) {
-    const layer = e.target.dataset.layer;
-    if (layer) {
-      this.selectLayer(layer);
-    }
-  }
-
-  handlePropertiesSidebarClick(e) {
-    const property = e.target.dataset.property;
-    if (property) {
-      this.editProperty(property);
-    }
-  }
-
-  addNode() {
-    const node = this.formulaEngine.createNode();
-    this.stateStore.dispatch({ type: 'ADD_NODE', node });
-  }
-
-  undo() {
-    const previousState = this.stateStore.getState().undoHistory.pop();
-    if (previousState) {
-      this.stateStore.dispatch({ type: 'REDO', state: previousState });
-    }
-  }
-
-  redo() {
-    const nextState = this.stateStore.getState().redoHistory.pop();
-    if (nextState) {
-      this.stateStore.dispatch({ type: 'UNDO', state: nextState });
-    }
-  }
-
-  selectLayer(layer) {
-    this.stateStore.dispatch({ type: 'SELECT_LAYER', layer });
-  }
-
-  editProperty(property) {
-    this.stateStore.dispatch({ type: 'EDIT_PROPERTY', property });
-  }
-
-  getNodeAtPosition(x, y) {
-    const nodes = this.stateStore.getState().nodes;
-    for (const node of nodes) {
-      if (node.x <= x && node.x + node.width >= x && node.y <= y && node.y + node.height >= y) {
-        return node;
+  // Get layer at position (x, y)
+  getLayerAt(x, y) {
+    for (const layer of this.state.layers) {
+      if (layer.x <= x && layer.x + layer.width >= x && layer.y <= y && layer.y + layer.height >= y) {
+        return layer;
       }
     }
     return null;
   }
 
-  saveStateToLocalStorage() {
-    const state = this.stateStore.getState();
-    localStorage.setItem('vector-forge-state', JSON.stringify(state));
+  // Render canvas
+  renderCanvas() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    for (const layer of this.state.layers) {
+      this.ctx.fillStyle = layer.color;
+      this.ctx.fillRect(layer.x, layer.y, layer.width, layer.height);
+    }
+    this.local Storage.setItem('vector-forge-state', JSON.stringify(this.state));
   }
 
-  loadStateFromLocalStorage() {
-    const storedState = localStorage.getItem('vector-forge-state');
-    if (storedState) {
-      this.stateStore.dispatch({ type: 'LOAD_STATE', state: JSON.parse(storedState) });
+  // Undo last action
+  undo() {
+    if (this.state.undoHistory.length > 0) {
+      this.state = this.state.undoHistory.pop();
+      this.renderCanvas();
     }
   }
 
+  // Redo last undone action
+  redo() {
+    if (this.state.redoHistory.length > 0) {
+      this.state = this.state.redoHistory.pop();
+      this.renderCanvas();
+    }
+  }
+
+  // Export canvas as PNG
   exportAsPng() {
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    const png = canvas.toDataURL('image/png');
-    const a = document.createElement('a');
-    a.href = png;
-    a.download = 'vector-forge-export.png';
-    a.click();
+    const link = document.createElement('a');
+    link.href = this.canvas.toDataURL('image/png');
+    link.download = 'vector-forge-export.png';
+    link.click();
   }
 
+  // Export canvas as SVG
   exportAsSvg() {
-    const svg = this.svg.svg();
-    const svgString = svg.outerHTML;
-    const a = document.createElement('a');
-    a.href = 'data:image/svg+xml,' + encodeURIComponent(svgString);
-    a.download = 'vector-forge-export.svg';
-    a.click();
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', this.canvas.width);
+    svg.setAttribute('height', this.canvas.height);
+    for (const layer of this.state.layers) {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', layer.x);
+      rect.setAttribute('y', layer.y);
+      rect.setAttribute('width', layer.width);
+      rect.setAttribute('height', layer.height);
+      rect.setAttribute('fill', layer.color);
+      svg.appendChild(rect);
+    }
+    const serializer = new XMLSerializer();
+    const svgString = serializer.serializeToString(svg);
+    const link = document.createElement('a');
+    link.href = 'data:image/svg+xml,' + encodeURIComponent(svgString);
+    link.download = 'vector-forge-export.svg';
+    link.click();
   }
 
+  // Export canvas as JSON
   exportAsJson() {
-    const state = this.stateStore.getState();
-    const json = JSON.stringify(state);
-    const a = document.createElement('a');
-    a.href = 'data:application/json,' + encodeURIComponent(json);
-    a.download = 'vector-forge-export.json';
-    a.click();
-  }
-
-  exportAsPdf() {
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    const pdf = new jsPDF();
-    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, canvas.width, canvas.height);
-    pdf.save('vector-forge-export.pdf');
+    const json = JSON.stringify(this.state);
+    const link = document.createElement('a');
+    link.href = 'data:application/json,' + encodeURIComponent(json);
+    link.download = 'vector-forge-export.json';
+    link.click();
   }
 }
 
-class FormulaEngine {
-  createNode() {
-    return {
+// Create a new instance of VectorForge
+const vectorForge = new VectorForge('canvas');
+
+// Initialize UI components
+const toolbar = document.getElementById('toolbar');
+const layersSidebar = document.getElementById('layers-sidebar');
+const assetsSidebar = document.getElementById('assets-sidebar');
+const statusPanel = document.getElementById('status-panel');
+
+// Add event listeners for UI components
+toolbar.addEventListener('click', (e) => {
+  if (e.target.id === 'undo-button') {
+    vectorForge.undo();
+  } else if (e.target.id === 'redo-button') {
+    vectorForge.redo();
+  } else if (e.target.id === 'export-as-png-button') {
+    vectorForge.exportAsPng();
+  } else if (e.target.id === 'export-as-svg-button') {
+    vectorForge.exportAsSvg();
+  } else if (e.target.id === 'export-as-json-button') {
+    vectorForge.exportAsJson();
+  }
+});
+
+layersSidebar.addEventListener('click', (e) => {
+  if (e.target.id === 'add-layer-button') {
+    vectorForge.state.layers.push({
       x: 0,
       y: 0,
       width: 100,
       height: 100,
-      type: 'rectangle'
-    };
+      color: '#ff0000'
+    });
+    vectorForge.renderCanvas();
   }
-}
+});
 
-class Fabric {
-  constructor(canvas) {
-    this.canvas = canvas;
+assetsSidebar.addEventListener('click', (e) => {
+  if (e.target.id === 'add-asset-button') {
+    vectorForge.state.assets.push({
+      name: 'New Asset',
+      type: 'image'
+    });
   }
-}
+});
 
-const VectorForgeApp = new VectorForge();
+statusPanel.addEventListener('click', (e) => {
+  if (e.target.id === 'clear-undo-history-button') {
+    vectorForge.state.undoHistory = [];
+  }
+});
 </script>
 </body>
 </html>
