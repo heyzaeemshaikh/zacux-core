@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vectra</title>
+  <title>Vectrix</title>
   <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
   <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
   <style>
@@ -16,287 +16,450 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="bg-gray-900 text-gray-100 h-screen flex flex-col">
-  <!-- Header Toolbar -->
-  <header class="flex justify-between items-center py-4 bg-gray-800 border-b border-gray-700">
-    <div class="flex items-center">
-      <h1 class="text-2xl font-bold mr-4"><i class="fas fa-vector-square fa-lg mr-2"></i>Vectra</h1>
-      <button class="btn btn-undo mr-2" title="Undo"><i class="fas fa-undo fa-lg"></i></button>
-      <button class="btn btn-redo mr-2" title="Redo"><i class="fas fa-redo fa-lg"></i></button>
+<body class="bg-dark h-screen overflow-hidden" style="background-color: #090d16;">
+  <!-- Top Toolbar -->
+  <nav class="flex justify-between top-0 left-0 right-0 py-2 bg-dark border-b border-gray-700">
+    <div class="flex items-center px-4">
+      <a href="#" class="text-lg font-bold text-white">Vectrix</a>
     </div>
     <div class="flex items-center">
-      <button class="btn btn-zoom-in mr-2" title="Zoom In"><i class="fas fa-search-plus fa-lg"></i></button>
-      <button class="btn btn-zoom-out mr-2" title="Zoom Out"><i class="fas fa-search-minus fa-lg"></i></button>
-      <button class="btn btn-zoom-reset mr-4" title="Reset Zoom"><i class="fas fa-expand fa-lg"></i></button>
-      <select class="form-select w-48 mr-4" id="selection-tool">
-        <option value="select">Select</option>
-        <option value="rectangle">Rectangle</option>
-        <option value="ellipse">Ellipse</option>
-      </select>
+      <button class="btn btn-sm btn-dark mx-1" title="New Project">
+        <i class="fas fa-file fa-sm text-gray-300"></i>
+      </button>
+      <button class="btn btn-sm btn-dark mx-1" title="Open Project">
+        <i class="fas fa-folder-open fa-sm text-gray-300"></i>
+      </button>
+      <button class="btn btn-sm btn-dark mx-1" title="Save Project">
+        <i class="fas fa-save fa-sm text-gray-300"></i>
+      </button>
+      <button class="btn btn-sm btn-dark mx-1" title="Undo">
+        <i class="fas fa-undo fa-sm text-gray-300"></i>
+      </button>
+      <button class="btn btn-sm btn-dark mx-1" title="Redo">
+        <i class="fas fa-redo fa-sm text-gray-300"></i>
+      </button>
     </div>
-  </header>
+    <div class="flex items-center">
+      <button class="btn btn-sm btn-dark mx-1" title="Toggle Sidebar">
+        <i class="fas fa-bars fa-sm text-gray-300"></i>
+      </button>
+      <button class="btn btn-sm btn-dark mx-1" title="Toggle Properties">
+        <i class="fas fa-cog fa-sm text-gray-300"></i>
+      </button>
+    </div>
+  </nav>
 
-  <!-- Main Workspace -->
-  <main class="flex flex-grow overflow-hidden">
-    <!-- Sidebar: Layer Management -->
-    <aside class="w-64 bg-gray-800 border-r border-gray-700 p-4">
-      <h2 class="text-lg font-bold mb-2">Layers</h2>
-      <ul id="layer-list">
-        <!-- Layer items will be generated dynamically -->
+  <!-- Left Sidebar (Layer Management) -->
+  <aside class="fixed top-12 left-0 bottom-0 bg-dark border-r border-gray-700 w-64 px-4 py-2">
+    <h5 class="text-sm font-bold text-gray-300 mb-2">Layers</h5>
+    <ul class="list-none">
+      <li class="mb-1">
+        <button class="btn btn-sm btn-dark w-full text-left" title="Add Layer">
+          <i class="fas fa-layer-group fa-sm text-gray-300 mr-1"></i> Add Layer
+        </button>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-sm btn-dark w-full text-left" title="Remove Layer">
+          <i class="fas fa-trash fa-sm text-gray-300 mr-1"></i> Remove Layer
+        </button>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-sm btn-dark w-full text-left" title="Rename Layer">
+          <i class="fas fa-pencil-alt fa-sm text-gray-300 mr-1"></i> Rename Layer
+        </button>
+      </li>
+    </ul>
+    <div class="mt-4">
+      <h5 class="text-sm font-bold text-gray-300 mb-2">Layer List</h5>
+      <ul class="list-none">
+        <li class="mb-1">
+          <span class="text-sm text-gray-300">Layer 1</span>
+        </li>
+        <li class="mb-1">
+          <span class="text-sm text-gray-300">Layer 2</span>
+        </li>
+        <li class="mb-1">
+          <span class="text-sm text-gray-300">Layer 3</span>
+        </li>
       </ul>
-      <button class="btn btn-add-layer mt-4" title="Add Layer"><i class="fas fa-layer-plus fa-lg"></i> Add Layer</button>
-    </aside>
-
-    <!-- Main Viewport: SVG Rendering and Editing -->
-    <section class="flex-grow overflow-auto p-4">
-      <svg id="svg-viewport" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"></svg>
-    </section>
-
-    <!-- Sidebar: Node Editing and Object Properties -->
-    <aside class="w-64 bg-gray-800 border-l border-gray-700 p-4">
-      <h2 class="text-lg font-bold mb-2">Node Editing</h2>
-      <form id="node-edit-form">
-        <!-- Node editing form fields will be generated dynamically -->
-      </form>
-      <h2 class="text-lg font-bold mt-4 mb-2">Object Properties</h2>
-      <form id="object-properties-form">
-        <!-- Object properties form fields will be generated dynamically -->
-      </form>
-    </aside>
-  </main>
-
-  <!-- Status Bar -->
-  <footer class="flex justify-between items-center py-2 bg-gray-800 border-t border-gray-700">
-    <div class="flex items-center">
-      <span id="status-message" class="text-gray-400 mr-4">Ready</span>
-      <button class="btn btn-refresh mr-4" title="Refresh"><i class="fas fa-sync fa-lg"></i></button>
     </div>
-    <div class="flex items-center">
-      <button class="btn btn-export mr-4" title="Export"><i class="fas fa-file-export fa-lg"></i> Export</button>
-      <button class="btn btn-save mr-4" title="Save"><i class="fas fa-save fa-lg"></i> Save</button>
+  </aside>
+
+  <!-- Main Viewport (SVG Canvas) -->
+  <div class="relative flex-1 p-4">
+    <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <!-- SVG content will be rendered here -->
+    </svg>
+  </div>
+
+  <!-- Right Sidebar (Properties and Node Editing Tools) -->
+  <aside class="fixed top-12 right-0 bottom-0 bg-dark border-l border-gray-700 w-64 px-4 py-2">
+    <h5 class="text-sm font-bold text-gray-300 mb-2">Properties</h5>
+    <div class="mt-2">
+      <label class="text-sm text-gray-300 block mb-1">Node ID:</label>
+      <input type="text" class="form-input w-full text-sm text-gray-300" value="Node 1" disabled>
+    </div>
+    <div class="mt-2">
+      <label class="text-sm text-gray-300 block mb-1">X:</label>
+      <input type="number" class="form-input w-full text-sm text-gray-300" value="10">
+    </div>
+    <div class="mt-2">
+      <label class="text-sm text-gray-300 block mb-1">Y:</label>
+      <input type="number" class="form-input w-full text-sm text-gray-300" value="20">
+    </div>
+    <h5 class="text-sm font-bold text-gray-300 mt-4 mb-2">Node Editing</h5>
+    <div class="mt-2">
+      <button class="btn btn-sm btn-dark w-full text-left" title="Add Node">
+        <i class="fas fa-plus fa-sm text-gray-300 mr-1"></i> Add Node
+      </button>
+    </div>
+    <div class="mt-2">
+      <button class="btn btn-sm btn-dark w-full text-left" title="Remove Node">
+        <i class="fas fa-trash fa-sm text-gray-300 mr-1"></i> Remove Node
+      </button>
+    </div>
+  </aside>
+
+  <!-- Bottom Status Panel -->
+  <footer class="fixed bottom-0 left-0 right-0 py-2 bg-dark border-t border-gray-700 text-sm text-gray-300">
+    <div class="flex justify-between px-4">
+      <span>Undo Stack: 3</span>
+      <span>Redo Stack: 2</span>
+      <span>Nodes: 5</span>
+      <span>Connections: 3</span>
     </div>
   </footer>
-
-  <!-- Floating Panels -->
-  <div id="floating-panels" class="fixed bottom-0 right-0 mb-4 mr-4 z-10">
-    <div class="flex flex-col items-end">
-      <button class="btn btn-open-layers mb-2" title="Open Layers Panel"><i class="fas fa-layer-group fa-lg"></i></button>
-      <button class="btn btn-open-node-editing mb-2" title="Open Node Editing Panel"><i class="fas fa-edit fa-lg"></i></button>
-      <button class="btn btn-open-object-properties mb-2" title="Open Object Properties Panel"><i class="fas fa-cog fa-lg"></i></button>
-    </div>
-  </div>
 </body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Core Engine
-class CoreEngine {
-  constructor() {
-    this.state = {
-      nodes: [],
-      paths: [],
-      imgUrl: '',
-      imgType: '',
-      undoHistory: [],
-      redoHistory: []
-    };
+// Import necessary libraries
+import { createStore, combineReducers } from 'redux';
+import { createWebWorker } from 'worker-loader';
+import { svgNamespace } from 'svg-namespace';
 
-    this.toolbar = document.getElementById('toolbar');
-    this.sidebar = document.getElementById('sidebar');
-    this.viewport = document.getElementById('viewport');
-    this.statusPanel = document.getElementById('status-panel');
+// Define constants and enumerations
+const APP_NAME = 'Vectrix';
+const TOOLBAR_HEIGHT = 50;
+const SIDEBAR_WIDTH = 200;
+const STATUS_PANEL_HEIGHT = 20;
+const GRID_SIZE = 10;
 
-    this.canvas = document.createElement('canvas');
-    this.ctx = this.canvas.getContext('2d');
-    this.canvas.width = 800;
-    this.canvas.height = 600;
-    this.viewport.appendChild(this.canvas);
+// Define the initial state
+const initialState = {
+  nodes: [],
+  layers: [],
+  selectedNode: null,
+  undoHistory: [],
+  redoHistory: [],
+  localStorage: {}
+};
 
-    this.initEventListeners();
-    this.initUndoRedo();
+// Define Redux reducers
+function nodeReducer(state = initialState.nodes, action) {
+  switch (action.type) {
+    case 'ADD_NODE':
+      return [...state, action.node];
+    case 'REMOVE_NODE':
+      return state.filter(node => node.id!== action.nodeId);
+    case 'UPDATE_NODE':
+      return state.map(node => node.id === action.nodeId? action.node : node);
+    default:
+      return state;
+  }
+}
+
+function layerReducer(state = initialState.layers, action) {
+  switch (action.type) {
+    case 'ADD_LAYER':
+      return [...state, action.layer];
+    case 'REMOVE_LAYER':
+      return state.filter(layer => layer.id!== action.layerId);
+    case 'UPDATE_LAYER':
+      return state.map(layer => layer.id === action.layerId? action.layer : layer);
+    default:
+      return state;
+  }
+}
+
+function selectedNodeReducer(state = initialState.selectedNode, action) {
+  switch (action.type) {
+    case 'SELECT_NODE':
+      return action.node;
+    case 'DESELECT_NODE':
+      return null;
+    default:
+      return state;
+  }
+}
+
+function undoHistoryReducer(state = initialState.undoHistory, action) {
+  switch (action.type) {
+    case 'ADD_UNDO_ACTION':
+      return [...state, action.action];
+    case 'REMOVE_UNDO_ACTION':
+      return state.slice(0, -1);
+    default:
+      return state;
+  }
+}
+
+function redoHistoryReducer(state = initialState.redoHistory, action) {
+  switch (action.type) {
+    case 'ADD_REDO_ACTION':
+      return [...state, action.action];
+    case 'REMOVE_REDO_ACTION':
+      return state.slice(0, -1);
+    default:
+      return state;
+  }
+}
+
+// Combine reducers
+const reducers = combineReducers({
+  nodes: nodeReducer,
+  layers: layerReducer,
+  selectedNode: selectedNodeReducer,
+  undoHistory: undoHistoryReducer,
+  redoHistory: redoHistoryReducer
+});
+
+// Create the Redux store
+const store = createStore(reducers, initialState);
+
+// Define actions
+function addNode(node) {
+  return { type: 'ADD_NODE', node };
+}
+
+function removeNode(nodeId) {
+  return { type: 'REMOVE_NODE', nodeId };
+}
+
+function updateNode(nodeId, node) {
+  return { type: 'UPDATE_NODE', nodeId, node };
+}
+
+function addLayer(layer) {
+  return { type: 'ADD_LAYER', layer };
+}
+
+function removeLayer(layerId) {
+  return { type: 'REMOVE_LAYER', layerId };
+}
+
+function updateLayer(layerId, layer) {
+  return { type: 'UPDATE_LAYER', layerId, layer };
+}
+
+function selectNode(node) {
+  return { type: 'SELECT_NODE', node };
+}
+
+function deselectNode() {
+  return { type: 'DESELECT_NODE' };
+}
+
+function addUndoAction(action) {
+  return { type: 'ADD_UNDO_ACTION', action };
+}
+
+function removeUndoAction() {
+  return { type: 'REMOVE_UNDO_ACTION' };
+}
+
+function addRedoAction(action) {
+  return { type: 'ADD_REDO_ACTION', action };
+}
+
+function removeRedoAction() {
+  return { type: 'REMOVE_REDO_ACTION' };
+}
+
+// Define the SVG rendering engine
+class SVGRenderingEngine {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.nodes = [];
+    this.layers = [];
   }
 
-  initEventListeners() {
-    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
-    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
-
-    this.toolbar.addEventListener('click', (e) => this.handleToolbarClick(e));
-
-    this.sidebar.addEventListener('click', (e) => this.handleSidebarClick(e));
+  renderNode(node) {
+    const svgNode = document.createElementNS(svgNamespace, 'rect');
+    svgNode.setAttribute('x', node.x);
+    svgNode.setAttribute('y', node.y);
+    svgNode.setAttribute('width', node.width);
+    svgNode.setAttribute('height', node.height);
+    this.canvas.appendChild(svgNode);
   }
 
-  initUndoRedo() {
-    this.state.undoHistory = [];
-    this.state.redoHistory = [];
-
-    this.toolbar.querySelector('#undo').addEventListener('click', () => this.undo());
-    this.toolbar.querySelector('#redo').addEventListener('click', () => this.redo());
-  }
-
-  handleMouseDown(e) {
-    const x = e.clientX - this.canvas.offsetLeft;
-    const y = e.clientY - this.canvas.offsetTop;
-
-    this.state.nodes.push({ x, y });
-    this.state.undoHistory.push(JSON.parse(JSON.stringify(this.state)));
-    this.render();
-  }
-
-  handleMouseMove(e) {
-    const x = e.clientX - this.canvas.offsetLeft;
-    const y = e.clientY - this.canvas.offsetTop;
-
-    this.state.nodes[this.state.nodes.length - 1].x = x;
-    this.state.nodes[this.state.nodes.length - 1].y = y;
-    this.render();
-  }
-
-  handleMouseUp() {
-    this.state.redoHistory = [];
-  }
-
-  handleToolbarClick(e) {
-    if (e.target.id === 'undo') {
-      this.undo();
-    } else if (e.target.id === 'redo') {
-      this.redo();
-    } else if (e.target.id === 'export') {
-      this.exportFile();
-    }
-  }
-
-  handleSidebarClick(e) {
-    if (e.target.id === 'add-node') {
-      this.addNode();
-    }
-  }
-
-  addNode() {
-    this.state.nodes.push({ x: 0, y: 0 });
-    this.state.undoHistory.push(JSON.parse(JSON.stringify(this.state)));
-    this.render();
-  }
-
-  undo() {
-    if (this.state.undoHistory.length > 0) {
-      this.state.redoHistory.push(JSON.parse(JSON.stringify(this.state)));
-      this.state = this.state.undoHistory.pop();
-      this.render();
-    }
-  }
-
-  redo() {
-    if (this.state.redoHistory.length > 0) {
-      this.state.undoHistory.push(JSON.parse(JSON.stringify(this.state)));
-      this.state = this.state.redoHistory.pop();
-      this.render();
-    }
+  renderLayer(layer) {
+    const svgLayer = document.createElementNS(svgNamespace, 'g');
+    layer.nodes.forEach(node => {
+      this.renderNode(node);
+    });
+    this.canvas.appendChild(svgLayer);
   }
 
   render() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    this.state.nodes.forEach((node) => {
-      this.ctx.beginPath();
-      this.ctx.arc(node.x, node.y, 5, 0, 2 * Math.PI);
-      this.ctx.fillStyle = 'black';
-      this.ctx.fill();
+    this.layers.forEach(layer => {
+      this.renderLayer(layer);
     });
   }
-
-  exportFile() {
-    const fileType = document.getElementById('file-type').value;
-    const fileExtension = fileType === 'png'? 'png' : fileType === 'jpg'? 'jpg' : fileType === 'svg'? 'svg' : 'json';
-
-    if (fileType === 'png' || fileType === 'jpg') {
-      this.canvas.toBlob((blob) => {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `image.${fileExtension}`;
-        a.click();
-        URL.revokeObjectURL(url);
-      }, `image/${fileType}`);
-    } else if (fileType === 'svg') {
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.setAttribute('width', this.canvas.width);
-      svg.setAttribute('height', this.canvas.height);
-
-      this.state.nodes.forEach((node) => {
-        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        circle.setAttribute('cx', node.x);
-        circle.setAttribute('cy', node.y);
-        circle.setAttribute('r', 5);
-        circle.setAttribute('fill', 'black');
-        svg.appendChild(circle);
-      });
-
-      const serializer = new XMLSerializer();
-      const svgString = serializer.serializeToString(svg);
-
-      const blob = new Blob([svgString], { type: 'image/svg+xml' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `image.${fileExtension}`;
-      a.click();
-      URL.revokeObjectURL(url);
-    } else if (fileType === 'json') {
-      const json = JSON.stringify(this.state);
-      const blob = new Blob([json], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `data.${fileExtension}`;
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-  }
-
-  save() {
-    localStorage.setItem('vectra-state', JSON.stringify(this.state));
-  }
-
-  load() {
-    const savedState = localStorage.getItem('vectra-state');
-    if (savedState) {
-      this.state = JSON.parse(savedState);
-      this.render();
-    }
-  }
 }
 
-// Service Worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js')
-   .then((registration) => {
-      console.log('Service worker registered:', registration);
-    })
-   .catch((error) => {
-      console.error('Service worker registration failed:', error);
+// Define the node editing algorithms
+class NodeEditingAlgorithms {
+  constructor(canvas) {
+    this.canvas = canvas;
+  }
+
+  snapToGrid(node) {
+    node.x = Math.round(node.x / GRID_SIZE) * GRID_SIZE;
+    node.y = Math.round(node.y / GRID_SIZE) * GRID_SIZE;
+  }
+
+  alignNodes(nodes) {
+    const minX = Math.min(...nodes.map(node => node.x));
+    const minY = Math.min(...nodes.map(node => node.y));
+    nodes.forEach(node => {
+      node.x -= minX;
+      node.y -= minY;
     });
+  }
 }
 
-// Web Worker
-if (typeof Worker!== 'undefined') {
-  const worker = new Worker('worker.js');
-  worker.onmessage = (event) => {
-    console.log('Received message from worker:', event.data);
-  };
-  worker.postMessage('Initialize');
-} else {
-  console.log('Web workers are not supported in this browser.');
+// Define the Web Workers for export and rendering tasks
+class WebWorker {
+  constructor(workerScript) {
+    this.worker = new Worker(workerScript);
+  }
+
+  postMessage(message) {
+    this.worker.postMessage(message);
+  }
+
+  onMessage(callback) {
+    this.worker.onmessage = callback;
+  }
 }
 
-// Initialize Core Engine
-const coreEngine = new CoreEngine();
-coreEngine.load();
+// Define the export logic
+function exportAsPNG() {
+  const webWorker = new WebWorker('export-worker.js');
+  webWorker.postMessage({ type: 'EXPORT_AS_PNG' });
+  webWorker.onMessage(event => {
+    const pngData = event.data;
+    const a = document.createElement('a');
+    a.href = pngData;
+    a.download = 'vectrix-export.png';
+    a.click();
+  });
+}
 
-// Add Event Listener for BeforeUnload
-window.addEventListener('beforeunload', () => {
-  coreEngine.save();
-});
+function exportAsSVG() {
+  const webWorker = new WebWorker('export-worker.js');
+  webWorker.postMessage({ type: 'EXPORT_AS_SVG' });
+  webWorker.onMessage(event => {
+    const svgData = event.data;
+    const a = document.createElement('a');
+    a.href = svgData;
+    a.download = 'vectrix-export.svg';
+    a.click();
+  });
+}
+
+function exportAsJSON() {
+  const webWorker = new WebWorker('export-worker.js');
+  webWorker.postMessage({ type: 'EXPORT_AS_JSON' });
+  webWorker.onMessage(event => {
+    const jsonData = event.data;
+    const a = document.createElement('a');
+    a.href = jsonData;
+    a.download = 'vectrix-export.json';
+    a.click();
+  });
+}
+
+// Define the event listeners
+function handleMouseDown(event) {
+  const node = event.target;
+  selectNode(node);
+}
+
+function handleMouseMove(event) {
+  const node = event.target;
+  updateNode(node.id, { x: event.clientX, y: event.clientY });
+}
+
+function handleMouseUp(event) {
+  const node = event.target;
+  deselectNode();
+}
+
+function handleKeyPress(event) {
+  if (event.key === 'z' && event.ctrlKey) {
+    removeUndoAction();
+  } else if (event.key === 'y' && event.ctrlKey) {
+    removeRedoAction();
+  }
+}
+
+// Initialize the application
+function init() {
+  const canvas = document.getElementById('canvas');
+  const toolbar = document.getElementById('toolbar');
+  const sidebar = document.getElementById('sidebar');
+  const statusPanel = document.getElementById('status-panel');
+
+  const svgRenderingEngine = new SVGRenderingEngine(canvas);
+  const nodeEditingAlgorithms = new NodeEditingAlgorithms(canvas);
+
+  toolbar.addEventListener('click', event => {
+    if (event.target.id === 'add-node-button') {
+      addNode({ x: 0, y: 0, width: 100, height: 100 });
+    } else if (event.target.id === 'remove-node-button') {
+      removeNode();
+    }
+  });
+
+  sidebar.addEventListener('click', event => {
+    if (event.target.id === 'add-layer-button') {
+      addLayer({ name: 'New Layer' });
+    } else if (event.target.id === 'remove-layer-button') {
+      removeLayer();
+    }
+  });
+
+  statusPanel.addEventListener('click', event => {
+    if (event.target.id === 'undo-button') {
+      removeUndoAction();
+    } else if (event.target.id === 'redo-button') {
+      removeRedoAction();
+    }
+  });
+
+  canvas.addEventListener('mousedown', handleMouseDown);
+  canvas.addEventListener('mousemove', handleMouseMove);
+  canvas.addEventListener('mouseup', handleMouseUp);
+
+  document.addEventListener('keydown', handleKeyPress);
+
+  svgRenderingEngine.render();
+
+  // Load from local storage
+  const storedState = localStorage.getItem('vectrix-state');
+  if (storedState) {
+    store.replaceState(JSON.parse(storedState));
+  }
+
+  // Save to local storage on change
+  store.subscribe(() => {
+    localStorage.setItem('vectrix-state', JSON.stringify(store.getState()));
+  });
+}
+
+init();
 </script>
 </body>
 </html>
