@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vectra</title>
+  <title>VectorForge</title>
   <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
   <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
   <style>
@@ -16,394 +16,193 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<div class="h-screen w-screen bg-gray-900 text-gray-100 flex flex-col" id="vectra-app">
-  <!-- Toolbar -->
-  <div class="flex justify-between items-center p-2 border-b border-gray-700">
-    <div class="flex items-center">
-      <button class="mr-2 bg-gray-800 hover:bg-gray-700 p-2 rounded">
-        <i class="fas fa-undo fa-lg"></i>
-      </button>
-      <button class="mr-2 bg-gray-800 hover:bg-gray-700 p-2 rounded">
-        <i class="fas fa-redo fa-lg"></i>
-      </button>
-      <button class="mr-2 bg-gray-800 hover:bg-gray-700 p-2 rounded">
-        <i class="fas fa-edit fa-lg"></i>
-      </button>
-      <button class="mr-2 bg-gray-800 hover:bg-gray-700 p-2 rounded">
-        <i class="fas fa-download fa-lg"></i>
-      </button>
-      <select class="mr-2 bg-gray-800 hover:bg-gray-700 p-2 rounded">
-        <option>PNG</option>
-        <option>JPEG</option>
-        <option>SVG</option>
-        <option>PDF</option>
-      </select>
+<body class="h-screen bg-gray-900 text-gray-100 flex flex-col">
+  <!-- Top Toolbar -->
+  <header class="flex justify-between items-center py-2 bg-gray-800 border-b border-gray-700">
+    <h1 class="text-2xl font-bold ml-4"><i class="fas fa-vector-square fa-lg text-gray-100"></i> VectorForge</h1>
+    <div class="flex items-center justify-center">
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 mx-2 rounded" title="Undo"><i class="fas fa-undo fa-lg text-gray-100"></i></button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 mx-2 rounded" title="Redo"><i class="fas fa-redo fa-lg text-gray-100"></i></button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 mx-2 rounded" title="Node Editing"><i class="fas fa-edit fa-lg text-gray-100"></i></button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 mx-2 rounded" title="Layer Management"><i class="fas fa-layer-group fa-lg text-gray-100"></i></button>
     </div>
-    <div class="flex items-center">
-      <span class="mr-2">Vectra</span>
-      <button class="mr-2 bg-gray-800 hover:bg-gray-700 p-2 rounded">
-        <i class="fas fa-cog fa-lg"></i>
-      </button>
+  </header>
+  
+  <!-- Left Sidebar -->
+  <aside class="h-screen w-64 bg-gray-800 p-4 border-r border-gray-700 hidden md:block">
+    <h2 class="text-xl font-bold mb-4">Asset Library</h2>
+    <ul>
+      <li class="mb-2"><i class="fas fa-image fa-lg text-gray-100"></i> Images</li>
+      <li class="mb-2"><i class="fas fa-vector-square fa-lg text-gray-100"></i> Vectors</li>
+      <li class="mb-2"><i class="fas fa-recycle fa-lg text-gray-100"></i> Trash</li>
+    </ul>
+    <h2 class="text-xl font-bold mt-4 mb-4">Palette</h2>
+    <div class="flex flex-wrap">
+      <div class="w-10 h-10 bg-red-500 m-2 rounded-full"></div>
+      <div class="w-10 h-10 bg-blue-500 m-2 rounded-full"></div>
+      <div class="w-10 h-10 bg-green-500 m-2 rounded-full"></div>
     </div>
-  </div>
-
+  </aside>
+  
   <!-- Main Viewport -->
-  <div class="flex flex-grow">
-    <!-- Sidebar -->
-    <div class="w-64 p-2 border-r border-gray-700">
-      <div class="mb-4">
-        <h5 class="mb-2">Layers</h5>
-        <ul>
-          <li class="py-2 border-b border-gray-700">Layer 1</li>
-          <li class="py-2 border-b border-gray-700">Layer 2</li>
-          <li class="py-2 border-b border-gray-700">Layer 3</li>
-        </ul>
-      </div>
-      <div>
-        <h5 class="mb-2">Assets</h5>
-        <ul>
-          <li class="py-2 border-b border-gray-700">Asset 1</li>
-          <li class="py-2 border-b border-gray-700">Asset 2</li>
-          <li class="py-2 border-b border-gray-700">Asset 3</li>
-        </ul>
-      </div>
+  <main class="flex-1 h-screen p-4 overflow-y-auto">
+    <div class="h-full w-full bg-gray-700 border border-gray-600 rounded">
+      <!-- Canvas Rendering -->
+      <svg id="vector-canvas" class="h-full w-full" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
-
-    <!-- SVG Rendering Canvas -->
-    <div class="flex-grow p-2">
-      <svg class="w-full h-full" id="vectra-canvas"></svg>
+  </main>
+  
+  <!-- Bottom Status Panel -->
+  <footer class="flex justify-between items-center py-2 bg-gray-800 border-t border-gray-700">
+    <div class="flex items-center justify-center">
+      <span class="text-gray-100">Selections: </span>
+      <span id="selection-count" class="text-gray-100">0</span>
     </div>
-
-    <!-- Floating Side Panels -->
-    <div class="fixed top-0 right-0 p-2">
-      <button class="bg-gray-800 hover:bg-gray-700 p-2 rounded" id="node-edit-panel-toggle">
-        <i class="fas fa-edit fa-lg"></i>
-      </button>
-      <div class="hidden" id="node-edit-panel">
-        <div class="p-2 border border-gray-700 rounded">
-          <h5 class="mb-2">Node Editing</h5>
-          <input class="w-full p-2 mb-2 border border-gray-700 rounded" type="text" placeholder="Node Name">
-          <button class="bg-gray-800 hover:bg-gray-700 p-2 rounded">
-            Save
-          </button>
-        </div>
-      </div>
+    <div class="flex items-center justify-center">
+      <span class="text-gray-100">Zoom: </span>
+      <span id="zoom-level" class="text-gray-100">100%</span>
     </div>
+    <div class="flex items-center justify-center">
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 mx-2 rounded" title="Alerts"><i class="fas fa-exclamation-circle fa-lg text-gray-100"></i></button>
+    </div>
+  </footer>
+  
+  <!-- Floating Side Panels -->
+  <div class="fixed bottom-0 right-0 mb-4 mr-4">
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Export PNG"><i class="fas fa-image fa-lg text-gray-100"></i></button>
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Export JPEG"><i class="fas fa-file-image fa-lg text-gray-100"></i></button>
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Export SVG"><i class="fas fa-vector-square fa-lg text-gray-100"></i></button>
   </div>
-
-  <!-- Status Panel -->
-  <div class="p-2 border-t border-gray-700">
-    <div class="flex justify-between items-center">
-      <span>Real-time Feedback</span>
-      <i class="fas fa-sync fa-lg"></i>
-    </div>
-    <div class="mt-2">
-      <span>Notifications</span>
-      <ul>
-        <li class="py-2 border-b border-gray-700">Notification 1</li>
-        <li class="py-2 border-b border-gray-700">Notification 2</li>
-        <li class="py-2 border-b border-gray-700">Notification 3</li>
-      </ul>
-    </div>
+  
+  <!-- Tool Options -->
+  <div class="fixed top-0 right-0 mt-4 mr-4">
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Node Options"><i class="fas fa-cog fa-lg text-gray-100"></i></button>
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded" title="Layer Options"><i class="fas fa-layer-group fa-lg text-gray-100"></i></button>
   </div>
-</div>
+</body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Vectra Engine
-class VectraEngine {
-  constructor(canvas, toolbar, sidebar, statusPanel) {
-    this.canvas = canvas;
-    this.toolbar = toolbar;
-    this.sidebar = sidebar;
-    this.statusPanel = statusPanel;
+// VectorForge Engine
+class VectorForgeEngine {
+  constructor() {
+    this.canvas = document.getElementById('canvas');
+    this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    this.canvas.appendChild(this.svg);
     this.state = {
       nodes: [],
       selectedNode: null,
       undoHistory: [],
       redoHistory: []
     };
-    this.localStorageKey = 'vectra-state';
-    this.initEventListeners();
-    this.initState();
+    this.LoadState();
+    this.BindEventListeners();
+    this.InitUI();
+    this.InitStateManagement();
+    this.InitExportEngines();
   }
 
-  initEventListeners() {
-    this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
-    this.canvas.addEventListener('mousemove', (e) => this.handleCanvasMouseMove(e));
-    this.toolbar.addEventListener('click', (e) => this.handleToolbarClick(e));
-    this.sidebar.addEventListener('click', (e) => this.handleSidebarClick(e));
-  }
-
-  initState() {
-    const storedState = localStorage.getItem(this.localStorageKey);
+  // State Management
+  LoadState() {
+    const storedState = localStorage.getItem('vector-forge-state');
     if (storedState) {
       this.state = JSON.parse(storedState);
+      this.DrawCanvas();
     }
-    this.updateCanvas();
   }
 
-  handleCanvasClick(e) {
-    const node = this.getNodeAtPosition(e.clientX, e.clientY);
+  SaveState() {
+    localStorage.setItem('vector-forge-state', JSON.stringify(this.state));
+  }
+
+  AutoSave() {
+    setInterval(() => {
+      this.SaveState();
+    }, 10000);
+  }
+
+  // Event Listeners
+  BindEventListeners() {
+    this.canvas.addEventListener('click', (e) => {
+      this.HandleClick(e);
+    });
+
+    this.canvas.addEventListener('mousedown', (e) => {
+      this.HandleMouseDown(e);
+    });
+
+    this.canvas.addEventListener('mousemove', (e) => {
+      this.HandleMouseMove(e);
+    });
+
+    this.canvas.addEventListener('mouseup', (e) => {
+      this.HandleMouseUp(e);
+    });
+  }
+
+  HandleClick(e) {
+    // Node selection
+    const node = this.GetNodeAt(e.clientX, e.clientY);
     if (node) {
-      this.selectNode(node);
-    } else {
-      this.deselectNode();
+      this.SelectNode(node);
     }
   }
 
-  handleCanvasMouseMove(e) {
-    const node = this.getNodeAtPosition(e.clientX, e.clientY);
+  HandleMouseDown(e) {
+    // Node dragging
+    const node = this.GetNodeAt(e.clientX, e.clientY);
     if (node) {
-      this.updateNodePosition(node, e.clientX, e.clientY);
+      this.DragNode(node, e.clientX, e.clientY);
     }
   }
 
-  handleToolbarClick(e) {
-    switch (e.target.id) {
-      case 'undo':
-        this.undo();
-        break;
-      case 'redo':
-        this.redo();
-        break;
-      case 'export':
-        this.exportFile();
-        break;
-      default:
-        break;
+  HandleMouseMove(e) {
+    // Node dragging
+    if (this.state.selectedNode) {
+      this.DragNode(this.state.selectedNode, e.clientX, e.clientY);
     }
   }
 
-  handleSidebarClick(e) {
-    switch (e.target.id) {
-      case 'add-node':
-        this.addNode();
-        break;
-      case 'remove-node':
-        this.removeNode();
-        break;
-      default:
-        break;
+  HandleMouseUp(e) {
+    // Node drop
+    if (this.state.selectedNode) {
+      this.DropNode(this.state.selectedNode, e.clientX, e.clientY);
     }
   }
 
-  getNodeAtPosition(x, y) {
+  // Node Management
+  GetNodeAt(x, y) {
     const nodes = this.state.nodes;
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
-      if (this.isNodeAtPosition(node, x, y)) {
+      if (node.x <= x && node.x + node.width >= x && node.y <= y && node.y + node.height >= y) {
         return node;
       }
     }
     return null;
   }
 
-  isNodeAtPosition(node, x, y) {
-    const nodeX = node.x;
-    const nodeY = node.y;
-    const nodeWidth = node.width;
-    const nodeHeight = node.height;
-    if (x >= nodeX && x <= nodeX + nodeWidth && y >= nodeY && y <= nodeY + nodeHeight) {
-      return true;
-    }
-    return false;
-  }
-
-  selectNode(node) {
+  SelectNode(node) {
     this.state.selectedNode = node;
-    this.updateCanvas();
+    this.DrawCanvas();
   }
 
-  deselectNode() {
+  DragNode(node, x, y) {
+    node.x = x - node.width / 2;
+    node.y = y - node.height / 2;
+    this.DrawCanvas();
+  }
+
+  DropNode(node, x, y) {
+    node.x = x - node.width / 2;
+    node.y = y - node.height / 2;
     this.state.selectedNode = null;
-    this.updateCanvas();
+    this.DrawCanvas();
   }
 
-  updateNodePosition(node, x, y) {
-    node.x = x;
-    node.y = y;
-    this.updateCanvas();
-  }
-
-  updateCanvas() {
-    const ctx = this.canvas.getContext('2d');
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    const nodes = this.state.nodes;
-    for (let i = 0; i < nodes.length; i++) {
-      const node = nodes[i];
-      ctx.fillStyle = node.color;
-      ctx.fillRect(node.x, node.y, node.width, node.height);
-    }
-  }
-
-  addNode() {
-    const node = {
-      x: 10,
-      y: 10,
-      width: 50,
-      height: 50,
-      color: 'red'
-    };
-    this.state.nodes.push(node);
-    this.updateCanvas();
-    this.saveState();
-  }
-
-  removeNode() {
-    const selectedNode = this.state.selectedNode;
-    if (selectedNode) {
-      const index = this.state.nodes.indexOf(selectedNode);
-      if (index!== -1) {
-        this.state.nodes.splice(index, 1);
-        this.updateCanvas();
-        this.saveState();
-      }
-    }
-  }
-
-  undo() {
-    if (this.state.undoHistory.length > 0) {
-      const state = this.state.undoHistory.pop();
-      this.state = state;
-      this.updateCanvas();
-    }
-  }
-
-  redo() {
-    if (this.state.redoHistory.length > 0) {
-      const state = this.state.redoHistory.pop();
-      this.state = state;
-      this.updateCanvas();
-    }
-  }
-
-  saveState() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.state));
-  }
-
-  exportFile() {
-    const ctx = this.canvas.getContext('2d');
-    const imageData = ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
-    const blob = new Blob([imageData.data], { type: 'image/png' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'vectra-export.png';
-    a.click();
-  }
-}
-
-// Web Worker
-class WebWorker {
-  constructor() {
-    this.worker = new Worker('worker.js');
-    this.worker.onmessage = (e) => this.handleMessage(e);
-  }
-
-  handleMessage(e) {
-    console.log(e.data);
-  }
-
-  postMessage(message) {
-    this.worker.postMessage(message);
-  }
-}
-
-// Service Worker
-class ServiceWorker {
-  constructor() {
-    this.registration = navigator.serviceWorker.register('service-worker.js');
-    this.registration.onupdatefound = () => this.updateServiceWorker();
-  }
-
-  updateServiceWorker() {
-    const installingWorker = this.registration.installing;
-    installingWorker.onstatechange = () => this.handleStateChange(installingWorker);
-  }
-
-  handleStateChange(worker) {
-    if (worker.state === 'installed') {
-      worker.postMessage('skipWaiting');
-    }
-  }
-}
-
-// SVG Parser and Renderer
-class SVGParser {
-  constructor() {
-    this.parser = new DOMParser();
-  }
-
-  parseSVG(svgString) {
-    const doc = this.parser.parseFromString(svgString, 'image/svg+xml');
-    return doc;
-  }
-}
-
-class SVGRenderer {
-  constructor() {
-    this.renderer = new SVGRenderer();
-  }
-
-  renderSVG(doc) {
-    const svg = doc.documentElement;
-    const ctx = this.canvas.getContext('2d');
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    const nodes = svg.childNodes;
-    for (let i = 0; i < nodes.length; i++) {
-      const node = nodes[i];
-      ctx.fillStyle = node.getAttribute('fill');
-      ctx.fillRect(node.getAttribute('x'), node.getAttribute('y'), node.getAttribute('width'), node.getAttribute('height'));
-    }
-  }
-}
-
-// Node Editing Algorithms
-class NodeEditor {
-  constructor() {
-    this.editor = new NodeEditor();
-  }
-
-  editNode(node) {
-    const ctx = this.canvas.getContext('2d');
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    node.x = 10;
-    node.y = 10;
-    node.width = 50;
-    node.height = 50;
-    ctx.fillStyle = node.color;
-    ctx.fillRect(node.x, node.y, node.width, node.height);
-  }
-}
-
-// Export Engines
-class PNGExporter {
-  constructor() {
-    this.exporter = new PNGExporter();
-  }
-
-  exportPNG() {
-    const ctx = this.canvas.getContext('2d');
-    const imageData = ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
-    const blob = new Blob([imageData.data], { type: 'image/png' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'vectra-export.png';
-    a.click();
-  }
-}
-
-class SVGExporter {
-  constructor() {
-    this.exporter = new SVGExporter();
-  }
-
-  exportSVG() {
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('width', this.canvas.width);
-    svg.setAttribute('height', this.canvas.height);
+  // Canvas Rendering
+  DrawCanvas() {
+    this.svg.innerHTML = '';
     const nodes = this.state.nodes;
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
@@ -413,31 +212,141 @@ class SVGExporter {
       rect.setAttribute('width', node.width);
       rect.setAttribute('height', node.height);
       rect.setAttribute('fill', node.color);
-      svg.appendChild(rect);
+      this.svg.appendChild(rect);
     }
-    const svgString = new XMLSerializer().serializeToString(svg);
-    const blob = new Blob([svgString], { type: 'image/svg+xml' });
+  }
+
+  // UI Initialization
+  InitUI() {
+    const topToolbar = document.getElementById('top-toolbar');
+    const leftSidebar = document.getElementById('left-sidebar');
+    const mainViewport = document.getElementById('main-viewport');
+    const bottomStatusPanel = document.getElementById('bottom-status-panel');
+
+    topToolbar.innerHTML = `
+      <button id="undo-button">Undo</button>
+      <button id="redo-button">Redo</button>
+      <button id="save-button">Save</button>
+      <button id="export-button">Export</button>
+    `;
+
+    leftSidebar.innerHTML = `
+      <h2>Asset Library</h2>
+      <ul id="asset-list"></ul>
+    `;
+
+    mainViewport.innerHTML = `
+      <div id="canvas-container">
+        <div id="canvas"></div>
+      </div>
+    `;
+
+    bottomStatusPanel.innerHTML = `
+      <p id="selection-info"></p>
+      <p id="zoom-info"></p>
+      <p id="alert-info"></p>
+    `;
+
+    document.getElementById('undo-button').addEventListener('click', () => {
+      this.Undo();
+    });
+
+    document.getElementById('redo-button').addEventListener('click', () => {
+      this.Redo();
+    });
+
+    document.getElementById('save-button').addEventListener('click', () => {
+      this.SaveState();
+    });
+
+    document.getElementById('export-button').addEventListener('click', () => {
+      this.Export();
+    });
+  }
+
+  // State Management
+  InitStateManagement() {
+    this.state.undoHistory = [];
+    this.state.redoHistory = [];
+  }
+
+  Undo() {
+    if (this.state.undoHistory.length > 0) {
+      const state = this.state.undoHistory.pop();
+      this.state.redoHistory.push(this.state);
+      this.state = state;
+      this.DrawCanvas();
+    }
+  }
+
+  Redo() {
+    if (this.state.redoHistory.length > 0) {
+      const state = this.state.redoHistory.pop();
+      this.state.undoHistory.push(this.state);
+      this.state = state;
+      this.DrawCanvas();
+    }
+  }
+
+  // Export Engines
+  InitExportEngines() {
+    // PNG export
+    document.getElementById('export-png-button').addEventListener('click', () => {
+      this.ExportPNG();
+    });
+
+    // SVG export
+    document.getElementById('export-svg-button').addEventListener('click', () => {
+      this.ExportSVG();
+    });
+
+    // JSON export
+    document.getElementById('export-json-button').addEventListener('click', () => {
+      this.ExportJSON();
+    });
+  }
+
+  ExportPNG() {
+    const svg = this.svg;
+    const canvas = document.createElement('canvas');
+    canvas.width = svg.width.baseVal.value;
+    canvas.height = svg.height.baseVal.value;
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = 'data:image/svg+xml,' + encodeURIComponent(this.svg.outerHTML);
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0);
+      const png = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.href = png;
+      a.download = 'vector-forge.png';
+      a.click();
+    };
+  }
+
+  ExportSVG() {
+    const svg = this.svg.outerHTML;
+    const blob = new Blob([svg], { type: 'image/svg+xml' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'vectra-export.svg';
+    a.download = 'vector-forge.svg';
+    a.click();
+  }
+
+  ExportJSON() {
+    const json = JSON.stringify(this.state);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'vector-forge.json';
     a.click();
   }
 }
 
-// Main
-const canvas = document.getElementById('canvas');
-const toolbar = document.getElementById('toolbar');
-const sidebar = document.getElementById('sidebar');
-const statusPanel = document.getElementById('status-panel');
-const vectraEngine = new VectraEngine(canvas, toolbar, sidebar, statusPanel);
-const webWorker = new WebWorker();
-const serviceWorker = new ServiceWorker();
-const svgParser = new SVGParser();
-const svgRenderer = new SVGRenderer();
-const nodeEditor = new NodeEditor();
-const pngExporter = new PNGExporter();
-const svgExporter = new SVGExporter();
+// Initialize VectorForge Engine
+const engine = new VectorForgeEngine();
 </script>
 </body>
 </html>
