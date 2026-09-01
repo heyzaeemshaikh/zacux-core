@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vectra</title>
+  <title>Vectroid</title>
   <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
   <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
   <style>
@@ -16,283 +16,306 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="h-screen bg-gray-900 text-gray-100 flex flex-col">
+<div class="h-screen w-screen flex flex-col bg-gray-900 text-white" id="vectroid-app">
   <!-- Top Toolbar -->
-  <header class="flex justify-between items-center py-4 bg-gray-800 border-b border-gray-700">
+  <nav class="flex justify-between bg-gray-800 p-2 shadow-md">
     <div class="flex items-center">
-      <h1 class="text-2xl font-bold mr-4">Vectra</h1>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
-        <i class="fas fa-file fa-fw mr-2"></i> New
+      <h1 class="text-2xl font-bold mr-4">
+        <i class="fas fa-cubes mr-2"></i> Vectroid
+      </h1>
+      <button class="btn btn-sm btn-primary mr-2">
+        <i class="fas fa-file mr-2"></i> New
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
-        <i class="fas fa-folder fa-fw mr-2"></i> Open
+      <button class="btn btn-sm btn-primary mr-2">
+        <i class="fas fa-folder mr-2"></i> Open
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
-        <i class="fas fa-save fa-fw mr-2"></i> Save
+      <button class="btn btn-sm btn-primary mr-2">
+        <i class="fas fa-save mr-2"></i> Save
       </button>
     </div>
     <div class="flex items-center">
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
-        <i class="fas fa-undo fa-fw mr-2"></i> Undo
+      <button class="btn btn-sm btn-primary mr-2">
+        <i class="fas fa-undo mr-2"></i> Undo
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2">
-        <i class="fas fa-redo fa-fw mr-2"></i> Redo
+      <button class="btn btn-sm btn-primary mr-2">
+        <i class="fas fa-redo mr-2"></i> Redo
+      </button>
+      <button class="btn btn-sm btn-primary mr-2">
+        <i class="fas fa-cog mr-2"></i> Settings
       </button>
     </div>
-  </header>
+  </nav>
 
-  <!-- Main Workspace -->
-  <main class="flex-1 flex overflow-hidden">
-    <!-- Left Sidebar (Layers) -->
-    <aside class="w-64 bg-gray-800 p-4 border-r border-gray-700">
-      <h2 class="text-xl font-bold mb-2">Layers</h2>
-      <ul>
+  <!-- Left Sidebar (Layers, Assets) -->
+  <div class="flex flex-row h-screen">
+    <div class="w-64 bg-gray-800 p-2 shadow-md">
+      <h2 class="text-xl font-bold mb-2">
+        <i class="fas fa-layer-group mr-2"></i> Layers
+      </h2>
+      <ul class="list-none mb-4">
         <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-layer-group fa-fw mr-2"></i> Layer 1
+          <i class="fas fa-layer-group mr-2"></i> Layer 1
         </li>
         <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-layer-group fa-fw mr-2"></i> Layer 2
-        </li>
-        <li class="py-2">
-          <i class="fas fa-layer-group fa-fw mr-2"></i> Layer 3
+          <i class="fas fa-layer-group mr-2"></i> Layer 2
         </li>
       </ul>
-    </aside>
+      <h2 class="text-xl font-bold mb-2">
+        <i class="fas fa-database mr-2"></i> Assets
+      </h2>
+      <ul class="list-none mb-4">
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-image mr-2"></i> Image 1
+        </li>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-image mr-2"></i> Image 2
+        </li>
+      </ul>
+    </div>
 
-    <!-- Canvas Viewport -->
-    <section class="flex-1 overflow-auto">
-      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-        <!-- Canvas content will be rendered here -->
-      </svg>
-    </section>
+    <!-- Main Viewport (SVG Editor) -->
+    <div class="flex-1 bg-gray-900 p-2 overflow-auto">
+      <svg id="vectroid-svg" class="w-full h-full" viewBox="0 0 100 100"></svg>
+    </div>
 
-    <!-- Right Sidebar (Properties) -->
-    <aside class="w-64 bg-gray-800 p-4 border-l border-gray-700">
-      <h2 class="text-xl font-bold mb-2">Properties</h2>
-      <form>
+    <!-- Right Sidebar (Object Properties) -->
+    <div class="w-64 bg-gray-800 p-2 shadow-md">
+      <h2 class="text-xl font-bold mb-2">
+        <i class="fas fa-object-ungroup mr-2"></i> Object Properties
+      </h2>
+      <form class="mb-4">
         <label class="block mb-2">
-          <span class="text-sm font-bold">Fill Color</span>
-          <input type="color" value="#ffffff" class="block w-full">
+          <span class="text-sm font-bold">X:</span>
+          <input type="number" class="w-full p-2 bg-gray-700 border border-gray-600" value="10">
         </label>
         <label class="block mb-2">
-          <span class="text-sm font-bold">Stroke Color</span>
-          <input type="color" value="#000000" class="block w-full">
+          <span class="text-sm font-bold">Y:</span>
+          <input type="number" class="w-full p-2 bg-gray-700 border border-gray-600" value="20">
         </label>
         <label class="block mb-2">
-          <span class="text-sm font-bold">Stroke Width</span>
-          <input type="number" value="1" class="block w-full">
+          <span class="text-sm font-bold">Width:</span>
+          <input type="number" class="w-full p-2 bg-gray-700 border border-gray-600" value="50">
+        </label>
+        <label class="block mb-2">
+          <span class="text-sm font-bold">Height:</span>
+          <input type="number" class="w-full p-2 bg-gray-700 border border-gray-600" value="30">
         </label>
       </form>
-    </aside>
-  </main>
+    </div>
+  </div>
 
   <!-- Bottom Status Panel -->
-  <footer class="bg-gray-800 p-4 border-t border-gray-700">
-    <div class="flex justify-between items-center">
-      <div class="flex items-center">
-        <i class="fas fa-circle-notch fa-spin fa-fw mr-2"></i>
-        <span>Processing...</span>
-      </div>
-      <div class="flex items-center">
-        <i class="fas fa-check fa-fw mr-2"></i>
-        <span>Ready</span>
-      </div>
+  <footer class="bg-gray-800 p-2 shadow-md text-sm">
+    <div class="flex justify-between">
+      <span>
+        <i class="fas fa-circle mr-2 text-green-500"></i> Connected
+      </span>
+      <span>
+        <i class="fas fa-user mr-2"></i> User: John Doe
+      </span>
+      <span>
+        <i class="fas fa-clock mr-2"></i> 12:34:56 PM
+      </span>
     </div>
   </footer>
-
-  <!-- Floating Tool Options -->
-  <div class="fixed bottom-0 right-0 mb-4 mr-4 z-10">
-    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded">
-      <i class="fas fa-ellipsis-v fa-fw mr-2"></i> More
-    </button>
-    <ul class="bg-gray-800 py-2 pl-4 pr-8 shadow-md">
-      <li class="py-2 border-b border-gray-700">
-        <i class="fas fa-share fa-fw mr-2"></i> Share
-      </li>
-      <li class="py-2 border-b border-gray-700">
-        <i class="fas fa-download fa-fw mr-2"></i> Download
-      </li>
-      <li class="py-2">
-        <i class="fas fa-print fa-fw mr-2"></i> Print
-      </li>
-    </ul>
-  </div>
-</body>
+</div>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Import required libraries
-import { JSDOM } from 'jsdom';
-import * as Immutable from 'immutable';
-import * as Snap from 'snapsvg';
-import * as D3 from 'd3';
-
-// Define the Vectra application class
-class Vectra {
-  constructor() {
-    // Initialize the DOM
-    this.dom = new JSDOM(`<!DOCTYPE html><html><body></body></html>`);
-
-    // Define the UI layout
-    this.topToolbar = this.dom.window.document.createElement('div');
-    this.leftSidebar = this.dom.window.document.createElement('div');
-    this.rightSidebar = this.dom.window.document.createElement('div');
-    this.mainViewport = this.dom.window.document.createElement('div');
-    this.bottomStatusPanel = this.dom.window.document.createElement('div');
-
-    // Define the Redux-like store with Immutable.js
-    this.store = {
-      state: Immutable.Map(),
-      listeners: []
-    };
-
-    // Define the LocalStorage for persisted state with automatic backups
-    this.localStorage = this.dom.window.localStorage;
-
-    // Define the custom SVG DOM parser
-    this.svgParser = new DOMParser();
-
-    // Initialize the Snap.svg and D3.js integration for rendering and visualization
-    this.snap = Snap(this.mainViewport);
-    this.d3 = D3.select(this.mainViewport);
-
-    // Define the headless browser for server-side rendering and export
-    this.headlessBrowser = new (require('puppeteer').Browser)();
+// Core Engine
+class CoreEngine {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    this.svg.setAttribute('width', canvas.width);
+    this.svg.setAttribute('height', canvas.height);
+    this.canvas.appendChild(this.svg);
+    this.nodes = [];
+    this.selectedNode = null;
+    this.addEventListener();
   }
 
-  // Initialize the application
-  init() {
-    // Append the UI layout to the DOM
-    this.dom.window.document.body.appendChild(this.topToolbar);
-    this.dom.window.document.body.appendChild(this.leftSidebar);
-    this.dom.window.document.body.appendChild(this.rightSidebar);
-    this.dom.window.document.body.appendChild(this.mainViewport);
-    this.dom.window.document.body.appendChild(this.bottomStatusPanel);
-
-    // Add event listeners for real-time interactions
-    this.mainViewport.addEventListener('click', (event) => {
-      this.handleEvent(event);
-    });
-
-    // Initialize the state management system
-    this.store.state = Immutable.Map({
-      layers: Immutable.List(),
-      properties: Immutable.Map(),
-      undoHistory: Immutable.List(),
-      redoHistory: Immutable.List()
-    });
-
-    // Initialize the LocalStorage for persisted state with automatic backups
-    this.loadFromLocalStorage();
-    this.backupToLocalStorage();
-
-    // Initialize the file export logic
-    this.exportButton = this.dom.window.document.createElement('button');
-    this.exportButton.textContent = 'Export';
-    this.exportButton.addEventListener('click', () => {
-      this.exportFile();
-    });
-    this.topToolbar.appendChild(this.exportButton);
+  addEventListener() {
+    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
+    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
   }
 
-  // Handle events
-  handleEvent(event) {
-    // Dispatch the event to the state management system
-    this.store.listeners.forEach((listener) => {
-      listener(event);
-    });
-  }
-
-  // Load state from LocalStorage
-  loadFromLocalStorage() {
-    const storedState = this.localStorage.getItem('vectra-state');
-    if (storedState) {
-      this.store.state = Immutable.Map(JSON.parse(storedState));
+  handleMouseDown(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const node = this.getNodeAt(x, y);
+    if (node) {
+      this.selectedNode = node;
+      this.svg.appendChild(node);
+    } else {
+      this.addNode(x, y);
     }
   }
 
-  // Backup state to LocalStorage
-  backupToLocalStorage() {
-    const storedState = JSON.stringify(this.store.state.toJS());
-    this.localStorage.setItem('vectra-state', storedState);
-  }
-
-  // Export file
-  exportFile() {
-    // Get the file type from the user
-    const fileType = prompt('Enter file type (PNG, SVG, or JSON):');
-
-    // Get the file name from the user
-    const fileName = prompt('Enter file name:');
-
-    // Export the file
-    if (fileType === 'PNG') {
-      this.snap.node.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-      const svgData = this.snap.node.outerHTML;
-      const pngData = this.getpngData(svgData);
-      const blob = new Blob([pngData], { type: 'image/png' });
-      const url = URL.createObjectURL(blob);
-      const a = this.dom.window.document.createElement('a');
-      a.href = url;
-      a.download = fileName + '.png';
-      a.click();
-    } else if (fileType === 'SVG') {
-      const svgData = this.snap.node.outerHTML;
-      const blob = new Blob([svgData], { type: 'image/svg+xml' });
-      const url = URL.createObjectURL(blob);
-      const a = this.dom.window.document.createElement('a');
-      a.href = url;
-      a.download = fileName + '.svg';
-      a.click();
-    } else if (fileType === 'JSON') {
-      const jsonData = JSON.stringify(this.store.state.toJS());
-      const blob = new Blob([jsonData], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = this.dom.window.document.createElement('a');
-      a.href = url;
-      a.download = fileName + '.json';
-      a.click();
+  handleMouseMove(e) {
+    if (this.selectedNode) {
+      const rect = this.canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      this.selectedNode.setAttribute('cx', x);
+      this.selectedNode.setAttribute('cy', y);
     }
   }
 
-  // Get PNG data from SVG data
-  getpngData(svgData) {
-    // Create a new headless browser page
-    const page = this.headlessBrowser.newPage();
+  handleMouseUp(e) {
+    this.selectedNode = null;
+  }
 
-    // Set the page content to the SVG data
-    page.setContent(svgData);
+  addNode(x, y) {
+    const node = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    node.setAttribute('cx', x);
+    node.setAttribute('cy', y);
+    node.setAttribute('r', 10);
+    node.setAttribute('fill', 'black');
+    this.svg.appendChild(node);
+    this.nodes.push(node);
+  }
 
-    // Wait for the page to load
-    page.waitForLoadState('networkidle0');
-
-    // Get the PNG data from the page
-    const pngData = page.$eval('svg', (element) => {
-      const svg = element.outerHTML;
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      const img = new Image();
-      img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
-        const pngData = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
-        return pngData;
-      };
-      img.src = 'data:image/svg+xml,' + encodeURIComponent(svg);
+  getNodeAt(x, y) {
+    const node = this.nodes.find((node) => {
+      const rect = node.getBBox();
+      return rect.x <= x && x <= rect.x + rect.width && rect.y <= y && y <= rect.y + rect.height;
     });
-
-    // Close the page
-    page.close();
-
-    // Return the PNG data
-    return pngData;
+    return node;
   }
 }
 
-// Initialize the Vectra application
-const vectra = new Vectra();
-vectra.init();
+// State Management
+class State {
+  constructor() {
+    this.undoStack = [];
+    this.redoStack = [];
+    this.currentState = {};
+  }
+
+  saveState(state) {
+    this.undoStack.push(this.currentState);
+    this.currentState = state;
+    this.redoStack = [];
+  }
+
+  undo() {
+    if (this.undoStack.length > 0) {
+      this.redoStack.push(this.currentState);
+      this.currentState = this.undoStack.pop();
+    }
+  }
+
+  redo() {
+    if (this.redoStack.length > 0) {
+      this.undoStack.push(this.currentState);
+      this.currentState = this.redoStack.pop();
+    }
+  }
+}
+
+// Redux Store
+class ReduxStore {
+  constructor() {
+    this.state = new State();
+    this.SaveChanges();
+  }
+
+  dispatch(action) {
+    switch (action.type) {
+      case 'SAVE_STATE':
+        this.state.saveState(action.state);
+        break;
+      case 'UNDO':
+        this.state.undo();
+        break;
+      case 'REDO':
+        this.state.redo();
+        break;
+      default:
+        break;
+    }
+    this.SaveChanges();
+  }
+
+  SaveChanges() {
+    localStorage.setItem('vectroid-state', JSON.stringify(this.state));
+  }
+
+  LoadChanges() {
+    const state = localStorage.getItem('vectroid-state');
+    if (state) {
+      this.state = JSON.parse(state);
+    }
+  }
+}
+
+// Export Engines
+class ExportEngine {
+  constructor() {}
+
+  exportPNG(svg) {
+    const serializer = new XMLSerializer();
+    const xml = serializer.serializeToString(svg);
+    const url = 'data:image/png;base64,' + btoa(xml);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'vectroid.png';
+    link.click();
+  }
+
+  exportSVG(svg) {
+    const serializer = new XMLSerializer();
+    const xml = serializer.serializeToString(svg);
+    const url = 'data:text/plain;base64,' + btoa(xml);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'vectroid.svg';
+    link.click();
+  }
+
+  exportJSON(svg) {
+    const nodes = Array.prototype.slice.call(svg.children);
+    const data = nodes.map((node) => {
+      return {
+        type: node.tagName,
+        x: node.getAttribute('x'),
+        y: node.getAttribute('y'),
+      };
+    });
+    const json = JSON.stringify(data);
+    const url = 'data:text/plain;base64,' + btoa(json);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'vectroid.json';
+    link.click();
+  }
+}
+
+// Main Application
+class Vectroid {
+  constructor() {
+    this.canvas = document.getElementById('canvas');
+    this.coreEngine = new CoreEngine(this.canvas);
+    this.reduxStore = new ReduxStore();
+    this.exportEngine = new ExportEngine();
+    this.reduxStore.LoadChanges();
+  }
+
+  run() {
+    document.getElementById('undo').addEventListener('click', () => this.reduxStore.dispatch({ type: 'UNDO' }));
+    document.getElementById('redo').addEventListener('click', () => this.reduxStore.dispatch({ type: 'REDO' }));
+    document.getElementById('export-png').addEventListener('click', () => this.exportEngine.exportPNG(this.coreEngine.svg));
+    document.getElementById('export-svg').addEventListener('click', () => this.exportEngine.exportSVG(this.coreEngine.svg));
+    document.getElementById('export-json').addEventListener('click', () => this.exportEngine.exportJSON(this.coreEngine.svg));
+  }
+}
+
+// Initialize Application
+const vectroid = new Vectroid();
+vectroid.run();
 </script>
 </body>
 </html>
