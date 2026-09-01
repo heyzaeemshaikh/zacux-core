@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vectro</title>
+  <title>Vectra</title>
   <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
   <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
   <style>
@@ -16,260 +16,353 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="h-screen bg-[#090d16] text-white flex flex-col">
-  <header class="flex justify-between p-4 border-b border-gray-600">
+<body class="h-screen w-screen bg-gray-900 text-gray-100 flex flex-col">
+  <!-- Header Toolbar -->
+  <header class="flex justify-between items-center py-4 bg-gray-800 text-gray-100 border-b border-gray-700">
     <div class="flex items-center">
-      <h1 class="text-2xl font-bold mr-4">Vectro</h1>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-md">
-        <i class="fas fa-undo fa-lg mr-2"></i> Undo
-      </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-md">
-        <i class="fas fa-redo fa-lg mr-2"></i> Redo
-      </button>
+      <h1 class="text-lg font-bold mr-4"><i class="fas fa-vector-square fa-lg mr-2"></i>Vectra</h1>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2" title="New File"><i class="fas fa-file fa-lg"></i></button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2" title="Open File"><i class="fas fa-folder-open fa-lg"></i></button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2" title="Save File"><i class="fas fa-save fa-lg"></i></button>
     </div>
     <div class="flex items-center">
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-md mr-4">
-        <i class="fas fa-file-export fa-lg mr-2"></i> Export
-      </button>
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-md">
-        <i class="fas fa-save fa-lg mr-2"></i> Save
-      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2" title="Undo"><i class="fas fa-undo fa-lg"></i></button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2" title="Redo"><i class="fas fa-redo fa-lg"></i></button>
     </div>
   </header>
-  <main class="flex flex-1">
-    <aside class="w-64 bg-gray-800 p-4 border-r border-gray-600 relative">
-      <h2 class="text-xl font-bold mb-4">Layers</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 1
-        </li>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 2
-        </li>
-        <li class="py-2">
-          <i class="fas fa-layer-group fa-lg mr-2"></i> Layer 3
-        </li>
-      </ul>
-      <button class="absolute bottom-0 left-0 right-0 bg-gray-700 hover:bg-gray-600 p-2 rounded-t-md">
-        <i class="fas fa-plus fa-lg mr-2"></i> New Layer
-      </button>
-    </aside>
-    <section class="flex-1 p-4">
-      <div class="canvas-container w-full h-full relative">
-        <canvas class="w-full h-full" id="editor-canvas"></canvas>
-        <div class="absolute top-0 left-0 right-0 p-4 bg-gray-800 border border-gray-600 rounded-md">
-          <h2 class="text-xl font-bold mb-4">Node Editing</h2>
-          <div class="flex mb-4">
-            <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md mr-4">
-              <i class="fas fa-move fa-lg mr-2"></i> Move
-            </button>
-            <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md mr-4">
-              <i class="fas fa-scaler fa-lg mr-2"></i> Scale
-            </button>
-            <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md">
-              <i class="fas fa-rotate fa-lg mr-2"></i> Rotate
-            </button>
-          </div>
-          <div class="flex mb-4">
-            <label class="mr-4">X:</label>
-            <input type="number" class="px-4 py-2 rounded-md w-20">
-            <label class="mr-4">Y:</label>
-            <input type="number" class="px-4 py-2 rounded-md w-20">
-            <label class="mr-4">Width:</label>
-            <input type="number" class="px-4 py-2 rounded-md w-20">
-            <label class="mr-4">Height:</label>
-            <input type="number" class="px-4 py-2 rounded-md w-20">
-          </div>
-        </div>
-      </div>
-    </section>
-    <aside class="w-64 bg-gray-800 p-4 border-l border-gray-600 relative">
-      <h2 class="text-xl font-bold mb-4">Properties</h2>
-      <ul>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-font fa-lg mr-2"></i> Font
-        </li>
-        <li class="py-2 border-b border-gray-600">
-          <i class="fas fa-fill fa-lg mr-2"></i> Fill
-        </li>
-        <li class="py-2">
-          <i class="fas fa-stroke fa-lg mr-2"></i> Stroke
-        </li>
-      </ul>
+
+  <!-- Main Content -->
+  <main class="flex flex-1 overflow-hidden">
+    <!-- Canvas Viewport -->
+    <div class="flex-1 overflow-auto border-r border-gray-700" id="canvas-viewport">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"></svg>
+    </div>
+    <!-- Properties Sidebar -->
+    <aside class="w-64 p-4 border-l border-gray-700" id="properties-sidebar">
+      <h2 class="text-lg font-bold mb-2">Properties</h2>
+      <form>
+        <label class="block mb-2">
+          <span class="block text-sm font-medium text-gray-100">Node ID</span>
+          <input type="text" class="block w-full p-2 bg-gray-700 text-gray-100 border border-gray-600 rounded" disabled>
+        </label>
+        <label class="block mb-2">
+          <span class="block text-sm font-medium text-gray-100">Node Type</span>
+          <select class="block w-full p-2 bg-gray-700 text-gray-100 border border-gray-600 rounded">
+            <option value="">Select Type</option>
+          </select>
+        </label>
+      </form>
     </aside>
   </main>
-  <footer class="flex justify-between p-4 border-t border-gray-600">
-    <div class="flex items-center">
-      <i class="fas fa-circle fa-lg text-green-500 mr-2"></i> Connected
-    </div>
-    <div class="flex items-center">
-      <i class="fas fa-exclamation-circle fa-lg text-yellow-500 mr-2"></i> Warning: unsaved changes
-    </div>
-    <div class="flex items-center">
-      <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-md">
-        <i class="fas fa-info-circle fa-lg mr-2"></i> Help
-      </button>
-    </div>
-  </footer>
+
+  <!-- Node Editing Toolbar -->
+  <div class="fixed bottom-0 left-0 p-4 bg-gray-800 text-gray-100 border-t border-gray-700" id="node-editing-toolbar">
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2" title="Node Edit"><i class="fas fa-pencil-alt fa-lg"></i></button>
+    <button class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded mr-2" title="Node Delete"><i class="fas fa-trash fa-lg"></i></button>
+  </div>
+
+  <!-- Layers Panel -->
+  <div class="fixed top-0 right-0 p-4 bg-gray-800 text-gray-100 border-l border-gray-700 w-64" id="layers-panel">
+    <h2 class="text-lg font-bold mb-2">Layers</h2>
+    <ul>
+      <li class="py-2 border-b border-gray-700">
+        <span class="text-sm font-medium text-gray-100">Layer 1</span>
+        <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded ml-2" title="Layer Visibility"><i class="fas fa-eye fa-lg"></i></button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Status Panel -->
+  <div class="fixed bottom-0 right-0 p-4 bg-gray-800 text-gray-100 border-t border-gray-700 w-64" id="status-panel">
+    <h2 class="text-lg font-bold mb-2">Status</h2>
+    <p class="text-sm font-medium text-gray-100">Zoom: 100% | Cursor: (0, 0)</p>
+  </div>
 </body>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Vectro Engine
-class VectroEngine {
-  constructor(appName, slug) {
-    this.appName = appName;
-    this.slug = slug;
-    this.canvas = document.getElementById('canvas');
-    this.ctx = this.canvas.getContext('2d');
+// Core Engine for Vectra
+class VectraEngine {
+  constructor(canvasId, toolbarId, layersId, propertiesId, statusId) {
+    this.canvasId = canvasId;
+    this.toolbarId = toolbarId;
+    this.layersId = layersId;
+    this.propertiesId = propertiesId;
+    this.statusId = statusId;
     this.state = {
       nodes: [],
-      layers: [],
-      currentLayer: null,
-      undoHistory: [],
-      redoHistory: []
+      history: [],
+      currentHistoryIndex: -1,
+      selectedNode: null
     };
-    this.init();
+    this.loadData();
+    this.initEventListeners();
+    this.renderCanvas();
+    this.renderToolbar();
+    this.renderLayersPanel();
+    this.renderPropertiesSidebar();
+    this.renderStatusPanel();
   }
 
-  init() {
-    this.addEventListeners();
-    this.loadStateFromLocalStorage();
-    this.render();
+  // State Management
+  saveData() {
+    localStorage.setItem('vectra-state', JSON.stringify(this.state));
   }
 
-  addEventListeners() {
-    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
-    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
-    document.getElementById('undo-button').addEventListener('click', () => this.undo());
-    document.getElementById('redo-button').addEventListener('click', () => this.redo());
-    document.getElementById('export-button').addEventListener('click', () => this.exportFile());
-  }
-
-  handleMouseDown(e) {
-    this.state.currentNode = this.getNodeAtPosition(e.clientX, e.clientY);
-    if (this.state.currentNode) {
-      this.state nodes.push(this.state.currentNode);
-      this.updateState();
+  loadData() {
+    const storedState = localStorage.getItem('vectra-state');
+    if (storedState) {
+      this.state = JSON.parse(storedState);
+      this.state.history = this.state.history.slice(0, this.state.history.length);
     }
   }
 
-  handleMouseMove(e) {
-    if (this.state.currentNode) {
-      this.state.currentNode.x = e.clientX;
-      this.state.currentNode.y = e.clientY;
-      this.updateState();
+  undo() {
+    if (this.state.currentHistoryIndex > 0) {
+      this.state.currentHistoryIndex--;
+      this.setState(this.state.history[this.state.currentHistoryIndex]);
     }
   }
 
-  handleMouseUp(e) {
-    this.state.currentNode = null;
+  redo() {
+    if (this.state.currentHistoryIndex < this.state.history.length - 1) {
+      this.state.currentHistoryIndex++;
+      this.setState(this.state.history[this.state.currentHistoryIndex]);
+    }
+  }
+
+  addHistory(state) {
+    if (this.state.currentHistoryIndex < this.state.history.length - 1) {
+      this.state.history = this.state.history.slice(0, this.state.currentHistoryIndex + 1);
+    }
+    this.state.history.push(state);
+    this.state.currentHistoryIndex++;
+  }
+
+  setState(state) {
+    this.state = state;
+    this.renderCanvas();
+  }
+
+  // Event Listeners
+  initEventListeners() {
+    const canvas = document.getElementById(this.canvasId);
+    canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
+    canvas.addEventListener('mousemove', (e) => this.handleCanvasMouseMove(e));
+    const toolbar = document.getElementById(this.toolbarId);
+    toolbar.addEventListener('click', (e) => this.handleToolbarClick(e));
+    const layersPanel = document.getElementById(this.layersId);
+    layersPanel.addEventListener('click', (e) => this.handleLayersPanelClick(e));
+    const propertiesSidebar = document.getElementById(this.propertiesId);
+    propertiesSidebar.addEventListener('click', (e) => this.handlePropertiesSidebarClick(e));
+  }
+
+  handleCanvasClick(e) {
+    const node = this.getNodeAtPosition(e.clientX, e.clientY);
+    if (node) {
+      this.state.selectedNode = node;
+    } else {
+      this.state.selectedNode = null;
+    }
+    this.saveData();
+  }
+
+  handleCanvasMouseMove(e) {
+    if (this.state.selectedNode) {
+      const node = this.state.selectedNode;
+      node.x = e.clientX;
+      node.y = e.clientY;
+      this.renderCanvas();
+      this.saveData();
+    }
+  }
+
+  handleToolbarClick(e) {
+    if (e.target.id === 'undo') {
+      this.undo();
+    } else if (e.target.id === 'redo') {
+      this.redo();
+    }
+  }
+
+  handleLayersPanelClick(e) {
+    if (e.target.tagName === 'LI') {
+      const node = this.state.nodes.find((n) => n.id === e.target.dataset.id);
+      this.state.selectedNode = node;
+      this.saveData();
+    }
+  }
+
+  handlePropertiesSidebarClick(e) {
+    if (e.target.tagName === 'INPUT') {
+      const node = this.state.selectedNode;
+      node[e.target.name] = e.target.value;
+      this.renderCanvas();
+      this.saveData();
+    }
+  }
+
+  // Canvas Rendering
+  renderCanvas() {
+    const canvas = document.getElementById(this.canvasId);
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.state.nodes.forEach((node) => {
+      ctx.fillStyle = node.fill;
+      ctx.fillRect(node.x, node.y, node.width, node.height);
+    });
+  }
+
+  // Toolbar Rendering
+  renderToolbar() {
+    const toolbar = document.getElementById(this.toolbarId);
+    const undoButton = document.createElement('button');
+    undoButton.id = 'undo';
+    undoButton.textContent = 'Undo';
+    toolbar.appendChild(undoButton);
+    const redoButton = document.createElement('button');
+    redoButton.id = 'redo';
+    redoButton.textContent = 'Redo';
+    toolbar.appendChild(redoButton);
+  }
+
+  // Layers Panel Rendering
+  renderLayersPanel() {
+    const layersPanel = document.getElementById(this.layersId);
+    layersPanel.innerHTML = '';
+    this.state.nodes.forEach((node) => {
+      const li = document.createElement('li');
+      li.dataset.id = node.id;
+      li.textContent = node.name;
+      layersPanel.appendChild(li);
+    });
+  }
+
+  // Properties Sidebar Rendering
+  renderPropertiesSidebar() {
+    const propertiesSidebar = document.getElementById(this.propertiesId);
+    propertiesSidebar.innerHTML = '';
+    if (this.state.selectedNode) {
+      const node = this.state.selectedNode;
+      const fillInput = document.createElement('input');
+      fillInput.name = 'fill';
+      fillInput.value = node.fill;
+      propertiesSidebar.appendChild(fillInput);
+      const xInput = document.createElement('input');
+      xInput.name = 'x';
+      xInput.value = node.x;
+      propertiesSidebar.appendChild(xInput);
+      const yInput = document.createElement('input');
+      yInput.name = 'y';
+      yInput.value = node.y;
+      propertiesSidebar.appendChild(yInput);
+      const widthInput = document.createElement('input');
+      widthInput.name = 'width';
+      widthInput.value = node.width;
+      propertiesSidebar.appendChild(widthInput);
+      const heightInput = document.createElement('input');
+      heightInput.name = 'height';
+      heightInput.value = node.height;
+      propertiesSidebar.appendChild(heightInput);
+    }
+  }
+
+  // Status Panel Rendering
+  renderStatusPanel() {
+    const statusPanel = document.getElementById(this.statusId);
+    statusPanel.innerHTML = '';
+    if (this.state.selectedNode) {
+      const node = this.state.selectedNode;
+      const text = document.createElement('p');
+      text.textContent = `Node ${node.id} selected`;
+      statusPanel.appendChild(text);
+    } else {
+      const text = document.createElement('p');
+      text.textContent = 'No node selected';
+      statusPanel.appendChild(text);
+    }
+  }
+
+  // Node Management
+  addNode(node) {
+    this.state.nodes.push(node);
+    this.saveData();
+  }
+
+  removeNode(node) {
+    const index = this.state.nodes.indexOf(node);
+    if (index!== -1) {
+      this.state.nodes.splice(index, 1);
+      this.saveData();
+    }
   }
 
   getNodeAtPosition(x, y) {
-    for (let node of this.state.nodes) {
-      if (node.x === x && node.y === y) {
+    for (const node of this.state.nodes) {
+      if (x >= node.x && x <= node.x + node.width && y >= node.y && y <= node.y + node.height) {
         return node;
       }
     }
     return null;
   }
 
-  updateState() {
-    this.state.undoHistory.push(JSON.parse(JSON.stringify(this.state)));
-    this.render();
+  // File Export
+  exportPNG() {
+    const canvas = document.getElementById(this.canvasId);
+    const ctx = canvas.getContext('2d');
+    const pngData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const pngBlob = new Blob([pngData.data], { type: 'image/png' });
+    const pngUrl = URL.createObjectURL(pngBlob);
+    const pngLink = document.createElement('a');
+    pngLink.href = pngUrl;
+    pngLink.download = 'vectra.png';
+    pngLink.click();
   }
 
-  undo() {
-    if (this.state.undoHistory.length > 0) {
-      this.state.redoHistory.push(JSON.parse(JSON.stringify(this.state)));
-      this.state = this.state.undoHistory.pop();
-      this.render();
-    }
-  }
-
-  redo() {
-    if (this.state.redoHistory.length > 0) {
-      this.state.undoHistory.push(JSON.parse(JSON.stringify(this.state)));
-      this.state = this.state.redoHistory.pop();
-      this.render();
-    }
-  }
-
-  render() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    for (let node of this.state.nodes) {
-      this.ctx.beginPath();
-      this.ctx.arc(node.x, node.y, 10, 0, 2 * Math.PI);
-      this.ctx.fill();
-    }
-  }
-
-  loadStateFromLocalStorage() {
-    const storedState = localStorage.getItem('vectro-state');
-    if (storedState) {
-      this.state = JSON.parse(storedState);
-    }
-  }
-
-  saveStateToLocalStorage() {
-    localStorage.setItem('vectro-state', JSON.stringify(this.state));
-  }
-
-  exportFile() {
-    const fileType = document.getElementById('file-type-select').value;
-    const fileData = this.getFileData(fileType);
-    const blob = new Blob([fileData], { type: this.getMimeType(fileType) });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'vectro.' + fileType;
-    a.click();
-  }
-
-  getFileData(fileType) {
-    switch (fileType) {
-      case 'png':
-        return this.canvas.toDataURL().replace(/^data:image\/png;base64,/, '');
-      case 'svg':
-        return this.getSVGData();
-      case 'json':
-        return JSON.stringify(this.state);
-      default:
-        throw new Error('Unsupported file type');
-    }
-  }
-
-  getMimeType(fileType) {
-    switch (fileType) {
-      case 'png':
-        return 'image/png';
-      case 'svg':
-        return 'image/svg+xml';
-      case 'json':
-        return 'application/json';
-      default:
-        throw new Error('Unsupported file type');
-    }
-  }
-
-  getSVGData() {
+  exportSVG() {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('width', this.canvas.width);
-    svg.setAttribute('height', this.canvas.height);
-    for (let node of this.state.nodes) {
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('cx', node.x);
-      circle.setAttribute('cy', node.y);
-      circle.setAttribute('r', 10);
-      svg.appendChild(circle);
-    }
-    return new XMLSerializer().serializeToString(svg);
+    svg.setAttribute('width', document.getElementById(this.canvasId).width);
+    svg.setAttribute('height', document.getElementById(this.canvasId).height);
+    this.state.nodes.forEach((node) => {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', node.x);
+      rect.setAttribute('y', node.y);
+      rect.setAttribute('width', node.width);
+      rect.setAttribute('height', node.height);
+      rect.setAttribute('fill', node.fill);
+      svg.appendChild(rect);
+    });
+    const svgBlob = new Blob([new XMLSerializer().serializeToString(svg)], { type: 'image/svg+xml' });
+    const svgUrl = URL.createObjectURL(svgBlob);
+    const svgLink = document.createElement('a');
+    svgLink.href = svgUrl;
+    svgLink.download = 'vectra.svg';
+    svgLink.click();
+  }
+
+  exportJSON() {
+    const jsonBlob = new Blob([JSON.stringify(this.state)], { type: 'application/json' });
+    const jsonUrl = URL.createObjectURL(jsonBlob);
+    const jsonLink = document.createElement('a');
+    jsonLink.href = jsonUrl;
+    jsonLink.download = 'vectra.json';
+    jsonLink.click();
   }
 }
 
-const vectroEngine = new VectroEngine('Vectro', 'vector-graphics-editor');
+// Initialize Vectra Engine
+const vectraEngine = new VectraEngine('canvas', 'toolbar', 'layers', 'properties', 'status');
+
+
+
+// Add example nodes
+vectraEngine.addNode({ id: 1, name: 'Node 1', x: 10, y: 10, width: 50, height: 50, fill: 'red' });
+vectraEngine.addNode({ id: 2, name: 'Node 2', x: 70, y: 70, width: 50, height: 50, fill: 'blue' });
+
+// Export buttons
+document.getElementById('export-png').addEventListener('click', () => vectraEngine.exportPNG());
+document.getElementById('export-svg').addEventListener('click', () => vectraEngine.exportSVG());
+document.getElementById('export-json').addEventListener('click', () => vectraEngine.exportJSON());
 </script>
 </body>
 </html>
