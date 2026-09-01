@@ -16,316 +16,332 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<body class="h-screen bg-gray-900 text-gray-100 flex flex-col">
-  <header class="top-toolbar bg-gray-800 py-2 flex justify-between">
+<div class="min-h-screen flex flex-col bg-gray-900 text-gray-100">
+  <!-- Top Toolbar -->
+  <div class="flex justify-between items-center p-2 bg-gray-800 text-gray-100 border-b border-gray-700">
     <div class="flex items-center">
-      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 mx-2 rounded">
-        <i class="fas fa-file text-lg"></i> New
+      <span class="text-lg font-bold mr-4">Vectra</span>
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+        <i class="fas fa-file text-sm mr-2"></i> File
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 mx-2 rounded">
-        <i class="fas fa-folder-open text-lg"></i> Open
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+        <i class="fas fa-edit text-sm mr-2"></i> Edit
       </button>
-      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 mx-2 rounded">
-        <i class="fas fa-save text-lg"></i> Save
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+        <i class="fas fa-layer-group text-sm mr-2"></i> Layers
       </button>
     </div>
     <div class="flex items-center">
-      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 mx-2 rounded">
-        <i class="fas fa-cog text-lg"></i> Settings
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+        <i class="fas fa-undo text-sm mr-2"></i> Undo
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded mr-2">
+        <i class="fas fa-redo text-sm mr-2"></i> Redo
       </button>
     </div>
-  </header>
-  <div class="flex flex-1 h-screen">
-    <aside class="left-sidebar w-64 bg-gray-800 py-4 px-2">
-      <h2 class="text-lg font-bold mb-2">Layers</h2>
-      <ul>
-        <li class="py-2 px-4 hover:bg-gray-700 cursor-pointer">Layer 1</li>
-        <li class="py-2 px-4 hover:bg-gray-700 cursor-pointer">Layer 2</li>
-        <li class="py-2 px-4 hover:bg-gray-700 cursor-pointer">Layer 3</li>
-      </ul>
-    </aside>
-    <main class="main-viewport flex-1 h-screen overflow-auto relative">
-      <div class="svg-editor h-full w-full">
-        <!-- SVG Canvas -->
-      </div>
-    </main>
-    <aside class="right-sidebar w-64 bg-gray-800 py-4 px-2">
-      <h2 class="text-lg font-bold mb-2">Node Editor</h2>
-      <form>
-        <label class="block mb-2">
-          <span class="text-lg font-bold">Node ID</span>
-          <input type="text" class="block w-full p-2 border border-gray-600 rounded">
-        </label>
-        <label class="block mb-2">
-          <span class="text-lg font-bold">Node Type</span>
-          <select class="block w-full p-2 border border-gray-600 rounded">
-            <option>Circle</option>
-            <option>Rect</option>
-            <option>Line</option>
-          </select>
-        </label>
-      </form>
-    </aside>
   </div>
-  <footer class="status-panel bg-gray-800 py-2 flex justify-between">
+
+  <!-- Main Content -->
+  <div class="flex flex-1">
+    <!-- Left Sidebar -->
+    <div class="w-64 bg-gray-800 p-2 border-r border-gray-700">
+      <h2 class="text-lg font-bold mb-2">Layers</h2>
+      <ul class="list-none mb-2">
+        <li class="py-2 px-4 hover:bg-gray-700">
+          <i class="fas fa-layer-group text-sm mr-2"></i> Layer 1
+        </li>
+        <li class="py-2 px-4 hover:bg-gray-700">
+          <i class="fas fa-layer-group text-sm mr-2"></i> Layer 2
+        </li>
+      </ul>
+      <h2 class="text-lg font-bold mb-2">Assets</h2>
+      <ul class="list-none">
+        <li class="py-2 px-4 hover:bg-gray-700">
+          <i class="fas fa-image text-sm mr-2"></i> Image 1
+        </li>
+        <li class="py-2 px-4 hover:bg-gray-700">
+          <i class="fas fa-image text-sm mr-2"></i> Image 2
+        </li>
+      </ul>
+    </div>
+
+    <!-- Central Viewport -->
+    <div class="flex-1 p-2">
+      <div class="relative w-full h-full">
+        <canvas class="absolute w-full h-full" id="canvas"></canvas>
+        <div class="absolute top-0 left-0 p-2">
+          <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
+            <i class="fas fa-pencil-alt text-sm mr-2"></i> Draw
+          </button>
+          <button class="bg-gray-700 hover:bg-gray-600 py-2 px-4 rounded">
+            <i class="fas fa-eraser text-sm mr-2"></i> Erase
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="w-64 bg-gray-800 p-2 border-l border-gray-700">
+      <h2 class="text-lg font-bold mb-2">Properties</h2>
+      <div class="mb-2">
+        <label class="block text-sm mb-1">Fill Color</label>
+        <input class="block w-full p-2 border border-gray-600 rounded" type="color" value="#ffffff">
+      </div>
+      <div class="mb-2">
+        <label class="block text-sm mb-1">Stroke Color</label>
+        <input class="block w-full p-2 border border-gray-600 rounded" type="color" value="#000000">
+      </div>
+      <h2 class="text-lg font-bold mb-2">Settings</h2>
+      <div class="mb-2">
+        <label class="block text-sm mb-1">Grid Size</label>
+        <select class="block w-full p-2 border border-gray-600 rounded">
+          <option value="10">10px</option>
+          <option value="20">20px</option>
+          <option value="30">30px</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status Panel -->
+  <div class="flex justify-between items-center p-2 bg-gray-800 text-gray-100 border-t border-gray-700">
     <div class="flex items-center">
-      <i class="fas fa-sync-alt text-lg mx-2"></i> Processing...
+      <i class="fas fa-sync text-sm mr-2"></i> Syncing...
     </div>
     <div class="flex items-center">
-      <i class="fas fa-exclamation-circle text-lg mx-2"></i> Errors: 0
+      <i class="fas fa-bell text-sm mr-2"></i> Notifications
     </div>
     <div class="flex items-center">
-      <i class="fas fa-check-circle text-lg mx-2"></i> Success: 0
+      <i class="fas fa-cog text-sm mr-2"></i> Settings
     </div>
-  </footer>
-</body>
+  </div>
+</div>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// vectra.js
-class Vectra {
+// Import required libraries
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { localStorageMiddleware } from './localStorageMiddleware';
+import { undoable } from 'redux-undo';
+
+// Define constants
+const APP_NAME = 'Vectra';
+const TOOLBAR_HEIGHT = 50;
+const SIDEBAR_WIDTH = 200;
+const STATUS_PANEL_HEIGHT = 50;
+
+// Define Redux actions
+const ADD_NODE = 'ADD_NODE';
+const REMOVE_NODE = 'REMOVE_NODE';
+const UPDATE_NODE = 'UPDATE_NODE';
+const UNDO = 'UNDO';
+const REDO = 'REDO';
+
+// Define Redux reducers
+const nodeReducer = (state = [], action) => {
+  switch (action.type) {
+    case ADD_NODE:
+      return [...state, action.node];
+    case REMOVE_NODE:
+      return state.filter((node) => node.id !== action.nodeId);
+    case UPDATE_NODE:
+      return state.map((node) => (node.id === action.nodeId ? { ...node, ...action.node } : node));
+    default:
+      return state;
+  }
+};
+
+const undoableReducer = undoable(nodeReducer);
+
+// Create Redux store
+const store = createStore(
+  combineReducers({
+    nodes: undoableReducer,
+  }),
+  applyMiddleware(localStorageMiddleware)
+);
+
+// Define UI components
+class Toolbar {
   constructor() {
-    this.state = {
-      nodes: [],
-      selectedNode: null,
-      undoHistory: [],
-      redoHistory: []
-    };
-
-    this.localStorageKey = 'vectra-state';
-    this.loadStateFromLocalStorage();
-
-    this.canvas = document.getElementById('canvas');
-    this.ctx = this.canvas.getContext('2d');
-
-    this.toolbar = document.getElementById('toolbar');
-    this.layerSidebar = document.getElementById('layer-sidebar');
-    this.mainViewport = document.getElementById('main-viewport');
-    this.nodeEditingSidebar = document.getElementById('node-editing-sidebar');
-    this.statusPanel = document.getElementById('status-panel');
-
-    this.initEventListeners();
-    this.initCanvas();
-    this.initStateManagement();
-    this.initFileExport();
+    this.element = document.createElement('div');
+    this.element.style.height = `${TOOLBAR_HEIGHT}px`;
+    this.element.style.backgroundColor = '#f0f0f0';
+    this.element.style.borderBottom = '1px solid #ccc';
   }
 
-  initEventListeners() {
-    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
-    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
-
-    this.toolbar.addEventListener('click', (e) => this.handleToolbarClick(e));
-    this.layerSidebar.addEventListener('click', (e) => this.handleLayerSidebarClick(e));
-    this.nodeEditingSidebar.addEventListener('click', (e) => this.handleNodeEditingSidebarClick(e));
-  }
-
-  initCanvas() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.fillStyle = 'white';
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-  }
-
-  initStateManagement() {
-    this.stateStore = {
-      nodes: this.state.nodes,
-      selectedNode: this.state.selectedNode,
-      undoHistory: this.state.undoHistory,
-      redoHistory: this.state.redoHistory
-    };
-
-    this.rehydrateState();
-  }
-
-  initFileExport() {
-    this.exportButton = document.getElementById('export-button');
-    this.exportButton.addEventListener('click', (e) => this.handleExportClick(e));
-  }
-
-  handleMouseDown(e) {
-    const x = e.clientX;
-    const y = e.clientY;
-    const node = this.getNodeAtPosition(x, y);
-
-    if (node) {
-      this.state.selectedNode = node;
-      this.stateStore.selectedNode = node;
-      this.rehydrateState();
-    }
-  }
-
-  handleMouseMove(e) {
-    const x = e.clientX;
-    const y = e.clientY;
-    const node = this.getNodeAtPosition(x, y);
-
-    if (node) {
-      this.state.selectedNode = node;
-      this.stateStore.selectedNode = node;
-      this.rehydrateState();
-    }
-  }
-
-  handleMouseUp(e) {
-    const x = e.clientX;
-    const y = e.clientY;
-    const node = this.getNodeAtPosition(x, y);
-
-    if (node) {
-      this.state.selectedNode = null;
-      this.stateStore.selectedNode = null;
-      this.rehydrateState();
-    }
-  }
-
-  handleToolbarClick(e) {
-    const target = e.target;
-
-    if (target.id === 'new-button') {
-      this.createNewNode();
-    } else if (target.id === 'save-button') {
-      this.saveStateToLocalStorage();
-    } else if (target.id === 'load-button') {
-      this.loadStateFromLocalStorage();
-    }
-  }
-
-  handleLayerSidebarClick(e) {
-    const target = e.target;
-
-    if (target.id === 'add-layer-button') {
-      this.addLayer();
-    } else if (target.id === 'remove-layer-button') {
-      this.removeLayer();
-    }
-  }
-
-  handleNodeEditingSidebarClick(e) {
-    const target = e.target;
-
-    if (target.id === 'edit-node-button') {
-      this.editNode();
-    } else if (target.id === 'delete-node-button') {
-      this.deleteNode();
-    }
-  }
-
-  handleExportClick(e) {
-    const format = e.target.value;
-
-    if (format === 'png') {
-      this.exportAsPng();
-    } else if (format === 'svg') {
-      this.exportAsSvg();
-    } else if (format === 'json') {
-      this.exportAsJson();
-    }
-  }
-
-  createNewNode() {
-    const node = {
-      x: 100,
-      y: 100,
-      width: 100,
-      height: 100,
-      fill: 'red'
-    };
-
-    this.state.nodes.push(node);
-    this.stateStore.nodes = this.state.nodes;
-    this.rehydrateState();
-  }
-
-  addLayer() {
-    const layer = {
-      name: 'New Layer',
-      nodes: []
-    };
-
-    this.state.layers.push(layer);
-    this.stateStore.layers = this.state.layers;
-    this.rehydrateState();
-  }
-
-  removeLayer() {
-    const layerIndex = this.state.layers.indexOf(this.state.selectedLayer);
-    this.state.layers.splice(layerIndex, 1);
-    this.stateStore.layers = this.state.layers;
-    this.rehydrateState();
-  }
-
-  editNode() {
-    const node = this.state.selectedNode;
-    node.fill = 'blue';
-    this.stateStore.nodes = this.state.nodes;
-    this.rehydrateState();
-  }
-
-  deleteNode() {
-    const nodeIndex = this.state.nodes.indexOf(this.state.selectedNode);
-    this.state.nodes.splice(nodeIndex, 1);
-    this.stateStore.nodes = this.state.nodes;
-    this.rehydrateState();
-  }
-
-  exportAsPng() {
-    const link = document.createElement('a');
-    link.href = this.canvas.toDataURL('image/png');
-    link.download = 'vectra.png';
-    link.click();
-  }
-
-  exportAsSvg() {
-    const svg = this.canvas.toDataURL('image/svg+xml');
-    const link = document.createElement('a');
-    link.href = svg;
-    link.download = 'vectra.svg';
-    link.click();
-  }
-
-  exportAsJson() {
-    const json = JSON.stringify(this.state);
-    const link = document.createElement('a');
-    link.href = 'data:application/json,' + encodeURIComponent(json);
-    link.download = 'vectra.json';
-    link.click();
-  }
-
-  getNodeAtPosition(x, y) {
-    for (const node of this.state.nodes) {
-      if (x >= node.x && x <= node.x + node.width && y >= node.y && y <= node.y + node.height) {
-        return node;
-      }
-    }
-
-    return null;
-  }
-
-  rehydrateState() {
-    this.stateStore = {
-      nodes: this.state.nodes,
-      selectedNode: this.state.selectedNode,
-      undoHistory: this.state.undoHistory,
-      redoHistory: this.state.redoHistory
-    };
-
-    this.saveStateToLocalStorage();
-  }
-
-  saveStateToLocalStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.state));
-  }
-
-  loadStateFromLocalStorage() {
-    const storedState = localStorage.getItem(this.localStorageKey);
-
-    if (storedState) {
-      this.state = JSON.parse(storedState);
-    }
+  render() {
+    return this.element;
   }
 }
 
-const vectra = new Vectra();
+class Sidebar {
+  constructor() {
+    this.element = document.createElement('div');
+    this.element.style.width = `${SIDEBAR_WIDTH}px`;
+    this.element.style.height = '100vh';
+    this.element.style.backgroundColor = '#f0f0f0';
+    this.element.style.borderRight = '1px solid #ccc';
+  }
+
+  render() {
+    return this.element;
+  }
+}
+
+class Viewport {
+  constructor() {
+    this.element = document.createElement('div');
+    this.element.style.width = '100%';
+    this.element.style.height = '100vh';
+    this.element.style.position = 'relative';
+  }
+
+  render() {
+    return this.element;
+  }
+}
+
+class StatusPanel {
+  constructor() {
+    this.element = document.createElement('div');
+    this.element.style.height = `${STATUS_PANEL_HEIGHT}px`;
+    this.element.style.backgroundColor = '#f0f0f0';
+    this.element.style.borderTop = '1px solid #ccc';
+  }
+
+  render() {
+    return this.element;
+  }
+}
+
+// Define canvas rendering
+class CanvasRenderer {
+  constructor(viewport) {
+    this.viewport = viewport;
+    this.canvas = document.createElement('canvas');
+    this.canvas.width = viewport.element.offsetWidth;
+    this.canvas.height = viewport.element.offsetHeight - TOOLBAR_HEIGHT - STATUS_PANEL_HEIGHT;
+    this.canvas.style.position = 'absolute';
+    this.canvas.style.top = `${TOOLBAR_HEIGHT}px`;
+    this.canvas.style.left = '0px';
+    this.context = this.canvas.getContext('2d');
+  }
+
+  render(nodes) {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    nodes.forEach((node) => {
+      this.context.beginPath();
+      this.context.rect(node.x, node.y, node.width, node.height);
+      this.context.fillStyle = node.fill;
+      this.context.fill();
+    });
+  }
+}
+
+// Define event listeners
+class EventListener {
+  constructor(viewport, canvasRenderer) {
+    this.viewport = viewport;
+    this.canvasRenderer = canvasRenderer;
+    this.viewport.element.addEventListener('click', (event) => {
+      const node = {
+        id: Math.random(),
+        x: event.clientX,
+        y: event.clientY - TOOLBAR_HEIGHT,
+        width: 50,
+        height: 50,
+        fill: '#ff0000',
+      };
+      store.dispatch({ type: ADD_NODE, node });
+    });
+  }
+}
+
+// Define file export logic
+class FileExporter {
+  constructor(canvasRenderer) {
+    this.canvasRenderer = canvasRenderer;
+  }
+
+  exportPNG() {
+    const dataURL = this.canvasRenderer.canvas.toDataURL();
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'image.png';
+    link.click();
+  }
+
+  exportSVG() {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', this.canvasRenderer.canvas.width);
+    svg.setAttribute('height', this.canvasRenderer.canvas.height);
+    const nodes = store.getState().nodes.present;
+    nodes.forEach((node) => {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', node.x);
+      rect.setAttribute('y', node.y);
+      rect.setAttribute('width', node.width);
+      rect.setAttribute('height', node.height);
+      rect.setAttribute('fill', node.fill);
+      svg.appendChild(rect);
+    });
+    const serializer = new XMLSerializer();
+    const xml = serializer.serializeToString(svg);
+    const link = document.createElement('a');
+    link.href = 'data:image/svg+xml,' + encodeURIComponent(xml);
+    link.download = 'image.svg';
+    link.click();
+  }
+
+  exportJSON() {
+    const nodes = store.getState().nodes.present;
+    const json = JSON.stringify(nodes);
+    const link = document.createElement('a');
+    link.href = 'data:application/json,' + encodeURIComponent(json);
+    link.download = 'data.json';
+    link.click();
+  }
+}
+
+// Initialize application
+const toolbar = new Toolbar();
+const sidebar = new Sidebar();
+const viewport = new Viewport();
+const statusPanel = new StatusPanel();
+const canvasRenderer = new CanvasRenderer(viewport);
+const eventListener = new EventListener(viewport, canvasRenderer);
+const fileExporter = new FileExporter(canvasRenderer);
+
+document.body.appendChild(toolbar.render());
+document.body.appendChild(sidebar.render());
+document.body.appendChild(viewport.render());
+document.body.appendChild(statusPanel.render());
+viewport.element.appendChild(canvasRenderer.canvas);
+
+// Render initial state
+const nodes = store.getState().nodes.present;
+canvasRenderer.render(nodes);
+
+// Add event listeners for undo/redo
+document.addEventListener('keydown', (event) => {
+  if (event.ctrlKey && event.key === 'z') {
+    store.dispatch({ type: UNDO });
+  } else if (event.ctrlKey && event.key === 'y') {
+    store.dispatch({ type: REDO });
+  }
+});
+
+// Add event listeners for file export
+document.addEventListener('click', (event) => {
+  if (event.target.id === 'export-png') {
+    fileExporter.exportPNG();
+  } else if (event.target.id === 'export-svg') {
+    fileExporter.exportSVG();
+  } else if (event.target.id === 'export-json') {
+    fileExporter.exportJSON();
+  }
+});
 </script>
 </body>
 </html>
