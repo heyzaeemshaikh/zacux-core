@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vectroid</title>
+  <title>Vectra</title>
   <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
   <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
   <style>
@@ -16,306 +16,345 @@
 </head>
 <body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
 
-<div class="h-screen w-screen flex flex-col bg-gray-900 text-white" id="vectroid-app">
+<div class="h-screen flex flex-col bg-gray-900 text-gray-100" id="vectra-app">
   <!-- Top Toolbar -->
-  <nav class="flex justify-between bg-gray-800 p-2 shadow-md">
+  <div class="flex justify-between bg-gray-800 p-2 border-b border-gray-700">
     <div class="flex items-center">
-      <h1 class="text-2xl font-bold mr-4">
-        <i class="fas fa-cubes mr-2"></i> Vectroid
-      </h1>
-      <button class="btn btn-sm btn-primary mr-2">
-        <i class="fas fa-file mr-2"></i> New
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded" title="Undo">
+        <i class="fas fa-undo-alt"></i>
       </button>
-      <button class="btn btn-sm btn-primary mr-2">
-        <i class="fas fa-folder mr-2"></i> Open
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded" title="Redo">
+        <i class="fas fa-redo-alt"></i>
       </button>
-      <button class="btn btn-sm btn-primary mr-2">
-        <i class="fas fa-save mr-2"></i> Save
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded" title="Zoom In">
+        <i class="fas fa-search-plus"></i>
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded" title="Zoom Out">
+        <i class="fas fa-search-minus"></i>
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded" title="Save">
+        <i class="fas fa-save"></i>
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded" title="Open">
+        <i class="fas fa-folder-open"></i>
       </button>
     </div>
     <div class="flex items-center">
-      <button class="btn btn-sm btn-primary mr-2">
-        <i class="fas fa-undo mr-2"></i> Undo
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded" title="Export as PNG">
+        <i class="fas fa-image"></i> PNG
       </button>
-      <button class="btn btn-sm btn-primary mr-2">
-        <i class="fas fa-redo mr-2"></i> Redo
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded" title="Export as JPEG">
+        <i class="fas fa-image"></i> JPEG
       </button>
-      <button class="btn btn-sm btn-primary mr-2">
-        <i class="fas fa-cog mr-2"></i> Settings
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded" title="Export as PDF">
+        <i class="fas fa-file-pdf"></i> PDF
+      </button>
+      <button class="bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded" title="Export as SVG">
+        <i class="fas fa-file-code"></i> SVG
       </button>
     </div>
-  </nav>
+  </div>
 
-  <!-- Left Sidebar (Layers, Assets) -->
-  <div class="flex flex-row h-screen">
-    <div class="w-64 bg-gray-800 p-2 shadow-md">
-      <h2 class="text-xl font-bold mb-2">
-        <i class="fas fa-layer-group mr-2"></i> Layers
-      </h2>
-      <ul class="list-none mb-4">
+  <!-- Left Sidebar -->
+  <div class="flex">
+    <div class="w-64 bg-gray-800 p-2 border-r border-gray-700 h-screen">
+      <h2 class="text-lg font-bold mb-2">Layers</h2>
+      <ul>
         <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-layer-group mr-2"></i> Layer 1
+          <i class="fas fa-layer-group"></i> Layer 1
         </li>
         <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-layer-group mr-2"></i> Layer 2
+          <i class="fas fa-layer-group"></i> Layer 2
+        </li>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-layer-group"></i> Layer 3
         </li>
       </ul>
-      <h2 class="text-xl font-bold mb-2">
-        <i class="fas fa-database mr-2"></i> Assets
-      </h2>
-      <ul class="list-none mb-4">
+      <h2 class="text-lg font-bold mt-4 mb-2">Node Editing</h2>
+      <ul>
         <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-image mr-2"></i> Image 1
+          <i class="fas fa-pencil-alt"></i> Edit Node
         </li>
         <li class="py-2 border-b border-gray-700">
-          <i class="fas fa-image mr-2"></i> Image 2
+          <i class="fas fa-trash-alt"></i> Delete Node
         </li>
       </ul>
     </div>
 
-    <!-- Main Viewport (SVG Editor) -->
-    <div class="flex-1 bg-gray-900 p-2 overflow-auto">
-      <svg id="vectroid-svg" class="w-full h-full" viewBox="0 0 100 100"></svg>
+    <!-- Central Viewport -->
+    <div class="flex-1 p-2 h-screen">
+      <svg class="w-full h-full" id="vectra-svg"></svg>
     </div>
 
-    <!-- Right Sidebar (Object Properties) -->
-    <div class="w-64 bg-gray-800 p-2 shadow-md">
-      <h2 class="text-xl font-bold mb-2">
-        <i class="fas fa-object-ungroup mr-2"></i> Object Properties
-      </h2>
-      <form class="mb-4">
-        <label class="block mb-2">
-          <span class="text-sm font-bold">X:</span>
-          <input type="number" class="w-full p-2 bg-gray-700 border border-gray-600" value="10">
-        </label>
-        <label class="block mb-2">
-          <span class="text-sm font-bold">Y:</span>
-          <input type="number" class="w-full p-2 bg-gray-700 border border-gray-600" value="20">
-        </label>
-        <label class="block mb-2">
-          <span class="text-sm font-bold">Width:</span>
-          <input type="number" class="w-full p-2 bg-gray-700 border border-gray-600" value="50">
-        </label>
-        <label class="block mb-2">
-          <span class="text-sm font-bold">Height:</span>
-          <input type="number" class="w-full p-2 bg-gray-700 border border-gray-600" value="30">
-        </label>
-      </form>
+    <!-- Right Sidebar -->
+    <div class="w-64 bg-gray-800 p-2 border-l border-gray-700 h-screen">
+      <h2 class="text-lg font-bold mb-2">Properties</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-font"></i> Font Family
+        </li>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-text-size"></i> Font Size
+        </li>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-fill"></i> Fill Color
+        </li>
+      </ul>
+      <h2 class="text-lg font-bold mt-4 mb-2">Attributes</h2>
+      <ul>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-link"></i> Link
+        </li>
+        <li class="py-2 border-b border-gray-700">
+          <i class="fas fa-image"></i> Image
+        </li>
+      </ul>
     </div>
   </div>
 
   <!-- Bottom Status Panel -->
-  <footer class="bg-gray-800 p-2 shadow-md text-sm">
-    <div class="flex justify-between">
-      <span>
-        <i class="fas fa-circle mr-2 text-green-500"></i> Connected
-      </span>
-      <span>
-        <i class="fas fa-user mr-2"></i> User: John Doe
-      </span>
-      <span>
-        <i class="fas fa-clock mr-2"></i> 12:34:56 PM
-      </span>
-    </div>
-  </footer>
+  <div class="bg-gray-800 p-2 border-t border-gray-700 text-sm">
+    <i class="fas fa-circle-notch animate-spin mr-2"></i> Rendering...
+    <span class="ml-2">Zoom: 100%</span>
+    <span class="ml-2">Selected Layer: Layer 1</span>
+  </div>
 </div>
 
 <script>
 // ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
-// Core Engine
-class CoreEngine {
-  constructor(canvas) {
-    this.canvas = canvas;
-    this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    this.svg.setAttribute('width', canvas.width);
-    this.svg.setAttribute('height', canvas.height);
-    this.canvas.appendChild(this.svg);
-    this.nodes = [];
-    this.selectedNode = null;
-    this.addEventListener();
+// Vectra Vector Graphic Editor
+class Vectra {
+  constructor(appName, slug, architectureSummary, uiLayoutSpec, stateManagementSpec, coreEngineSpec) {
+    this.appName = appName;
+    this.slug = slug;
+    this.architectureSummary = architectureSummary;
+    this.uiLayoutSpec = uiLayoutSpec;
+    this.stateManagementSpec = stateManagementSpec;
+    this.coreEngineSpec = coreEngineSpec;
+
+    this.initUI();
+    this.initStateManagement();
+    this.initCoreEngine();
   }
 
-  addEventListener() {
-    this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
-    this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-    this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
+  initUI() {
+    // Top toolbar
+    this.toolbar = document.createElement('div');
+    this.toolbar.innerHTML = `
+      <button id="undo">Undo</button>
+      <button id="redo">Redo</button>
+      <button id="zoom-in">Zoom In</button>
+      <button id="zoom-out">Zoom Out</button>
+      <button id="save">Save</button>
+      <button id="open">Open</button>
+    `;
+
+    // Left sidebar
+    this.leftSidebar = document.createElement('div');
+    this.leftSidebar.innerHTML = `
+      <h2>Layers</h2>
+      <ul id="layers-list"></ul>
+      <h2>Node Editing</h2>
+      <ul id="node-editing-list"></ul>
+    `;
+
+    // Central viewport
+    this.viewport = document.createElement('div');
+    this.viewport.innerHTML = `
+      <svg id="svg-canvas" width="800" height="600"></svg>
+    `;
+
+    // Right sidebar
+    this.rightSidebar = document.createElement('div');
+    this.rightSidebar.innerHTML = `
+      <h2>Properties</h2>
+      <ul id="properties-list"></ul>
+      <h2>Attributes</h2>
+      <ul id="attributes-list"></ul>
+    `;
+
+    // Bottom status panel
+    this.statusPanel = document.createElement('div');
+    this.statusPanel.innerHTML = `
+      <p id="status-message"></p>
+    `;
+
+    document.body.appendChild(this.toolbar);
+    document.body.appendChild(this.leftSidebar);
+    document.body.appendChild(this.viewport);
+    document.body.appendChild(this.rightSidebar);
+    document.body.appendChild(this.statusPanel);
   }
 
-  handleMouseDown(e) {
-    const rect = this.canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const node = this.getNodeAt(x, y);
-    if (node) {
-      this.selectedNode = node;
-      this.svg.appendChild(node);
-    } else {
-      this.addNode(x, y);
-    }
-  }
+  initStateManagement() {
+    this.state = {
+      history: [],
+      currentIndex: -1,
+      elements: []
+    };
 
-  handleMouseMove(e) {
-    if (this.selectedNode) {
-      const rect = this.canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      this.selectedNode.setAttribute('cx', x);
-      this.selectedNode.setAttribute('cy', y);
-    }
-  }
+    this.store = {
+      dispatch: (action) => {
+        switch (action.type) {
+          case 'ADD_ELEMENT':
+            this.state.elements.push(action.payload);
+            this.state.history.push(this.state);
+            this.state.currentIndex++;
+            break;
+          case 'REMOVE_ELEMENT':
+            this.state.elements = this.state.elements.filter((element) => element.id!== action.payload);
+            this.state.history.push(this.state);
+            this.state.currentIndex++;
+            break;
+          case 'UPDATE_ELEMENT':
+            const index = this.state.elements.findIndex((element) => element.id === action.payload.id);
+            if (index!== -1) {
+              this.state.elements[index] = action.payload;
+              this.state.history.push(this.state);
+              this.state.currentIndex++;
+            }
+            break;
+          case 'UNDO':
+            if (this.state.currentIndex > 0) {
+              this.state.currentIndex--;
+              this.state = this.state.history[this.state.currentIndex];
+            }
+            break;
+          case 'REDO':
+            if (this.state.currentIndex < this.state.history.length - 1) {
+              this.state.currentIndex++;
+              this.state = this.state.history[this.state.currentIndex];
+            }
+            break;
+        }
+      }
+    };
 
-  handleMouseUp(e) {
-    this.selectedNode = null;
-  }
-
-  addNode(x, y) {
-    const node = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    node.setAttribute('cx', x);
-    node.setAttribute('cy', y);
-    node.setAttribute('r', 10);
-    node.setAttribute('fill', 'black');
-    this.svg.appendChild(node);
-    this.nodes.push(node);
-  }
-
-  getNodeAt(x, y) {
-    const node = this.nodes.find((node) => {
-      const rect = node.getBBox();
-      return rect.x <= x && x <= rect.x + rect.width && rect.y <= y && y <= rect.y + rect.height;
+    this.undoButton = document.getElementById('undo');
+    this.undoButton.addEventListener('click', () => {
+      this.store.dispatch({ type: 'UNDO' });
     });
-    return node;
-  }
-}
 
-// State Management
-class State {
-  constructor() {
-    this.undoStack = [];
-    this.redoStack = [];
-    this.currentState = {};
-  }
-
-  saveState(state) {
-    this.undoStack.push(this.currentState);
-    this.currentState = state;
-    this.redoStack = [];
-  }
-
-  undo() {
-    if (this.undoStack.length > 0) {
-      this.redoStack.push(this.currentState);
-      this.currentState = this.undoStack.pop();
-    }
-  }
-
-  redo() {
-    if (this.redoStack.length > 0) {
-      this.undoStack.push(this.currentState);
-      this.currentState = this.redoStack.pop();
-    }
-  }
-}
-
-// Redux Store
-class ReduxStore {
-  constructor() {
-    this.state = new State();
-    this.SaveChanges();
-  }
-
-  dispatch(action) {
-    switch (action.type) {
-      case 'SAVE_STATE':
-        this.state.saveState(action.state);
-        break;
-      case 'UNDO':
-        this.state.undo();
-        break;
-      case 'REDO':
-        this.state.redo();
-        break;
-      default:
-        break;
-    }
-    this.SaveChanges();
-  }
-
-  SaveChanges() {
-    localStorage.setItem('vectroid-state', JSON.stringify(this.state));
-  }
-
-  LoadChanges() {
-    const state = localStorage.getItem('vectroid-state');
-    if (state) {
-      this.state = JSON.parse(state);
-    }
-  }
-}
-
-// Export Engines
-class ExportEngine {
-  constructor() {}
-
-  exportPNG(svg) {
-    const serializer = new XMLSerializer();
-    const xml = serializer.serializeToString(svg);
-    const url = 'data:image/png;base64,' + btoa(xml);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'vectroid.png';
-    link.click();
-  }
-
-  exportSVG(svg) {
-    const serializer = new XMLSerializer();
-    const xml = serializer.serializeToString(svg);
-    const url = 'data:text/plain;base64,' + btoa(xml);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'vectroid.svg';
-    link.click();
-  }
-
-  exportJSON(svg) {
-    const nodes = Array.prototype.slice.call(svg.children);
-    const data = nodes.map((node) => {
-      return {
-        type: node.tagName,
-        x: node.getAttribute('x'),
-        y: node.getAttribute('y'),
-      };
+    this.redoButton = document.getElementById('redo');
+    this.redoButton.addEventListener('click', () => {
+      this.store.dispatch({ type: 'REDO' });
     });
-    const json = JSON.stringify(data);
-    const url = 'data:text/plain;base64,' + btoa(json);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'vectroid.json';
-    link.click();
+
+    this.saveButton = document.getElementById('save');
+    this.saveButton.addEventListener('click', () => {
+      localStorage.setItem('vectra-state', JSON.stringify(this.state));
+    });
+
+    this.openButton = document.getElementById('open');
+    this.openButton.addEventListener('click', () => {
+      const savedState = localStorage.getItem('vectra-state');
+      if (savedState) {
+        this.state = JSON.parse(savedState);
+      }
+    });
+  }
+
+  initCoreEngine() {
+    this.svgCanvas = document.getElementById('svg-canvas');
+
+    this.worker = new Worker('worker.js');
+    this.worker.onmessage = (event) => {
+      if (event.data.type === 'render') {
+        this.svgCanvas.innerHTML = event.data.payload;
+      }
+    };
+
+    this.draw = (elements) => {
+      this.worker.postMessage({ type: 'draw', payload: elements });
+    };
+
+    this.addElement = (element) => {
+      this.store.dispatch({ type: 'ADD_ELEMENT', payload: element });
+      this.draw(this.state.elements);
+    };
+
+    this.removeElement = (id) => {
+      this.store.dispatch({ type: 'REMOVE_ELEMENT', payload: id });
+      this.draw(this.state.elements);
+    };
+
+    this.updateElement = (element) => {
+      this.store.dispatch({ type: 'UPDATE_ELEMENT', payload: element });
+      this.draw(this.state.elements);
+    };
+
+    this.exportPNG = () => {
+      const svgData = this.svgCanvas.outerHTML;
+      const pngData = this.worker.postMessage({ type: 'export', payload: svgData, format: 'png' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([pngData], { type: 'image/png' }));
+      a.download = 'vectra-export.png';
+      a.click();
+    };
+
+    this.exportSVG = () => {
+      const svgData = this.svgCanvas.outerHTML;
+      const svgBlob = new Blob([svgData], { type: 'image/svg+xml' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(svgBlob);
+      a.download = 'vectra-export.svg';
+      a.click();
+    };
+
+    this.exportJSON = () => {
+      const jsonData = JSON.stringify(this.state.elements);
+      const jsonBlob = new Blob([jsonData], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(jsonBlob);
+      a.download = 'vectra-export.json';
+      a.click();
+    };
+
+    this.exportFile = (format) => {
+      switch (format) {
+        case 'png':
+          this.exportPNG();
+          break;
+        case 'svg':
+          this.exportSVG();
+          break;
+        case 'json':
+          this.exportJSON();
+          break;
+      }
+    };
   }
 }
 
-// Main Application
-class Vectroid {
-  constructor() {
-    this.canvas = document.getElementById('canvas');
-    this.coreEngine = new CoreEngine(this.canvas);
-    this.reduxStore = new ReduxStore();
-    this.exportEngine = new ExportEngine();
-    this.reduxStore.LoadChanges();
-  }
-
-  run() {
-    document.getElementById('undo').addEventListener('click', () => this.reduxStore.dispatch({ type: 'UNDO' }));
-    document.getElementById('redo').addEventListener('click', () => this.reduxStore.dispatch({ type: 'REDO' }));
-    document.getElementById('export-png').addEventListener('click', () => this.exportEngine.exportPNG(this.coreEngine.svg));
-    document.getElementById('export-svg').addEventListener('click', () => this.exportEngine.exportSVG(this.coreEngine.svg));
-    document.getElementById('export-json').addEventListener('click', () => this.exportEngine.exportJSON(this.coreEngine.svg));
-  }
-}
-
-// Initialize Application
-const vectroid = new Vectroid();
-vectroid.run();
+const vectra = new Vectra(
+  'Vectra',
+  'vector-graphic-editor',
+  'Modular, micro-frontend architecture with a central hub for plugin management, utilizing Web Workers for compute-intensive tasks and a Virtual DOM for efficient rendering',
+  {
+    toolbar: {
+      undo: true,
+      redo: true,
+      zoom: true,
+      file: true
+    },
+    leftSidebar: {
+      layers: true,
+      nodeEditing: true
+    },
+    centralViewport: {
+      svgCanvas: true
+    },
+    rightSidebar: {
+      properties: true,
+      attributes: true
+    },
+    bottomStatusPanel: {
+      statusMessage: true
+    }
+  },
+  'Redux-like store with Immer for immutable state management, persisted via LocalStorage and optionally synced with cloud storage services like Google Drive or Dropbox',
+  'Custom SVG parsing and rendering engine utilizing WebGL for accelerated graphics, with support for Node.js-based export engines for PNG, JPEG, PDF, and SVG formats'
+);
 </script>
 </body>
 </html>
