@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zacux Apex Spreadsheet Engine</title>
+  <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+  <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
+  <style>
+    body { background-color: #090d16; color: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    .panel-glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-indigo-600 selection:text-white">
+
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zacux Apex Spreadsheet Engine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            apex: {
+              bg: '#090d16',
+              panel: '#0e1420',
+              raised: '#131b2b',
+              line: '#1c2739',
+              lineSoft: '#162032',
+              accent: '#38bdf8',
+              accentDim: '#0ea5e9',
+              mint: '#34d399',
+              amber: '#fbbf24',
+              rose: '#fb7185',
+              violet: '#a78bfa',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #0b111c; }
+    ::-webkit-scrollbar-thumb { background: #22304a; border-radius: 6px; border: 2px solid #0b111c; }
+    ::-webkit-scrollbar-thumb:hover { background: #2e4166; }
+    ::-webkit-scrollbar-corner { background: #0b111c; }
+    .cell-input { caret-color: #38bdf8; }
+  </style>
+</head>
+<body class="h-screen overflow-hidden bg-apex-bg font-sans text-slate-300 antialiased select-none">
+
+<div class="flex h-full w-full flex-col">
+
+  <!-- ═══════════════════════ TOP RIBBON ═══════════════════════ -->
+  <header class="flex flex-col border-b border-apex-line bg-apex-panel">
+
+    <!-- Title Bar / App Menu Row -->
+    <div class="flex h-11 items-center gap-1 border-b border-apex-lineSoft px-3">
+      <!-- Brand -->
+      <div class="mr-4 flex items-center gap-2.5 pr-4 border-r border-apex-lineSoft">
+        <div class="flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-sky-400 to-cyan-600 shadow-[0_0_12px_rgba(56,189,248,0.35)]">
+          <i class="fa-solid fa-table-cells-large text-[13px] text-[#06121f]"></i>
+        </div>
+        <div class="leading-tight">
+          <div class="text-[13px] font-bold tracking-wide text-white">ZACUX <span class="text-sky-400">APEX</span></div>
+          <div class="text-[9px] uppercase tracking-[0.18em] text-slate-500">Spreadsheet Engine</div>
+        </div>
+      </div>
+
+      <!-- Menu Tabs -->
+      <nav class="flex items-center gap-0.5 text-[12.5px] font-medium">
+        <button class="rounded-md px-3 py-1.5 text-slate-400 transition hover:bg-apex-raised hover:text-white"><i class="fa-solid fa-bars-staggered mr-1.5 text-[11px]"></i>File</button>
+        <button class="rounded-md bg-apex-raised px-3 py-1.5 text-sky-400 shadow-[inset_0_-2px_0_#38bdf8]">Home</button>
+        <button class="rounded-md px-3 py-1.5 text-slate-400 transition hover:bg-apex-raised hover:text-white">Insert</button>
+        <button class="rounded-md px-3 py-1.5 text-slate-400 transition hover:bg-apex-raised hover:text-white">Formulas</button>
+        <button class="rounded-md px-3 py-1.5 text-slate-400 transition hover:bg-apex-raised hover:text-white">Data</button>
+        <button class="rounded-md px-3 py-1.5 text-slate-400 transition hover:bg-apex-raised hover:text-white">Review</button>
+        <button class="rounded-md px-3 py-1.5 text-slate-400 transition hover:bg-apex-raised hover:text-white">View</button>
+      </nav>
+
+      <!-- Workbook Title -->
+      <div class="ml-4 hidden items-center gap-2 rounded-md border border-apex-line bg-apex-bg px-3 py-1 md:flex">
+        <i class="fa-solid fa-file-lines text-[11px] text-slate-500"></i>
+        <span class="text-[12px] font-medium text-slate-200">Q4-Financial-Model.apex</span>
+        <span class="rounded bg-emerald-400/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-emerald-400">Synced</span>
+      </div>
+
+      <!-- Right Cluster -->
+      <div class="ml-auto flex items-center gap-2">
+        <!-- Engine Status -->
+        <div class="flex items-center gap-2 rounded-md border border-apex-line bg-apex-bg px-2.5 py-1.5 text-[11px]">
+          <span class="relative flex h-2 w-2">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+          </span>
+          <span class="text-slate-400">Worker</span>
+          <span class="font-semibold text-emerald-400">Thread&nbsp;#1 · Online</span>
+        </div>
+        <!-- Global Search -->
+        <div class="hidden items-center gap-2 rounded-md border border-apex-line bg-apex-bg px-2.5 py-1.5 lg:flex">
+          <i class="fa-solid fa-magnifying-glass text-[11px] text-slate-500"></i>
+          <input type="text" placeholder="Search functions, cells, sheets…" class="w-52 bg-transparent text-[12px] text-slate-200 placeholder:text-slate-600 focus:outline-none cell-input" />
+          <kbd class="rounded border border-apex-line bg-apex-raised px-1.5 py-0.5 font-mono text-[9px] text-slate-500">⌘K</kbd>
+        </div>
+        <!-- Undo / Redo -->
+        <button class="h-8 w-8 rounded-md border border-apex-line bg-apex-bg text-slate-400 transition hover:border-sky-500/50 hover:text-sky-400" title="Undo (Ctrl+Z) — Transaction Log Rollback">
+          <i class="fa-solid fa-rotate-left text-[12px]"></i>
+        </button>
+        <button class="h-8 w-8 rounded-md border border-apex-line bg-apex-bg text-slate-600" title="Redo (Ctrl+Y)">
+          <i class="fa-solid fa-rotate-right text-[12px]"></i>
+        </button>
+        <!-- Avatar -->
+        <div class="ml-1 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-sky-600 text-[11px] font-bold text-white ring-2 ring-apex-line">ZK</div>
+      </div>
+    </div>
+
+    <!-- Ribbon Tool Row -->
+    <div class="flex items-stretch gap-3 overflow-x-auto px-3 py-2">
+
+      <!-- Group: Clipboard -->
+      <div class="flex flex-col items-center gap-1 rounded-lg border border-apex-lineSoft bg-apex-bg/60 px-3 py-1.5">
+        <div class="flex items-center gap-1">
+          <button class="h-8 w-8 rounded-md text-slate-400 transition hover:bg-apex-raised hover:text-white" title="Cut"><i class="fa-solid fa-scissors text-[13px]"></i></button>
+          <button class="h-8 w-8 rounded-md text-slate-400 transition hover:bg-apex-raised hover:text-white" title="Copy"><i class="fa-regular fa-copy text-[13px]"></i></button>
+          <button class="h-8 rounded-md px-2.5 text-slate-400 transition hover:bg-apex-raised hover:text-white" title="Paste">
+            <i class="fa-solid fa-paste text-[13px]"></i><i class="fa-solid fa-chevron-down ml-1 text-[8px]"></i>
+          </button>
+          <button class="h-8 w-8 rounded-md text-slate-400 transition hover:bg-apex-raised hover:text-white" title="Format Painter"><i class="fa-solid fa-paint-roller text-[13px]"></i></button>
+        </div>
+        <span class="text-[9px] uppercase tracking-wider text-slate-600">Clipboard</span>
+      </div>
+
+      <!-- Group: Font -->
+      <div class="flex flex-col items-center gap-1 rounded-lg border border-apex-lineSoft bg-apex-bg/60 px-3 py-1.5">
+        <div class="flex items-center gap-1">
+          <div class="flex h-8 w-32 items-center justify-between rounded-md border border-apex-line bg-apex-panel px-2 text-[12px] text-slate-300">
+            <span>Inter</span><i class="fa-solid fa-chevron-down text-[8px] text-slate-500"></i>
+          </div>
+          <div class="flex h-8 w-14 items-center justify-between rounded-md border border-apex-line bg-apex-panel px-2 text-[12px] text-slate-300">
+            <span>11</span><i class="fa-solid fa-chevron-down text-[8px] text-slate-500"></i>
+          </div>
+          <div class="mx-0.5 h-6 w-px bg-apex-line"></div>
+          <button class="h-8 w-8 rounded-md bg-sky-500/10 font-bold text-sky-400 ring-1 ring-sky-500/40" title="Bold"><i class="fa-solid fa-bold text-[12px]">
+
+<script>
+// ==================== ZACUX AUTONOMOUS SYNTHESIZED ENGINE ====================
+// Engine ready
+</script>
+</body>
+</html>
